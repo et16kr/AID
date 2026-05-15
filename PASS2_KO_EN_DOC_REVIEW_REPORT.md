@@ -364,3 +364,47 @@ P206 audited the Korean CPU overload and memory usage increase analysis guides a
 - External HTTP availability was not tested; P206 used grep-based source-link and attachment preservation checks.
 - The Korean CPU source has internally inconsistent optimizer-statistics version wording: one section names `6.1.1.6.1` or later, while the summary names `6.1.1` or earlier. The English guide preserves the scoped meanings in their respective sections.
 - The Korean memory routine checklist pairs a transaction-throughput row with a `v$memstat` SQL example. The English guide clarifies the row around the SQL example and `V$MEMSTAT` because the scoped page is the memory usage guide.
+
+## P207 Tech audit: replication configuration and constraints
+
+### Scope
+
+P207 audited Korean replication configuration and replication constraints guides against their English `arch` targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English target |
+| --- | --- |
+| `DOCK/Home/27. Altibase 이중화 구성 가이드__13828098.md` | `arch/Home/Altibase Replication Configuration Guide__14647672.md` |
+| `DOCK/Home/49. Altibase 이중화 제약사항 가이드__19333729.md` | `arch/Home/Altibase Replication Constraints Guide__22643008.md` |
+
+### Findings And Updates
+
+- Corrected replication configuration wording for disk sharing, Sender/Receiver behavior, network-failure retransmission, Update Conflict before-value comparison, `REPLICATION_UPDATE_REPLACE`, Off-Line Replicator, HA switchover, Lazy/Eager session use, `REPLICATION_MAX_LOGFILE`, bulk changes, Parallel Applier, sequence replication, DDL constraints, and memory/disk replication object separation.
+- Normalized exported table headers and split the conflict-function table so high-availability methods, xLog contents, sender logs, conflict examples, HA layout, Lazy/Eager mode, service separation, Master / Slave conflict rules, and summary requirements are searchable and unambiguous.
+- Corrected malformed support portal handling in the replication configuration guide and added Korean-source support portal and technical support center references to the replication constraints guide.
+- Preserved non-translatable identifiers and values including `REPLICATION_UPDATE_REPLACE`, `REPLICATION_MAX_LOGFILE`, `ALTER SESSION SET REPLICATION = FALSE;`, `RP_MSGLOG_FLAG`, `$ALTIBASE_HOME/trc/altibase_rp_conflict.log`, `ERR-61035`, `Replication_ddl_enable`, `xLog`, `PK`, Lazy, Eager, and Off-Line Replicator.
+
+### Attachment And Link Evidence
+
+- The replication configuration Korean source contains embedded image links but no URL-backed document-format attachments.
+- The replication constraints Korean source contains one URL-backed PDF attachment, and that URL remains preserved in the English constraints guide.
+- Scoped grep found no residual Korean text in the edited English pages and no empty links, Confluence macro error markers, malformed support links, or stale typo patterns checked for this job.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p207-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Scoped grep for residual Korean text, empty links, Confluence macro errors, malformed support links, and stale typo patterns | Passed, no matches |
+| Scoped document-format attachment preservation grep | Passed, 1 Korean source PDF URL preserved |
+| Scoped Markdown table pipe-count check | Passed |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for both edited English pages |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P207 used grep-based source-link and attachment preservation checks.
+- Legal boilerplate beyond the technical support contact remained outside the content changes because this job focused on technical replication configuration, constraints, commands, settings, warnings, attachments, and links.

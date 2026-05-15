@@ -35,7 +35,7 @@ This document was prepared based on Altibase version 7.1.0 or later.
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
 - Technical support center: 02-2082-1114
 
 # High Availability
@@ -67,9 +67,8 @@ For high availability, the user must configure a service system by grouping two 
 
 High availability requires ensuring that the service system operated by the user exhibits the maximum performance, and in any type of failure, it can be seen that it requires a method that allows the service to immediately resume with minimal downtime. (Goals: high performance and continuous service)
 
-|  |  |
+| Method | Description |
 | --- | --- |
-| **Method** | **Description** |
 | Disk sharing method | A method of sharing a single DB on a disk accessible to all nodes (sharing DB) |
 | Network replication method | All nodes own their respective DBs, and the method of transmitting and reflecting changes through the network (each node owns a separate DB) |
 
@@ -77,7 +76,7 @@ First, let's take a closer look at the disk sharing method.
 
 ![disk-share_eng.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20Replication%20Configuration%20Guide/disk-share_eng.png?api=v2)
 
-In the disk sharing method, each node has its own buffer cache, and a node of the master concept that controls the synchronization of the buffer cache must exist within the entire group. When each node needs to read data that does not exist in its own buffer cache from the shared disk, it requests to read from the master node, and the mast node replicates from that node if there is a node already owned in the buffer cache of the node belonging to the group. This is configured in a form that transmits it or allows the requesting node to read from the disk. In the same case of change, access is possible only if the master node allows the change.
+In the disk sharing method, each node has its own buffer cache, and a master node that controls buffer-cache synchronization must exist within the group. When a node needs to read data that is not in its own buffer cache from the shared disk, it requests the read from the master node. If another node in the group already has the data in its buffer cache, the master node copies and sends the data from that node; otherwise, it allows the requesting node to read the data from disk. For changes, access is also possible only when the master node allows the change.
 
 This form may be the best method for data integrity, but has the following problems.
 
@@ -93,7 +92,7 @@ However, when transaction logs are transmitted over a network, the time at which
 
 Both of the above methods have their own pros and cons. Therefore, the user needs to configure the optimal system with an accurate understanding of each method.
 
-ALTIBASE is a performance-oriented product, focusing on high availability while guaranteeing maximum performance in the service operation. The below section will describe the concept of replication and how network replication can be used with high availability despite having data consistency problems.
+Altibase is a performance-oriented product that focuses on high availability while providing maximum performance in service operation. The next section describes the concept of replication and how network replication can be used for high availability despite data consistency concerns.
 
 # Concept of Replication
 
@@ -105,11 +104,11 @@ This section describes the concept and operation structure of replication.
 
 ---
 
-The structure of ALTIBASE replication is as follows.
+The structure of Altibase replication is as follows.
 
 ![rep_confi_eng.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20Replication%20Configuration%20Guide/rep_confi_eng.png?api=v2)
 
-Several threads required for transaction processing in ALTIBASE use the storage-manager module. The log thread that uses the SM module plays the role of recording the transaction log required for recovery during transaction processing.
+Several threads required for transaction processing in Altibase use the storage-manager module. The log thread that uses the SM module records the transaction log required for recovery during transaction processing.
 
 The basic flow is that when a transaction log is recorded locally by the SM, the Sender reads the recorded transaction log and sends it to the designated node or nodes. The Receiver on each receiving node analyzes the received log and applies it to its own node.
 
@@ -127,9 +126,8 @@ When a change transaction such as Insert/Update/Delete other than the select sta
 
 The sender creates a transmission data called xLog based on the read log. It can be seen as a structure containing the following information.
 
-|  |  |
+| Item | Description |
 | --- | --- |
-|  | **Description** |
 | Table | The target table must be found in the receiving node. |
 | PK | The target data must be found in the receiving node. |
 | Column | The target column must be found in the receiving node. |
@@ -138,24 +136,23 @@ The sender creates a transmission data called xLog based on the read log. It can
 
 The sender collects only necessary data for each transaction, creates xLog, and sends it to the Receiver of the other node.
 
-|  |  |
+| Transaction | Sender log |
 | --- | --- |
-| **Transaction** | **Sender log** |
 | INSERT | Table, Column Value |
 | UPDATE | Table, PK, Before Value, After Value |
 | DELETE | Table, PK |
 
 Since the transaction that occurs locally is processed regardless of whether it is transmitted in replication (only the sender is checked), there is no interference due to replication, ensuring the processing performance. (This is called lazy mode replication.)
 
-In this case, many would ask themselves if there is any data that the other party hasn't received? To answer this question, this will be explained in detail again from the receiver side.
+This raises the question of whether the peer node can miss data. The Receiver behavior below explains how Altibase handles that case.
 
-The transmission method of the sender is the lazy mode by default, and can be set in such a way that it checks the transactions are reflected in the other node. This is called eager mode.
+The Sender uses Lazy mode by default. It can also be configured to wait until the transaction is applied on the peer node; this is called Eager mode.
 
 ## Receiver
 
 ---
 
-The receiver sends the received xLog to Receiver-Applier (hereinafter referred to as Applier). Since the received xLog is a transaction log recorded after processing through QueryProcessor in the other node, the Applier requests processing to SM without a separate validation process. (QueryProcessor refers to an internal module that performs validation and optimization for queries executed in the ALTIBASE.)
+The Receiver sends the received xLog to Receiver-Applier (hereinafter referred to as Applier). Because the received xLog was generated from a transaction log that had already passed through QueryProcessor on the peer node, the Applier requests processing from SM without a separate validation process. (QueryProcessor refers to an internal module that performs validation and optimization for queries executed in Altibase.)
 
 When the receiving node applies the data, it must first check that the received Before Value matches the value currently stored in its own node.
 
@@ -163,7 +160,7 @@ After applying the data, the Receiver sends an acknowledgment to the peer Sender
 
 Therefore, even if the Sender does not immediately confirm every apply operation on the receiving node, it eventually confirms progress through acknowledgments, so the logs that the Sender must send are not lost. The same behavior applies when a network failure occurs.
 
-In other words, when it detects that a network failure has occurred, the Sender checks the network in a fixed periodic unit. When it detects that normal recovery has occurred, it connects to the Receiver of the other node and sends it again from the location where it needs to be transmitted.
+In other words, when the Sender detects a network failure, it checks the network at a fixed interval. When normal communication is restored, it connects to the Receiver on the peer node and resumes sending from the retransmission position it has recorded.
 
 ## Problems that can occur in a replication environment
 
@@ -176,34 +173,32 @@ Since replication uses a network, the following problems can occur:
 
 In the case of a transaction in which two nodes change data with the same PK to different values, the disk sharing method has no choice but to proceed with the change transaction one by one by the node requesting each processing. Therefore, if such transactions are frequent, the performance is bound to be slow.
 
-On the other hand, unlike the disk sharing method, replication does not take into account changes to the data of other nodes when a local transaction occurs, so there is no interference with each other, but due to this, the data conflict that may occur.
+On the other hand, unlike the disk sharing method, replication does not consider changes to data on other nodes when a local transaction occurs. Because the nodes do not interfere with each other, data conflicts can occur.
 
-|  |  |  |
+| Order of occurrence | Node A | Node B |
 | --- | --- | --- |
-| **Order of occurrence** | **Node A** | **Node B** |
 | Before occurrence | Pk=1, c1=10 | Pk=1, c1=10 |
 | Update at the same time | Update t1 set c1 = 15 where pk = 1 | Update t1 set c1 = 20 where pk = 1 |
 | After occurrence | Pk=1, c1=15 | Pk=1, c1=20 |
 | Sender | Send (t1, pk=1, c1=10 --> 15) | Send (t1, pk=1, c1=10 --> 20) |
 
-As in the example above, if the data has the same data but has the same PK before it is changed to different values, each node will proceed regardless of the transaction of the other node. At this time, if data is transmitted to each other while the change has already been completed, the previous values of the data are compared. In the case of node A, the current value of 15 and the received xLog is recorded as 10, so the transaction for the received xLog fails. This is called Update Conflict.
+As in the example above, the data is identical before the update, but each node updates the row with the same PK to a different value and proceeds without considering the transaction on the other node. When the already-changed data is then transmitted between nodes, each node compares the previous value in the received xLog with its current value. On node A, the current value is 15 but the before value in the received xLog is 10, so the transaction for the received xLog fails. This is called Update Conflict.
 
 The types of Conflict are as follows.
 
-|  |  |
+| Type | Description |
 | --- | --- |
-| **Type** | **Description** |
 | Dup Conflict | When data having the same PK already exists in the receiving node while performing Insert, etc. |
-| Update Conflict | When the current value of the target column is not the same as the received value while performing Update |
+| Update Conflict | When the current value of the target column is not the same as the received before value while performing Update |
 | Not Found Conflict | When data does not exist while performing Update or Delete on PK in the receiving node |
 
 That is, when two or more nodes change data differently for the same PK, there may be cases in which data exists in an incorrect state at the same time.
 
-To avoid this problem, it can be solved by triggering a transaction considering the PK of a separate range for each node. In other words, Active/Active should be configured considering the PK range, not the Full Active method.
+To avoid this problem, trigger transactions against separate PK ranges for each node. In other words, configure Active/Active by considering PK ranges instead of using the Full Active method.
 
-Altibase provides a property called REPLICATION_UPDATE_REPLACE for this part so that even if the previous value is different fro the UPDATE transaction, the received value can be changed. However, this problem is not a perfect solution to the Update Conflict. This is because if all nodes that continuously perform the service have the same PK and continuously update data to different values, they will both eventually have different values again. This property is merely a provision by assuming that the data will be corrected at some point in the end.
+Altibase provides the `REPLICATION_UPDATE_REPLACE` property so that the receiving node can apply the received value even when the previous value differs for an UPDATE transaction. However, this is not a complete solution to Update Conflict. If all service nodes continuously update data with the same PK to different values, the nodes will eventually diverge again. This property is only based on the assumption that the data will eventually converge.
 
-Another problem of replication is that if the accumulating speed of the change transaction log of the sending node is faster than the xLog transmission speed to the other node, the data retrieved result of the sending node and the receiving node may be different at a specific time. In other words, it means a case in which transaction logs that could not be transmitted to the other node through the network are accumulated in the sending node, and this is called a replication gap.
+Another replication problem occurs when the sending node accumulates change transaction logs faster than it can transmit xLogs to the peer node. At a specific point in time, query results on the sending node and receiving node can differ. In other words, transaction logs that could not be transmitted to the peer node through the network are accumulated on the sending node; this is called a replication gap.
 
 These problems can make users hesitate to choose replication in terms of data consistency, even if high-performance data processing is possible. In the next section, we will take a look into how to properly avoid such data conflicts and delays to enable service with efficient replication configuration.
 
@@ -217,17 +212,17 @@ This section will describe the configuration method using the Off-line Replicato
 
 ---
 
-The delay of replication transmission is the problem of ensuring consistency due to data that could not be sent at the time of failure of the sending node. There is no change in the fact that the delay of transmission is reflected only with a difference in time when controlling is possible within the system configuration where the PK is separated, but the failure occurring the delayed sate can be critical for operating.
+The major issue with replication transmission delay is how to guarantee consistency for data that could not be sent when the sending node failed. If the system separates PK ranges and can control the delay, the delayed data will still be applied after some time. However, a failure that occurs while data is delayed can be critical for the business.
 
-Altibase provides a function called Off-Line Replicator starting from ALTIBASE ver 5.3 to solve this problem. This function solves the data inconsistency by directly reflecting the data that was not transmitted by reading the transaction log file of the failed node by creating an Off-Line Replicator in the normal server when a failure occurs in the server that was actively serving it. (The operator can easily create it in the form of an SQL statement).
+Altibase provides a function called Off-Line Replicator starting from Altibase v5.3 to solve this problem. When the server that was actively providing service fails, the operator creates an Off-Line Replicator on the healthy server. The Off-Line Replicator reads the failed node's transaction log files directly and applies data that was not transmitted, resolving the data consistency issue. The operator can create it easily with an SQL statement.
 
-To use the Off-Line Replicator, it is possible to configure the disk sharing device so that all nodes can write each transaction log in the form of sharing the disk with the failed server, or connect to the failed server with FTP to bring and reflect the transaction log.
+To use the Off-Line Replicator, either configure shared disk equipment so that every node can write its own transaction logs to the disk shared with the failed server, or connect to the failed server by FTP and bring the transaction logs over for apply.
 
 With this method, the consistency due to the non-transmission of data is eliminated and the service can be started in the normal node.
 
 ![offline_eng.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20Replication%20Configuration%20Guide/offline_eng.png?api=v2)
 
-The configuration is different depending on the system environment, but this is a method that reads the transaction log that failed to transmit the failed node directly from the normal node at the time of failure and reflects the normal node itself to prepare for the service switch.
+The exact configuration can differ by system environment. The basic approach is that, when a failure occurs, the healthy node directly reads the transaction logs that the failed node could not transmit and applies them locally to prepare for service switchover.
 
 ## Service Configuration using the HA Solution
 
@@ -246,39 +241,36 @@ Active/Standby is classified from the service perspective, and Altibase on the s
 
 Generally, it is composed as follows.
 
-|  |  |
+| Category | Configuration items |
 | --- | --- |
-|  | **Configuration items** |
 | Shared disk | Transaction log file and data file |
-| Each node | ALTIBASE engine, trace log file, license, property file |
+| Each node | Altibase engine, trace log file, license, property file |
 
 If configured as above, when a situation in which the HA solution is switched over occurs, the standby node that can access the shared disk runs by using the transaction log and data file located on the shared disk, and the service can become available.
 
-Since the configuration using this HA solution does not use replication with the network, there is no need to consider the data collision problem or the replication gap problem.
+Since this HA solution configuration does not use network-based replication, data conflict and replication gap issues do not need to be considered during switchover.
 
 ## Data Delay Considerations
 
 ---
 
-If the service itself handles only continuous changes, data delay cannot be avoided in the replication configuration with the network. However, it can be seen that it can be serviced if the amount of operations for changes is at the level that can be handled by replication and a service that takes into account the temporary delay of data.
+If a service that uses Altibase replication continuously processes changes, data delay cannot be avoided in a network-based replication configuration. However, the configuration can still be usable if the volume of changed data in each transaction is within the level that replication can handle and the service can tolerate temporary data delay.
 
-Even if the data could not be sent at the time of the failure, it is possible to configure so that the service itself does not become a problem by performing a service after recovery with the Off-Line Replicator before service switch.
+Even when data was not sent at the time of failure, the service can be configured to avoid service-level impact by recovering with the Off-Line Replicator before switching service.
 
 Such a configuration is based on prediction, and it is a case of considering transmission delay to some extent. If a service cannot consider transmission delay, a method of configuring the replication mode to Eager mode can be used.
 
-|  |  |
+| Replication operation method | Description |
 | --- | --- |
-| **Replication operation method** | **Description** |
 | Lazy | The sending node does not wait for the progress of the local transaction and the transmission of xLog. |
 | Eager | The sending node first applies the local transaction, sends the xLog to the receiving node, and waits for the apply result from the receiving node. |
 
 The data transmission delay problem of replication described so far can occur in the lazy mode, and in order to avoid this problem, the Eager mode is provided. Since the Eager mode checks the reflection of the other node, there is no data delay. However, since it has to wait for the transaction of the other node to be reflected, the Eager mode causes a significant performance degradation compared to the Lazy mode. However, even in this part, the degree of performance degradation may not be significant depending on the proportion of the change operation among the entire transaction.
 
-Therefore, the user can use Lazy/Eager mode separately according to the operation. If the task does not necessarily need to consider the data delay, use the Lazy mode that can enhance the performance, and if the task needs to consider the data delay, use the Eager mode. In addition, Since Eager/Lazy mode can be specified for each session, it can be applied separately by session.
+Therefore, users can choose Lazy or Eager mode according to the workload. If the workload does not need to account for data delay, use Lazy mode for better performance. If the workload must account for data delay, use Eager mode. Because Lazy/Eager mode can be specified per session, it can be applied separately by session.
 
-|  |  |
+| Operation | Replication operation method |
 | --- | --- |
-| **Operation** | **Replication operation method** |
 | Account balance, deposit | The session to perform this task is in Eager mode |
 | Login time information | The session to perform this task is in Lazy mode |
 
@@ -290,26 +282,28 @@ Unlike the Lazy mode, the local transaction also fails when conflict occurs in t
 
 Data conflict occurs when trying to access data with the same PK at the same time in a replication environment. Therefore, it is recommended to configure the service so that the service program of the user does not access the same PK.
 
-|  |  |  |
+| Configuration | Service configuration example 1 | Service configuration example 2 |
 | --- | --- | --- |
-| **Configuration** | **Service configuration example 1** | ****Service configuration example 2**** |
-| Node A | Change transaction + retrieve transaction | Transactions of Seoul and Gyeonggi areas |
-| Node B | Retrieve transaction | Transaction of Chungcheong, Jeolla, and Gyeongsang areas |
+| Node A | Change transaction + retrieval transaction | Transactions of Seoul and Gyeonggi areas |
+| Node B | Retrieval transaction | Transaction of Chungcheong, Jeolla, and Gyeongsang areas |
 
 In the same configuration as for example 2 of the service configuration, there are many things to consider at the stage of user development, such as the distribution of transactions. This requires more consideration of how to classify the range and how to implement it.
 
-Altibase provides the following functions for data conflict. It is important to find a proper configuration for each service configuration.
+Altibase provides the following functions for data conflict. It is important to choose the function that fits each service configuration.
 
-|  |  |  |
-| --- | --- | --- |
-| **Method** | **Description** |  |
-| REPLICATION_UPDATE_REPLACE=1 | To update even if the received the before-value of xLog and the target data value of the receiving node do not match |  |
-| Master / Slave method | Each node is designated as Master and Slave and operates as follows when data conflict occurs. |  |
+| Method | Description |
+| --- | --- |
+| `REPLICATION_UPDATE_REPLACE=1` | Performs the UPDATE even when the Before Value in the received xLog does not match the target data value on the receiving node. |
+| Master / Slave method | Designates each node as Master or Slave and handles conflicts according to the transaction rules below. |
+| TimeStamp method | When a conflict occurs in a table configured for replication, compares each timestamp and aligns the data to the later value. |
+
+The Master / Slave method behaves as follows when conflict occurs.
+
 | Transaction | Master | Slave |
+| --- | --- | --- |
 | Insert | Ignored | Reflect after deleting existing data |
 | Update | Ignored | Reflect as it is |
 | Delete | Ignored | Ignored |
-| TimeStamp method | When a conflict occurs in a table configured for replication, compare the timestamps and align the data to the later value. |  |
 
 More detailed explanations can be found in the manual.
 
@@ -324,14 +318,13 @@ As discussed above, replication requires the configuration of a service system i
 
 All services are handled on one side. When a failure occurs, the Off-Line Replicator applies data that has not yet been reflected, then service is switched and started on the other node.
 
-|  |  |  |
+| Situation | Node A | Node B |
 | --- | --- | --- |
-| **Situation** | **Node A** | **Node B** |
 | Normal Service | Process all services | Receive only replication logs, standby status |
 | Failure occurs | Perform failure recovery | After reflecting all transaction logs of Node A that Node B has not received with the Off-Line Replicator, service is performed at Node B |
-| Node A recovery | Match data by receiving all replication logs from Node B after failure | Automatically detect recovery of Node A and transmit all transaction logs after failure from replication |
+| Node A recovery | Match data by receiving all replication logs from Node B after failure | Automatically detect recovery of Node A and transmit all transaction logs after failure through replication |
 
-When using the HA solution in the above configuration, it is possible to automate all processes of switching services when a failure occurs with the HA solution without user intervention. As the Off-Line Replicator operates in the form of SQL statement as described above, it is possible to easily automate it by including it in the operation procedure of the switching situation if it registered in the script form in the HA solution.
+When using an HA solution in the above configuration, it is possible to automate all service switchover processes without user intervention when a failure occurs. Because the Off-Line Replicator operates as an SQL statement as described above, it can be registered as a script in the HA solution and included in the switchover procedure for straightforward automation.
 
 ## Design of N-Way Replication
 
@@ -364,9 +357,9 @@ This section describes considerations for replication configuration.
 
 If a problem occurs in the replication connection in any form, the Sender cannot send transaction logs occurring locally to the other node. In this case, even if a checkpoint occurs, the transaction log files cannot be deleted to maintain the log files to be replicated.
 
-Therefore, there is a possibility that a failure of insufficient disk space may occur due to the accumulation of secondary transaction log files due to a failure of the primary transmission delay. To avoid this problem, if a transaction log file exceeds the specified value by using the property called REPLICATION_MAX_LOGFILE, all replication transmission histories are abandoned and the transaction log file can be deleted at the checkpoint.
+Therefore, a primary transmission-delay failure can cause a secondary failure from insufficient disk space as transaction log files accumulate. To avoid this problem, the `REPLICATION_MAX_LOGFILE` property can be used so that, when transaction log files are generated beyond the specified value, all replication transmission history is abandoned and the corresponding transaction log files can be deleted at checkpoint.
 
-However, in this case, it is not recommended unless there is a special occasion because the user needs to match the consistency of the DB between nodes after failure recovery. Rather it is recommended to calculate the disk capacity in advance so that it does not become a problem even if it accumulates as much as the expected time required to overcome a failure in consideration of the daily occurrence of the transaction log.
+However, this is not recommended except in special situations because the user must perform additional work after failure recovery to make the databases consistent between nodes. Instead, estimate disk capacity in advance based on the daily transaction-log volume so that accumulation for the expected failure-recovery window does not become a problem.
 
 ## Caution for Bulk Change
 
@@ -401,22 +394,22 @@ Replication performance is improved by distributing the xLog received from the S
 
 ---
 
-The sequence replication is a function that allows a remote server and local server to use the same sequence even when a Fail-over occurs. Thus, the same sequence and the same program source can be used in the application.
+Sequence replication is a function that allows a remote server and local server to use the same sequence even when Fail-over occurs. Thus, the same sequence and the same program source can be used in the application.
 
-The sequence replication requires that the cache start value is duplicated so that sequence values do not overlap in two servers. The cache-sized sequence is stored in memory and used, and when all stored sequences are used, the cache-sized sequence is stored in memory.
+Sequence replication requires replicating the cache start value so that sequence values do not overlap between two servers. A cache-size range of sequence values is stored in memory and used; when all stored values are consumed, another cache-size range is stored in memory.
 
-The Altibase replication supports only tables, so a table for sequence replication is internally created.
+Altibase replication supports only tables, so Altibase internally creates a table for sequence replication.
 
 ## Constraints to Consider for Replication Configuration
 
 ---
 
-- Tables configured for replication must have PK.
-- Tables configured for replication cannot update PK. (From the DBMS side, it can be said that the implementation of the operation that tries to update the PK itself is the wrong method.)
+- Tables configured for replication must have a PK.
+- Tables configured for replication cannot update the PK. (From the DBMS perspective, implementing a workload that updates the PK is itself an incorrect approach.)
 - Tables in a node configured for replication must have the same column information, PK, and NOT NULL information.
-- Since there is a possibility that data inconsistency may occur due to delay of replication, it is recommended not to use trigger and foreign-key at the source. However, this can be allowed depending on the configuration environment or operation purpose.
-- When executing DDL operation on a table configured for replication, the table must be temporarily removed from the target replication list in the replication before executing it. (Some DDLs (such as add column) can be executed without removing the list of tables in replication during operation. Refer to the manual for details)
-- Since the reflecting speed of the memory DB and the reflecting speed of the disk DB are different, it is recommended to take the replication object separately for memory and disk when the order of reflecting memory and disk is not important for the operation.
+- Since data inconsistency may occur due to replication delay, it is recommended to avoid using triggers and foreign keys in principle. However, they can be allowed depending on the configuration environment or business purpose.
+- When executing a DDL operation on a table configured for replication, the table must be temporarily removed from the replication target list before execution. (Some DDLs, such as add column, can be executed without removing the table from the replication list during operation. Refer to the manual for details.)
+- Since memory DB and disk DB apply speeds differ, it is recommended to separate replication objects for memory and disk when the apply order between memory and disk is not important for the workload.
 - Fail-over refers to transferring service to another healthy node when a failure occurs between nodes configured for service. Fail-over allows only minimal service downtime.
 
 # Summary
@@ -431,12 +424,12 @@ Therefore, the following three processes should be sufficiently considered:
 
 1. It is necessary to first identify the operation requirements to prevent data conflict.
 
-  |  |  |  |
-  | --- | --- | --- |
-  |  | **When configuring Active/Active** | **When configuring Active/Standby** |
-  | Task implementation requirements | ·Separate configuration for each task<br>·Separate configuration of the scope of change | · Only one node performs the change transaction<br>· Retrieve transaction is executed on one or all nodes |
-  | Purpose | Aim to configure redundancy so that data conflict does not occur at the source by preventing access to the same PK. |  |
+| Requirement | When configuring Active/Active | When configuring Active/Standby |
+| --- | --- | --- |
+| Task implementation requirements | Separate configuration for each task<br>Separate configuration of the change scope | Only one node performs change transactions<br>Retrieval transactions are executed on one or all nodes |
+| Purpose | Configure replication so that data conflicts do not occur in the first place by preventing access to the same PK. |  |
 
-  ● Active/Standby classification is based on service (This refers to that all ALTIBASE engines are running)
+Active/Standby classification is based on service. This means that all Altibase engines are running.
+
 2. Consider data that could not be transmitted at the time of failure. As described above, resolve this by using the Off-Line Replicator provided in Altibase version 5.3 or later, or design another business-appropriate method into the system configuration.
 3. As described in "Constraints to Consider for Replication Configuration", there are precautions and constraints that must be considered for replication configuration. If they are not fully understood during design, the replication configuration itself may not be possible.

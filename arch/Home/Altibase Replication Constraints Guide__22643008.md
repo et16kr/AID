@@ -34,6 +34,11 @@ Users are advised to also refer to the following document:
 
 1. Altibase Replication Configuration Guide
 
+For errors or improvements related to this document, contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
+- Technical support center: 02-2082-1114
+
 # Replication
 
 ---
@@ -46,7 +51,7 @@ This section provides a brief explanation of Altibase replication.
 
 Each system in an Altibase high availability (HA) configuration must operate with its own independent database storage.
 
-This is because Altibase’s replication method prioritizes maintaining high availability while minimizing performance degradation. Instead of using disk sharing—which can introduce significant performance overhead—Altibase adopts a network-based data synchronization approach.
+This is because the Altibase replication method prioritizes maintaining high availability while minimizing performance degradation. Instead of using disk sharing, which can introduce significant performance overhead, Altibase adopts a network-based data synchronization approach.
 
 Altibase replication works as follows: When a transaction is committed, the redo logs generated are transformed into xlogs (replication logs) by the Sender thread on the local server. These xlogs are transmitted over the network to the counterpart server, where the Receiver thread applies them to the remote database.
 
@@ -121,7 +126,7 @@ To implement an Active-Active setup using Altibase replication, it must be confi
 
 Altibase does not support full Active-Active replication, where the same data (i.e., the same tables or rows) is actively written to on both nodes simultaneously. This limitation is due to the risk of data conflicts, which cannot be resolved automatically in such setups.
 
-For more information on why full Active-Active is not supported, please refer to the Replication Conflict Handling section.
+For more information on why full Active-Active is not supported, refer to the Replication Conflict section.
 
 ![01_replication.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20Replication%20Constraints%20Guide/01_replication.png?api=v2)
 
@@ -214,7 +219,7 @@ When an UPDATE transaction occurs in Altibase replication, both the before-image
 
 By default, Altibase does not apply the update on the receiving side when an UPDATE Conflict occurs, and it only records a trace log of the conflict error.
 
-However, if the user’s business logic allows forced updates despite conflicts, Altibase provides an operational option by setting the configuration parameter REPLICATION_UPDATE_REPLACE to "1". With this setting enabled, the receiving server applies the update even if the before-image values differ, and no error log is recorded in the trace log.
+However, if the user's business logic allows forced updates despite conflicts, Altibase provides an operational option by setting the configuration parameter `REPLICATION_UPDATE_REPLACE` to `1`. With this setting enabled, the receiving server applies the update even if the before-image values differ, and no error log is recorded in the trace log.
 
 Example of a conflict scenario:
 
