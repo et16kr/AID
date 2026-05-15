@@ -82,6 +82,29 @@ J003에서는 한국어 `DOCK`의 설정, 장애 대응, 시작/종료, 시스�
 - CPU 과부하 및 메모리 사용량 증가 분석 문서의 OS 환경변수 영향, 프로파일링, `Query_Binding`, GC aging, Altibase 프로세스 메모리 설명을 자연스러운 기술 영어로 정리했습니다.
 - J003 한국어 원문 문서의 문서형 첨부 URL이 대응 영어 문서에 보존되어 있는지 확인했고 누락은 없었습니다.
 
+## J004 이중화, 백업 및 복구 문서 추가 검토
+
+J004에서는 한국어 `DOCK`의 이중화 구성, 이중화 제약사항, 백업 정책, 장애 대응, STARTUP/STOP 복구 관련 절을 영어 `arch` 문서와 재비교했습니다. 한국어 원문을 기준으로 본문 절, 명령어, SQL, 설정값, 에러 코드, 주의사항, 첨부 문서 링크를 확인했습니다.
+
+비교 및 갱신 범위는 다음과 같습니다.
+
+| 한국어 기준 | 영어 갱신 문서 |
+| --- | --- |
+| `DOCK/Home/26. Altibase 기본적인 장애대응 절차__13435879.md` | `arch/Home/Responding to Failures Guide for Altibase/*` |
+| `DOCK/Home/27. Altibase 이중화 구성 가이드__13828098.md` | `arch/Home/Altibase Replication Configuration Guide__14647672.md` |
+| `DOCK/Home/43. Altibase STARTUP _ STOP 과정의 이해__13434993.md` | `arch/Home/Understanding the Altibase Start_Shut down Process/*` |
+| `DOCK/Home/49. Altibase 이중화 제약사항 가이드__19333729.md` | `arch/Home/Altibase Replication Constraints Guide__22643008.md` |
+| `DOCK/Home/50. Altibase 백업정책 결정을 위한 고려사항__14057586.md` | `arch/Home/Considerations for Altibase Backup Policy/*` |
+
+주요 반영 내용은 다음과 같습니다.
+
+- 이중화 구성 가이드의 기준 버전을 한국어 원문 기준인 `Altibase 7.1.0` 이상으로 보정하고, 디스크 공유 미지원, Lazy/Eager 동작, Off-Line Replicator, HA Standby 종료 상태, N-way 이중화, `REPLICATION_MAX_LOGFILE`, 대량 변경 작업, Parallel Applier의 DML 처리 설명을 정리했습니다.
+- 이중화 제약사항 가이드에서 비이중화 컬럼, 파티션드 테이블, DDL 제약 조건의 구조를 한국어 원문 의미에 맞게 정리하고, UPDATE Conflict 표에서 누락된 `ERR-61035` 메시지를 복원했습니다.
+- `RP_MSGLOG_FLAG`, `$ALTIBASE_HOME/trc/altibase_rp_conflict.log`, `REPLICATION_UPDATE_REPLACE` 등 번역하면 안 되는 설정값과 경로를 코드 표기로 명확히 했습니다.
+- 백업 정책 문서의 복구 시점, 복구 시간, 백업 시간, 트랜잭션 영향, 백업 종류별 비교 표를 한국어 원문 관계에 맞게 재구성하여 온라인 백업, 오프라인 백업, 논리 백업, 증분 백업의 차이가 명확히 보이도록 했습니다.
+- 장애 대응 및 STARTUP/STOP 문서에서 이중화 Sender 수, `REP_GAP` 의미, 충돌 SQL 추적, 선택별 복구, `kill -9` 표기를 정리했습니다.
+- J004 한국어 원문 문서의 문서형 첨부 URL이 대응 영어 문서에 보존되어 있는지 확인했고 누락은 없었습니다.
+
 ## 검토 범위
 
 | 구분 | 한국어 기준 문서 | 영어 대상 문서 | 결과 |
@@ -158,6 +181,10 @@ J003에서는 한국어 `DOCK`의 설정, 장애 대응, 시작/종료, 시스�
 | J003 모니터링 쿼리 ID 대조 | `SS`, `ST`, `SV`, `TL`, `LO`, `GC`, `MS`, `TS`, `DB`, `OB`, `PV`, `CT`, `RP` 계열 72개 제목 ID 확인, 누락 0개 |
 | J003 갱신 문서 stale-string grep | 한국어 잔여 문구, 알려진 오탈자, 잘못된 명령/경로 패턴 재검출 0건 |
 | J003 manifest 메타데이터 대조 | 갱신된 `arch` 문서 확인, 불일치 0건 |
+| J004 문서형 첨부 URL 대조 | 이중화/백업/복구 범위 3개 문서형 URL 확인, 누락 0개 |
+| J004 이중화/백업 핵심 항목 grep | `Altibase 7.1.0`, `ERR-61035`, `RP_MSGLOG_FLAG`, `REP_GAP`, `Page Change Tracking`, `kill -9` 확인 |
+| J004 갱신 문서 stale-string grep | 알려진 오탈자, 누락 에러 메시지, 잘못된 복구/백업 표 헤더 패턴 재검출 0건 |
+| J004 manifest 메타데이터 대조 | 갱신된 `arch` 문서 확인, 불일치 0건 |
 
 ## 결론
 

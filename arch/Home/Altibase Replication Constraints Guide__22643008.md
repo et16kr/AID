@@ -30,7 +30,7 @@ Altibase's replication feature also has unavoidable constraints caused by the na
 
 This document is intended to guide users in designing an efficient replication configuration from the planning stage by providing an understanding of these constraints.
 
-Recommended Reference Users are advised to also refer to the following document:
+Users are advised to also refer to the following document:
 
 1. Altibase Replication Configuration Guide
 
@@ -61,7 +61,7 @@ Altibase replication supports two synchronization modes: Asynchronous (Lazy) and
 - Asynchronous replication prioritizes performance, allowing transactions to complete without waiting for the remote server to apply the changes.
 - Synchronous replication prioritizes data consistency, ensuring changes are applied to both servers before the transaction is considered complete.
 
-While synchronous mode offers higher data consistency than asynchronous mode, neither approach can fully guarantee perfect consistency between multiple storage systems due to inherent architectural limitations..
+While synchronous mode offers higher data consistency than asynchronous mode, neither approach can fully guarantee perfect consistency between multiple storage systems due to inherent architectural limitations.
 
 | Mode | Description |
 | --- | --- |
@@ -86,38 +86,32 @@ This section outlines the limitations when using Altibase replication and provid
 
 Altibase replication operates by creating replication objects that group one or more tables together. When setting up replication, the following constraints must be observed:
 
-1. Data Constraints
-
-    - Primary keys are mandatory for all replicated tables.
-    - Primary key values must not be updated in replicated tables.
-    - LOB columns cannot be used as primary keys or unique keys.
-    - The column definitions, primary keys, and NOT NULL constraints must match on both sides.
-
-          - If column counts or definitions differ, replication setup will succeed, but actual data synchronization will only occur for the matching columns.
-    - For Memory Tables, there is no size limit on the generated xLogs.
-    - For Disk Tables, the size of a single xLog generated from a row must be less than 128KB.
-2. Connection Constraints
-
-    - A maximum of 32 replication connections can be established per database.
-    - Replication target databases must have the same character set and national character set to establish a connection (applicable from Altibase v5.3.3).
-3. Constraints for Non-Replicated Columns
-
-  When table columns do not match across replication nodes, the unmatched ones are treated as non-replicated columns and have the following limitations:
-
-    - During INSERT operations in replicated transactions, non-replicated columns will receive NULL values.
-    - If a unique index is created using both replicated and non-replicated columns, replication setup may succeed, but runtime replication will fail.
-4. Partitioned Table Constraints
-  DDL Constraints on Replicated Tables
-    - The partitioning method must be the same on both local and remote servers.
-    - For range or list partitions, the partitioning criteria must be identical.
-    - For hash partitions, the number of partitions must be the same.
-5. By default, DDL operations are not allowed during replication runtime.
-   However, the following DDLs can be executed during replication if the `Replication_ddl_enable` property is set to 1.
-  - ADD/DROP Column
-  - ALTER Column
-  - TRUNCATE Table/Partition
-  - CREATE/DROP Index
-  - CREATE/DROP Trigger
+1. Data constraints
+   - Primary keys are mandatory for all replicated tables.
+   - Primary key values must not be updated in replicated tables.
+   - LOB columns cannot be used as primary keys or unique keys.
+   - The column definitions, primary keys, and NOT NULL constraints must match on both sides.
+   - If column counts or definitions differ, replication setup will succeed, but actual data synchronization will only occur for columns whose information matches.
+   - For memory tables, there is no size limit on the generated xLog.
+   - For disk tables, the size of a single xLog generated from one row must be less than 128 KB.
+2. Connection constraints
+   - A maximum of 32 replication connections can be established per database.
+   - Replication target databases must have the same character set and national character set to establish a connection. This applies from Altibase v5.3.3.
+3. Constraints for non-replicated columns
+   When table column information does not match during replication configuration, the unmatched columns are treated as non-replicated columns and have the following constraints.
+   - During INSERT operations in replicated transactions, non-replicated columns use NULL values.
+   - If a unique index is created using both replicated and non-replicated columns, replication creation may succeed, but runtime replication will fail.
+4. Partitioned table constraints
+   - The partitioning method must be the same on both local and remote servers.
+   - For range or list partitions, the partitioning criteria must be identical.
+   - For hash partitions, the number of partitions must be the same.
+5. DDL constraints on replicated tables
+   By default, DDL operations are not allowed while replication is running. However, the following DDLs can be executed during replication if the `Replication_ddl_enable` property is set to `1`.
+   - ADD/DROP Column
+   - ALTER Column
+   - TRUNCATE Table/Partition
+   - CREATE/DROP Index
+   - CREATE/DROP Trigger
 
 ## Cross Active-Active Configuration
 
@@ -161,8 +155,7 @@ In a 4-way replication setup, it may be necessary to design the sequence togethe
 ---
 
 - Gigabit network interface cards are recommended to ensure replication performance.
-   If memory and disk tables are included in the same replication object, slower performance from disk table transactions may delay overall replication processing.
-   Therefore, if the application flow does not require strict ordering between memory and disk table replication, it is better to separate them into different replication objects.
+- If memory and disk tables are included in the same replication object, slower disk-table transaction processing can delay overall replication apply speed. Therefore, if the application flow does not require strict apply ordering between memory and disk tables, it is better to separate them into memory-table replication objects and disk-table replication objects.
 
 # Replication Conflict
 
@@ -181,7 +174,7 @@ Replication conflicts are classified as follows:
 | INSERT Conflict | When the record with the corresponding primary key already exists on the receiving side | ERR-11058(errno=0) The row already exists in a unique index. |
 | DELETE Conflict | When the record with the corresponding primary key does not exist on the receiving side | ERR-61000(errno=0) The received record is not found in the database. |
 | UPDATE Conflict | When the record with the corresponding primary key does not exist on the receiving side | ERR-61000(errno=0) The received record is not found in the database. |
-|  | When the data before the update on the receiving side does not match the received "before update" data |  |
+|  | When the data before the update on the receiving side does not match the received "before update" data | ERR-61035(errno=0) [Receiver] An update conflict encountered. |
 
 - Detailed explanations on UPDATE conflicts are provided later in the document.
 
@@ -243,19 +236,20 @@ Therefore, neither server applies the received update, resulting in inconsistent
 
 A key design principle to avoid conflicts is to prevent concurrent access or modification of records with the same primary key across different servers.
 
-1. One way to achieve this is through workload separation
-  Server 1 handles all updates (writes) Server 2 is used only for read operations
-  ![02_replication.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20Replication%20Constraints%20Guide/02_replication.png?api=v2)
-2. Primary Key Separation Design
-  As shown in the diagram below, conflicts can be avoided by designing the system so that INSERT, UPDATE, and DELETE operations are separated between the two servers based on the primary key. This means each server handles a distinct range or set of primary keys, preventing overlapping data modifications and thus avoiding conflicts.![03_replication.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20Replication%20Constraints%20Guide/03_replication.png?api=v2)
+1. Workload separation
+   As shown below, conflicts can be avoided by generating changes only on Server 1 and using Server 2 only for read operations.
+   ![02_replication.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20Replication%20Constraints%20Guide/02_replication.png?api=v2)
+2. Primary key separation design
+   As shown below, conflicts can be avoided by designing the system so that INSERT, UPDATE, and DELETE processing areas are separated between the two servers based on the primary key.
+   ![03_replication.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20Replication%20Constraints%20Guide/03_replication.png?api=v2)
 
 ## RP_MSGLOG_FLAG Setting
 
 ---
 
-When data conflicts occur during replication, setting the MSGLOG_FLAG will output information about the conflicting table and SQL statement to the file $ALTIBASE_HOME/trc/altibase_rp_conflict.log. This provides necessary information for tracking and troubleshooting issues.
+When data conflicts occur during replication, setting `RP_MSGLOG_FLAG` outputs the conflicting table and SQL statement information to `$ALTIBASE_HOME/trc/altibase_rp_conflict.log`. This provides the information needed for tracking and troubleshooting.
 
-The RP_MSGLOG_FLAG can be set in iSQL as follows:
+`RP_MSGLOG_FLAG` can be set in iSQL as follows:
 
 ```
 iSQL> alter system set RP_MSGLOG_FLAG = 6 ;

@@ -29,9 +29,9 @@ As a method to implement these, a disk sharing method, a replication method usin
 
 The high-availability (HA) architecture of Altibase considers performance and proposes a network-based data replication configuration.
 
-This document describes replication provided by Altibase and an efficient system configuration based on Altibase. (Altibase does not support the high availability method of the disk sharding among the methods specified above.)
+This document describes the replication provided by Altibase and efficient system configuration based on it. Among the high-availability methods listed above, Altibase does not support the disk-sharing method.
 
-This document was prepared based on ALTIBASE version 7 or later.
+This document was prepared based on Altibase version 7.1.0 or later.
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
@@ -89,7 +89,7 @@ On the other hand, the network replication method is based on the operation mode
 
 In addition, even if a specific node in a group fails, it is possible to maintain continuous service because each has a separate DB.
 
-However, the method of transmitting the transaction log with the network is the difference between the time of the transaction occurring in the local system and the time of the transaction occurring in the other node. Therefore, it is impossible to have a 100% guarantee of consistency of day in two or mode nodes. This problem will be dealt with in detail later.
+However, when transaction logs are transmitted over a network, the time at which a transaction occurs on the local system can differ from the time at which it is applied on the peer node. Therefore, this method cannot guarantee 100% data consistency across two or more nodes. This problem is described in detail later.
 
 Both of the above methods have their own pros and cons. Therefore, the user needs to configure the optimal system with an accurate understanding of each method.
 
@@ -111,11 +111,11 @@ The structure of ALTIBASE replication is as follows.
 
 Several threads required for transaction processing in ALTIBASE use the storage-manager module. The log thread that uses the SM module plays the role of recording the transaction log required for recovery during transaction processing.
 
-The basic overall patter is when a transaction log is recorded locally by the SM, the sender reads the recorded transaction log and sends it to the designated node(s), and the receiver of the node analyzes the received log and reflects it back to the receiver's own node that operates in a structure.
+The basic flow is that when a transaction log is recorded locally by the SM, the Sender reads the recorded transaction log and sends it to the designated node or nodes. The Receiver on each receiving node analyzes the received log and applies it to its own node.
 
 - Asynchronous replication using a transaction log-based network.
-- Replication configuration can consist of n numbers, and tables included in the replication configuration must have a PK.
-- Network for replication can be replicated with n networks for stability.
+- A replication configuration can include n tables, and every table included in the replication configuration must have a PK.
+- Multiple networks can be configured for replication stability.
 
 Let's take a look at the operation of the Sender and Receiver.
 
@@ -157,11 +157,11 @@ The transmission method of the sender is the lazy mode by default, and can be se
 
 The receiver sends the received xLog to Receiver-Applier (hereinafter referred to as Applier). Since the received xLog is a transaction log recorded after processing through QueryProcessor in the other node, the Applier requests processing to SM without a separate validation process. (QueryProcessor refers to an internal module that performs validation and optimization for queries executed in the ALTIBASE.)
 
-When reflecting in the receiving node, be sure to check whether the value of the received data and the value of the data existing in the own node are the same.
+When the receiving node applies the data, it must first check that the received Before Value matches the value currently stored in its own node.
 
-After reflecting, when the Receiver sends an ack to the other Sender, the Sender changes the location to which is should retransmit it. In order words, since multiple transaction XLogs can be contained in the communication buffer for replication, the Sender always records the location of the log it sends and the location of the transaction log to be retransmitted in preparation for failure between transmissions or failure of other nodes. This information is updated when receiving ack from the Receiver that some parts were reflected.
+After applying the data, the Receiver sends an acknowledgment to the peer Sender. The Sender then updates the position from which it must retransmit logs. Because the replication communication buffer can contain multiple transaction xLogs, the Sender always records both the position of the log it is sending and the transaction-log position to retransmit from in case transmission fails or the peer node fails. This information is updated when the Receiver acknowledges which portion has been applied.
 
-Therefore, since the Sender checks in a delayed form even if it does not immediately check whether the actual receiving node has reflected it, the case that the log to be sent by the Sender is not transmitted to the other party never occurs. This works the same even if a network failure occurs.
+Therefore, even if the Sender does not immediately confirm every apply operation on the receiving node, it eventually confirms progress through acknowledgments, so the logs that the Sender must send are not lost. The same behavior applies when a network failure occurs.
 
 In other words, when it detects that a network failure has occurred, the Sender checks the network in a fixed periodic unit. When it detects that normal recovery has occurred, it connects to the Receiver of the other node and sends it again from the location where it needs to be transmitted.
 
@@ -233,16 +233,16 @@ The configuration is different depending on the system environment, but this is 
 
 ---
 
-Configuration using the HA solution refers to one node performing a service and the other node is in a standby state. When the HA Solution checks the state of the node in service periodically and determines that there is a problem, the shared disk is switched to make the node in the standby state.
+Configuration using an HA solution means that one node performs the service while another node remains in standby. The HA solution periodically checks the node that is providing service. If it determines that a problem has occurred, it switches the shared disk so that the standby node can access it and take over the service.
 
 When applied to Altibase, there are the following limitations, but it has the advantage of avoiding the data inconsistency problem.
 
-1. Altibase of the standby node cannot be running. It must be in the completed state. (The engine itself cannot all run at the same time)
-2. Since the running state has be to performed after the transmission, if the memory DB usage is large, it takes a long time in proportion to the size. In addition, if there is a large amount of operation at the time of failure, recovery time for this is required in the running stage. Therefore if service downtime is the priority, this should be considered.
+1. Altibase on the standby node cannot be running. It must be shut down. The Altibase engines on both nodes cannot run at the same time.
+2. After switchover, Altibase must go through the startup phase. If memory DB usage is large, startup time increases in proportion to the data size. If a large workload was running at the time of failure, the startup phase also requires recovery time for that workload. Consider this when service downtime is critical.
 
 ![disk_share2.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20Replication%20Configuration%20Guide/disk_share2.png?api=v2)
 
-The meaning of Active/Standy is the service standard, and Altibase of Standby means the completed state.
+Active/Standby is classified from the service perspective, and Altibase on the standby node is in the shutdown state.
 
 Generally, it is composed as follows.
 
@@ -260,8 +260,6 @@ Since the configuration using this HA solution does not use replication with the
 
 ---
 
-Generally. the replication of ALTIBASE is 1.2GHz or higher and CPU performance is about 10,000tps per second on average. That is, if the change transaction occurring within one node per second is within the above performance, it can be calculated that redundancy with the network can be processed without delay.
-
 If the service itself handles only continuous changes, data delay cannot be avoided in the replication configuration with the network. However, it can be seen that it can be serviced if the amount of operations for changes is at the level that can be handled by replication and a service that takes into account the temporary delay of data.
 
 Even if the data could not be sent at the time of the failure, it is possible to configure so that the service itself does not become a problem by performing a service after recovery with the Off-Line Replicator before service switch.
@@ -272,7 +270,7 @@ Such a configuration is based on prediction, and it is a case of considering tra
 | --- | --- |
 | **Replication operation method** | **Description** |
 | Lazy | The sending node does not wait for the progress of the local transaction and the transmission of xLog. |
-| Eager | The sending node first reflects the local transaction and then sends the xLog to the receiving node, and waits until the result is returned after reflection |
+| Eager | The sending node first applies the local transaction, sends the xLog to the receiving node, and waits for the apply result from the receiving node. |
 
 The data transmission delay problem of replication described so far can occur in the lazy mode, and in order to avoid this problem, the Eager mode is provided. Since the Eager mode checks the reflection of the other node, there is no data delay. However, since it has to wait for the transaction of the other node to be reflected, the Eager mode causes a significant performance degradation compared to the Lazy mode. However, even in this part, the degree of performance degradation may not be significant depending on the proportion of the change operation among the entire transaction.
 
@@ -311,7 +309,7 @@ Altibase provides the following functions for data conflict. It is important to 
 | Insert | Ignored | Reflect after deleting existing data |
 | Update | Ignored | Reflect as it is |
 | Delete | Ignored | Ignored |
-| TimeStamp method | To compare each TimeStamep when conflict occurs in the table configured in the replication and match it with the data that is created after. |  |
+| TimeStamp method | When a conflict occurs in a table configured for replication, compare the timestamps and align the data to the later value. |  |
 
 More detailed explanations can be found in the manual.
 
@@ -324,7 +322,7 @@ As discussed above, replication requires the configuration of a service system i
 1. Configure Active/Standby type
 2. Failure recovery with the Off-Line Replicator
 
-All services are performed by one side, and when a failure occurs, it refers to a method of starting service by performing a reflection on data that has not been reflected with the Offline Replicator and switching the service.
+All services are handled on one side. When a failure occurs, the Off-Line Replicator applies data that has not yet been reflected, then service is switched and started on the other node.
 
 |  |  |  |
 | --- | --- | --- |
@@ -339,11 +337,11 @@ When using the HA solution in the above configuration, it is possible to automat
 
 ---
 
-The replication of Altibase supports N-way replication, and up to a total of 1:32 nodes can be connected. When more than three nodes are configured as replication, the replication object should be created as follows, and the network expansion card should be considered in advance.
+Altibase replication supports N-way replication, and one node can connect to up to 32 peer nodes. When three or more nodes are configured for replication, replication objects must be created as shown below, and network-card expansion should be considered in advance.
 
 ![nway_eng.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20Replication%20Configuration%20Guide/nway_eng.png?api=v2)
 
-Sender/Receiver for each target connection must exist in every node, and for this purpose, the target node to which it wants to send data and each replication object must be created. In the above figure, a replication object between (A-B, A-C) should be created in the A node. Node B can synchronize data between (A-B-C) normally only when the replication object between (B-A, B-C) created.
+A Sender and Receiver for each target connection must exist on every node. For this, each node must have a replication object for every target node to which it sends data. In the figure above, node A must have replication objects for A-B and A-C. Node B can synchronize data normally among A-B-C only when replication objects for B-A and B-C are also created.
 
 ## Importance of Replication Design
 
@@ -376,14 +374,14 @@ However, in this case, it is not recommended unless there is a special occasion 
 
 What is sent in replication is based on the transaction log, not based on SQL. Therefore, when the bulk change is performed, the transaction log must be transmitted to the other node as much as the number of changed data. For this reason, in the case of a busy system that handles very frequent services, the reflection is delayed. Therefore, the following two methods are recommended to perform the bulk change.
 
-1. The process by dividing into small account of change operation using the limit clause
-2. alter session set replication = false; the same change is performed on all nodes by using the option.
+1. Divide the work into small batches by using a `LIMIT` clause.
+2. Run the same change on all nodes after using the `ALTER SESSION SET REPLICATION = FALSE;` option. This option means that the transaction logs from that session are not sent through replication.
 
 ## Sender Status Monitoring
 
 ---
 
-If a Sender exists in the stopped state after being started at least once, the log to be sent is continuously maintained. In this case, it should be noted that if the user doe not monitor separately, a disk pool failure may occur due to an increase in the transaction logs.
+If a Sender remains stopped after it has been started at least once, Altibase continues to retain the logs that the Sender must send. If this is not monitored separately, transaction logs can continue to increase and cause a disk-full failure.
 
 ## Replication Dedicated Line
 
@@ -397,7 +395,7 @@ It is recommended to use a dedicated line separately from the service network fo
 
 Parallel Applier is an option that improves replication performance by creating multiple appliers that are reflected in the storage manager.
 
-The replication performance is improved by distributing the xLog received from the Sender in a transaction unit so that the Receiver can process the xLog received from the Sender in parallel, and executing XML in parallel. Therefore, this option is suitable for replication consisting of long transactions. When there are many replication transactions composed of short transactions, performance may be degraded because they undergo frequent commit sync commits. So, when there are many replication transactions composed of long transactions, performance can be improved because the sync commit process is rare.
+Replication performance is improved by distributing the xLog received from the Sender to appliers by transaction unit and executing DML in parallel. Therefore, this option is suitable for replication workloads that contain long transactions. If there are many replicated transactions composed of short transactions, performance can decrease because commit synchronization occurs frequently. If there are many replicated transactions composed of long transactions, performance can improve because commit synchronization is less frequent.
 
 ## Sequence Replication
 
@@ -419,7 +417,7 @@ The Altibase replication supports only tables, so a table for sequence replicati
 - Since there is a possibility that data inconsistency may occur due to delay of replication, it is recommended not to use trigger and foreign-key at the source. However, this can be allowed depending on the configuration environment or operation purpose.
 - When executing DDL operation on a table configured for replication, the table must be temporarily removed from the target replication list in the replication before executing it. (Some DDLs (such as add column) can be executed without removing the list of tables in replication during operation. Refer to the manual for details)
 - Since the reflecting speed of the memory DB and the reflecting speed of the disk DB are different, it is recommended to take the replication object separately for memory and disk when the order of reflecting memory and disk is not important for the operation.
-- Refer to the process of transferring service to another normal node when a failure occurs between nodes configured for service. Fail-over allows only minimal service downtime.
+- Fail-over refers to transferring service to another healthy node when a failure occurs between nodes configured for service. Fail-over allows only minimal service downtime.
 
 # Summary
 
@@ -440,5 +438,5 @@ Therefore, the following three processes should be sufficiently considered:
   | Purpose | Aim to configure redundancy so that data conflict does not occur at the source by preventing access to the same PK. |  |
 
   ● Active/Standby classification is based on service (This refers to that all ALTIBASE engines are running)
-2. In the event of a failure, the data could not be transmitted. As described above, this part should be solved with the Off-Line Replicator provided in ALTIBASE version 5.3 or later, or the system configuration should be made.
-3. As in the "Constraints to Consider for Replication Configuration" mentioned in the document, there are constraints that must be considered for replication configuration, but it should be noted that the replication configuration itself may not be possible if this is recognized at the design stage.
+2. Consider data that could not be transmitted at the time of failure. As described above, resolve this by using the Off-Line Replicator provided in Altibase version 5.3 or later, or design another business-appropriate method into the system configuration.
+3. As described in "Constraints to Consider for Replication Configuration", there are precautions and constraints that must be considered for replication configuration. If they are not fully understood during design, the replication configuration itself may not be possible.

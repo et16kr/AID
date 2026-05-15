@@ -3320,8 +3320,8 @@
       "title": "Altibase Replication Configuration Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Replication+Configuration+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Replication Configuration Guide__14647672.md",
-      "body_chars": 32788,
-      "word_count": 5024
+      "body_chars": 35116,
+      "word_count": 5384
     },
     {
       "space_key": "arch",
@@ -3329,8 +3329,8 @@
       "title": "Altibase Replication Constraints Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Replication+Constraints+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Replication Constraints Guide__22643008.md",
-      "body_chars": 16020,
-      "word_count": 2111
+      "body_chars": 15625,
+      "word_count": 2072
     },
     {
       "space_key": "arch",
@@ -3428,8 +3428,8 @@
       "title": "1. Backup Types",
       "source_url": "https://docs.altibase.com/display/arch/1.+Backup+Types",
       "path": "altibase_docs_md/arch/Home/Considerations for Altibase Backup Policy/1. Backup Types__14647714.md",
-      "body_chars": 6382,
-      "word_count": 760
+      "body_chars": 6688,
+      "word_count": 805
     },
     {
       "space_key": "arch",
@@ -3437,8 +3437,8 @@
       "title": "2. Considerations for Determining Backup Policy",
       "source_url": "https://docs.altibase.com/display/arch/2.+Considerations+for+Determining+Backup+Policy",
       "path": "altibase_docs_md/arch/Home/Considerations for Altibase Backup Policy/2. Considerations for Determining Backup Policy__14647722.md",
-      "body_chars": 7525,
-      "word_count": 1165
+      "body_chars": 8185,
+      "word_count": 1312
     },
     {
       "space_key": "arch",
@@ -3446,8 +3446,8 @@
       "title": "3. Summary (Considerations for Altibase Backup Policy)",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=14647728",
       "path": "altibase_docs_md/arch/Home/Considerations for Altibase Backup Policy/3. Summary (Considerations for Altibase Backup Policy)__14647728.md",
-      "body_chars": 4023,
-      "word_count": 516
+      "body_chars": 4754,
+      "word_count": 698
     },
     {
       "space_key": "arch",
@@ -3455,8 +3455,8 @@
       "title": "Considerations for Altibase Backup Policy",
       "source_url": "https://docs.altibase.com/display/arch/Considerations+for+Altibase+Backup+Policy",
       "path": "altibase_docs_md/arch/Home/Considerations for Altibase Backup Policy__14647709.md",
-      "body_chars": 1688,
-      "word_count": 164
+      "body_chars": 1379,
+      "word_count": 142
     },
     {
       "space_key": "arch",
@@ -3806,8 +3806,8 @@
       "title": "2. Procedure by type of failure",
       "source_url": "https://docs.altibase.com/display/arch/2.+Procedure+by+type+of+failure",
       "path": "altibase_docs_md/arch/Home/Responding to Failures Guide for Altibase/2. Procedure by type of failure__15138835.md",
-      "body_chars": 17198,
-      "word_count": 2241
+      "body_chars": 17147,
+      "word_count": 2537
     },
     {
       "space_key": "arch",
@@ -4076,8 +4076,8 @@
       "title": "1. Starting Altibase",
       "source_url": "https://docs.altibase.com/display/arch/1.+Starting+Altibase",
       "path": "altibase_docs_md/arch/Home/Understanding the Altibase Start_Shut down Process/1. Starting Altibase__14909452.md",
-      "body_chars": 15218,
-      "word_count": 1701
+      "body_chars": 15222,
+      "word_count": 1919
     },
     {
       "space_key": "arch",
@@ -4085,8 +4085,8 @@
       "title": "2. Shutting Altibase Down",
       "source_url": "https://docs.altibase.com/display/arch/2.+Shutting+Altibase+Down",
       "path": "altibase_docs_md/arch/Home/Understanding the Altibase Start_Shut down Process/2. Shutting Altibase Down__14909483.md",
-      "body_chars": 5096,
-      "word_count": 610
+      "body_chars": 5099,
+      "word_count": 653
     },
     {
       "space_key": "arch",

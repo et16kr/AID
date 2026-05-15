@@ -18,9 +18,9 @@ Updated: 2020-08-27T13:36:53.000+0900
 
 # Overview
 
-This document describes how to set up a database backup policy in case data is lost due to unforeseen circumstances such as data file conflict, loss, deletion.
+This document describes how to set up a database backup policy in case data is lost due to unforeseen circumstances such as data file corruption, data file loss, or data deletion.
 
-This document introduces the backup types and features provided by Altibase and help users to determine the appropriate backup method for the operating environment. However, this document does not introduce commands or options for each backup method.
+This document introduces the backup types and features provided by Altibase and helps users determine an appropriate backup method for their operating environment. It does not describe the detailed commands or options for each backup method.
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
