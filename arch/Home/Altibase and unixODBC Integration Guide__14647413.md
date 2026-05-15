@@ -18,17 +18,17 @@ Updated: 2020-08-19T11:20:32.000+0900
 
 ---
 
-This document describes how to integrate with the ODBC driver Manager for Unix by using the odbc driver for UNIX provided by ALTIBASE. This document described based on the ODBC Driver Manager provided from [http://www.unixodbc.org/.](http://www.unixodbc.org/.)
+This document describes how to integrate the ODBC Driver Manager for Unix with the ODBC driver for Unix provided by Altibase. This document is based on the ODBC Driver Manager provided by [http://www.unixodbc.org/](http://www.unixodbc.org/).
 
-This document is based on the native compiler for each device, and in the case of gcc/g++ since there are no special precautions except for the compilation byte, it is not described separately. In addition, since the installation of unixODBC and the establishment of all environments for installation is a matter for the user, ALTIBASE does not provide technical support services for this part.
+This document assumes the native compiler for each platform. For gcc/g++, there are no special cautions other than the compile bit type, so gcc/g++ is not described separately. Installing unixODBC and preparing the installation environment are user responsibilities, so Altibase does not generally provide technical support for that part.
 
 The test environment of this document is as follows:
 
-- ALTIBASE: Altibase 6.3.1
+- Altibase: Altibase 6.3.1
 - OS: Linux ( 2.6.32-504.el6.x86_64 )
 - unixODBC: unixODBC-2.3.2
 
-For errors and improvements related to this document, please contact the technical support portal or technical support center
+For errors and improvements related to this document, contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) -> Technical Knowledge -> Q&A
 - Technical support center: 02-2082-1114

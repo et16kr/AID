@@ -3185,8 +3185,8 @@
       "title": "Altibase ODBC Development Guide in Windows Environment",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+ODBC+Development+Guide+in+Windows+Environment",
       "path": "altibase_docs_md/arch/Home/Altibase ODBC Development Guide in Windows Environment__15138911.md",
-      "body_chars": 11235,
-      "word_count": 1229
+      "body_chars": 10919,
+      "word_count": 1206
     },
     {
       "space_key": "arch",
@@ -3347,8 +3347,8 @@
       "title": "1. ADO.NET Settings",
       "source_url": "https://docs.altibase.com/display/arch/1.+ADO.NET+Settings",
       "path": "altibase_docs_md/arch/Home/Altibase Window ADO.NET Development Guide/1. ADO.NET Settings__14647569.md",
-      "body_chars": 8739,
-      "word_count": 916
+      "body_chars": 8382,
+      "word_count": 865
     },
     {
       "space_key": "arch",
@@ -3365,8 +3365,8 @@
       "title": "3. Frequent Error Messages",
       "source_url": "https://docs.altibase.com/display/arch/3.+Frequent+Error+Messages",
       "path": "altibase_docs_md/arch/Home/Altibase Window ADO.NET Development Guide/3. Frequent Error Messages__14647579.md",
-      "body_chars": 1887,
-      "word_count": 219
+      "body_chars": 1576,
+      "word_count": 190
     },
     {
       "space_key": "arch",
@@ -3374,8 +3374,8 @@
       "title": "Altibase Window ADO.NET Development Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Window+ADO.NET+Development+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Window ADO.NET Development Guide__14647565.md",
-      "body_chars": 1614,
-      "word_count": 164
+      "body_chars": 1285,
+      "word_count": 141
     },
     {
       "space_key": "arch",
@@ -3383,8 +3383,8 @@
       "title": "1. unixODBC Manager Installation",
       "source_url": "https://docs.altibase.com/display/arch/1.+unixODBC+Manager+Installation",
       "path": "altibase_docs_md/arch/Home/Altibase and unixODBC Integration Guide/1. unixODBC Manager Installation__14647417.md",
-      "body_chars": 8747,
-      "word_count": 1242
+      "body_chars": 8873,
+      "word_count": 1235
     },
     {
       "space_key": "arch",
@@ -3392,8 +3392,8 @@
       "title": "2. Integrating unixODBC Manager",
       "source_url": "https://docs.altibase.com/display/arch/2.+Integrating+unixODBC+Manager",
       "path": "altibase_docs_md/arch/Home/Altibase and unixODBC Integration Guide/2. Integrating unixODBC Manager__14647432.md",
-      "body_chars": 5076,
-      "word_count": 617
+      "body_chars": 4842,
+      "word_count": 639
     },
     {
       "space_key": "arch",
@@ -3401,8 +3401,8 @@
       "title": "Altibase and unixODBC Integration Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+and+unixODBC+Integration+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase and unixODBC Integration Guide__14647413.md",
-      "body_chars": 1104,
-      "word_count": 147
+      "body_chars": 1199,
+      "word_count": 149
     },
     {
       "space_key": "arch",
@@ -3563,8 +3563,8 @@
       "title": "JAVA Developer's Guide",
       "source_url": "https://docs.altibase.com/display/arch/JAVA+Developer%27s+Guide",
       "path": "altibase_docs_md/arch/Home/JAVA Developer's Guide__16875544.md",
-      "body_chars": 27929,
-      "word_count": 3387
+      "body_chars": 27701,
+      "word_count": 3310
     },
     {
       "space_key": "arch",
@@ -3761,8 +3761,8 @@
       "title": "1. ALTIBASE HDB PHP Module Reference",
       "source_url": "https://docs.altibase.com/display/arch/1.+ALTIBASE+HDB+PHP+Module+Reference",
       "path": "altibase_docs_md/arch/Home/PHP Integration Guide for Altibase/1. ALTIBASE HDB PHP Module Reference__14647310.md",
-      "body_chars": 246,
-      "word_count": 43
+      "body_chars": 398,
+      "word_count": 50
     },
     {
       "space_key": "arch",
@@ -3770,8 +3770,8 @@
       "title": "2. ODBC Manger Installation for PHP Integration",
       "source_url": "https://docs.altibase.com/display/arch/2.+ODBC+Manger+Installation+for+PHP+Integration",
       "path": "altibase_docs_md/arch/Home/PHP Integration Guide for Altibase/2. ODBC Manger Installation for PHP Integration__14647312.md",
-      "body_chars": 2872,
-      "word_count": 345
+      "body_chars": 2470,
+      "word_count": 300
     },
     {
       "space_key": "arch",
@@ -3779,8 +3779,8 @@
       "title": "3. PHP Functions for ODBC Connection",
       "source_url": "https://docs.altibase.com/display/arch/3.+PHP+Functions+for+ODBC+Connection",
       "path": "altibase_docs_md/arch/Home/PHP Integration Guide for Altibase/3. PHP Functions for ODBC Connection__14647314.md",
-      "body_chars": 1285,
-      "word_count": 160
+      "body_chars": 1504,
+      "word_count": 205
     },
     {
       "space_key": "arch",
@@ -3788,8 +3788,8 @@
       "title": "PHP Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/PHP+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/PHP Integration Guide for Altibase__14647305.md",
-      "body_chars": 392,
-      "word_count": 43
+      "body_chars": 539,
+      "word_count": 58
     },
     {
       "space_key": "arch",

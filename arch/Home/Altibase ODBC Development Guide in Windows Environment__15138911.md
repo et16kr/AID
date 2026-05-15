@@ -26,26 +26,26 @@ This document describes how to set up various development tools using the ODBC D
 
 This document is based on Altibase version 6.5.1 and Windows 10.
 
-**The ODBC for Windows is provided only up to Altibase version 6.5.1, and not provided to Altibase version 7 or later.**
+**ODBC for Windows is provided only up to Altibase version 6.5.1 and is not provided starting from Altibase version 7.1.0.**
 
-For errors and improvements related to this document, please contact the technical support portal or technical support center.
+For errors and improvements related to this document, contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) -> Technical Knowledge -> Q&A
 - Technical support center: 02-2082-1114
 
 # Altibase ODBC Driver Configuration
 
 ---
 
-Before the development, the ODBC Driver provided by Altibase must be installed. This can be downloaded from [http://support.altibase.com/en/.](http://support.altibase.com/en/.)
+Before development, the ODBC Driver provided by Altibase must be installed. It can be downloaded from [http://support.altibase.com](http://support.altibase.com/).
 
 ## Downloading ODBC
 
 ---
 
-Go to [http://support.altibase.com/en/](http://support.altibase.com/en/), then "Downloads" -> "Products" to download Windows ODBC files for each version. (Supports up to Altibase version 6.5.1)
+Go to [http://support.altibase.com](http://support.altibase.com/), then "Downloads" -> "Products" to download Windows ODBC files for each version. Windows ODBC is supported up to Altibase version 6.5.1.
 
-For older versions that are unable on the website, please contact [support@altibase.com](mailto:support@altibase.com).
+For older versions that are not available on the website, contact [support@altibase.com](mailto:support@altibase.com).
 
 ![odbc1_eng.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20ODBC%20Development%20Guide%20in%20Windows%20Environment/odbc1_eng.png?api=v2)
 
@@ -55,11 +55,11 @@ For older versions that are unable on the website, please contact [support@altib
 
 ---
 
-When installing for the first time, download and install the WINDOWS CLIENT package.
+When installing for the first time, download and install the Windows Client package.
 
-Since there is no complicated process when installing the WINDOW CLIENT package, this document will not describe it separately.
+Since there is no complicated process when installing the Windows Client package, this document does not describe it separately. The Altibase ODBC installation process is also not complicated.
 
-When installing WINDOWS CLIENT, the ODBC installation screen appears as shown below.
+When installing Windows Client, the ODBC installation screen appears as shown below.
 
 ![odbc3.jpg](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20ODBC%20Development%20Guide%20in%20Windows%20Environment/odbc3.jpg?api=v2)
 
@@ -81,15 +81,15 @@ When the following DB connection setting screen appears, enter the setting value
 
 | Items | Description | Example |
 | --- | --- | --- |
-| DB Name | DB_NAME created at the time of DB creation | mydb |
+| Windows DSN Name | Name that distinguishes it from other DSN names | SERVER1 |
 | Host (name or IP) | IP information where Altibase DB Server is located | 192.168.1.35 |
-| NLS_USE | DB character set | MS949 |
-| Password | DB account password | manager |
 | Port (default 20300) | Altibase DB Server connection port information | 20300 |
 | User | Account on DB | sys |
-| Windows DSN Name | Name that distinguishes it from other DSN names | SERVER1 |
+| Password | DB account password | manager |
+| DB Name | DB_NAME created at the time of DB creation | mydb |
+| NLS_USE | DB character set | MS949 |
 
-If the user clicks the "Test Connection" button after entering each item, the user can check the connection to the Altibase Driver with ODBC Driver. (Altibase DB Server must be running.)
+Click the "Test Connection" button after entering each item to check the connection to Altibase through the ODBC Driver. The Altibase DB Server must be running.
 
 If this is properly set, the user can check the newly added ODBC items as follows.
 
@@ -101,7 +101,7 @@ If this is properly set, the user can check the newly added ODBC items as follow
 
 When connecting to the Altibase DB server with ODBC driver, separate source conversion is not required, and ODBC connection strings need to be changed in the connection part.
 
-Compile and use appropriate heads (ex. windows.h, sql.h, sqlext.h, afxdb.h) and library (ex. odbc32.lib) that can integrate ODBC drivers required in WINDOWS.
+Compile by using the appropriate header files (for example, `windows.h`, `sql.h`, `sqlext.h`, `afxdb.h`) and libraries (for example, `odbc32.lib`) required to integrate the ODBC driver on Windows.
 
 ## ODBC connection string
 
@@ -109,7 +109,7 @@ Compile and use appropriate heads (ex. windows.h, sql.h, sqlext.h, afxdb.h) and 
 
 In a program using the ODBC Driver, the connection string is used as follows.
 
-The path marked in red is used as a keyword, and the part marked in blue can be used after changing the value according to the connection information of the Altibase DB Server to be connected and the ODBC version.
+The keyword parts of the connection string are fixed, and the connection values should be changed according to the target Altibase DB Server connection information and ODBC version.
 
 |  |  |
 | --- | --- |
@@ -154,12 +154,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
 ---
 
-A simple connection example in Visual C++ is as follows.
+A simple connection example in Visual C# is as follows.
 
 **Visual C# example source**
 
 ```
-using System;using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -249,7 +250,8 @@ The example of BLOB select is an example that declares a Byte[] variable through
 **Example of BLOB insert**
 
 ```
-// BLOB INSERTFileStream fs = new FileStream("c:\\test.dat", FileMode.Open, FileAccess.Read);
+// BLOB INSERT
+FileStream fs = new FileStream("c:\\test.dat", FileMode.Open, FileAccess.Read);
 
 Byte[] blob = new byte[fs.Length];
 fs.Read(blob, 0, System.Convert.ToInt32(fs.Length));
@@ -268,7 +270,8 @@ tx.Commit();
 **Example of BLOB select**
 
 ```
-// BLOB SELECTcmd.CommandText = "SELECT binary_length(C2), C2 FROM T1";
+// BLOB SELECT
+cmd.CommandText = "SELECT binary_length(C2), C2 FROM T1";
 tx = cn.BeginTransaction();
 cmd.Transaction = tx;
 OdbcDataReader dr = cmd.ExecuteReader();

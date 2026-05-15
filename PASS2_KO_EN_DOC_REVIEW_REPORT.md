@@ -505,3 +505,54 @@ P209 audited Korean developer training, precompiler, APRE Makefile, and APRE C/C
 - External HTTP availability was not tested; P209 used grep-based source-link and attachment preservation checks.
 - The Korean APRE New Features legacy PDF is a `#` placeholder, so the English target can preserve the filename but cannot provide a real download URL.
 - Some source-exported image URLs retain URL-encoded Korean image filenames; the visible English prose was checked separately.
+
+## P210 Tech audit: Java ODBC ADO.NET PHP client APIs
+
+### Scope
+
+P210 audited Korean Java, unixODBC, Windows ODBC, ADO.NET, and PHP client API documents against their English `arch` targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English target |
+| --- | --- |
+| `DOCK/Home/32. Altibase와 unixODBC 연동 가이드__11698379.md` | `arch/Home/Altibase and unixODBC Integration Guide__14647413.md`; `arch/Home/Altibase and unixODBC Integration Guide/**` |
+| `DOCK/Home/51. Altibase window ADO.NET 개발 가이드__11698513.md` | `arch/Home/Altibase Window ADO.NET Development Guide__14647565.md`; `arch/Home/Altibase Window ADO.NET Development Guide/**` |
+| `DOCK/Home/53. Windows 환경의 Altibase ODBC 개발 가이드__13436856.md` | `arch/Home/Altibase ODBC Development Guide in Windows Environment__15138911.md` |
+| `DOCK/Home/56. JAVA 개발 가이드__14057500.md` | `arch/Home/JAVA Developer's Guide__16875544.md` |
+| `DOCK/Home/66. Altibase PHP 연동가이드__7341461.md` | `arch/Home/PHP Integration Guide for Altibase__14647305.md`; `arch/Home/PHP Integration Guide for Altibase/**` |
+
+### Findings And Updates
+
+- Corrected malformed technical-support links in scoped parent pages while preserving the Korean-source support portal route.
+- Corrected unixODBC compile and integration content for native compiler assumptions, `SQLLEN`/`SQLULEN`, `BUILD_LEGACY_64_BIT_MODE=1`, `./configure --prefix=/home/unixODBC --disable-gui --enable-threads=yes`, driver selection by `SQLLEN`, `odbcinst -j`, AIX `libodbcinst.so.1`, and `[ODBC]` trace settings.
+- Replaced fake exported local-library links for unixODBC driver and manager library filenames with code literals.
+- Corrected ADO.NET setup and error details for `Altibase.Data.AltibaseClient.dll`, Windows terminology, provider requirements, Q&A link, `odbccli_sl.dll`, bit-specific `altiadonetX.X.X.X_32bit.zip`/`altiadonetX.X.X.X_64bit.zip`, and DLL error causes.
+- Corrected the Windows ODBC guide for the Altibase `7.1.0` Windows ODBC cutoff, support/download links, Windows Client wording, ODBC setting table order, C# section wording, and flattened BLOB code comments.
+- Corrected the Java guide for connection pool and XA class names, failover CTF/STF wording, missing simultaneous-version heading, stored procedure filename, `PreparedStatement`, `executeBatch()`, `setFetchSize()` memory warning, LOB autocommit error text, LOB sample paths, and timeout error table messages.
+- Corrected PHP pages for Altibase product naming, `db.php`, ODBC Manager wording, `--prefix` configure option, library-path variables, `odbc.ini`, and standard ODBC function wording.
+- Updated `manifest.json` metadata for all 12 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- Scoped Korean source pages contain 3 URL-backed PDF attachments, and all 3 URLs are preserved in the scoped English target set.
+- Scoped grep found no empty links, Confluence macro error markers, malformed support links, fake unixODBC local links, stale typo patterns checked for this job, or residual visible Korean text.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p210-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Scoped grep for empty links, Confluence macro errors, malformed support links, fake unixODBC local links, stale typo patterns, and residual Korean text | Passed |
+| Scoped document-format attachment preservation script | Passed, 3 Korean source URLs preserved |
+| Scoped fenced-code balance check | Passed for all scoped English files |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 12 edited English pages |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P210 used grep-based source-link and attachment preservation checks.
+- The PHP Korean source configure command appears to use single-dash options; the English page now uses standard unixODBC `./configure --prefix=... --enable-...` option spelling consistent with the scoped unixODBC guide.
+- The PHP split page path and source URL still contain the pre-existing `ODBC Manger` spelling because P210 did not rename source-exported files or alter page identity metadata.
