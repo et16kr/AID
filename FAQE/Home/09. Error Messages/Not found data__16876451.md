@@ -92,7 +92,7 @@ DNO      DNAME                          DEP_LOCATION       MGR_NO
 ------------------------------------------------------------------
 1     BUSINESS DEPT                  Seoul              100
 2     BUSINESS DEPT                  Seoul              100
-...중략...
+...Omitted...
 502     BUSINESS DEPT                  Seoul              100
 503     BUSINESS DEPT                  Seoul              100
 

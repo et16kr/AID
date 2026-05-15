@@ -1043,8 +1043,8 @@
       "title": "ALTIBASE HDB 5.3.x, 5.5.1, 6.1.1, 6.3.1",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+5.3.x%2C+5.5.1%2C+6.1.1%2C+6.3.1",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk table and index usage/ALTIBASE HDB 5.3.x, 5.5.1, 6.1.1, 6.3.1__16876240.md",
-      "body_chars": 15447,
-      "word_count": 1499
+      "body_chars": 16594,
+      "word_count": 1402
     },
     {
       "space_key": "FAQE",
@@ -1079,8 +1079,8 @@
       "title": "ALTIBASE HDB 5.3.3, 5.3.5",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+5.3.3%2C+5.3.5",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk tablespace usage/ALTIBASE HDB 5.3.3, 5.3.5__16876253.md",
-      "body_chars": 4959,
-      "word_count": 417
+      "body_chars": 5620,
+      "word_count": 474
     },
     {
       "space_key": "FAQE",
@@ -1088,8 +1088,8 @@
       "title": "ALTIBASE HDB 5.5.1, 6.1.1, 6.3.1",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+5.5.1%2C+6.1.1%2C+6.3.1",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk tablespace usage/ALTIBASE HDB 5.5.1, 6.1.1, 6.3.1__16876255.md",
-      "body_chars": 10736,
-      "word_count": 1001
+      "body_chars": 11642,
+      "word_count": 962
     },
     {
       "space_key": "FAQE",
@@ -1106,8 +1106,8 @@
       "title": "How to log queries performed in Altibase (altiProfile)?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22642959",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/How to log queries performed in Altibase (altiProfile)__22642959.md",
-      "body_chars": 35471,
-      "word_count": 3227
+      "body_chars": 36599,
+      "word_count": 4488
     },
     {
       "space_key": "FAQE",
@@ -1115,8 +1115,8 @@
       "title": "How to set up and execute altimon",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+set+up+and+execute+altimon",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/How to set up and execute altimon__16876266.md",
-      "body_chars": 9168,
-      "word_count": 966
+      "body_chars": 9189,
+      "word_count": 969
     },
     {
       "space_key": "FAQE",
@@ -1178,8 +1178,8 @@
       "title": "Monitoring method when undo tablespace usage increases",
       "source_url": "https://docs.altibase.com/display/FAQE/Monitoring+method+when+undo+tablespace+usage+increases",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Undo Tablespace/Monitoring method when undo tablespace usage increases__22642963.md",
-      "body_chars": 25536,
-      "word_count": 3024
+      "body_chars": 28327,
+      "word_count": 3412
     },
     {
       "space_key": "FAQE",
@@ -1187,8 +1187,8 @@
       "title": "Undo tablespace usage",
       "source_url": "https://docs.altibase.com/display/FAQE/Undo+tablespace+usage",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Undo Tablespace/Undo tablespace usage__22642965.md",
-      "body_chars": 5488,
-      "word_count": 730
+      "body_chars": 6324,
+      "word_count": 839
     },
     {
       "space_key": "FAQE",
@@ -1232,8 +1232,8 @@
       "title": "ERR-11049 (  69705) Too many pages are allocated ( Maximum Number of Pages= #).",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876385",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/ERR-11049 ( 69705) Too many pages are allocated ( Maximum Number of Pages= #)__16876385.md",
-      "body_chars": 4578,
-      "word_count": 645
+      "body_chars": 6296,
+      "word_count": 723
     },
     {
       "space_key": "FAQE",
@@ -1250,8 +1250,8 @@
       "title": "ERR-11075 The transaction has exceeded the lock timeout specified by the user.",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876388",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/ERR-11075 The transaction has exceeded the lock timeout specified by the user__16876388.md",
-      "body_chars": 6995,
-      "word_count": 1012
+      "body_chars": 9831,
+      "word_count": 1277
     },
     {
       "space_key": "FAQE",
@@ -1286,8 +1286,8 @@
       "title": "ERR-21010 Value overflow.",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876422",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/ERR-21010 Value overflow__16876422.md",
-      "body_chars": 1498,
-      "word_count": 190
+      "body_chars": 2207,
+      "word_count": 271
     },
     {
       "space_key": "FAQE",
@@ -1322,8 +1322,8 @@
       "title": "ERR-4103C (266300) Request of fetching data to an unprepared SQL statement.",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876347",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/ERR-4103C (266300) Request of fetching data to an unprepared SQL statement__16876347.md",
-      "body_chars": 8382,
-      "word_count": 1070
+      "body_chars": 10496,
+      "word_count": 1368
     },
     {
       "space_key": "FAQE",
@@ -1349,8 +1349,8 @@
       "title": "ERR-410D2 (266450) Fetch out of sequence.",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876332",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/ERR-410D2 (266450) Fetch out of sequence__16876332.md",
-      "body_chars": 8860,
-      "word_count": 1130
+      "body_chars": 10791,
+      "word_count": 1442
     },
     {
       "space_key": "FAQE",
@@ -1394,8 +1394,8 @@
       "title": "ERR-91015 ( 593941) Communication failure",
       "source_url": "https://docs.altibase.com/display/FAQE/ERR-91015+%28+593941%29+Communication+failure",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/ERR-91015 ( 593941) Communication failure__22642976.md",
-      "body_chars": 7610,
-      "word_count": 780
+      "body_chars": 8172,
+      "word_count": 916
     },
     {
       "space_key": "FAQE",
@@ -1412,8 +1412,8 @@
       "title": "Not found data",
       "source_url": "https://docs.altibase.com/display/FAQE/Not+found+data",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/Not found data__16876451.md",
-      "body_chars": 8361,
-      "word_count": 1072
+      "body_chars": 9748,
+      "word_count": 1355
     },
     {
       "space_key": "FAQE",
@@ -1421,8 +1421,8 @@
       "title": "[Notify : Fetch Timeout] Session Closed by Server.",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876301",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/[Notify _ Fetch Timeout] Session Closed by Server__16876301.md",
-      "body_chars": 16477,
-      "word_count": 2102
+      "body_chars": 18439,
+      "word_count": 1892
     },
     {
       "space_key": "FAQE",
@@ -1430,8 +1430,8 @@
       "title": "[Warning] Memory allocation failed.",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876308",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/[Warning] Memory allocation failed__16876308.md",
-      "body_chars": 2288,
-      "word_count": 325
+      "body_chars": 3492,
+      "word_count": 417
     },
     {
       "space_key": "FAQE",
@@ -1448,8 +1448,8 @@
       "title": "tablespace does not have enough free space error",
       "source_url": "https://docs.altibase.com/display/FAQE/tablespace+does+not+have+enough+free+space+error",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/tablespace does not have enough free space error__16876454.md",
-      "body_chars": 938,
-      "word_count": 136
+      "body_chars": 1846,
+      "word_count": 209
     },
     {
       "space_key": "FAQE",
@@ -1475,8 +1475,8 @@
       "title": "Building a Large-Scale DRDB Index",
       "source_url": "https://docs.altibase.com/display/FAQE/Building+a+Large-Scale+DRDB+Index",
       "path": "altibase_docs_md/FAQE/Home/12. Others/Building a Large-Scale DRDB Index__22642978.md",
-      "body_chars": 2855,
-      "word_count": 447
+      "body_chars": 3376,
+      "word_count": 448
     },
     {
       "space_key": "FAQE",
@@ -1493,8 +1493,8 @@
       "title": "The entire database exists in memory. Is there any problem with the safety of the data?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22642980",
       "path": "altibase_docs_md/FAQE/Home/13. General/The entire database exists in memory. Is there any problem with the safety of the data__22642980.md",
-      "body_chars": 2733,
-      "word_count": 358
+      "body_chars": 3313,
+      "word_count": 446
     },
     {
       "space_key": "FAQE",
@@ -1502,8 +1502,8 @@
       "title": "What interface does Altibase provide?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22642982",
       "path": "altibase_docs_md/FAQE/Home/13. General/What interface does Altibase provide__22642982.md",
-      "body_chars": 3854,
-      "word_count": 538
+      "body_chars": 3857,
+      "word_count": 537
     },
     {
       "space_key": "FAQE",
@@ -1511,8 +1511,8 @@
       "title": "What is the biggest difference between Altibase and disk-based DBMS?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876485",
       "path": "altibase_docs_md/FAQE/Home/13. General/What is the biggest difference between Altibase and disk-based DBMS__16876485.md",
-      "body_chars": 1949,
-      "word_count": 183
+      "body_chars": 2472,
+      "word_count": 237
     },
     {
       "space_key": "FAQE",

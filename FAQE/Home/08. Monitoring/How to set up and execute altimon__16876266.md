@@ -52,7 +52,7 @@ ALTIMON USER GUIDE
 - SunOS Sparc : [altimon_hpux_ia64.tar](https://docs.altibase.com/download/attachments/6979592/altimon_hpux_ia64.tar?version=2&modificationDate=1606699773000&api=v2)
 - SunOS x86 :
 - AIX : [altimon_sunos_sparc.tar](https://docs.altibase.com/download/attachments/6979592/altimon_sunos_sparc.tar?version=2&modificationDate=1606699785000&api=v2)
-- Altibase does not provide for WIndows. For Windows, refer to the [Monitoring Tools for Windows](https://aid.altibase.com/display/FAQE/Monitoring+tool+for+Windows) page.
+- Altibase does not provide an ALTIMON package for Windows. For Windows, refer to the [Monitoring Tools for Windows](https://docs.altibase.com/display/FAQE/Monitoring+Tools+for+Windows) page.
 
 ### ALTIMON configuration file
 

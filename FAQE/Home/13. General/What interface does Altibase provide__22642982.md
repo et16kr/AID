@@ -32,11 +32,11 @@ Altibase HDB 6.1.1 or later
 
 ---
 
-- Altibase complies with the international standard ANSI SQL-1999 and provides various standard interfaces such as ODBC, ADO. Net, JDBC, and Embedded SQL.
+- Altibase complies with the international standard ANSI SQL-1999 and provides various standard interfaces such as ODBC, ADO.NET, JDBC, and Embedded SQL.
 
 ### Client development environment
 
-| **Interface type** | Support function |
+| **Interface type** | Supported functions |
 | --- | --- |
 | ODBC | - RAD (Rapid Application Development) tools such as Visual Basic and PowerBuilder, as well as used when accessing ALTIBASE in most development environments<br>- Reinforced standard support with re-implementation |
 | JDBC | - Used when developing ALTIBASE application programs in JAVA environment<br>- Also used when configuring a connection pool in WAS<br>- Improved performance with re-implementation<br>- JDBC 2.0 API support up to Altibase 6.1.1, JDBC 3.0 API support partially.<br>- JDBC 3.0 API support from Altibase 6.3.1.<br>- Altibase 7.1.0 and later: Supports JDBC 3.0 API and partial support for JDBC 4.2 API.<br>- Altibase 7.3.0 and later: Provides full support for JDBC 4.2 API. |
@@ -49,7 +49,7 @@ Altibase HDB 6.1.1 or later
 
 ### Server development environment
 
-| Function | Characterstic |
+| Function | Characteristic |
 | --- | --- |
 | SQL | - Support Full Featured SQL92<br>- Support international standard complex query such as Sub Query INLINE view<br>- Support tuning using hints and SQL execution plans |
 | Built-in Function | - Provides more than 100 built-in functions<br>- Users can perform various operations in SQL statements by using Built-in Function |

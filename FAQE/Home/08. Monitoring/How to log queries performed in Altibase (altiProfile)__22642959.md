@@ -158,12 +158,12 @@ Disk access information
 
 ```
 [BIND] 2025/07/16 09:45:05 (2/131076/129940/01)
-    [(_integer ) 3001]                          ==>  Bind 변수 값
+    [(_integer ) 3001]                          ==>  Bind variable value
 [BIND] 2025/07/16 09:45:05 (2/131076/129940/02)
-    [(_char    ) (11)                           ==>  Bind 변수 값
+    [(_char    ) (11)                           ==>  Bind variable value
     00000000 01011111111]
 [BIND] 2025/07/16 09:45:05 (2/131076/129940/03)
-    [(_integer ) 1]                             ==>  Bind 변수 값
+    [(_integer ) 1]                             ==>  Bind variable value
 ```
 
 - When QUERY_PROF_FLAG = 7 is set (i.e., QUERY_PROF_FLAG = 1 + 2 + 4): It outputs the SQL statement, the bind variable values, and the execution plan generated for the SQL execution.
@@ -613,7 +613,7 @@ When using the session option:
 
 $ altiProfile -stat session *.prof > #sequence.out
 
-**예제**
+**Example**
 
 ```
 $ altiProfile -stat query alti-1752630730-0.prof

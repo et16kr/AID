@@ -70,4 +70,4 @@ This message also occurs when there is not enough physical memory. Use a system 
 ---
 
 - The default tablespace for ALTIBASE HDB server is SYS_TBS_MEM_DATA. So, if you do not specify a tablespace when performing CREATE TABLE, this tablespace is designated by default. This tablespace is a system memory tablespace, and the data in the table uses memory. Therefore, memory usage may increase differently from the user's intention, so make sure to check this as well.
-- [ALTIBASE_운영을_위한_HPUX_설정_가이드.pdf](https://docs.altibase.com/download/attachments/9109748/ALTIBASE_%EC%9A%B4%EC%98%81%EC%9D%84_%EC%9C%84%ED%95%9C_HPUX_%EC%84%A4%EC%A0%95_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1449022354000&api=v2) (TBA)
+- [HP-UX Setup Guide for ALTIBASE HDB PDF](https://docs.altibase.com/download/attachments/9109748/ALTIBASE_%EC%9A%B4%EC%98%81%EC%9D%84_%EC%9C%84%ED%95%9C_HPUX_%EC%84%A4%EC%A0%95_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1449022354000&api=v2)

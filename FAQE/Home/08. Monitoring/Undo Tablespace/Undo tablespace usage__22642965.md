@@ -62,7 +62,7 @@ SELECT T.NAME TBS_NAME
      , ROUND((TOTAL_PAGE_COUNT * PAGE_SIZE) / 1024 / 1024, 2) 'TOTAL(M)'                                                        -- Total size allocated for undo tablespace
      , ROUND((U.TOTAL_EXT_CNT*PROP.EXTENT_SIZE)/1024/1024, 2) 'ALLOC(M)'                                                        -- Total of only 'used pages' excluding 'blank pages' among the allocated pages so far
      , ROUND(((U.TX_EXT_CNT+U.USED_EXT_CNT+U.UNSTEALABLE_EXT_CNT) * PROP.EXTENT_SIZE)/1024/1024, 2) 'USED(M)'                   -- Size of the EXTENT that cannot be reused or in use by the change transaction
-     , ROUND((((U.TX_EXT_CNT+U.USED_EXT_CNT+U.UNSTEALABLE_EXT_CNT) * PROP.EXTENT_SIZE)/(D.MAX*PAGE_SIZE))*100, 2) 'USAGE(%)'    -- 사용량(MAX 대비 USED)
+     , ROUND((((U.TX_EXT_CNT+U.USED_EXT_CNT+U.UNSTEALABLE_EXT_CNT) * PROP.EXTENT_SIZE)/(D.MAX*PAGE_SIZE))*100, 2) 'USAGE(%)'    -- USED compared with MAX
      , DECODE(STATE,1,'OFFLINE',2,'ONLINE',5,'OFFLINE BACKUP',6,'ONLINE BACKUP',128,'DROPPED', 'DISCARDED') STATE               -- Tablespace state
      , D.AUTOEXTEND
   FROM V$TABLESPACES T

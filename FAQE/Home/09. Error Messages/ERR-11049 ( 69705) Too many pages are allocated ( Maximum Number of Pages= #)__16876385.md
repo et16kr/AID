@@ -119,4 +119,4 @@ For AIX, check if data, rss, fsize, etc. are set to -1 in the /etc/security/limi
 
 ---
 
-[What is MEM_MAX_DB_SIZE?](https://aid.altibase.com/pages/viewpage.action?pageId=16875991)
+[What is MEM_MAX_DB_SIZE?](https://docs.altibase.com/pages/viewpage.action?pageId=16875991)

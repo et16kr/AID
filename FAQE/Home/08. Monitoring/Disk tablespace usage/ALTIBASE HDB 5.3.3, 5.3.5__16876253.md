@@ -51,7 +51,7 @@ SELECT NAME TBS_NAME                                                            
                                   FROM V$TSSEGS)) / D.MAX* 100,  '99.99') ,          /* UNDO */
                     3, TO_CHAR(NVL(DS.USED, 0)/(D.MAX*PAGE_SIZE)* 100,  '99.99') ,
                     4, TO_CHAR(NVL(DS.USED, 0)/(D.MAX*PAGE_SIZE)* 100,  '99.99') ,   /* TEMP */
-                       TO_CHAR(ALLOCATED_PAGE_COUNT / D.MAX * 100,  '99.99') ) 'USAGE(%)'                                       -- USAGE(%) : MAX대비 USED. TEMP, UNDO 의 경우 MAX대비 ALLOC
+                       TO_CHAR(ALLOCATED_PAGE_COUNT / D.MAX * 100,  '99.99') ) 'USAGE(%)'                                       -- USAGE(%) : USED compared with MAX. For TEMP and UNDO, ALLOC compared with MAX.
      , DECODE(STATE, 1, 'OFFLINE', 2, 'ONLINE', 5, 'OFFLINE BACKUP', 6, 'ONLINE BACKUP', 128, 'DROPPED', 'DISCARDED') STATE     -- STATE    : Tablespace state
      , D.AUTOEXTEND
   FROM V$TABLESPACES T LEFT OUTER JOIN (SELECT SPACE_ID , SUM(TOTAL_USED_SIZE) USED

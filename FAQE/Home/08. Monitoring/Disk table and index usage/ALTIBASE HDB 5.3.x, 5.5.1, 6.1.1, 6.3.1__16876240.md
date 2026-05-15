@@ -218,7 +218,7 @@ In ALTIBASE HDB version 5.3.3, 5.3.5, 5.5.1 without BUG-31372 being modified, an
 
 ---
 
-Error rendering macro 'code': Invalid value specified for parameter 'firstline'
+**Disk table count query**
 
 ```
 set linesize 1024;
@@ -236,7 +236,7 @@ SELECT DECODE(T.IS_PARTITIONED, 'T', 'PARTITIONED     TABLE CNT : '||PART_T.CNT,
 **Disk index count query**
 
 ```
- set linesize 1024;
+set linesize 1024;
 set colsize 50;
 SELECT DECODE(T.IS_PARTITIONED, 'T', 'PARTITIONED     INDEX CNT : '||PART_T.CNT, 'F', 'NON-PARTITIONED INDEX CNT : '||T.CNT) INDEX_COUNT
   FROM (SELECT IS_PARTITIONED

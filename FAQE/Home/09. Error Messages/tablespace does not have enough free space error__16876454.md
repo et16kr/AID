@@ -43,7 +43,7 @@ This error is caused by the insufficient size of a specific tablespace.
 Use the appropriate query statement for the version of Altibase you are using to check the usage.
 
 ```
-https://aid.altibase.com/display/FAQE/8.+Monitoring
+https://docs.altibase.com/display/FAQE/08.+Monitoring
 ```
 
 2. After querying the tablespace usage, add space to the tablespace with USAGE(%) close to 100% in the query result.

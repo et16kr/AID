@@ -218,6 +218,29 @@ J008에서는 한국어 `faq`의 `03. 이중화` 8개 문서, `04. 백업 및 �
 - ODBC/PHP 개발 FAQ에서 `SELECT DB_NAME FROM V$DATABASE`, `SELECT NLS_CHARACTERSET FROM V$NLS_PARAMETERS`, `SQLFreeStmt`, `ALTIBASE_JDBC_TRCLOG_DISABLE`, unixODBC 라이브러리 경로, PHP `odbc.ini` 예제를 한국어 원문 의미에 맞게 보정했습니다.
 - J008 한국어 원문 범위의 URL-backed 문서형 첨부 3개(PDF 2개, ZIP 1개)가 대응 영어 문서에 보존되어 있음을 확인했고, Stored Procedure 예제 텍스트 첨부 1개도 영어 문서에 링크로 보존했습니다.
 
+## J009 FAQ 모니터링, 에러 메시지, 유틸리티, 기타 및 일반 문서 추가 검토
+
+J009에서는 한국어 `faq`의 `08. 모니터링` 19개 문서, `09. 에러메시지` 29개 문서, `11. 유틸리티` 2개 문서, `12. 기타` 2개 문서, `13. 일반` 3개 문서를 영어 `FAQE`의 대응 핵심 카테고리 문서와 재비교했습니다. 한국어 원문을 기준으로 본문 절, 명령어, SQL, 설정값, 에러 코드, 운영 예제, 첨부 문서 링크를 확인했습니다.
+
+비교 및 갱신 범위는 다음과 같습니다.
+
+| 한국어 기준 | 영어 갱신 문서 |
+| --- | --- |
+| `faq/Home/08. 모니터링/*` | `FAQE/Home/08. Monitoring/*` |
+| `faq/Home/09. 에러메시지/*` | `FAQE/Home/09. Error Messages/*` |
+| `faq/Home/11. 유틸리티/*` | `FAQE/Home/11. Utilities/*` |
+| `faq/Home/12. 기타/*` | `FAQE/Home/12. Others/*` |
+| `faq/Home/13. 일반/*` | `FAQE/Home/13. General/*` |
+
+주요 반영 내용은 다음과 같습니다.
+
+- `altiProfile`, 디스크 테이블스페이스, 언두 테이블스페이스 FAQ에 남아 있던 한국어 SQL 주석, `예제`, `단위: 초`, `Bind 변수 값` 등 잔여 문구를 검색 가능한 영어로 정리했습니다.
+- 디스크 테이블 및 인덱스 사용량 FAQ에서 Confluence export 오류로 남아 있던 `Error rendering macro 'code'` 문구를 제거하고, 한국어 원문 기준의 `Disk table count query` 제목을 복원했습니다.
+- `[Notify : Fetch Timeout]`, `ERR-4103C`, `ERR-410D2`, `ERR-11075`, `ERR-21010`, `ERR-91015` 등 에러 FAQ의 한국어 잔여 문구, 커서 의사코드, 버전별 참조 링크, 매뉴얼 링크를 영어 문서 기준으로 보정했습니다.
+- `ALTIMON_USER_GUIDE.pdf`, `altimon_for_windows.zip`, `AdminCenter2.zip`, HP-UX 설정 가이드 PDF 등 J009 범위의 URL-backed 문서형 첨부 4개가 대응 영어 문서에 보존되어 있음을 확인했습니다.
+- 대용량 DRDB Index 구축 FAQ에서 `BUFFER_AREA_SIZE`, `SORT_AREA_SIZE`, `DISK_INDEX_BUILD_SORT_AREA_SIZE`, `DISK_INDEX_BUILD_MERGE_PAGE_COUNT`, `INDEX_BUILD_THREAD_COUNT` 설명을 한국어 원문 의미에 맞게 정리하고 버전 `6.5.1~7.1.0`, `7.3.0 or later` 기준을 명확히 했습니다.
+- 일반 FAQ에서 Altibase 제공 인터페이스 표, In-Memory DBMS와 Disk-based DBMS 차이, WAL 및 장애 관리 설명을 자연스러운 영어 기술 문장으로 정리했습니다.
+
 ## 검토 범위
 
 | 구분 | 한국어 기준 문서 | 영어 대상 문서 | 결과 |
@@ -316,6 +339,11 @@ J008에서는 한국어 `faq`의 `03. 이중화` 8개 문서, `04. 백업 및 �
 | J008 핵심 항목 grep | `ALTER REPLICATION replication_name ADD TABLE`, `DROP TABLE FROM`, `REPLICATION_MAX_LOGFILE`, `SP_DML_RECORD_COUNT.txt`, `08F01`, `ES_08FO01`, `SELECT DB_NAME FROM V$DATABASE`, `SQLLEN Size` 확인 |
 | J008 갱신 문서 stale-string grep | 한국어 잔여 문구, 깨진 `libaltibase_odbc` 링크, `SELECT_DB_NAME`, `run_il_int.sh`, `Error rendering macro`, `thㅅ`, 비ASCII 인용부호 패턴 재검출 0건 |
 | J008 manifest 메타데이터 대조 | 갱신된 `FAQE` 문서 확인, 불일치 0건 |
+| J009 FAQ 대응 문서 대조 | 모니터링 19개, 에러 메시지 29개, 유틸리티 2개, 기타 2개, 일반 3개 대응 확인, 누락 0개 |
+| J009 문서형 첨부 URL 대조 | 범위 내 URL-backed 문서형 첨부 4개 확인, 누락 0개 |
+| J009 핵심 항목 grep | `Bind variable value`, `Disk table count query`, `UTRANS_TIMEOUT`, `FETCH CURSOR`, `DISK_INDEX_BUILD_SORT_AREA_SIZE`, `ADO.NET`, `TPC-C`, `WAL` 확인 |
+| J009 갱신 문서 stale-string grep | 한국어 잔여 문구, `Error rendering macro`, `WIndows`, `Characterstic`, `Disability`, 깨진 manual link 패턴 재검출 0건 |
+| J009 manifest 메타데이터 대조 | 갱신된 `FAQE` 문서 확인, 불일치 0건 |
 
 ## 결론
 

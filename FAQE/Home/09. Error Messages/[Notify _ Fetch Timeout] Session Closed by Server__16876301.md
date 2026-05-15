@@ -104,7 +104,7 @@ Refer to the following for the types of error messages for each client.
 
   ```
   iSQL> select * from emp;
-  ...중략...
+  ...Omitted...
   11          1003        2750000
   12          4002        1890000
   [ERR-91015 : Communication failure.]

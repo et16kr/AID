@@ -55,7 +55,7 @@ OPEN CURSOR
 /* To retrieve all records that meet the conditions, the FETCH CURSOR statement is repeatedly executed until the execution result is SQL_NO_DATA. */
 while(1)
 {
-    커서(CURSOR) FETCH ;
+    FETCH CURSOR ;
 
     if (sqlca.sqlcode == SQL_SUCCESS)
     {
@@ -125,7 +125,7 @@ OPEN CURSOR
 
 while(1)
 {
-    커서(CURSOR) FETCH ;
+    FETCH CURSOR ;
 
     if (sqlca.sqlcode == SQL_SUCCESS) {
 
@@ -286,5 +286,5 @@ The difference in error messages that occurs when COMMIT/ROLLBACK is executed am
 | Version | Error code | Error message | Reference page |
 | --- | --- | --- | --- |
 | Altibase 4.3.9 | ERR-4103C | Request of fetching data to an unprepared SQL statement. |  |
-| Altibase 5.3.3 ~ 6.1.1 | 100 | Not found data | [http://aid.altibase.com/x/7YKZ](http://aid.altibase.com/x/7YKZ) |
-| Altibase 6.3.1 or later | ERR-410D2 | Fetch out of sequence. | [http://aid.altibase.com/x/9oKZ](http://aid.altibase.com/x/9oKZ) |
+| Altibase 5.3.3 ~ 6.1.1 | 100 | Not found data | [Not found data](https://docs.altibase.com/pages/viewpage.action?pageId=16876451) |
+| Altibase 6.3.1 or later | ERR-410D2 | Fetch out of sequence. | [ERR-410D2 (266450) Fetch out of sequence](https://docs.altibase.com/pages/viewpage.action?pageId=16876332) |

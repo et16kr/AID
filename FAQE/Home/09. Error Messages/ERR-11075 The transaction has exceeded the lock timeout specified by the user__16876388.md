@@ -41,7 +41,7 @@ The following are examples of some of the most common symptoms in which this err
 
 ### 1. Occur when executing a DDL statement
 
-| Session-1 | Session-2<br>DDL(truncate문) 수행 시 에러 발생 |
+| Session-1 | Session-2<br>Error occurs while executing a DDL statement (`TRUNCATE`) |
 | --- | --- |
 | autocommit off; |  |
 | update test_emp_tbl set emp_no = 10; |  |
@@ -152,4 +152,4 @@ If the server reflecting the redundancy log (standby server in the example above
 
 ---
 
-- Additional explanation regarding LOCK_ESCALATION_MEMORY_SIZE [ERR-11118 ( 69912) The update log size '?????' is bigger than TRX_UPDATE_MAX_LOGSIZE '?????'](https://aid.altibase.com/pages/viewpage.action?pageId=8454818)
+- Additional explanation regarding `LOCK_ESCALATION_MEMORY_SIZE`: [ERR-11118 (69912) The update log size '_' is bigger than TRX_UPDATE_MAX_LOGSIZE '_'](https://docs.altibase.com/pages/viewpage.action?pageId=16876399)

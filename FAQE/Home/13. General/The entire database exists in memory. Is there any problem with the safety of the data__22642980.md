@@ -14,13 +14,13 @@ labels: []
 Source: https://docs.altibase.com/pages/viewpage.action?pageId=22642980
 Updated: 2025-10-20T15:55:10.650+0900
 
-**- [Overview](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Overview) - [Version](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Version) - [How to secure](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Howtosecure) - [Disability management operation plan](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Disabilitymanagementoperationplan)**
+**- [Overview](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Overview) - [Version](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Version) - [How to secure](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Howtosecure) - [Failure management operation plan](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Failuremanagementoperationplan)**
 
 # Overview
 
 ---
 
-This document describes a technique to guarantee the data stability of the volatile main memory.
+This document describes techniques that secure data durability for volatile main memory.
 
 # Version
 
@@ -34,20 +34,20 @@ This document describes a technique to guarantee the data stability of the volat
 ---
 
 1. WAL protocol method
-  WAL (Write Ahead Logging) logging method is used when transaction processing is used to provide database persistence and to secure stability for committed transactions. When the number of log files exceeds a certain number or a fixed period, the changed data page in the memory is displayed. The recovery time is minimized through checkpoints that are written to the disk.
-  * WAL: The procedure for saving logs to disk first and then saving DB pages. The last transaction information is stored on the disk, so it can be recovered through the transaction log in case of abnormal termination.
+  Altibase uses WAL (Write Ahead Logging) during transaction processing to provide database durability and protect committed transactions. When the number of log files exceeds a configured threshold or a fixed interval is reached, checkpoints write changed memory data pages to disk, minimizing recovery time.
+  * WAL: The procedure for saving logs to disk before saving DB pages. Because the latest transaction information is stored on disk, the database can be recovered through transaction logs after abnormal termination.
 2. Backup and recovery support
   Backup creates a logical/physical copy of the database in case of an abnormal situation in the DBMS. Such a copy of the database can be created online during the DB operation, and in a recovery situation, the database can be normalized by performing complete or incomplete recovery by using the backed up database copy.
 
-# Disability management operation plan
+# Failure management operation plan
 
 ---
 
-| Type | Description |  |
+| Type | Classification | Description |
 | --- | --- | --- |
-| Transaction<br>Failure | Cause | • Occur due to interruption of a transaction by internal or external factors |
-| Solution | • Maintain database consistency by automatically recovering data with normal transaction rollback. |  |
-| System<br>Failure | Cause | • Occur due to faults in the operating system or failures such as power outages |
-| Solution | • Automatic recovery to the state until the point of system failure with the backup data file and Active Log when the system is restarted (Restart Recovery) |  |
-| Disk<br>Failure | Cause | • Occur due to corruption of the backup data file due to an error in the disk where the backup data file is stored |
-| Solution | • If there is a previous data backup file, it can be restored to the latest database with this file.<br>• However, if the log disk is damaged or the archive log is deleted, recovery to the most recent state is impossible. |  |
+| Transaction Failure | Cause | Occurs when a transaction is interrupted by internal or external factors. |
+| Transaction Failure | Resolution | Maintain database consistency by automatically recovering data through normal transaction rollback. |
+| System Failure | Cause | Occurs due to operating system defects or failures such as power outages. |
+| System Failure | Resolution | When the system restarts, Altibase automatically recovers to the state at the point of system failure by using backup data files and active logs. This is restart recovery. |
+| Disk Failure | Cause | Occurs when a backup data file is corrupted because of an error on the disk where the backup data file is stored. |
+| Disk Failure | Resolution | If a previous data backup file exists, the database can be restored with that file. However, if the log disk is damaged or archive logs are deleted, recovery to the most recent state is impossible. |

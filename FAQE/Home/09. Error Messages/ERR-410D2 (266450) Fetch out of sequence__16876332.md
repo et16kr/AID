@@ -293,8 +293,8 @@ The difference in error messages that occurs when COMMIT/ROLLBACK is executed am
 
 | Version | Error code | Error message | Reference page |
 | --- | --- | --- | --- |
-| Altibase 4.3.9 | ERR-4103C | Request of fetching data to an unprepared SQL statement. | [http://aid.altibase.com/x/6YKZ](http://aid.altibase.com/x/6YKZ) |
-| Altibase 5.3.3 ~ 6.1.1 | 100 | Not found data | [http://aid.altibase.com/x/7YKZ](http://aid.altibase.com/x/7YKZ) |
+| Altibase 4.3.9 | ERR-4103C | Request of fetching data to an unprepared SQL statement. | [ERR-4103C (266300) Request of fetching data to an unprepared SQL statement](https://docs.altibase.com/pages/viewpage.action?pageId=16876347) |
+| Altibase 5.3.3 ~ 6.1.1 | 100 | Not found data | [Not found data](https://docs.altibase.com/pages/viewpage.action?pageId=16876451) |
 | Altibase 6.3.1 or later | ERR-410D2 | Fetch out of sequence. |  |
 
 ## Reference manual

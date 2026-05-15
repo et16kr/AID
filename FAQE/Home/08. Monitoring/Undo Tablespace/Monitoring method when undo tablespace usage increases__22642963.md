@@ -578,7 +578,7 @@ To mitigate this, configure `UTRANS_TIMEOUT` so that transactions exceeding a de
 **iSQL example**
 
 ```
-ALTER SESSION SET UTRANS_TIMEOUT = 3600;   -- 단위: 초
+ALTER SESSION SET UTRANS_TIMEOUT = 3600;   -- Unit: seconds
 ```
 
 **Connection string examples**
@@ -631,8 +631,6 @@ After processing LOB data, ensure that one of the following actions is performed
 - Close the LOB cursor
 - Complete the transaction (COMMIT or ROLLBACK)
 
-> **![(warning)](https://docs.altibase.com/s/en_GB/5637/e1ef10868e8fe2f234a1a0b171b01cde1d9717c4.69/_/images/icons/emoticons/warning.png) Warning** The `SQLFreeLob()` function in SQLCLI does not immediately send a request to the server. Instead, it is transmitted together with subsequent requests. As a result, there may be a delay between the client-side call and the actual release of LOB resources on the server.
->
->
+> **Warning:** The `SQLFreeLob()` function in SQLCLI does not immediately send a request to the server. Instead, it is transmitted together with subsequent requests. As a result, there may be a delay between the client-side call and the actual release of LOB resources on the server.
 >
 > If immediate resource release is required, completing the transaction is the most reliable approach.

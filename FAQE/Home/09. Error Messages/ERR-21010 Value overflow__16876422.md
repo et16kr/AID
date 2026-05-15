@@ -76,4 +76,7 @@ If it exceeds the maximum size, it is necessary to modify the input value or cha
 
 ---
 
-The range of values for each data type supported by Altibase can be found in the General Reference manual at [http://support.altibase.com/en/manual](http://support.altibase.com/kr/manual)[/](http://support.altibase.com/en/manual.) or GitHub: [https://github.com/ALTIBASE/Documents](https://github.com/ALTIBASE/Documents)[.](http://support.altibase.com/kr/manual)
+The value range for each data type supported by Altibase can be found in the General Reference manual.
+
+- [Altibase manuals](http://support.altibase.com/en/manual)
+- [ALTIBASE Documents on GitHub](https://github.com/ALTIBASE/Documents)

@@ -152,8 +152,8 @@ Therefore, if this error occurs when connecting to the Altibase server, first ch
   ```
 - Please refer to the page below for details on session properties and how to take action.
     - FETCH_TIMEOUT : [\[Notify : Fetch Timeout\] Session Closed by Server.](https://docs.altibase.com/pages/viewpage.action?pageId=16876301)
-    - UTRANS_TIMEOUT : [Monitoring method when undo tablespace usage increases](https://aid.altibase.com/display/FAQE/Monitoring+method+when+undo+tablespace+usage+increases)
-    - IDLE_TIMEOUT : [Database Security Checklist](https://aid.altibase.com/display/FAQE/Database+Security+Checklist)
+    - UTRANS_TIMEOUT : [Monitoring method when undo tablespace usage increases](https://docs.altibase.com/display/FAQE/Monitoring+method+when+undo+tablespace+usage+increases)
+    - IDLE_TIMEOUT : [Database Security Checklist](https://docs.altibase.com/display/FAQE/Database+Security+Checklist)
 
 ### When the session is terminated by the sysdba user
 
