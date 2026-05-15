@@ -1,5 +1,5 @@
 id	status	kind	title	goal
-J001	ToDo	docs	Baseline inventory and mapping	Confirm requirements, current git state, document counts, Korean-English mappings, FAQ category mappings, and attachment inventory before content review.
+J001	Done	docs	Baseline inventory and mapping	Confirm requirements, current git state, document counts, Korean-English mappings, FAQ category mappings, and attachment inventory before content review.
 J002	ToDo	docs	Technical docs: installation and platform setup	Compare Korean DOCK installation, platform setup, database creation, quick start, installation troubleshooting, and Linux/Unix setup documents against English arch documents, then update English from Korean where needed.
 J003	ToDo	docs	Technical docs: operations and administration	Compare Korean DOCK configuration, operation, startup/shutdown, system resource, memory, CPU, monitoring, and OS utility documents against English arch documents, then update English from Korean where needed.
 J004	ToDo	docs	Technical docs: replication, backup, and recovery	Compare Korean DOCK replication, replication constraints, backup policy, failure response, and recovery-related documents against English arch documents, then update English from Korean where needed.
