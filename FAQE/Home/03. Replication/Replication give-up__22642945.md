@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/Replication+give-up
 Updated: 2025-10-20T15:24:44.000+0900
 
-**- [Overview](#Replicationgive-up-Overview) - [Version](#Replicationgive-up-Version) - [Replication and log files](#Replicationgive-up-Replicationandlogfiles) - [Replication give-up](#Replicationgive-up-Replicationgive-up) - [Effect of give-up occurrence](#Replicationgive-up-Effectofgive-upoccurrence) - [How to prevent give-up](#Replicationgive-up-Howtopreventgive-up) - [Set whether to proceed with replication when give-up occurs (automatic)](#Replicationgive-up-Setwhethertoproceedwithreplicationwhengive-upoccurs(automatic)) - [Cycle](#Replicationgive-up-Cycle) - [Check whether give-up has occurred](#Replicationgive-up-Checkwhethergive-uphasoccurred)**
+- [Overview](#Replicationgive-up-Overview) - [Version](#Replicationgive-up-Version) - [Replication and log files](#Replicationgive-up-Replicationandlogfiles) - [Replication give-up](#Replicationgive-up-Replicationgive-up) - [Effect of give-up occurrence](#Replicationgive-up-Effectofgive-upoccurrence) - [How to prevent give-up](#Replicationgive-up-Howtopreventgive-up) - [Set whether to proceed with replication when give-up occurs (automatic)](#Replicationgive-up-Setwhethertoproceedwithreplicationwhengive-upoccurs(automatic)) - [Cycle](#Replicationgive-up-Cycle) - [Check whether give-up has occurred](#Replicationgive-up-Checkwhethergive-uphasoccurred)
 
 # Overview
 

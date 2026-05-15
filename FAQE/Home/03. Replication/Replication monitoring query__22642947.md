@@ -145,21 +145,13 @@ REP                   0
 | Column name | Description |
 | --- | --- |
 | rep_name | Name of replication |
-| rep_gap | The degree of unsynchronization is indicated by the interval between rep_last_sn and rep_sn. (I.e. rep_last_sn-rep_sn) |
-
-If the replication gap is increased by a lot, there are things to check.
-
-1. Check the network status (operation, failure, if IP or port is blocked by the firewall, etc.)
-2. Check the remote requirement status (hardware failure, remote DB shutdown, etc.)
-3. Check the BULK DML operation
-
-In the above case, the replication gap may increase, so it is necessary to check the above cases.
+| rep_gap | The degree of unsynchronized replication is indicated by the interval between `rep_last_sn` and `rep_sn`. In other words, `rep_gap = rep_last_sn - rep_sn`. |
 
 **[For Altibase version 7 and above]**
 
 Starting from Altibase version 7, the `v$repgap` view includes a new column called `REP_GAP_SIZE`, which allows you to check the size of the replication gap in **bytes**.
 
-Unlike before, the meaning of the `REP_GAP` column now refers to the size between the most recently logged position by the local server transaction and the current log position being transmitted by the replication sending thread.
+Unlike earlier versions, the `REP_GAP` column now means the size from the most recently logged position by the local server transaction to the current log position being transmitted by the replication sender thread.
 
 The default unit is megabytes (MB), and the value in `REP_GAP_SIZE` is divided by the `REPLICATION_GAP_UNIT` property.
 

@@ -25,6 +25,11 @@ For users who are new to replication, this document explains how to create and d
 - This document is written assuming that the user has completed the preliminary operation for replication structure or configuration.
 - This document is written assuming that the data is consistent between the target servers for replication. Either all data is identical on both servers, or both servers have zero rows.
 
+For guides about replication design and configuration, refer to the following technical documents:
+
+- [D24_ALTIBASE_효율적인_이중화_가이드.pdf](https://docs.altibase.com/download/attachments/13008990/D24_ALTIBASE_%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8_%EC%9D%B4%EC%A4%91%ED%99%94_%EA%B0%80%EC%9D%B4%EB%93%9C1.pdf?version=1&modificationDate=1544508306000&api=v2)
+- [D67_ALTIBASE_이중화_제약사항_가이드.pdf](https://docs.altibase.com/download/attachments/13008990/D67_ALTIBASE_%EC%9D%B4%EC%A4%91%ED%99%94_%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1544508306000&api=v2)
+
 # Version
 
 ---
@@ -106,7 +111,7 @@ Altibase version 4.3.9 or later
   ```
 
   ```
-  -- # Example of Replication port when REPLICATION_PORT_NO is set to 30300
+  -- Example when the replication port, REPLICATION_PORT_NO, is set to 30300
 
   iSQL> SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'REPLICATION_PORT_NO';
   NAME                            VALUE1
@@ -298,7 +303,7 @@ This is an example of creating replication objects when the replication target s
 ---
 
 - Starting replication means starting the data synchronization.
-- The server that started the replication starts the replication sender thread, and the remote server paired with the server starts the receive thread.
+- The server that starts replication runs the replication sender thread, and the remote server paired with that server runs the receiver thread.
 
 1. **Selecting the replication start server (active server)**
   The server that starts replication and runs the replication sender is the server where change transactions occur, and is also called the active server.
@@ -310,7 +315,7 @@ This is an example of creating replication objects when the replication target s
   -- The replication sender thread runs on the server that executes this command, and the receiver thread runs on the remote server paired with that server.
   iSQL> ALTER REPLICATION replication_name START;
   ```
-3. **Check the status of starting/running replication** This is a statement to check whether the replication sending thread (Sender) and receiving thread (Receiver) are running.
+3. **Check the replication running status** This statement checks whether the replication sender thread (Sender) and receiver thread (Receiver) are running.
 
   **How to check the starting status of the replication sender thread (Sender) of the replication start server and active server**
 
@@ -348,7 +353,7 @@ This section describes how to delete replication objects.
 -- Stop replication first.
 iSQL> ALTER REPLICATION replication_name STOP;
 
-- Delete the replication object.
+-- Delete the replication object.
 iSQL> DROP REPLICATION replication_name ;
 ```
 
@@ -382,5 +387,3 @@ Here are some of the error messages that may occur during the process of creatin
 - SQL Reference
 - Download manual page: [http://support.altibase.com/en/manual](http://support.altibase.com/en/manual)
 - Github: [https://github.com/ALTIBASE/Documents/tree/master/Manuals/](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Altibase_7.1/eng)
-- Korean source attachment: [D24_ALTIBASE Efficient Replication Guide.pdf](https://docs.altibase.com/download/attachments/13008990/D24_ALTIBASE_%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8_%EC%9D%B4%EC%A4%91%ED%99%94_%EA%B0%80%EC%9D%B4%EB%93%9C1.pdf?version=1&modificationDate=1544508306000&api=v2)
-- Korean source attachment: [D67_ALTIBASE Replication Constraints Guide.pdf](https://docs.altibase.com/download/attachments/13008990/D67_ALTIBASE_%EC%9D%B4%EC%A4%91%ED%99%94_%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1544508306000&api=v2)

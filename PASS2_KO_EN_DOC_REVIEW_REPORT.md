@@ -884,3 +884,56 @@ P216 audited the remaining Korean FAQ category `02. 운영 및 관리` pages for
 
 - External HTTP availability was not tested; P216 used source-link preservation and grep-based checks.
 - Some legacy FAQE pages in this scope still preserve Confluence-exported one-line command output blocks where the Korean source has the same export shape. P216 corrected semantic drift without broadly reformatting every legacy output block.
+
+## P217 FAQ audit: replication
+
+### Scope
+
+P217 audited Korean FAQ category `03. 이중화` against English `FAQE/Home/03. Replication` targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English target |
+| --- | --- |
+| `faq/Home/03. 이중화/03-01. replication conflict 발생원인과 해결방법__9110676.md` | `FAQE/Home/03. Replication/Causes and Solutions of Replication Conflicts__16876059.md` |
+| `faq/Home/03. 이중화/03-02. 동일 IP로 여러 개의 이중화 객체를 생성하는 방법__12517469.md` | `FAQE/Home/03. Replication/How to create multiple replication objects with the same IP__16876063.md` |
+| `faq/Home/03. 이중화/03-03. 알티베이스 이중화 대상 테이블에 대한 DDL 작업__8454667.md` | `FAQE/Home/03. Replication/DDL operation on the table for Altibase replication__22642943.md` |
+| `faq/Home/03. 이중화/03-04. 이중화 give-up에 대해__9110761.md` | `FAQE/Home/03. Replication/Replication give-up__22642945.md` |
+| `faq/Home/03. 이중화/03-05. 이중화 객체 IP 변경 방법__12517463.md` | `FAQE/Home/03. Replication/How to change replication object IP__16876079.md` |
+| `faq/Home/03. 이중화/03-06. 이중화 객체 생성 및 삭제 방법__13008990.md` | `FAQE/Home/03. Replication/How to create_delete replication objects__16876082.md` |
+| `faq/Home/03. 이중화/03-07. 이중화 대상 테이블 추가_삭제 방법__13008994.md` | `FAQE/Home/03. Replication/How to add_delete replication target table__16876094.md` |
+| `faq/Home/03. 이중화/03-08. 이중화 모니터링 쿼리__9110681.md` | `FAQE/Home/03. Replication/Replication monitoring query__22642947.md` |
+
+### Findings And Updates
+
+- No English change was needed for the same-IP replication object, DDL operation, replication object IP change, or replication target table add/delete FAQ pages.
+- Clarified the replication conflict FAQ wording for `altibase_rp.log`, `REPLICATION_INSERT_REPLACE`, `REPLICATION_UPDATE_REPLACE`, before-image wording, and conflict-error output.
+- Restored Korean-source technical document references near the replication object create/delete overview and preserved exact PDF filenames: `D24_ALTIBASE_효율적인_이중화_가이드.pdf` and `D67_ALTIBASE_이중화_제약사항_가이드.pdf`.
+- Corrected the malformed `-- #` SQL comment in the `REPLICATION_PORT_NO` verification example and restored the delete-object command comment as a SQL comment.
+- Clarified sender/receiver thread wording in the replication start procedure.
+- Removed a duplicated replication-gap checklist from the pre-Altibase 7 section while retaining the Korean-source checklist after the Altibase 7 or later `REP_GAP_SIZE` explanation.
+- Removed exported bold markup around the replication give-up table of contents.
+- Updated `manifest.json` metadata for all 4 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- The scoped Korean source set contains 2 URL-backed document-format PDF attachments, both in `03-06. 이중화 객체 생성 및 삭제 방법__13008990.md`.
+- Both attachment URLs and exact Korean-source filenames are preserved in the scoped English target set.
+- Scoped stale-pattern checks found no empty Markdown links, `Error rendering macro`, `Unknown macro`, malformed `-- #` comments, translated attachment filename labels, or checked typo patterns in `FAQE/Home/03. Replication`.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p217-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 4 edited English pages |
+| Scoped document-format attachment preservation script | Passed, 2 Korean source PDF links preserved |
+| Scoped stale-pattern grep | Passed |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P217 used source-link preservation and grep-based checks.
+- The Korean conflict FAQ lists `Insert conflict` twice under the Slave processing method. Because Korean source is authoritative, the English page preserves that label rather than inferring a source correction.
