@@ -3536,8 +3536,8 @@
       "title": "Hibernate Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Hibernate+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Hibernate Integration Guide for Altibase__14058388.md",
-      "body_chars": 45411,
-      "word_count": 4620
+      "body_chars": 45379,
+      "word_count": 4629
     },
     {
       "space_key": "arch",
@@ -3572,8 +3572,8 @@
       "title": "1. JBoss Installation",
       "source_url": "https://docs.altibase.com/display/arch/1.+JBoss+Installation",
       "path": "altibase_docs_md/arch/Home/JBOSS Integration Guide for Altibase/1. JBoss Installation__14647370.md",
-      "body_chars": 7070,
-      "word_count": 821
+      "body_chars": 8449,
+      "word_count": 953
     },
     {
       "space_key": "arch",
@@ -3581,8 +3581,8 @@
       "title": "2. Integrating Altibase and JBOSS",
       "source_url": "https://docs.altibase.com/display/arch/2.+Integrating+Altibase+and+JBOSS",
       "path": "altibase_docs_md/arch/Home/JBOSS Integration Guide for Altibase/2. Integrating Altibase and JBOSS__14647372.md",
-      "body_chars": 8142,
-      "word_count": 950
+      "body_chars": 8840,
+      "word_count": 959
     },
     {
       "space_key": "arch",
@@ -3599,8 +3599,8 @@
       "title": "JBOSS Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/JBOSS+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/JBOSS Integration Guide for Altibase__14647358.md",
-      "body_chars": 521,
-      "word_count": 59
+      "body_chars": 743,
+      "word_count": 80
     },
     {
       "space_key": "arch",
@@ -3608,8 +3608,8 @@
       "title": "1. JEUS Installation",
       "source_url": "https://docs.altibase.com/display/arch/1.+JEUS+Installation",
       "path": "altibase_docs_md/arch/Home/JEUS Integration Guide for Altibase/1. JEUS Installation__14058463.md",
-      "body_chars": 13564,
-      "word_count": 1570
+      "body_chars": 13694,
+      "word_count": 1469
     },
     {
       "space_key": "arch",
@@ -3617,8 +3617,8 @@
       "title": "2. Integrating ALTIBASE and JEUS",
       "source_url": "https://docs.altibase.com/display/arch/2.+Integrating+ALTIBASE+and+JEUS",
       "path": "altibase_docs_md/arch/Home/JEUS Integration Guide for Altibase/2. Integrating ALTIBASE and JEUS__14058474.md",
-      "body_chars": 21694,
-      "word_count": 2704
+      "body_chars": 22844,
+      "word_count": 2733
     },
     {
       "space_key": "arch",
@@ -3635,8 +3635,8 @@
       "title": "JEUS Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/JEUS+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/JEUS Integration Guide for Altibase__14058459.md",
-      "body_chars": 1578,
-      "word_count": 133
+      "body_chars": 1258,
+      "word_count": 113
     },
     {
       "space_key": "arch",
@@ -3689,8 +3689,8 @@
       "title": "4. Altibase Integration",
       "source_url": "https://docs.altibase.com/display/arch/4.+Altibase+Integration",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/4. Altibase Integration__22643026.md",
-      "body_chars": 17597,
-      "word_count": 2093
+      "body_chars": 17270,
+      "word_count": 2065
     },
     {
       "space_key": "arch",
@@ -3716,8 +3716,8 @@
       "title": "7. Considerations for MyBatis Integration",
       "source_url": "https://docs.altibase.com/display/arch/7.+Considerations+for+MyBatis+Integration",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/7. Considerations for MyBatis Integration__22643032.md",
-      "body_chars": 5111,
-      "word_count": 679
+      "body_chars": 5286,
+      "word_count": 596
     },
     {
       "space_key": "arch",
@@ -3743,8 +3743,8 @@
       "title": "MyBatis Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/MyBatis+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase__14058349.md",
-      "body_chars": 1558,
-      "word_count": 170
+      "body_chars": 1525,
+      "word_count": 177
     },
     {
       "space_key": "arch",
@@ -3932,8 +3932,8 @@
       "title": "4. Configuring DataSource",
       "source_url": "https://docs.altibase.com/display/arch/4.+Configuring+DataSource",
       "path": "altibase_docs_md/arch/Home/Spring Integration Guide for Altibase/4. Configuring DataSource__14058429.md",
-      "body_chars": 6872,
-      "word_count": 815
+      "body_chars": 7216,
+      "word_count": 875
     },
     {
       "space_key": "arch",
@@ -3941,8 +3941,8 @@
       "title": "5. Additional Connection",
       "source_url": "https://docs.altibase.com/display/arch/5.+Additional+Connection",
       "path": "altibase_docs_md/arch/Home/Spring Integration Guide for Altibase/5. Additional Connection__14058433.md",
-      "body_chars": 5406,
-      "word_count": 676
+      "body_chars": 5749,
+      "word_count": 647
     },
     {
       "space_key": "arch",
@@ -3950,8 +3950,8 @@
       "title": "6. Transaction Manager",
       "source_url": "https://docs.altibase.com/display/arch/6.+Transaction+Manager",
       "path": "altibase_docs_md/arch/Home/Spring Integration Guide for Altibase/6. Transaction Manager__14058437.md",
-      "body_chars": 9736,
-      "word_count": 1099
+      "body_chars": 10255,
+      "word_count": 968
     },
     {
       "space_key": "arch",
@@ -3959,8 +3959,8 @@
       "title": "7. Considerations/Notes for Spring Integration",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=14058445",
       "path": "altibase_docs_md/arch/Home/Spring Integration Guide for Altibase/7. Considerations_Notes for Spring Integration__14058445.md",
-      "body_chars": 1768,
-      "word_count": 208
+      "body_chars": 1929,
+      "word_count": 178
     },
     {
       "space_key": "arch",
@@ -3968,8 +3968,8 @@
       "title": "8. Appendix - HelloSpring",
       "source_url": "https://docs.altibase.com/display/arch/8.+Appendix+-+HelloSpring",
       "path": "altibase_docs_md/arch/Home/Spring Integration Guide for Altibase/8. Appendix - HelloSpring__14058449.md",
-      "body_chars": 6095,
-      "word_count": 622
+      "body_chars": 6866,
+      "word_count": 624
     },
     {
       "space_key": "arch",
@@ -3977,8 +3977,8 @@
       "title": "Spring Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Spring+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Spring Integration Guide for Altibase__14058410.md",
-      "body_chars": 2148,
-      "word_count": 207
+      "body_chars": 1796,
+      "word_count": 187
     },
     {
       "space_key": "arch",
@@ -4004,8 +4004,8 @@
       "title": "2. JDBC Driver Configuration",
       "source_url": "https://docs.altibase.com/display/arch/2.+JDBC+Driver+Configuration",
       "path": "altibase_docs_md/arch/Home/TOMCAT Integration Guide for Altibase/2. JDBC Driver Configuration__14058500.md",
-      "body_chars": 3890,
-      "word_count": 455
+      "body_chars": 3557,
+      "word_count": 426
     },
     {
       "space_key": "arch",
@@ -4013,8 +4013,8 @@
       "title": "3. Integrating ALTIBASE and TOMCAT",
       "source_url": "https://docs.altibase.com/display/arch/3.+Integrating+ALTIBASE+and+TOMCAT",
       "path": "altibase_docs_md/arch/Home/TOMCAT Integration Guide for Altibase/3. Integrating ALTIBASE and TOMCAT__14058506.md",
-      "body_chars": 5955,
-      "word_count": 692
+      "body_chars": 5610,
+      "word_count": 663
     },
     {
       "space_key": "arch",
@@ -4022,8 +4022,8 @@
       "title": "4. Fail-Over Configuration",
       "source_url": "https://docs.altibase.com/display/arch/4.+Fail-Over+Configuration",
       "path": "altibase_docs_md/arch/Home/TOMCAT Integration Guide for Altibase/4. Fail-Over Configuration__14058508.md",
-      "body_chars": 2707,
-      "word_count": 367
+      "body_chars": 2932,
+      "word_count": 384
     },
     {
       "space_key": "arch",
@@ -4031,8 +4031,8 @@
       "title": "5. Considerations when integrating TOMCAT",
       "source_url": "https://docs.altibase.com/display/arch/5.+Considerations+when+integrating+TOMCAT",
       "path": "altibase_docs_md/arch/Home/TOMCAT Integration Guide for Altibase/5. Considerations when integrating TOMCAT__22643044.md",
-      "body_chars": 5046,
-      "word_count": 670
+      "body_chars": 5432,
+      "word_count": 701
     },
     {
       "space_key": "arch",
@@ -4049,8 +4049,8 @@
       "title": "TOMCAT Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/TOMCAT+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/TOMCAT Integration Guide for Altibase__14058489.md",
-      "body_chars": 1531,
-      "word_count": 125
+      "body_chars": 1199,
+      "word_count": 104
     },
     {
       "space_key": "arch",
@@ -4112,8 +4112,8 @@
       "title": "0. Prerequisites",
       "source_url": "https://docs.altibase.com/display/arch/0.+Prerequisites",
       "path": "altibase_docs_md/arch/Home/WEBLOGIC Integration Guide for Altibase/0. Prerequisites__14058324.md",
-      "body_chars": 761,
-      "word_count": 116
+      "body_chars": 1219,
+      "word_count": 169
     },
     {
       "space_key": "arch",
@@ -4121,8 +4121,8 @@
       "title": "1. WebLogic Setup",
       "source_url": "https://docs.altibase.com/display/arch/1.+WebLogic+Setup",
       "path": "altibase_docs_md/arch/Home/WEBLOGIC Integration Guide for Altibase/1. WebLogic Setup__14058327.md",
-      "body_chars": 4029,
-      "word_count": 342
+      "body_chars": 4311,
+      "word_count": 359
     },
     {
       "space_key": "arch",
@@ -4139,8 +4139,8 @@
       "title": "3. ALTIBASE and WebLogic Integration",
       "source_url": "https://docs.altibase.com/display/arch/3.+ALTIBASE+and+WebLogic+Integration",
       "path": "altibase_docs_md/arch/Home/WEBLOGIC Integration Guide for Altibase/3. ALTIBASE and WebLogic Integration__14058331.md",
-      "body_chars": 16105,
-      "word_count": 1576
+      "body_chars": 15690,
+      "word_count": 1523
     },
     {
       "space_key": "arch",
@@ -4148,8 +4148,8 @@
       "title": "4. Fail-Over & Load-Balancing Settings",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=14058337",
       "path": "altibase_docs_md/arch/Home/WEBLOGIC Integration Guide for Altibase/4. Fail-Over & Load-Balancing Settings__14058337.md",
-      "body_chars": 978,
-      "word_count": 151
+      "body_chars": 1558,
+      "word_count": 194
     },
     {
       "space_key": "arch",
@@ -4157,8 +4157,8 @@
       "title": "Integration Error",
       "source_url": "https://docs.altibase.com/display/arch/Integration+Error",
       "path": "altibase_docs_md/arch/Home/WEBLOGIC Integration Guide for Altibase/Integration Error__14058339.md",
-      "body_chars": 1920,
-      "word_count": 307
+      "body_chars": 2587,
+      "word_count": 368
     },
     {
       "space_key": "arch",
@@ -4175,8 +4175,8 @@
       "title": "WEBLOGIC Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/WEBLOGIC+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/WEBLOGIC Integration Guide for Altibase__14058319.md",
-      "body_chars": 2127,
-      "word_count": 215
+      "body_chars": 2096,
+      "word_count": 223
     },
     {
       "space_key": "arch",
@@ -4184,8 +4184,8 @@
       "title": "WebSphere Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/WebSphere+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/WebSphere Integration Guide for Altibase__14058343.md",
-      "body_chars": 33554,
-      "word_count": 3136
+      "body_chars": 33616,
+      "word_count": 3158
     },
     {
       "space_key": "arch",
@@ -4193,8 +4193,8 @@
       "title": "1. iBatis Overview",
       "source_url": "https://docs.altibase.com/display/arch/1.+iBatis+Overview",
       "path": "altibase_docs_md/arch/Home/iBatis Integration Guide for Altibase/1. iBatis Overview__14058305.md",
-      "body_chars": 2307,
-      "word_count": 347
+      "body_chars": 2548,
+      "word_count": 346
     },
     {
       "space_key": "arch",
@@ -4211,8 +4211,8 @@
       "title": "3. Altibase Integration",
       "source_url": "https://docs.altibase.com/display/arch/3.+Altibase+Integration",
       "path": "altibase_docs_md/arch/Home/iBatis Integration Guide for Altibase/3. Altibase Integration__14058309.md",
-      "body_chars": 13197,
-      "word_count": 1729
+      "body_chars": 14045,
+      "word_count": 1681
     },
     {
       "space_key": "arch",
@@ -4220,8 +4220,8 @@
       "title": "4. iBATIS, Spring, Altibase Integration",
       "source_url": "https://docs.altibase.com/display/arch/4.+iBATIS%2C+Spring%2C+Altibase+Integration",
       "path": "altibase_docs_md/arch/Home/iBatis Integration Guide for Altibase/4. iBATIS, Spring, Altibase Integration__14058311.md",
-      "body_chars": 8525,
-      "word_count": 1058
+      "body_chars": 9345,
+      "word_count": 998
     },
     {
       "space_key": "arch",
@@ -4229,8 +4229,8 @@
       "title": "5. Spring Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/5.+Spring+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/iBatis Integration Guide for Altibase/5. Spring Integration Guide for Altibase__14058315.md",
-      "body_chars": 4711,
-      "word_count": 569
+      "body_chars": 4952,
+      "word_count": 465
     },
     {
       "space_key": "arch",
@@ -4247,8 +4247,8 @@
       "title": "iBatis Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/iBatis+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/iBatis Integration Guide for Altibase__14058303.md",
-      "body_chars": 1550,
-      "word_count": 168
+      "body_chars": 1523,
+      "word_count": 176
     },
     {
       "space_key": "arch",

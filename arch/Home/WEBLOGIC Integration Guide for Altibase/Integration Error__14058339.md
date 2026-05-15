@@ -20,7 +20,7 @@ Updated: 2025-09-24T09:11:18.000+0900
 
 This occurs when attempting to connect without the JDBC driver set up normally.
 
-Please refer to how to see the JDBC driver to be used in WebLogic.
+Refer to "How to set the JDBC Driver to be used in WebLogic."
 
 ## Can not make a database connection to the given URL / Invalid Altibase URL (No suitable driver)
 
@@ -37,7 +37,7 @@ jdbc:otherDBMS://127.0.0.1:20300/mydb
 
 This occurs when there is an error in the connection pool configuration when creating a JDBC data source. There are various cases, but typical cases are as follows.
 
-- When the connection target it ALTIBASE 4, the user to access in the form of "user=sys" must be entered in the property.
+- When the connection target is ALTIBASE 4, the user to access in the form of "user=sys" must be entered in the property.
 
 ## Client unable to establish connection / Communication link failure
 

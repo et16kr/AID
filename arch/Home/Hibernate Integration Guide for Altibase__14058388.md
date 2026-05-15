@@ -22,6 +22,11 @@ Updated: 2020-12-22T16:28:15.000+0900
 
 This chapter describes the concept and features of Hibernate, and how to download and use Hibernate.
 
+For errors and improvements related to this document, please contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
+- Technical support center: 02-2082-1114
+
 ### What is Hibernate?
 
 ---
@@ -292,7 +297,7 @@ At this time, each defined property is as follows.
 
 | Property | Description |
 | --- | --- |
-| connection.driver_class | ALTIBASE JDBC driver class Name |
+| connection.driver_class | ALTIBASE JDBC driver class name |
 | connection.url | Connection string information for connection with ALTIBASE |
 | connection.username | Database account username |
 | connection.password | Database password |
@@ -351,7 +356,7 @@ The following is an example of connecting to the Altibase server using FailOver.
 ```
 …
 <property name="connection.url">
-jdbc:Altibase://192.168.1.35:20300/mydb?AlternateServers=(127.0.0.1:20300)&ConnectionRetryCount=1&ConnectionRetryDelay=1&SessionFailOver=on&LoadBalance=off
+jdbc:Altibase://192.168.1.35:20300/mydb?AlternateServers=(127.0.0.1:20300)&ConnectionRetryCount=1&ConnectionRetryDelay=1&SessionFailOver=off&LoadBalance=off
 </property>
 ```
 
@@ -654,7 +659,7 @@ In the case of integrating Hibernate and Spring together, it is recommended to c
 If the beginTransaction() method is not called, the following errors can occur.
 
 1. **When querying LOB data**
-  null value is returned, or errors such as“java.sql.SQLException: [0]:LobLocator can not span the transaction 101858625.” occurs.
+  null value is returned, or errors such as “java.sql.SQLException: [0]:LobLocator can not span the transaction 101858625.” occurs.
 2. **When inserting LOB data**
   “Java.sql.SQLException: [0]: Connection is in autocommit mode. One can not operate on LOB datas with autocommit mode on.” error occurs.
 

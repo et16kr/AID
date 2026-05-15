@@ -33,6 +33,11 @@ In addition to this document, the documents to be referenced during development 
 - HIBERNATE Integration Guide for Altibase
 - iBatis Integration Guide for Altibase
 
+For errors and improvements related to this document, please contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
+- Technical support center: 02-2082-1114
+
 # Korean Source Attachments
 
 The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.

@@ -20,7 +20,12 @@ Updated: 2025-09-23T10:10:09.000+0900
 
 This document is a guide for operating Altibase and WebSphere. This document describes how to install WebSphere, how to set environment variables, and how to integrate Altibase and WebSphere.
 
-This document based on the Altibase 7.1.0 and WebSphere 9.0 version.
+This document is based on Altibase v7.1.0 and WebSphere v9.0.
+
+For errors and improvements related to this document, please contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
+- Technical support center: 02-2082-1114
 
 ## WebSphere Installation
 
@@ -30,7 +35,7 @@ This chapter describes the process of downloading and installing WebSphere, the 
 
 Download WebSphere package.
 
-To download WebSphere, the IBM Installation must be installed first.
+To download WebSphere, IBM Installation Manager must be installed first.
 
 (This document is based on IBM Installation Manager version 1.8.5.)
 
@@ -40,7 +45,7 @@ The link to download IBM Installation Manager is:
 
 ![image2019-6-21%208_19_13.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-6-21%208_19_13.png?api=v2)
 
-To download IBM Installation Manager, the user must subscribe to IBM and have Java installed.
+To download IBM Installation Manager, the user must register with IBM and have Java installed. The Korean source notes that the download is available only through Internet Explorer.
 
 ![image2019-6-21%208_29_5.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-6-21%208_29_5.png?api=v2)
 
@@ -48,7 +53,7 @@ Set the download path and port, and select OK.
 
 ![image2019-6-21%208_29_58.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-6-21%208_29_58.png?api=v2)
 
-Unzip the received file from the downloaded location ad proceed with the installation (install.exe).
+Unzip the downloaded file at the download location and proceed with the installation by running `install.exe`.
 
 ![image2019-6-21%208_32_33.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-6-21%208_32_33.png?api=v2)![image2019-6-21%208_33_43.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-6-21%208_33_43.png?api=v2)![image2019-8-14%2011_12_49.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-8-14%2011_12_49.png?api=v2)
 
@@ -191,7 +196,7 @@ This chapter describes how to set up and integrate Altibase and WebSphere.
 
 ### Acquiring Altibase JDBC Driver
 
-The JDBC driver provided by Altibase is Altibase.jar. This file is located in the $Altibase_HOME/lib directory of the server where Altibase is installed.
+The JDBC driver provided by Altibase is Altibase.jar. This file is located in the $ALTIBASE_HOME/lib directory of the server where Altibase is installed.
 
 ### Checking Altibase JDBC Driver Version
 
@@ -411,7 +416,7 @@ After creating the WAR module, install it in WebSphere as did in the previous se
 After the installation of the WAR module is completed, change the status to Start and run the web browser as follows.
 
 ```
-http://serverIP:applicaitonserviceport/contextrootname/JSPfilename
+http://serverIP:applicationserviceport/contextrootname/JSPfilename
 ```
 
 The server IP is the IP address of the server where WebSphere is installed, the application service port is the application service port checked when setting the JDBC provider (by default, port 9080). The context root name is the context root name specified when registering the application and enters the JSP file name included in the War module.

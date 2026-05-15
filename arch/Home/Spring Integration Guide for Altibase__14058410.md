@@ -20,7 +20,7 @@ This technical document describes how to integrate with Altibase and Spring. In 
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center
 
-- Technical support portal: http://support.altibase.com/[http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
 - Technical support center: 02-2082-1114
 
 Old Version: ALTIBASE_Spring_Integration Guide_2.5.pdf (spring v2.5)

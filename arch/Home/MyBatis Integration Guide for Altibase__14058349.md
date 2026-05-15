@@ -16,7 +16,7 @@ Updated: 2020-05-19T10:51:01.000+0900
 
 ## Overview
 
-This document describes the myBatis, differences from iBatis, and how to integrate with Altibase in myBatis.
+This document describes MyBatis, differences from iBatis, and how to integrate with Altibase in MyBatis.
 
 ```
 myBatis 3.2.8, ALTIBASE version 6.3.1, Eclipse and Maven were used as development IDE, and examples are provided separately from the chapter.
@@ -32,6 +32,11 @@ In addition to this document, the documents to be referenced during the developm
 - WEBLOGIC Integration Guide for Altibase
 - Spring Integration Guide for Altibase
 - HIBERNATE Integration Guide for Altibase
+
+For errors and improvements related to this document, please contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
+- Technical support center: 02-2082-1114
 
 # Korean Source Attachments
 
