@@ -51,7 +51,7 @@ alter system set EXECUTE_STMT_MEMORY_MAXIMUM = 1048576;
 iSQL> select count(*) from (select count(*) from t, t2, t3 group by t.c2, t2.c2, t3.c2);
 ```
 
-[ERR-0109D : Insufficient memory](#)
+ERR-0109D : Insufficient memory
 
 # 5.3.3
 

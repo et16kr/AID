@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/How+a+query+is+executed+in+ALTIBASE+HDB
 Updated: 2011-08-06T11:41:29.000+0900
 
-![unknown-macro](https://docs.altibase.com/plugins/servlet/confluence/placeholder/unknown-macro?name=gliffy&locale=en_GB&version=2)
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 There are four steps when ALTIBASE HDB executes a query. These steps are as follows:
 

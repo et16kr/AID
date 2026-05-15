@@ -23,7 +23,7 @@ Updated: 2011-08-06T10:46:14.000+0900
 
 ## Simple case
 
- ![unknown-macro](https://docs.altibase.com/plugins/servlet/confluence/placeholder/unknown-macro?name=gliffy&locale=en_GB&version=2)
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 In a nutshell, let's assume that the Sender in node B processes transactions faster than the Sender in node A. After steps (#1, #2) are completed as illustrated in the diagram above, the Receiver in node A cannot update the records since the before-value("10") in XLog is different from the current value("20") We call this situation as a Replication Conflict.
 

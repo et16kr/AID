@@ -31,7 +31,7 @@ iSQL> create table t2(c1 char(5000)) tablespace sys_tbs_disk_data;
 Create success.
 ```
 
-[ERR-31233 : Fixed record size exceeds a page size.](#)
+ERR-31233 : Fixed record size exceeds a page size.
 
 ## Cause
 

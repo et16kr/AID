@@ -66,7 +66,7 @@ iSQL> insert into t1 values(3);
 iSQL> SELECT * FROM T1 ORDER BY I1;
 ```
 
-[ERR-311E0 : The estimated size of the index key exceeds the maximum limit.](#)
+ERR-311E0 : The estimated size of the index key exceeds the maximum limit.
 
 # Example(6.3.1)
 

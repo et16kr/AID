@@ -1265,3 +1265,62 @@ P223 revalidated technical-document attachments, external source links, empty Ma
 - External HTTP availability was not tested; P223 used source-link preservation and grep-based validation.
 - The six legacy `#` attachment labels remain non-downloadable because the Korean source does not provide URLs.
 - P223 corrected link/export artifacts only. It did not perform another sentence-level Korean-to-English semantic audit of the edited English pages.
+
+## P224 FAQ Attachment Source English-Only and Export Revalidation
+
+### Scope
+
+P224 revalidated FAQ document-format attachments, external source links, empty Markdown links, English-only `FAQE` classification candidates, legacy `#` labels, and export artifacts across `FAQE/Home`. Korean FAQ documents under `faq/Home` remained authoritative and were not edited.
+
+### Findings And Updates
+
+- Rechecked 7 URL-backed Korean FAQ document-format links with target extensions `.pdf`, `.ppt`, `.pptx`, `.doc`, `.docx`, `.xls`, `.xlsx`, and `.zip`.
+- Confirmed all 7 exact URLs are preserved in `FAQE/Home`; missing count is 0.
+- Classified `FAQE/Home` into 115 Korean-source-verified core FAQ pages and 126 English-only candidate pages.
+- Replaced Confluence Gliffy placeholder artifacts in 7 English-only FAQE pages with explicit diagram-unavailable notes. No diagram content was inferred.
+- Converted legacy `(#)` links in 7 English-only `Altibase Error Messages` pages to plain searchable error text while preserving exact error codes and messages.
+- Corrected export-damaged Java package/class links in `FAQE/Home/09. Error Messages/[Notify _ Fetch Timeout] Session Closed by Server__16876301.md`; stack-trace identifiers such as `Altibase.jdbc.driver.cm`, `java.io`, `java.net`, and `sun.nio.ch` are now plain text rather than fake HTTP links.
+- Updated `manifest.json` metadata for all 15 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- Preserved FAQ document-format attachments: `D24_ALTIBASE_효율적인_이중화_가이드.pdf`, `D67_ALTIBASE_이중화_제약사항_가이드.pdf`, `LobSpringIbatisSample.zip`, `altimon_for_windows.zip`, `ALTIMON_USER_GUIDE.pdf`, `ALTIBASE_운영을_위한_HPUX_설정_가이드.pdf`, and `AdminCenter2.zip`.
+- Korean FAQ source contains one non-downloadable legacy `#` attachment label: `total_memory_tablespaces_usage.txt`. There is no URL-backed attachment to preserve.
+- `FAQE/Home` contains no empty Markdown links, `(#)` links, `Error rendering macro`, `Unknown macro`, lowercase `unknown-macro` placeholder URLs, fake Java package HTTP links, or suspicious Markdown URL exports after the P224 edits.
+
+### English-Only Candidate Evidence
+
+| English-only candidate area | Files |
+| --- | ---: |
+| `ALTIBASE HDB Administration` | 7 |
+| `ALTIBASE HDB Architecture` | 3 |
+| `ALTIBASE HDB Performance Tuning` | 4 |
+| `ALTIBASE HDB Replication` | 4 |
+| `ALTIBASE HDB Troubleshooting` | 9 |
+| `Altibase Error Messages` | 98 |
+| `Altibase Error Messages__6979655.md` | 1 |
+
+These pages may be useful for later LLM packaging, but they should be marked as English-only sources because this pass did not verify them against Korean FAQ source documents.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p224-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK/Home -type f -name '*.md' \| wc -l` | 51 |
+| `find faq/Home -type f -name '*.md' \| wc -l` | 115 |
+| `find arch/Home -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE/Home -type f -name '*.md' \| wc -l` | 241 |
+| FAQ document-format attachment preservation script | Passed, 7 URL-backed links preserved and 0 missing |
+| Legacy `#` FAQ attachment label inventory | Passed, 1 Korean-only non-downloadable label recorded; 0 `FAQE/Home` `(#)` links remain |
+| `FAQE/Home` empty-link/export-artifact grep | Passed, no matches |
+| Suspicious Markdown URL export scan | Passed, 0 suspicious links |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 15 edited English pages |
+| `bash -n .codex-jobs/ko-en-doc-coverage-pass2/run_all.sh` and `bash -n .codex-jobs/ko-en-doc-coverage-pass2/run-all.sh` | Passed |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P224 used source-link preservation and grep-based validation.
+- English-only `FAQE` pages remain outside Korean-source semantic verification unless a later job explicitly audits them.
+- Replaced Gliffy placeholders identify missing diagrams but do not recreate diagram content.

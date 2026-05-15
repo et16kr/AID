@@ -1421,7 +1421,7 @@
       "title": "[Notify : Fetch Timeout] Session Closed by Server.",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876301",
       "path": "altibase_docs_md/FAQE/Home/09. Error Messages/[Notify _ Fetch Timeout] Session Closed by Server__16876301.md",
-      "body_chars": 18408,
+      "body_chars": 17790,
       "word_count": 1882
     },
     {
@@ -1592,8 +1592,8 @@
       "title": "How a query is executed in ALTIBASE HDB",
       "source_url": "https://docs.altibase.com/display/FAQE/How+a+query+is+executed+in+ALTIBASE+HDB",
       "path": "altibase_docs_md/FAQE/Home/ALTIBASE HDB Architecture/How a query is executed in ALTIBASE HDB__1802795.md",
-      "body_chars": 1228,
-      "word_count": 174
+      "body_chars": 1783,
+      "word_count": 245
     },
     {
       "space_key": "FAQE",
@@ -1646,8 +1646,8 @@
       "title": "How to resolve a replication conflict?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=1802562",
       "path": "altibase_docs_md/FAQE/Home/ALTIBASE HDB Replication/How to resolve a replication conflict__1802562.md",
-      "body_chars": 5723,
-      "word_count": 654
+      "body_chars": 6460,
+      "word_count": 853
     },
     {
       "space_key": "FAQE",
@@ -1655,8 +1655,8 @@
       "title": "Replication Overview",
       "source_url": "https://docs.altibase.com/display/FAQE/Replication+Overview",
       "path": "altibase_docs_md/FAQE/Home/ALTIBASE HDB Replication/Replication Overview__1802501.md",
-      "body_chars": 7189,
-      "word_count": 964
+      "body_chars": 7848,
+      "word_count": 1197
     },
     {
       "space_key": "FAQE",
@@ -1664,8 +1664,8 @@
       "title": "What is Offline Replicator?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=1803108",
       "path": "altibase_docs_md/FAQE/Home/ALTIBASE HDB Replication/What is Offline Replicator__1803108.md",
-      "body_chars": 1470,
-      "word_count": 185
+      "body_chars": 2012,
+      "word_count": 262
     },
     {
       "space_key": "FAQE",
@@ -1673,8 +1673,8 @@
       "title": "What is a Replication Conflict?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=1802533",
       "path": "altibase_docs_md/FAQE/Home/ALTIBASE HDB Replication/What is a Replication Conflict__1802533.md",
-      "body_chars": 2498,
-      "word_count": 313
+      "body_chars": 3147,
+      "word_count": 414
     },
     {
       "space_key": "FAQE",
@@ -1727,8 +1727,8 @@
       "title": "Cannot insert new records after deleting bulk records",
       "source_url": "https://docs.altibase.com/display/FAQE/Cannot+insert+new+records+after+deleting+bulk+records",
       "path": "altibase_docs_md/FAQE/Home/ALTIBASE HDB Troubleshooting/Cannot insert new records after deleting bulk records__2557870.md",
-      "body_chars": 4778,
-      "word_count": 770
+      "body_chars": 5800,
+      "word_count": 928
     },
     {
       "space_key": "FAQE",
@@ -1754,8 +1754,8 @@
       "title": "The number of logfiles grows rapidly",
       "source_url": "https://docs.altibase.com/display/FAQE/The+number+of+logfiles+grows+rapidly",
       "path": "altibase_docs_md/FAQE/Home/ALTIBASE HDB Troubleshooting/The number of logfiles grows rapidly__1802691.md",
-      "body_chars": 8681,
-      "word_count": 1046
+      "body_chars": 9649,
+      "word_count": 1199
     },
     {
       "space_key": "FAQE",
@@ -1844,8 +1844,8 @@
       "title": "ERR-0109D Insufficient memory",
       "source_url": "https://docs.altibase.com/display/FAQE/ERR-0109D+Insufficient+memory",
       "path": "altibase_docs_md/FAQE/Home/Altibase Error Messages/ERR-0109D Insufficient memory__6979800.md",
-      "body_chars": 3788,
-      "word_count": 526
+      "body_chars": 4635,
+      "word_count": 598
     },
     {
       "space_key": "FAQE",
@@ -1925,8 +1925,8 @@
       "title": "ERR-11036 The data file is in use",
       "source_url": "https://docs.altibase.com/display/FAQE/ERR-11036+The+data+file+is+in+use",
       "path": "altibase_docs_md/FAQE/Home/Altibase Error Messages/ERR-11036 The data file is in use__6979796.md",
-      "body_chars": 1105,
-      "word_count": 169
+      "body_chars": 1916,
+      "word_count": 244
     },
     {
       "space_key": "FAQE",
@@ -1970,8 +1970,8 @@
       "title": "ERR-11075 The transaction has exceeded the lock timeout specified by the user",
       "source_url": "https://docs.altibase.com/display/FAQE/ERR-11075+The+transaction+has+exceeded+the+lock+timeout+specified+by+the+user",
       "path": "altibase_docs_md/FAQE/Home/Altibase Error Messages/ERR-11075 The transaction has exceeded the lock timeout specified by the user__6979715.md",
-      "body_chars": 8840,
-      "word_count": 1380
+      "body_chars": 10291,
+      "word_count": 1457
     },
     {
       "space_key": "FAQE",
@@ -1979,8 +1979,8 @@
       "title": "ERR-11098 smERR_ABORT_BackupLogMode cannot be executed in no archive log mode",
       "source_url": "https://docs.altibase.com/display/FAQE/ERR-11098+smERR_ABORT_BackupLogMode+cannot+be+executed+in+no+archive+log+mode",
       "path": "altibase_docs_md/FAQE/Home/Altibase Error Messages/ERR-11098 smERR_ABORT_BackupLogMode cannot be executed in no archive log mode__6980107.md",
-      "body_chars": 1009,
-      "word_count": 135
+      "body_chars": 2123,
+      "word_count": 203
     },
     {
       "space_key": "FAQE",
@@ -2168,8 +2168,8 @@
       "title": "ERR-311E0 The estimated size of the index key exceeds the maximum limit",
       "source_url": "https://docs.altibase.com/display/FAQE/ERR-311E0+The+estimated+size+of+the+index+key+exceeds+the+maximum+limit",
       "path": "altibase_docs_md/FAQE/Home/Altibase Error Messages/ERR-311E0 The estimated size of the index key exceeds the maximum limit__6979717.md",
-      "body_chars": 2140,
-      "word_count": 337
+      "body_chars": 3275,
+      "word_count": 447
     },
     {
       "space_key": "FAQE",
@@ -2177,8 +2177,8 @@
       "title": "ERR-31233 The fixed record size exceeds the page size",
       "source_url": "https://docs.altibase.com/display/FAQE/ERR-31233+The+fixed+record+size+exceeds+the+page+size",
       "path": "altibase_docs_md/FAQE/Home/Altibase Error Messages/ERR-31233 The fixed record size exceeds the page size__7340252.md",
-      "body_chars": 801,
-      "word_count": 123
+      "body_chars": 1696,
+      "word_count": 183
     },
     {
       "space_key": "FAQE",
@@ -2195,8 +2195,8 @@
       "title": "ERR-31283 Unable to create a primary key or a unique key constraint in the local non-prefixed index",
       "source_url": "https://docs.altibase.com/display/FAQE/ERR-31283+Unable+to+create+a+primary+key+or+a+unique+key+constraint+in+the+local+non-prefixed+index",
       "path": "altibase_docs_md/FAQE/Home/Altibase Error Messages/ERR-31283 Unable to create a primary key or a unique key constraint in the local non-prefixed index__6979844.md",
-      "body_chars": 7816,
-      "word_count": 784
+      "body_chars": 9342,
+      "word_count": 958
     },
     {
       "space_key": "FAQE",

@@ -26,7 +26,7 @@ This problem was reported by an ALTIBASE HDB customer. In this document, we will
 
 ALTIBASE HDB 5.3.3 manages disk pages with FMS technique.
 
-Unknown macro: {gliffy}
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 In FMS technique, used and available pages are added to the head of the freelist. Although the pages are added to the freelist, they are not usable until the Ager cleans them.
 
@@ -36,7 +36,7 @@ ALTIBASE HDB has to allocate a new page to insert data, if all pages at the head
 
 Unless specified otherwise, ALTIBASE HDB stores data and Index in the same Tablespace, and they are managed in a Segment unit. Each Segment requests a page to the Tablespace if it needs more space to store data or Index.
 
-Unknown macro: {gliffy}
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 ## Cause of the Problem
 
@@ -52,7 +52,7 @@ PCTUSED: once the page gets full, it does not return to the insert-able state un
 
 If the page usage is as follows, ALTIBASE HDB cannot reuse the existing pages, but allocates a new page for the new data being inserted.
 
-Unknown macro: {gliffy}
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 Since the value of properties are already changed - PCTUSED = 80, this is not the case at this time.
 
@@ -98,4 +98,4 @@ Furthermore, it is recommended that the tables are refreshed periodically. ALTIB
 
 This will gather the data distributed all over the pages and stack them from the first page.
 
-Unknown macro: {gliffy}
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.

@@ -20,7 +20,7 @@ Updated: 2011-07-30T17:01:55.000+0900
 
 # Offline Replicator
 
- ![unknown-macro](https://docs.altibase.com/plugins/servlet/confluence/placeholder/unknown-macro?name=gliffy&locale=en_GB&version=2)
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 ## Background
 

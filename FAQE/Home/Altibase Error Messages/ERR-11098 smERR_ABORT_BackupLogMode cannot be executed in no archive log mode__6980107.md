@@ -58,7 +58,11 @@ SHELL>server stop
 SHELL>is –silent –sysdba
 ```
 
-[ERR-910FB : Connected to idle instance](#) isql(sysdba)>startup control
+ERR-910FB : Connected to idle instance
+
+```
+isql(sysdba)>startup control
+```
 
 4. Change to ARCHIVING mode using the ALTER DATABASE ARCHIVELOG statement.
 

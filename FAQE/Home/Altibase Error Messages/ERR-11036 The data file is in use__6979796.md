@@ -33,7 +33,7 @@ iSQL> ALTER TABLESPACE SYS_TBS_DISK_DATA
     2 DROP DATAFILE '/altibase/dbs/DISK_DATA2.dbf';
 ```
 
-[ERR-11036: The data file is in use.](#)
+ERR-11036: The data file is in use.
 
 ## Cause
 

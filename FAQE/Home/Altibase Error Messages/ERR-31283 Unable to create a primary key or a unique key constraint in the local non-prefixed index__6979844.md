@@ -84,7 +84,7 @@ Create success.
 iSQL> alter table REALSET_CONTENTS add primary key(CT_ID,REG_DATE);
 ```
 
-[ERR-31283 : Unable to create a primary key or a unique key constraint in the local non-prefixed index.](#)
+ERR-31283 : Unable to create a primary key or a unique key constraint in the local non-prefixed index.
 
 1. The following example changes the primary key column order and creates a local prefixed index for the primary key.
 

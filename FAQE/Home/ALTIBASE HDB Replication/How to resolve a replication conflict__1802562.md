@@ -37,7 +37,7 @@ We explained that a replication conflict is caused by either network delays or i
 
 ### Overview
 
- ![unknown-macro](https://docs.altibase.com/plugins/servlet/confluence/placeholder/unknown-macro?name=gliffy&locale=en_GB&version=2)
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 | Steps | Description |
 | --- | --- |
@@ -65,7 +65,7 @@ Performance of Eager mode replication is always slower than that of Lazy mode. I
 
 ### Overview
 
- ![unknown-macro](https://docs.altibase.com/plugins/servlet/confluence/placeholder/unknown-macro?name=gliffy&locale=en_GB&version=2)
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 | Steps | Description |
 | --- | --- |
@@ -88,7 +88,7 @@ Network delays can introduce mismatches for last values.
 
 ### Overview
 
- ![unknown-macro](https://docs.altibase.com/plugins/servlet/confluence/placeholder/unknown-macro?name=gliffy&locale=en_GB&version=2)
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 This method is similar to REPLICATION_UPDATE_REPLACE method, however, Receiver compares the timestamp value of an existing record with the timestamp value of XLog when Receiver applies XLog to the remote server. If the timestamp value of XLog is bigger than the existing record, XLog will be applied, otherwise, the replication transaction will be dropped. In the above diagram, since the timestamp value (11:01) of XLog is smaller than the timestamp value (11:02) of the existing data, the replication transaction can not be applied to the remote server. On the other hand, if XLog of Node B has been sent to Node A, the existing data would be replaced with the XLog from Node B since timestamp value of Node B is bigger than that of Node B.
 

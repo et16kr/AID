@@ -29,7 +29,7 @@ ALTIBASE HDB’s network-based replication architecture, while providing very sp
 
 # Basic Flow of Replication.
 
- ![unknown-macro](https://docs.altibase.com/plugins/servlet/confluence/placeholder/unknown-macro?name=gliffy&locale=en_GB&version=2)
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 ## Terminology
 
@@ -78,7 +78,7 @@ INSERT transaction normally needs all information about the target table and the
 | Asynchronous (LAZY) | Asynchronous mode does not check whether XLog is successfully applied to the remote server or not. |
 | Synchronous (EAGER) | Synchronous mode always checks whether XLog is applied to the remote server without the conflict or not. |
 
- ![unknown-macro](https://docs.altibase.com/plugins/servlet/confluence/placeholder/unknown-macro?name=gliffy&locale=en_GB&version=2)
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 In Asynchronous mode, a local transaction is completed with steps (1 + 2 + 3) - red box in above diagram. Replication transaction is completed with steps (4 + 5) - blue box in above diagram. Steps (4 + 5) have no effect to the local transaction. In other words, the local transaction and the replication transaction do not interfere each other. This means that the local transaction can be completed even if the sender could not send Xlog to the remote server. However, the local transaction in Synchronous mode is completed with all the steps ( 1 + 2 + 3 + 4 + 5 + 6 + 7). The performance of Asynchronous mode is normally faster than Synchronous mode.
 

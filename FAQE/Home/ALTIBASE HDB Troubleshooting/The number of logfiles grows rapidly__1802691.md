@@ -61,7 +61,7 @@ In ALTIBASE HDB, Checkpoint thread removes the unnecessary transaction log files
 
 When a transaction is rolled back, ALTIBASE HDB has to read information from transaction log files in order to undo the transaction. Therefore, if there is such an unfinished transaction, ALTIBASE HDB has to keep the log files associated with that transaction.
 
- ![unknown-macro](https://docs.altibase.com/plugins/servlet/confluence/placeholder/unknown-macro?name=gliffy&locale=en_GB&version=2)
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 For example in the above diagram, Transaction D is not finished, and it may roll back. Therefore, ALTIBASE HDB has to keep the log files after log#6 until transaction D is finished (commit or rollback). Although transactions E and F are started and ended after log#6, ALTIBASE HDB has to save log files for transaction D. In other words, even though the transaction does not finish for a long time and many update transactions are executed during that period. In this case Checkpoint thread does not remove the log files after log#6, therefore, the disk space will be exhausted.
 
@@ -85,7 +85,7 @@ If you are using the ALTIBASE HDB's Replication functionality, malfunctioning of
 
 Replication sender thread uses the log files to synchronize data between replicated servers. Therefore, Checkpoint thread cannot remove the log files unless Replication sender finishes its work on them.
 
- ![unknown-macro](https://docs.altibase.com/plugins/servlet/confluence/placeholder/unknown-macro?name=gliffy&locale=en_GB&version=2)
+> Diagram note: The source export did not include this Confluence Gliffy diagram, and no diagram image URL is available in this repository.
 
 In the above diagram, let's assume that Replication sender is reading logfile#3, and service threads are writing on logfile#6. In this case, the Replication sender needs not only logfile#3 but also logfile#4, logfile#5 and logfile#6 to synchronize with the receiving server. Thus, Checkpoint thread cannot remove logfile#3 and newer, but only logfile#1 and logfile#2. Checkpoint thread will remove the log files after logfile#3 once Replication sender thread applies the log files to the receiving server. (For further information of how Replication works, please refer to [this page](https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+Replication).)
 

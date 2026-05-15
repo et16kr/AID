@@ -47,7 +47,7 @@ If the transaction is to be converted to a table lock due to LOCK_ESCALATION_MEM
 | **Session 1** | **Session 2** |
 | --- | --- |
 | ```<br>iSQL> autocommit off;<br>Set autocommit off success.<br>iSQL> update tb_test1 set c10=sysdate where c1=1;<br>1 row updated.<br>``` |  |
-|  | ```<br>iSQL> select count(*) from tb_test1;<br>COUNT<br>-----------------------<br>1000000<br>1 row selected.<br>iSQL> alter session set TRX_UPDATE_MAX_LOGSIZE=100000000;<br>Alter success.<br>iSQL> alter system set LOCK_ESCALATION_MEMORY_SIZE=100000000;<br>Alter success.<br>iSQL> update tb_test1 set c10=sysdate;<br>```<br> <br>[ERR-11075 : The transaction has exceeded the lock timeout specified by the user.](#) |
+|  | ```<br>iSQL> select count(*) from tb_test1;<br>COUNT<br>-----------------------<br>1000000<br>1 row selected.<br>iSQL> alter session set TRX_UPDATE_MAX_LOGSIZE=100000000;<br>Alter success.<br>iSQL> alter system set LOCK_ESCALATION_MEMORY_SIZE=100000000;<br>Alter success.<br>iSQL> update tb_test1 set c10=sysdate;<br>```<br> <br>ERR-11075 : The transaction has exceeded the lock timeout specified by the user. |
 
 The last UPDATE statement in Session 2 performs the update operation using row-level locking, and then tries to acquire an X lock when the update log size exceeds LOCK_ESCALATION_MEMORY_SIZE.
 
@@ -62,7 +62,7 @@ If a table lock (X lock) must be acquired for the execution of a DDL statement b
 | Session 1 | **Session 2** |
 | --- | --- |
 | ```<br>iSQL> autocommit off;<br>Set autocommit off success.<br>iSQL> update tb_test1 set c10=sysdate where c1=1;<br>1 row updated.<br>``` |  |
-|  | ```<br>iSQL> truncate table tb_test1;<br>```<br> <br>[ERR-11075 : The transaction has exceeded the lock timeout specified by the user.](#) |
+|  | ```<br>iSQL> truncate table tb_test1;<br>```<br> <br>ERR-11075 : The transaction has exceeded the lock timeout specified by the user. |
 
 This error is related to the DDL_LOCK_TIMEOUT property.
 
@@ -79,7 +79,7 @@ If a NOWAIT or WAIT N option is used but a lock is not acquired immediately or w
 | **Session 1** | **Session 2** |
 | --- | --- |
 | ```<br>iSQL> autocommit off;<br>Set autocommit off success.<br>iSQL> update tb_test1 set c10=sysdate where c1=1;<br>1 row updated.<br>``` |  |
-|  | ```<br>iSQL> select * from tb_test1 where c1<10 for update nowait;<br>```<br> <br>[ERR-11075 : The transaction has exceeded the lock timeout specified by the user.](#) |
+|  | ```<br>iSQL> select * from tb_test1 where c1<10 for update nowait;<br>```<br> <br>ERR-11075 : The transaction has exceeded the lock timeout specified by the user. |
 
 **4.****If the error message has been output to altibase_rp.log:**
 
@@ -93,7 +93,12 @@ If a replication transaction is waiting for a transaction on the local server to
 
 After an INSERT statement has been executed on the Active server, the following message is output to altibase_rp.log on the Standby server.
 
-[] [FAQINTERNAL:Thread-1398925664](#) [FAQINTERNAL:Level-2](#) ERR-11075(errno=0) The transaction has exceeded the lock timeout specified by the user. [] [FAQINTERNAL:Thread-1398925664](#) [FAQINTERNAL:Level-3](#) INSERT INTO SYS.TB_TEST1 VALUES ( 1000001, , , , , , , , , 2014-08-28 13:00:09.960371 ); (TID : 35456)
+```
+[FAQINTERNAL:Thread-1398925664] [FAQINTERNAL:Level-2]
+ERR-11075(errno=0) The transaction has exceeded the lock timeout specified by the user.
+[FAQINTERNAL:Thread-1398925664] [FAQINTERNAL:Level-3]
+INSERT INTO SYS.TB_TEST1 VALUES ( 1000001, , , , , , , , , 2014-08-28 13:00:09.960371 ); (TID : 35456)
+```
 
 This error is affected by REPLICATION_LOCK_TIMEOUT.
 
@@ -167,7 +172,7 @@ For example, an update of 100,000 records should be divided into 10 updates of 1
 
 The user should also refer to the following error as well:
 
-[ERR-11118 : The update log size '10485800' is bigger than TRX_UPDATE_MAX_LOGSIZE '10485760'](#)
+ERR-11118 : The update log size '10485800' is bigger than TRX_UPDATE_MAX_LOGSIZE '10485760'
 
 This warning error is output before the session is converted to an X lock due to LOCK_ESCALATION_MEMORY_SIZE.
 
