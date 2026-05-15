@@ -18,13 +18,32 @@ Updated: 2020-08-05T14:22:28.000+0900
 
 # Overview
 
-This technical document describes things to consider in the development environment when using ATLIBASE DBMS.
+This technical document describes considerations for developers using Altibase.
 
-For reference documents for each specific development environment, please refer to the technical documents prepared for each development environment.
+For reference documents for specific development environments, refer to the technical documents prepared for each development environment.
 
-General information is described in this document, and ALTIBASE error messages are described later in the document. The ALTIBASE version described in the document is based on 6.3.1 or later.
+This document covers general considerations and describes ALTIBASE error messages later in the document.
 
-For errors and improvements related to this document, please contact the technical support portal or technical support center
+Refer to the following documents together according to the environment:
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+1. [Altibase Disk I/O Bottleneck Volume Configuration Guide](https://docs.altibase.com/pages/viewpage.action?pageId=11698408)
+2. [Considerations for Altibase Backup Policy](https://docs.altibase.com/pages/viewpage.action?pageId=14057586)
+3. [Altibase Replication Configuration Guide](https://docs.altibase.com/pages/viewpage.action?pageId=13828098)
+4. [Altibase Replication Constraints Guide](https://docs.altibase.com/pages/viewpage.action?pageId=19333729)
+5. [System Data Capacity Estimation Guide for Altibase Operations](https://docs.altibase.com/pages/viewpage.action?pageId=14057887)
+6. [Altibase Precompiler Guide](https://docs.altibase.com/pages/viewpage.action?pageId=11698385)
+7. [Altibase SQL Tuning Guide](https://docs.altibase.com/pages/viewpage.action?pageId=19333563)
+8. [JAVA Developer's Guide](https://docs.altibase.com/pages/viewpage.action?pageId=14057500)
+9. [Altibase VC 2010 Development Guide](https://docs.altibase.com/pages/viewpage.action?pageId=19334121)
+10. [ORACLE to ALTIBASE Conversion Guide](https://docs.altibase.com/pages/viewpage.action?pageId=7341605)
+
+For errors and improvements related to this document, contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
 - Technical support center: 02-2082-1114
+
+This document is provided for informational purposes and may change without prior notice. This document may contain errors, and Altibase assumes no express or implied responsibility for merchantability or fitness for a particular purpose.
+
+The timing of development, release, or availability of Altibase product features or functions described in this document is at Altibase's discretion.
+
+Altibase may hold patent rights, trademark rights, copyrights, or other intellectual property rights related to this document.

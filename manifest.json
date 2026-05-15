@@ -2816,8 +2816,8 @@
       "title": "1. Considerations when Designing",
       "source_url": "https://docs.altibase.com/display/arch/1.+Considerations+when+Designing",
       "path": "altibase_docs_md/arch/Home/Altibase Development Guide/1. Considerations when Designing__22642998.md",
-      "body_chars": 13683,
-      "word_count": 1987
+      "body_chars": 13760,
+      "word_count": 1873
     },
     {
       "space_key": "arch",
@@ -2825,8 +2825,8 @@
       "title": "2. Considerations when Developing",
       "source_url": "https://docs.altibase.com/display/arch/2.+Considerations+when+Developing",
       "path": "altibase_docs_md/arch/Home/Altibase Development Guide/2. Considerations when Developing__14058531.md",
-      "body_chars": 16409,
-      "word_count": 2445
+      "body_chars": 18170,
+      "word_count": 2598
     },
     {
       "space_key": "arch",
@@ -2834,8 +2834,8 @@
       "title": "3. Altibase Trace Logs",
       "source_url": "https://docs.altibase.com/display/arch/3.+Altibase+Trace+Logs",
       "path": "altibase_docs_md/arch/Home/Altibase Development Guide/3. Altibase Trace Logs__22643000.md",
-      "body_chars": 16255,
-      "word_count": 2462
+      "body_chars": 15945,
+      "word_count": 2381
     },
     {
       "space_key": "arch",
@@ -2843,7 +2843,7 @@
       "title": "4. CLIENT APPLICATION Error Messages",
       "source_url": "https://docs.altibase.com/display/arch/4.+CLIENT+APPLICATION+Error+Messages",
       "path": "altibase_docs_md/arch/Home/Altibase Development Guide/4. CLIENT APPLICATION Error Messages__14058547.md",
-      "body_chars": 13297,
+      "body_chars": 13572,
       "word_count": 1936
     },
     {
@@ -2852,8 +2852,8 @@
       "title": "Altibase Development Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Development+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Development Guide__14058519.md",
-      "body_chars": 754,
-      "word_count": 91
+      "body_chars": 2735,
+      "word_count": 246
     },
     {
       "space_key": "arch",
@@ -3338,8 +3338,8 @@
       "title": "Altibase SQL Tuning Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+SQL+Tuning+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase SQL Tuning Guide__22643010.md",
-      "body_chars": 1284,
-      "word_count": 106
+      "body_chars": 2085,
+      "word_count": 206
     },
     {
       "space_key": "arch",
@@ -3410,8 +3410,8 @@
       "title": "Altibase/Oracle Comparison",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16875638",
       "path": "altibase_docs_md/arch/Home/Altibase_Oracle Comparison__16875638.md",
-      "body_chars": 43443,
-      "word_count": 7692
+      "body_chars": 44378,
+      "word_count": 7833
     },
     {
       "space_key": "arch",

@@ -613,3 +613,52 @@ P211 audited Korean TOMCAT, JEUS, JBoss, WebLogic, WebSphere, Spring, iBATIS, My
 - External HTTP availability was not tested; P211 used grep-based source-link and attachment preservation checks.
 - Source-exported attachment and image URLs may retain URL-encoded Korean filenames; visible English prose was checked separately.
 - Legacy WAS/framework versions and examples were kept where the Korean source kept them.
+
+## P212 Tech audit: SQL tuning development and Oracle comparison
+
+### Scope
+
+P212 audited the Korean Altibase Development Guide, SQL Tuning Guide, and Altibase/Oracle Comparison documents against their English `arch` targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English target |
+| --- | --- |
+| `DOCK/Home/36. Altibase 개발가이드__7341274.md` | `arch/Home/Altibase Development Guide__14058519.md`; `arch/Home/Altibase Development Guide/**` |
+| `DOCK/Home/37. Altibase SQL 튜닝 가이드__19333563.md` | `arch/Home/Altibase SQL Tuning Guide__22643010.md` |
+| `DOCK/Home/39. Altibase, Oracle 비교 자료__14058137.md` | `arch/Home/Altibase_Oracle Comparison__16875638.md` |
+
+### Findings And Updates
+
+- Restored Korean-source overview, support route, support center, legal/disclaimer text, related technical document links, SQL Tuning Guide version wording, and exact scoped attachment filenames or URLs.
+- Corrected Development Guide design/development content for Lazy/Eager replication, Off-Line replicator conditions, backup method semantics, table design and HPT wording, redo log capacity planning, `CONNTYPE`, `AUTO_COMMIT`, `ALTER SYSTEM`, threaded protocol sequence, timeout examples, `altibase_cli.ini`, prepared statement examples, execution-plan examples, and bulk-change cautions.
+- Corrected Development Guide trace/error content for trace log names, `$ALTIBASE_HOME/trc`, `$ALTIBASE_HOME/msg/`, `DB` property logging, the missing `altibase_rp_conflict.log` section, replication conflict meanings, abnormal termination support guidance, `Conversion not applicable`, cursor errors, `TRX_UPDATE_MAX_LOGSIZE`, and `09-18. ERR-11118`.
+- Corrected Altibase/Oracle comparison tables for support/legal overview text, deadlock detection, Altibase tablespace count `65,536`, DBMS Watcher, partition operation tables, recovery labels, `CONNECT_BY_ISCYCLE`, `CREATE TABLE AS SELECT`, `Parallel Select`, binary type row alignment, `CLI`, and Built-In Function identifier/table-row structure.
+- Rebuilt the Built-In Function table at identifier level so 262 Korean data rows match 262 English data rows, including `REPLACE2`, `REGEXP_COUNT`, `BASE64_DECODE_STR`, `BASE64_ENCODE`, `ROWIDTONCHAR`, `TO_BINARY_DOUBLE`, `LAST_VALUE`, `LEAD`, `PREDICTION_PROBABILITY`, `XMLCOLATTVAL`, and `PERCENTILE_DISC`.
+- Preserved non-conflicting English-only clarification where useful, including the `REP1` example-name note and the English-only `Invalid character in use` client error section.
+- Updated `manifest.json` metadata for all 7 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- Scoped Korean source pages contain 4 document-format references, and all 4 filenames or source URLs are preserved in the scoped English target set.
+- The Development Guide PDF entries are Korean-source legacy placeholders without downloadable URLs; the English target now records the exact Korean filenames.
+- Scoped grep found no empty links, Confluence macro errors, malformed support links, invalid `http://altibase_env.mk` links, or checked stale export typo patterns.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p212-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Scoped grep for empty links, Confluence macro errors, malformed support links, invalid local links, and stale typo patterns | Passed |
+| Scoped document-format attachment preservation script | Passed, 4 Korean source references preserved |
+| Altibase/Oracle Built-In Function identifier/table-row comparison | Passed, 262 Korean data rows matched 262 English data rows |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 7 edited English pages |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P212 used grep-based source-link and attachment preservation checks.
+- The Korean source contains legacy `#` placeholders for Development Guide PDFs; the English target preserves exact filenames but cannot add download URLs that the Korean source does not provide.
+- The Altibase/Oracle comparison document remains a feature comparison against Oracle 12c and keeps legacy product/version context where the Korean source keeps it.
