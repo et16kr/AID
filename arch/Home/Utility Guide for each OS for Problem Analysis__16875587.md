@@ -26,7 +26,7 @@ This document describes several related commands provided by the operating syste
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com/en/](http://support.altibase.com/en/)
 - Technical support center: 02-2082-1114
 
 # Common Command
@@ -59,7 +59,7 @@ This section describes commands that do not have special restrictions that can b
 - This command checks system memory, disk, swap in/out, and CPU status at intervals set by the user.
 
   ```
-  Shell> vmstat 1 5 (Display 5 times per second)
+  Shell> vmstat 1 5 (Display 5 times at 1-second intervals)
   procs   -----------memory---------- ---swap--  -----io---- -system-- ------cpu-----
    r  b   swpd   free   buff  cache   si   so      bi    bo   in   cs  us sy id wa st
    1  0      0 14407272 377356 472884    0    0     0     1    1    1  0  0 100  0  0
@@ -73,7 +73,7 @@ This section describes commands that do not have special restrictions that can b
 
   |  | Description |
   | --- | --- |
-  | proc r | The number of threads waiting to occupy the CPU. If the value is large, it can be judged that a CPU bottleneck occurs. |
+  | procs r | The number of threads waiting to occupy the CPU. If the value is large, it can be judged that a CPU bottleneck occurs. |
   | memory free | Free space on physical memory |
   | swap si, so | An increase of si/so means that disk I/Os between the swap disk and memory are issued |
   | CPU us sy id wa st | Change trends for each item should be observed |
@@ -110,7 +110,7 @@ This section describes commands that do not have special restrictions that can b
 
 ---
 
-- Like pstack, when checking the CPU occupancy of a thread, it is used as a way to check what part the thread is currently executing.
+- When checking CPU usage by thread, `pstack` is used to identify what each thread is currently executing. However, on some lower kernel versions, `pstack` may show only the stack of the specified thread.
 
   ```
   Shell> pstack <process id>
@@ -153,10 +153,10 @@ This section describes commands that do not have special restrictions that can b
   | --- | --- |
   | clone start_thread staticRunner run multiplexingAsShared execute_Task execute_Task_READY | creating and starting a thread |
   | cmiRecv | The user's query request has been read in the communication |
-  | mmtServiceThread::executeProtocol mmtSerivceThread::execute doExecute | Enter the execution stage |
-  | mmcStatement::execute mmcStatement::executeDML qci::execute qmx:executeInsertSelect qmnINST:doItNext qmnINST:insertOneRow smiTableCursor::insertRow smiTableCursor::normalInsertRow smcRecord::insertVersion | Check the execution of Insert statement |
+  | mmtServiceThread::executeProtocol mmtServiceThread::execute doExecute | Enter the execution stage |
+  | mmcStatement::execute mmcStatement::executeDML qci::execute qmx::executeInsertSelect qmnINST::doItNext qmnINST::insertOneRow smiTableCursor::insertRow smiTableCursor::normalInsertRow smcRecord::insertVersion | Check the execution of Insert statement |
   | smcRecordUpdate::writeInsertLog smxTrans::writeTransLog smrLogMgr::writeLog | Write redo log to execute insert statement |
-  | smLogMgr::updateTransLSNInfo smxTrans::setLstUndoNxtLSN | Update transaction lsn for undo |
+  | smrLogMgr::updateTransLSNInfo smxTrans::setLstUndoNxtLSN | Update transaction LSN for undo |
   | iduPosixLock | Acquire a lock on a thread |
 
   By looking at the information of ps/pstack as shown above, it is possible to check what specific thread that uses the most CPU is performing. Also among many SQL statements, a more narrow trace can be made with the above pstack results.
@@ -229,7 +229,7 @@ This section describes commands that do not have special restrictions that can b
   ffffffff7e1d609c _lwp_start (0, 0, 0, 0, 0, 0)
   ```
 
-  The c++filter command is used to remove the case where the function named called between C/C++ is not displayed properly. When not used, the function name is displayed in a form that is difficult to see, so it is possible to use it. Generally, it exists where the executable file of the path where the compiled is installed is located. (Ex: /opt/SUNwspro/bin/) In the same way as the method of interpreting the result of pstack, it is divided into paragraph units based on lwp# for each thread and interpreted from bottom to top.
+  The `c++filt` command is used when function names called between C/C++ are not displayed clearly. Without it, function names can be difficult to read, so use it when possible. It is generally located in the executable-file directory under the compiler installation path. (Ex: /opt/SUNWspro/bin/) Interpret `pstack` output in the same way as on Linux: split it into paragraph units by `lwp#` for each thread and read each paragraph from bottom to top.
 
 ## pfiles
 
@@ -264,7 +264,7 @@ This section describes commands that do not have special restrictions that can b
 
 ---
 
-- During the technical support, if the user needs to find the cause from outside, SUN should check /var/adm/messages. The file extension means the week the log was recorded, and the log of the week including today is recorded in the messages file.
+- During technical support, if the cause may be outside Altibase, check the SUN `/var/adm/messages.*` files. The file extension indicates the week when the log was recorded, and logs for the current week are recorded in the `messages` file.
 
   ```
   Shell> vi /var/adm/messages
@@ -275,7 +275,7 @@ This section describes commands that do not have special restrictions that can b
   Feb 24 18:08:24 v880    Corrupt label; wrong magic number
   ```
 
-  The system log is difficult to understand clearly unless the user is an expert of each vendor, but when providing technical support dude to a failure, etc., make sure to check if there is any important log at a specific time.
+  The system log is difficult to understand clearly unless the user is an expert for that vendor, but when providing technical support due to a failure, make sure to check whether any meaningful log exists at the specific failure time.
 
 # AIX
 
@@ -338,7 +338,7 @@ This section describes commands that do not have special restrictions that can b
   1: S_IFREG mode:0222 dev:53,1 ino:2731337 uid:222 gid:1 rdev:0,0 O_WRONLY | O_APPEND size:3014040  name:/home/altibase/altibase_home/trc/altibase_sm.log
   ```
 
-  -The used file can also be checked by using the -n option.
+  Use the `-n` option to check the file names in use.
 
 ## System Log
 
@@ -368,7 +368,7 @@ This section describes commands that do not have special restrictions that can b
 
 ---
 
-- Depending on the type of HP CPU, it is classified into PA-RISK/ITANIUM, but some commands may not be supported by PA-RISK equipment.
+- Depending on the HP CPU type, systems are classified as PA-RISC or Itanium, and some commands may not be supported on PA-RISC equipment.
 
 ## CPU usage by thread with glance
 
@@ -377,7 +377,7 @@ This section describes commands that do not have special restrictions that can b
 - In the case of HP, CPU usage for each thread can be checked with a monitoring tool called glance.
 
   ```
-  Run through Shell> glance
+  Shell> glance
   If you press the <s> key, you can enter a specific process id.
   If you press the <G> key, you can check the CPU usage for each thread of the process.
   ```

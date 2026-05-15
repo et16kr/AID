@@ -26,7 +26,7 @@ This document describes the process of starting and shutting down Altibase, and 
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com/en/](http://support.altibase.com/en/)
 - Technical support center: 02-2082-1114
 
 # Korean Source Attachments

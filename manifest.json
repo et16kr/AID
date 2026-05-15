@@ -3797,8 +3797,8 @@
       "title": "1. Classification by type of failure",
       "source_url": "https://docs.altibase.com/display/arch/1.+Classification+by+type+of+failure",
       "path": "altibase_docs_md/arch/Home/Responding to Failures Guide for Altibase/1. Classification by type of failure__15138822.md",
-      "body_chars": 3960,
-      "word_count": 523
+      "body_chars": 3990,
+      "word_count": 593
     },
     {
       "space_key": "arch",
@@ -3806,8 +3806,8 @@
       "title": "2. Procedure by type of failure",
       "source_url": "https://docs.altibase.com/display/arch/2.+Procedure+by+type+of+failure",
       "path": "altibase_docs_md/arch/Home/Responding to Failures Guide for Altibase/2. Procedure by type of failure__15138835.md",
-      "body_chars": 17147,
-      "word_count": 2537
+      "body_chars": 17162,
+      "word_count": 2503
     },
     {
       "space_key": "arch",
@@ -3815,8 +3815,8 @@
       "title": "3. References",
       "source_url": "https://docs.altibase.com/display/arch/3.+References",
       "path": "altibase_docs_md/arch/Home/Responding to Failures Guide for Altibase/3. References__15138869.md",
-      "body_chars": 5097,
-      "word_count": 740
+      "body_chars": 5065,
+      "word_count": 729
     },
     {
       "space_key": "arch",
@@ -3824,8 +3824,8 @@
       "title": "Responding to Failures Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Responding+to+Failures+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Responding to Failures Guide for Altibase__15138818.md",
-      "body_chars": 985,
-      "word_count": 138
+      "body_chars": 1150,
+      "word_count": 154
     },
     {
       "space_key": "arch",
@@ -3986,8 +3986,8 @@
       "title": "System Data Capacity Estimation Guide for Altibase Operations",
       "source_url": "https://docs.altibase.com/display/arch/System+Data+Capacity+Estimation+Guide+for+Altibase+Operations",
       "path": "altibase_docs_md/arch/Home/System Data Capacity Estimation Guide for Altibase Operations__22643042.md",
-      "body_chars": 21662,
-      "word_count": 3048
+      "body_chars": 21866,
+      "word_count": 3551
     },
     {
       "space_key": "arch",
@@ -4067,8 +4067,8 @@
       "title": "UNIX Memory Management",
       "source_url": "https://docs.altibase.com/display/arch/UNIX+Memory+Management",
       "path": "altibase_docs_md/arch/Home/UNIX Memory Management__16875572.md",
-      "body_chars": 15532,
-      "word_count": 2410
+      "body_chars": 15174,
+      "word_count": 2343
     },
     {
       "space_key": "arch",
@@ -4076,8 +4076,8 @@
       "title": "1. Starting Altibase",
       "source_url": "https://docs.altibase.com/display/arch/1.+Starting+Altibase",
       "path": "altibase_docs_md/arch/Home/Understanding the Altibase Start_Shut down Process/1. Starting Altibase__14909452.md",
-      "body_chars": 15222,
-      "word_count": 1919
+      "body_chars": 15216,
+      "word_count": 1916
     },
     {
       "space_key": "arch",
@@ -4085,8 +4085,8 @@
       "title": "2. Shutting Altibase Down",
       "source_url": "https://docs.altibase.com/display/arch/2.+Shutting+Altibase+Down",
       "path": "altibase_docs_md/arch/Home/Understanding the Altibase Start_Shut down Process/2. Shutting Altibase Down__14909483.md",
-      "body_chars": 5099,
-      "word_count": 653
+      "body_chars": 5071,
+      "word_count": 637
     },
     {
       "space_key": "arch",
@@ -4094,8 +4094,8 @@
       "title": "Understanding the Altibase Start/Shut down Process",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=14909450",
       "path": "altibase_docs_md/arch/Home/Understanding the Altibase Start_Shut down Process__14909450.md",
-      "body_chars": 1558,
-      "word_count": 160
+      "body_chars": 1213,
+      "word_count": 134
     },
     {
       "space_key": "arch",
@@ -4103,8 +4103,8 @@
       "title": "Utility Guide for each OS for Problem Analysis",
       "source_url": "https://docs.altibase.com/display/arch/Utility+Guide+for+each+OS+for+Problem+Analysis",
       "path": "altibase_docs_md/arch/Home/Utility Guide for each OS for Problem Analysis__16875587.md",
-      "body_chars": 22131,
-      "word_count": 2387
+      "body_chars": 22092,
+      "word_count": 2722
     },
     {
       "space_key": "arch",

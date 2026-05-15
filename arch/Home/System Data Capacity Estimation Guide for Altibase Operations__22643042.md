@@ -52,8 +52,9 @@ Therefore, when estimating the size of the memory database in a production envir
 
 It can be estimated as follows:
 
-| Record Length | The sum of the lengths of all columns that make up one record |  |
+| Item | Description |  |
 | --- | --- | --- |
+| Record Length | The sum of the lengths of all columns that make up one record |  |
 | Record Header Length | 32 BYTES |  |
 | Expected Number of Records | The expected number of records based on the retention period |  |
 | Index Pointer Length | 8 BYTES |  |
@@ -100,9 +101,9 @@ When a query is executed, Altibase internally goes through a process of creating
 
 However, to reduce the overhead of generating an execution plan for the same query repeatedly, Altibase stores and manages query information and execution plans for queries that have already been executed. This requires session memory space.
 
-Altibase has two main types of session memory areas: the SQL Plan Cache, which is shared by all sessions, and memory areas allocated per session.
+Altibase has two main types of session memory areas: the `SQL_CACHE` area, which is shared by all sessions, and memory areas allocated per session.
 
-Since the size of the SQL Plan Cache does not dynamically increase, if it cannot store all execution plans for queries, the plans are stored in the memory allocated to individual sessions.
+Since the size of the `SQL_CACHE` area does not dynamically increase, if it cannot store all execution plans for queries, the plans are stored in the memory allocated to individual sessions.
 
 Therefore, when estimating memory capacity, the memory space allocated per session must also be considered.
 
@@ -170,8 +171,9 @@ Therefore, if the record length is 282 bytes, it should be estimated as 288 byte
 
 Once the record length is determined as above, the calculation can be done using the following table.
 
-| Input Data | 288 (record) + 32 (record header) | 1,000,000 | 10 | 1.1 (considering 1 year) |
+| Altibase 7 | Record length<br>(BYTE) | Annual rows<br>(MB) | Retention period<br>(years/MB) | Business-growth correction factor |
 | --- | --- | --- | --- | --- |
+| Input Data | 288 (record) + 32 (record header) | 1,000,000 | 10 | 1.1 (considering 1 year) |
 | Data Capacity | (288 + 32) * 1,000,000 = 305.17 MB |  | (1 year capacity * 10 years) = 3,051.7 MB | 3,051.7 * 1.1 = 3,356.8 MB |
 | Index Capacity | 8 * 2 (1 primary key, 1 index) | (8 * 1,000,000 * 2) = 15.25 MB | (1 year capacity * 10 years) = 152.5 MB | 152.5 * 1.1 = 167.7 MB |
 | Total | 3204.2 | 3524.5 MB |  |  |
@@ -180,8 +182,9 @@ Once the input data is created for each table as shown above, it becomes possibl
 
 After estimating the capacity for data and indexes, the total required memory capacity can be calculated as follows.
 
-| Memory DB Capacity | 20 GB (Sum of capacities for all memory tables) |  |
+| Item | Calculated Data (Example) |  |
 | --- | --- | --- |
+| Memory DB Capacity | 20 GB (Sum of capacities for all memory tables) |  |
 | Disk Buffer | 5 GB (Estimated considering the size of the disk DB) |  |
 | Applying Margin | Number of Queries = 1,000 | 1,000 queries * 1 MB = 1 GB |
 |  | 20 GB * 0.1 = 2 GB |  |
@@ -341,7 +344,7 @@ Generally, about 5 bytes of data delimiters are required per column, so addition
 
 |  |
 | --- |
-| - Delimiter size = 5 BYTES * number of records * number of columns Example> For a table with 10 columns and 1 million records, an additional 5 * 10 * 1,000,000 = 50 MB is required. |
+| - Delimiter size = 5 BYTES * number of records * number of columns<br>Example> For a table with 10 columns and 1 million records, an additional 5 * 10 * 1,000,000 = 50 MB is required. |
 
 In other words, additional delimiter capacity is required on top of the initially estimated disk DB size.
 

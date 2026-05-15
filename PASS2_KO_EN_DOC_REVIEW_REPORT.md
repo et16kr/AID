@@ -201,3 +201,70 @@ P203 audited Korean disk I/O volume configuration and OS platform setup document
 
 - External HTTP availability was not tested; P203 used grep-based source-link and attachment preservation checks.
 - The AIX Korean source states that `PTHREAD_FORCE_SCOPE_SYSTEM` must be set but does not provide a value in the AIX example. The English guide now preserves the requirement, but a platform owner may still want to confirm the exact AIX setting value.
+
+## P204 Tech audit: operations failure startup resource utilities
+
+### Scope
+
+P204 audited Korean failure response, startup/shutdown, system resource sizing, OS utility, UNIX memory, and operation-related configuration documents against their English `arch` targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English target |
+| --- | --- |
+| `DOCK/Home/20. Altibase 설정 파일 가이드__13437165.md` | `arch/Home/Altibase Configuration File Guide__22642991.md` |
+| `DOCK/Home/26. Altibase 기본적인 장애대응 절차__13435879.md` | `arch/Home/Responding to Failures Guide for Altibase__15138818.md`; `arch/Home/Responding to Failures Guide for Altibase/1. Classification by type of failure__15138822.md`; `arch/Home/Responding to Failures Guide for Altibase/2. Procedure by type of failure__15138835.md`; `arch/Home/Responding to Failures Guide for Altibase/3. References__15138869.md` |
+| `DOCK/Home/43. Altibase STARTUP _ STOP 과정의 이해__13434993.md` | `arch/Home/Understanding the Altibase Start_Shut down Process__14909450.md`; `arch/Home/Understanding the Altibase Start_Shut down Process/1. Starting Altibase__14909452.md`; `arch/Home/Understanding the Altibase Start_Shut down Process/2. Shutting Altibase Down__14909483.md` |
+| `DOCK/Home/45. Altibase 운영을 위한 시스템 리소스 용량산정 가이드__14057887.md` | `arch/Home/System Data Capacity Estimation Guide for Altibase Operations__22643042.md` |
+| `DOCK/Home/47. 문제분석을 위한 OS별 유틸리티 사용 가이드__13436866.md` | `arch/Home/Utility Guide for each OS for Problem Analysis__16875587.md` |
+| `DOCK/Home/48. UNIX Memory Management__13436842.md` | `arch/Home/UNIX Memory Management__16875572.md` |
+
+### Findings And Updates
+
+- No English documentation change was needed in `arch/Home/Altibase Configuration File Guide__22642991.md`; operation-related configuration sections already matched the Korean source after earlier pass2 updates.
+- Corrected system resource sizing guide table structure and identifiers:
+  - Restored Korean-source table headers for memory DB sizing and memory capacity examples.
+  - Preserved the exact `SQL_CACHE` identifier.
+  - Restored the `iloader` delimiter example line break.
+- Corrected OS utility guide details:
+  - `vmstat 1 5` now means 5 outputs at 1-second intervals.
+  - The Linux `pstack` low-kernel warning is restored.
+  - Function identifiers such as `mmtServiceThread::execute`, `qmx::executeInsertSelect`, `qmnINST::doItNext`, and `smrLogMgr::updateTransLSNInfo` were corrected.
+  - `c++filt`, SUN `/var/adm/messages.*`, AIX `-n`, and PA-RISC wording were corrected.
+- Corrected UNIX memory management guide details:
+  - Solaris `lotsfree` is restored to `1/64` of total memory, with the Korean-source `5.7` or earlier version condition.
+  - The allocation example now uses `*(p+i) = 1`.
+  - `svmon -G`, `ps v [process id]`, `pmap`, `mmap`, `top`/`pmap`, and Red Hat wording were corrected.
+- Corrected failure-response guide details:
+  - Collapsed restart and connection commands were split into code blocks.
+  - Hang-information commands and 30-second interval wording were normalized.
+  - Insufficient disk space, tablespace emergency response wording, MVCC Garbage Data conditions, and temporary network-failure wording were clarified.
+  - Korean-source ATC/support website references and the `altibase_sm.log` checkpoint/tablespace note were restored.
+- Corrected startup/shutdown guide details:
+  - Stage terminology and `altibase_boot.log` references were normalized.
+  - `STARTUP CONTROL`, `STARTUP META`, `STARTUP SERVICE`, and `STARTUP` transition wording was clarified.
+  - "SHUTDOWN IMMEDIATE" internal-operation wording now preserves dirty page flush and checkpoint wait-time semantics.
+
+### Attachment And Link Evidence
+
+- Scoped Korean source pages contain 6 unique URL-backed document-format attachments, and all 6 are preserved in the scoped English target set.
+- The startup/shutdown PDF remains preserved in both the parent English page and the split starting page, matching the existing split-page pattern.
+- Scoped grep found no empty links, `Error rendering macro`, `Unknown macro`, invalid `http://altibase_env.mk`, or malformed `support.altibase.com/)[/en/]` links after edits.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p204-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Scoped grep for stale mistranslations, malformed support links, invalid utility names, and corrected command typo patterns | Passed, no matches |
+| Scoped attachment preservation script | Passed, 6 Korean source URLs preserved |
+| Scoped fenced-code balance check | Passed for 11 scoped English files |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 10 edited English pages |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P204 used grep-based source-link and attachment preservation checks.
+- Some English split startup/shutdown pages contain valid English-only detail from the existing English structure where the current Korean export only has placeholder images. P204 preserved that material when it did not conflict with Korean-source meaning.

@@ -20,7 +20,7 @@ Updated: 2020-09-03T11:16:00.000+0900
 
 ---
 
-Altibase is the cored DBMS software for customer service operations. The maximum stability must be guaranteed for the non-stop service, but the possibility of a failure due to the system situation, user error, or bug cannot be 100% avoided.
+Altibase is core DBMS software for customer service operations. Maximum stability must be ensured for non-stop service, but the possibility of a failure due to the system situation, user error, or a critical product bug cannot be avoided completely.
 
 This document describes procedures to be performed by the user for Altibase technical support in the event of a failure in a situation when service is unavailable. To minimize the time to recover from failure, it is recommended for users to refer to this document.
 
@@ -28,5 +28,5 @@ CPU abnormalities, waiting, and performance delays due to locks can be checked w
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com/en/](http://support.altibase.com/en/)
 - Technical support center: 02-2082-1114

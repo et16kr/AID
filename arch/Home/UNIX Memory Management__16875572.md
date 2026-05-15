@@ -26,7 +26,7 @@ Therefore, for in-depth understanding, please refer to the documents provided by
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com/en/](http://support.altibase.com/en/)
 - Technical support center: 02-2082-1114
 
 # Solaris System Administration Techniques
@@ -57,7 +57,7 @@ The following shows the change of VSZ/swap area on the code.
 |  | Memory Allocation | Reserved(Swap) | VSZ |
 | --- | --- | --- | --- |
 | 1. Request | P = malloc(100M) | 100M | 0M |
-| 2. Actual usage | For (i=0; i<10M;i++)*(p+1) = 1 | 90M | 10M |
+| 2. Actual usage | For (i=0; i<10M;i++)<br>*(p+i) = 1 | 90M | 10M |
 
 Even if it is allocated in the actual code, the memory does not increase immediately. After that, it can be seen that the memory usage increases at the actual access point.
 
@@ -67,15 +67,15 @@ Even if it is allocated in the actual code, the memory does not increase immedia
 
 By default, Solaris uses free memory for file cache.
 
-This condition is basically used as a file cache only when the physical memory is more than the value set to lotsfree (1/6 of the total memory).
+This condition applies only when free physical memory is greater than the value set by `lotsfree` (1/64 of total memory).
 
-(Version earlier than 5.1, when free memory is needed, the file cache option had to be given so that it can be selected first, but from version 5.8 or later, the file cache is also stored in free memory by default. Therefore unlike AIX/HP, there is no need for the user to set a separate setting.)
+(In version 5.7 or earlier, an option had to be set so that file cache could be selected first when free memory was needed. From version 5.8 or later, file cache is also included in free memory by default. Therefore, unlike AIX/HP, users do not need to configure a separate setting.)
 
-However, it if starts to be kept below lotsfree, the system starts searching memory pages to find pages that are not recently used. (These search numbers appear in the sr part of the vmstat information.)
+However, if free memory starts to stay below `lotsfree`, the system starts searching memory pages to find pages that have not been used recently. (These search counts appear in the `sr` field of `vmstat`.)
 
-To keep lotsfree, infrequently accessed pages are loaded into memory and operated to fill the lotsfree level.
+To keep the `lotsfree` level, infrequently accessed pages are freed from memory so the system can restore the required free-memory level.
 
-This operation is referred to as swap (swapping). (In vmstat, fr means the number of free pages in the memory, but free means that the page in the memory is updated to disk if there is changed information. It shows a phenomenon that the performance is deteriorated.)
+This operation is referred to as swap (swapping). (In `vmstat`, `fr` means the number of freed memory pages. If a freed memory page contains changed information, that page is written to disk. When this swapping occurs, disk I/O happens frequently and overall system performance can degrade.)
 
 ## pmap
 
@@ -93,7 +93,7 @@ FFFFFFFF732FC000         16K rw--R    [ anon ]
 FFFFFFFF73C00000      10240K rw-s-  dev:118,46 ino:45717892
 ```
 
-The top will be the process memory, and the heap area will be the area where the DB and etc. are located. The meaning of anon refers to an area at the time of initial access to a page with MMAP_PRIVATE mapping. ino and etc. can be seen as the redo log buffer area uploaded by mmp.
+The top entry is process memory, and the heap area is where the memory DB and related data are located. `anon` refers to the area used at the initial access time for pages with `MMAP_PRIVATE` mapping. Entries with `ino` and related fields can be treated as redo log buffer areas loaded by `mmap`.
 
 # Memory Management Policy for AIX system
 
@@ -111,11 +111,12 @@ To understand the memory usage of AIX, first, the definition of the classificati
 | --- | --- |
 | Persistent | Area used for JFS file cache |
 | Client | Area used for file cache of CDROM, NFS, JFS2 |
-| Computational | Area such as process stack, heap, and share memory |
+| Computational | Area such as process stack, heap, and shared memory |
 
-For a better understand, we are going to explain with the result of svmon. (All results of svmon are page units, and 1 page is basically 4K unless otherwise indicated.)
+For better understanding, the following explanation uses `svmon` output. (All `svmon` results are in page units, and 1 page is basically 4K unless otherwise indicated.)
 
-Shell> svmon –G
+```
+Shell> svmon -G
 
 size inuse free pin virtual
 
@@ -128,6 +129,7 @@ work pers clnt other
 pin 404863 0 0 69834
 
 in use 1225427 5 554246
+```
 
 The above results are first described in the table below.
 
@@ -162,7 +164,7 @@ For more detailed information, please refer to "Altibase Environment Configurati
 | --- | --- |
 | MAXPERM | Maximum share of physical memory used for file cache (soft limit) |
 | MINPERM | Minimum share of physical memory used for file cache |
-| NUMPERM | Occupation of the area used as actual file cache (check with vmtune,vmo) |
+| NUMPERM | Occupation of the area used as actual file cache (check with vmtune, vmo) |
 | MAXCLIENT | Maximum share of the file cache used by NFS, JFS2, etc. |
 | stric_maxperm | If set to 1, MAXPERM is maintained |
 | lru_file_repage | When set to 0, it is forcibly designated to occur only in file cache such as JFS2 for steals that occur when memory is insufficient. |
@@ -185,7 +187,7 @@ m  64 KB       548          3          0        548
 
 Generally, svmon is not the information that provides snapshots and should be viewed as statistical information.
 
-Therefore, the memory usage and the result of svmon, which are checked with a command such as (psv [process id]), may be different.
+Therefore, the memory usage checked with a command such as `ps v [process id]` and the result of `svmon` may be different.
 
 However, the user needs to carefully pay attention to the pgsp item. The fact that this part is increasing means that there is actually insufficient memory or that the computation memory area has been stolen and swapped, and from the standpoint of ALTIBASE, it is a problem that can cause performance degradation, so the user should check and adjust the file cache setting.
 
@@ -197,7 +199,7 @@ PID    TTY STAT  TIME PGIN  SIZE     RSS   LIM  TSIZ   TRS  %CPU  %MEM
 356528      - A    29:37  4700  290328  77688    xx  17933  3396    0.1    1.0
 ```
 
-The analysis problem in the results of ps and svmon is that the sum of the issue part of svmon must match the size of the actual ps result, but in the case of page-out, the ps side is actually displayed larger.
+When analyzing `ps` and `svmon` results, the sum of the `inuse` part of `svmon` should match the actual `SIZE` value from `ps`; however, if page-out has occurred, the `ps` side is displayed larger.
 
 # Memory Management Policy for HP
 
@@ -219,9 +221,9 @@ If the number of threads increases by a lot, performance can be improved in term
 Shell> export _M_ARENA_OPT=16:8
 ```
 
-If the environment is configured as above, threads are allocated memory with 16 arenas, which means that if the arena's memory pool becomes insufficient, it will operate in the form of expanding the memory pool in unites of (8*4096 bytes).
+If the environment is configured as above, threads are allocated memory with 16 arenas. If an arena's memory pool becomes insufficient, the memory pool is expanded in units of (8*4096 bytes).
 
-(If the expansion unit is too large, the memory may increase rapidly, so many testings are required when setting this environment. The default value is 8:32)
+(If the expansion unit is too large, memory may increase rapidly, so extensive testing is required when setting this environment variable. The default value is 8:32.)
 
 ## Insufficient memory
 
@@ -252,7 +254,7 @@ OFFSET            VSZ    RSZ     TYPE     PRM  FILE
 9fffffff7d7af000     72K    64K       PD       rw- [uarea]
 ```
 
-In HP, the exact memory usages of a process can be checked with the map command. The result is similar to that of Solaris.
+In HP, the exact memory usage of a process can be checked with the `pmap` command. The result is similar to that of Solaris.
 
 HP can adjust the settings for file cache in the same way as AIX. Since these values are related to the overall performance, the recommended value is variable depending on the situation, but in general, it is recommended to set 5%(min)/15%(max).
 
@@ -285,7 +287,7 @@ However, since this part incurs a cost due to swapping that the user wants or do
 
 ## Additional conditions to Arena-related matters (when writing)
 
-- This feature was added in red Hat Enterprise Linux 6 to improve performance issues due to memory contention between threads in a multi-threaded application environment.
+- This feature was added in Red Hat Enterprise Linux 6 to improve performance issues caused by memory contention between threads in a multi-threaded application environment.
 - The default value is the number of CPU core * MALLOC_ARENA_TEST.
 - The default value of MALLOC_ARENA_TEST environment variable
     - 2 for 32-bit
@@ -296,7 +298,7 @@ However, since this part incurs a cost due to swapping that the user wants or do
 
 ---
 
-The memory usage of a process can be checked with the top or map command.
+The memory usage of a process can be checked with the `top` or `pmap` command.
 
 # Why doesn't the vsz decrease?
 
@@ -308,7 +310,7 @@ In other words, even if a process calls free() on a memory area explicitly alloc
 
 This is because kernel cost can have a significant performance impact if the memory manager of the operating system expects the process to reuse the freed memory area by the process to remain in the form of a fragment and reconfigured to a free-list of allocable segments.
 
-Therefore, even if the process is free(), the operating system sees a phenomenon in which the size of the VSZ does not decrease with an actual monitoring tool, for the reason described above.
+Therefore, even if a process calls `free()`, monitoring tools can show that the VSZ size does not decrease immediately for the reasons described above.
 
 # Korean Source Attachments
 
