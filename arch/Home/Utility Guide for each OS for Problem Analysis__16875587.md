@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/arch/Utility+Guide+for+each+OS+for+Problem+Analysis
 Updated: 2021-02-04T13:49:25.000+0900
 
-- [Overview](#UtilityGuideforeachOSforProblemAnalysis-Overview) - [Common Command](#UtilityGuideforeachOSforProblemAnalysis-CommonCommand) - [netstat](#UtilityGuideforeachOSforProblemAnalysis-netstat) - [vmstat](#UtilityGuideforeachOSforProblemAnalysis-vmstat) - [Linux](#UtilityGuideforeachOSforProblemAnalysis-Linux) - [CPU usage by thread](#UtilityGuideforeachOSforProblemAnalysis-CPUusagebythread) - [pstack](#UtilityGuideforeachOSforProblemAnalysis-pstack) - [Checking the list of files in use](#UtilityGuideforeachOSforProblemAnalysis-Checkingthelistoffilesinuse) - [System Log](#UtilityGuideforeachOSforProblemAnalysis-SystemLog) - [SUN](#UtilityGuideforeachOSforProblemAnalysis-SUN) - [prstat](#UtilityGuideforeachOSforProblemAnalysis-prstat) - [pstack](#UtilityGuideforeachOSforProblemAnalysis-pstack.1) - [pfiles](#UtilityGuideforeachOSforProblemAnalysis-pfiles) - [System Log](#UtilityGuideforeachOSforProblemAnalysis-SystemLog.1) - [AIX](#UtilityGuideforeachOSforProblemAnalysis-AIX) - [ps](#UtilityGuideforeachOSforProblemAnalysis-ps) - [prostack](#UtilityGuideforeachOSforProblemAnalysis-prostack) - [procfiles](#UtilityGuideforeachOSforProblemAnalysis-procfiles) - [System Log](#UtilityGuideforeachOSforProblemAnalysis-SystemLog.2) - [HP-UX](#UtilityGuideforeachOSforProblemAnalysis-HP-UX) - [CPU usage by thread with glance](#UtilityGuideforeachOSforProblemAnalysis-CPUusagebythreadwithglance) - [pstack](#UtilityGuideforeachOSforProblemAnalysis-pstack.2) - [pfiles](#UtilityGuideforeachOSforProblemAnalysis-pfiles.1) - [System Log](#UtilityGuideforeachOSforProblemAnalysis-SystemLog.3)
+- [Overview](#UtilityGuideforeachOSforProblemAnalysis-Overview) - [Common Command](#UtilityGuideforeachOSforProblemAnalysis-CommonCommand) - [netstat](#UtilityGuideforeachOSforProblemAnalysis-netstat) - [vmstat](#UtilityGuideforeachOSforProblemAnalysis-vmstat) - [Linux](#UtilityGuideforeachOSforProblemAnalysis-Linux) - [CPU usage by thread](#UtilityGuideforeachOSforProblemAnalysis-CPUusagebythread) - [pstack](#UtilityGuideforeachOSforProblemAnalysis-pstack) - [Checking the list of files in use](#UtilityGuideforeachOSforProblemAnalysis-Checkingthelistoffilesinuse) - [System Log](#UtilityGuideforeachOSforProblemAnalysis-SystemLog) - [SUN](#UtilityGuideforeachOSforProblemAnalysis-SUN) - [prstat](#UtilityGuideforeachOSforProblemAnalysis-prstat) - [pstack](#UtilityGuideforeachOSforProblemAnalysis-pstack.1) - [pfiles](#UtilityGuideforeachOSforProblemAnalysis-pfiles) - [System Log](#UtilityGuideforeachOSforProblemAnalysis-SystemLog.1) - [AIX](#UtilityGuideforeachOSforProblemAnalysis-AIX) - [ps](#UtilityGuideforeachOSforProblemAnalysis-ps) - [procstack](#UtilityGuideforeachOSforProblemAnalysis-procstack) - [procfiles](#UtilityGuideforeachOSforProblemAnalysis-procfiles) - [System Log](#UtilityGuideforeachOSforProblemAnalysis-SystemLog.2) - [HP-UX](#UtilityGuideforeachOSforProblemAnalysis-HP-UX) - [CPU usage by thread with glance](#UtilityGuideforeachOSforProblemAnalysis-CPUusagebythreadwithglance) - [pstack](#UtilityGuideforeachOSforProblemAnalysis-pstack.2) - [pfiles](#UtilityGuideforeachOSforProblemAnalysis-pfiles.1) - [System Log](#UtilityGuideforeachOSforProblemAnalysis-SystemLog.3)
 
 # Overview
 
@@ -301,7 +301,7 @@ This section describes commands that do not have special restrictions that can b
 
   In the above result, the occupancy rate used by threads can be checked with the CP column.
 
-## prostack
+## procstack
 
 ---
 
@@ -344,7 +344,7 @@ This section describes commands that do not have special restrictions that can b
 
 ---
 
-- It is used to check the system log if an error has occurred in the operating equipment. Since the log for disk device errors, network device errors, or abnormal termination of processes can be checked, the user must check the system log when to find the cause from outside during the technical support.
+- It is used to check the system log when an error has occurred on the operating system. Because disk device errors, network device errors, and abnormal process termination can be checked in this log, the user must check the system log when investigating causes outside Altibase during technical support.
 
   ```
   Shell> errpt -a | more

@@ -57,7 +57,6 @@ It can be estimated as follows:
 | Record Header Length | 32 BYTES |  |
 | Expected Number of Records | The expected number of records based on the retention period |  |
 | Index Pointer Length | 8 BYTES |  |
-| 인덱스 포인터의 길이 | 8 BYTES |  |
 | Example |  |  |
 | Record Length | 500 BYTES |  |
 | Header Length | 32 BYTES |  |
@@ -175,7 +174,6 @@ Once the record length is determined as above, the calculation can be done using
 | --- | --- | --- | --- | --- |
 | Data Capacity | (288 + 32) * 1,000,000 = 305.17 MB |  | (1 year capacity * 10 years) = 3,051.7 MB | 3,051.7 * 1.1 = 3,356.8 MB |
 | Index Capacity | 8 * 2 (1 primary key, 1 index) | (8 * 1,000,000 * 2) = 15.25 MB | (1 year capacity * 10 years) = 152.5 MB | 152.5 * 1.1 = 167.7 MB |
-| 인덱스 용량 | 8*2 (프라이머리 키 1개, 인덱스 1개) | (8*1000000*2) = 15.25 | (1년 용량 * 10년) = 152.5 | 152.5 * 1.1 = 167.7 MB |
 | Total | 3204.2 | 3524.5 MB |  |  |
 
 Once the input data is created for each table as shown above, it becomes possible to estimate the capacity for both data and indexes.
@@ -185,8 +183,7 @@ After estimating the capacity for data and indexes, the total required memory ca
 | Memory DB Capacity | 20 GB (Sum of capacities for all memory tables) |  |
 | --- | --- | --- |
 | Disk Buffer | 5 GB (Estimated considering the size of the disk DB) |  |
-| 디스크 버퍼 | 5 GB (디스크 DB의 크기를 고려한 산정) |  |
-| Applying Margin | Number of Queries = 1,000 | 1000개 * 1 MB = 1 GB |
+| Applying Margin | Number of Queries = 1,000 | 1,000 queries * 1 MB = 1 GB |
 |  | 20 GB * 0.1 = 2 GB |  |
 |  | 20 GB * 0.3 = 6 GB |  |
 | Estimated Memory Capacity | 20 GB + 5 GB + 1 GB + 2 GB + 6 GB = 34 GB |  |

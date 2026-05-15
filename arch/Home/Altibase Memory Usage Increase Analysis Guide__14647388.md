@@ -20,7 +20,7 @@ Updated: 2020-08-18T16:12:03.000+0900
 
 Problems caused by an increase in the memory usage of the system are usually caused by an increase in data in the application program (user) and in the memory tablespace.
 
-The database memory is loaded due to queries used int the application program, which can lead to insufficient memory.
+Database memory can increase due to queries used in the application program, which can lead to insufficient memory.
 
 This document examines the parts of memory spaces occupied by Altibase and describes how to resolve it when memory is used abnormally.
 

@@ -54,6 +54,34 @@ J002에서는 한국어 `DOCK`의 설치, 플랫폼 설정, 데이터베이스 �
 - Linux 설정 가이드의 손상된 TOC와 한국어 잔여 문구를 제거하고, `swappiness`, THP, semaphore, locale, 요약 표, Red Hat swap 링크, Symantec SEP 주의사항, `References` 절을 한국어 원문 기준으로 갱신했습니다.
 - J002 한국어 원문 문서의 문서형 첨부 URL이 대응 영어 문서에 보존되어 있는지 확인했고 누락은 없었습니다.
 
+## J003 운영 및 관리 문서 추가 검토
+
+J003에서는 한국어 `DOCK`의 설정, 장애 대응, 시작/종료, 시스템 리소스 용량 산정, 문제 분석용 OS 유틸리티, UNIX 메모리 관리, 모니터링 쿼리, CPU 과부하 분석, 메모리 사용량 증가 분석 문서를 영어 `arch` 문서와 재비교했습니다. 한국어 원문을 기준으로 본문 절, 명령어, SQL, 설정값, 주의사항, 첨부 문서 링크를 확인했습니다.
+
+비교 및 갱신 범위는 다음과 같습니다.
+
+| 한국어 기준 | 영어 갱신 문서 |
+| --- | --- |
+| `DOCK/Home/20. Altibase 설정 파일 가이드__13437165.md` | `arch/Home/Altibase Configuration File Guide__22642991.md` |
+| `DOCK/Home/26. Altibase 기본적인 장애대응 절차__13435879.md` | `arch/Home/Responding to Failures Guide for Altibase/*` |
+| `DOCK/Home/43. Altibase STARTUP _ STOP 과정의 이해__13434993.md` | `arch/Home/Understanding the Altibase Start_Shut down Process/*` |
+| `DOCK/Home/45. Altibase 운영을 위한 시스템 리소스 용량산정 가이드__14057887.md` | `arch/Home/System Data Capacity Estimation Guide for Altibase Operations__22643042.md` |
+| `DOCK/Home/47. 문제분석을 위한 OS별 유틸리티 사용 가이드__13436866.md` | `arch/Home/Utility Guide for each OS for Problem Analysis__16875587.md` |
+| `DOCK/Home/48. UNIX Memory Management__13436842.md` | `arch/Home/UNIX Memory Management__16875572.md` |
+| `DOCK/Home/59. Altibase 모니터링 쿼리 가이드__10060431.md` | `arch/Home/Altibase Monitoring Queries Guide/*` |
+| `DOCK/Home/62. Altibase CPU 과부하 현상에 대한 분석가이드__11698396.md` | `arch/Home/Altibase CPU Overload Analysis Guide/*` |
+| `DOCK/Home/63. Altibase Memory 사용량 증가 분석가이드__11698518.md` | `arch/Home/Altibase Memory Usage Increase Analysis Guide/*` |
+
+주요 반영 내용은 다음과 같습니다.
+
+- 한국어 모니터링 쿼리 가이드의 `[ST01]`, `[TS01]`, `[OB01]`, `[RP01]` 등 쿼리 식별자를 대응 영어 분할 문서의 제목에 복원했습니다.
+- 시스템 리소스 용량 산정 문서에 남아 있던 한국어 표 행과 `1000개` 표현을 제거하거나 영어로 정리했습니다.
+- 장애 대응 문서에서 `ulimit -n`, `$ALTIBASE_HOME/conf/altibase.properties`, `Garbage Data`, 이중화 갭 설명, `REP_GAP` 계산 설명을 한국어 원문 의미에 맞게 보정했습니다.
+- 시작/종료 문서에서 `altibase.properties`, Altibase 프로세스 중복 구동 방지, `V$OBSOLETE_BACKUP_INFO`, META 단계 설명, ABORT 설명의 오역과 오탈자를 수정했습니다.
+- OS 유틸리티 문서에서 AIX `procstack` 표기와 시스템 로그 설명을 한국어 원문 의미에 맞게 수정했습니다.
+- CPU 과부하 및 메모리 사용량 증가 분석 문서의 OS 환경변수 영향, 프로파일링, `Query_Binding`, GC aging, Altibase 프로세스 메모리 설명을 자연스러운 기술 영어로 정리했습니다.
+- J003 한국어 원문 문서의 문서형 첨부 URL이 대응 영어 문서에 보존되어 있는지 확인했고 누락은 없었습니다.
+
 ## 검토 범위
 
 | 구분 | 한국어 기준 문서 | 영어 대상 문서 | 결과 |
@@ -126,6 +154,10 @@ J002에서는 한국어 `DOCK`의 설치, 플랫폼 설정, 데이터베이스 �
 | J002 문서형 첨부 URL 대조 | 설치/플랫폼 범위 10개 URL 확인, 누락 0개 |
 | J002 갱신 문서 stale-string grep | 알려진 오탈자, 깨진 명령어, 오래된 링크 패턴 재검출 0건 |
 | J002 manifest 메타데이터 대조 | 갱신된 `arch` 문서 14개 확인, 불일치 0건 |
+| J003 문서형 첨부 URL 대조 | 운영/관리 범위 9개 문서형 URL 확인, 누락 0개 |
+| J003 모니터링 쿼리 ID 대조 | `SS`, `ST`, `SV`, `TL`, `LO`, `GC`, `MS`, `TS`, `DB`, `OB`, `PV`, `CT`, `RP` 계열 72개 제목 ID 확인, 누락 0개 |
+| J003 갱신 문서 stale-string grep | 한국어 잔여 문구, 알려진 오탈자, 잘못된 명령/경로 패턴 재검출 0건 |
+| J003 manifest 메타데이터 대조 | 갱신된 `arch` 문서 확인, 불일치 0건 |
 
 ## 결론
 

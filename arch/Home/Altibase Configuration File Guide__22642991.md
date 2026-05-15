@@ -212,8 +212,8 @@ This section describes properties necessary for tracking when a problem occurs i
 
 | Configuration item | Default Value | Description |
 | --- | --- | --- |
-| QP_MSGLOG_FLAG | 2 | If it is set to 2, all DDL performance records can be checked, so when a problem occurs, which can be helpful for analysis if DDL performance is based. |
-| RP_CONFLICT_MSGLOG_FLAG | 0 | If it is set to 6, a log of DML occurs when a replication conflict is recorded. which can be helpful for analysis. |
+| QP_MSGLOG_FLAG | 2 | If it is set to 2, all DDL execution records can be checked. When a problem is related to DDL execution, this can help with analysis. |
+| RP_CONFLICT_MSGLOG_FLAG | 0 | If it is set to 6, DML logs generated during replication conflicts are recorded, which can help with analysis. |
 | TIMED_STATISTICS | 0 | The default value is 0. To check the execution time of SQL statements for performance analysis, it can be enabled in real time as follows.<br>iSQL> ALTER SYSTEM SET TIMED_STATISTICS = 1 ;<br>When enabled, the execution time of each SQL statement starts to be recorded in v$statement. |
 
 # Korean Source Attachments
