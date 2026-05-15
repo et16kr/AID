@@ -54,7 +54,7 @@ Therefore, in order to guarantee Altibase's consistent response time, it is reco
 
 The default memory manager of AIX is to convert unused memory areas to file cache as much as possible.
 
-In this state, if an additional memory allocation requso if the system does noest occurs and there is insufficient free memory, the process swaps out the memory being used or the area that is not often accessed from the file cache area, and then allocates it.
+In this state, if an additional memory allocation request occurs and there is insufficient free memory, AIX swaps out memory being used by a process or less frequently accessed file cache areas, and then allocates the requested memory.
 
 At this time, when a transaction approaching the swapped out area occurs, the performance is not uniform.
 
@@ -74,7 +74,7 @@ Since this setting can be checked during AIX operation, if performance or other 
 
 ### Resource Limitations
 
-In the case of AIX, some of the resource limit items are set through the following kernel parameter changes, not the user configuration file setting using ulimit, which is commonly uand the soft-limit means that the hard-limit can sed.
+In the case of AIX, some resource limit items are set through kernel parameter changes rather than by using ulimit in the user configuration file.
 
 Altibase is a single-process, multi-thread-based application program, so if the system does not have any application programs other than Altibase, there is no need to specifically consider the number of process limits per user. In some cases, it may be necessary to appropriately expand the limit on the number of processes per user by predicting the number.
 
@@ -86,13 +86,13 @@ The relevant kernel parameters are as follows.
 
 ### How to Change
 
-To change the kernel parameters related to file cache, use the virtual memory-related kernel utility emo, and for other changes, describe the method using the system kernel-related utility smit.
+To change kernel parameters related to file cache, use the virtual memory kernel utility vmo. For other changes, use the system kernel utility smit.
 
 Generally, the user needs to connect to the root account, and it is recommended to restart the system after changing to properly apply even the kernel parameters applied in real-time.
 
 #### Posix AIO
 
-After running smit, move the items in the order of "Devices", "Asynchronous I/O" to change the 'Defined' state of "Configured Defined Asynchronous I/O" to 'Available'.
+After running smit, move through "Devices", "Asynchronous I/O", and "Posix Asynchronous I/O", then change the "Defined" state of "Configure Defined Asynchronous I/O" to "Available".
 
 However, if only this process is performed, the following process must be performed as the previous Posix AIO setting may be reset when the system is restarted.
 
@@ -153,7 +153,7 @@ In the UNIX operating system, logical limits are set for available resources on 
 
 It is intended to remove problems that may occur due to logical limitations even when there are abundant physical resources when expanding the memory and data file area used by a specific user. This setting has no effect on other processes. It is recommended to set the maximum value allowed by (unlimited if possible).
 
-For example, the meaning of open files includes not only the files accessed by the process, but also the number of communication sockets. If Altibase is operated in an environment where this value is limited to 10, it means that more than 10 sessions can be accessed simultaneously. (Considering the file used by Altibase, there may not be an accessible session.)
+For example, open files includes not only files accessed by the process but also communication sockets. If Altibase is operated in an environment where this value is limited to 10, more than 10 concurrent sessions are impossible. Considering the files used by Altibase itself, there may be no available session capacity.
 
 To change the method, edit the environment configuration file using, the ulimit command, edit the system resource configuration file, or use the kernel-related utilities provided for each operating system.
 
@@ -173,7 +173,7 @@ For reference, the system configuration file related to the user resource limit 
 
 Separate environment variables need to be set for Altibase, a multi-thread based application program. For reference, this document mentions only representative ones, but it should be noted that all environment variables related to multi-threads supported by AIX need to be considered.
 
-The following items are recommended environment variables to prevent performance degradation in multi-threaded SMP systems.Altibase can be operated without setting the environment variable, but must be set because failures may occur due to unknown causes.
+The following items are recommended environment variables to prevent performance degradation in multi-threaded SMP systems. Altibase can run without these environment variables, but they must be set because failures of unknown cause may occur later.
 
 | Environment Variable | Description |
 | --- | --- |
@@ -201,8 +201,8 @@ Refer to the table below and set the appropriate kernel parameters. For referenc
 
 | Classification | Kernel Parameter | Recommended Value | Remark |
 | --- | --- | --- | --- |
-| Posix AIO | Configure Defined Asynchronous I/O | Available | Required under AIX 6.1 |
-| File Cache | lru_file_repage | 0 | Considered under AIX6.1 (Requires lru_file_repage) |
+| Posix AIO | Configure Defined Asynchronous I/O | Available | Required before AIX 6.1 |
+| File Cache | lru_file_repage | 0 | Consider before AIX 6.1 (lru_file_repage required) |
 | strict_maxclient | 0 |  |  |
 | minperm | 10 |  |  |
 | Resource limitation | The maximum number of PROCESSES allowed per user | More than the number of processes that can be running simultaneously | Corresponds to max user process |
@@ -243,7 +243,7 @@ ulimit –n unlimited  #file descriptor(open files), nofiles
 ulimit –m unlimited  #max memory size, rss
 ```
 
-For reference, in the case of ksh, an error may occur when defining another environment variable using the environment variable with it being predefined.
+For reference, in ksh, an error can occur when defining one environment variable by using another environment variable that has not already been defined.
 
 ## Enclosure
 

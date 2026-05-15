@@ -92,10 +92,11 @@ DB Info (Page Size     = 32768)
 - Or, the user can create a database as follows.
 
 ```
-$ isql -u sys -p manager -sysdba...
+$ isql -u sys -p manager -sysdba
+...
 iSQL(sysdba)> startup process
 ...
-iSQL(sysdba)> create database mydb INITSIZE=10M noarchivelog character set MS949 national character set UTF16;
+iSQL(sysdba)> create database mydb INITSIZE=10M noarchivelog character set UTF8 national character set UTF16;
 ...
 iSQL(sysdba)> exit
 ```
@@ -148,7 +149,7 @@ iSQL(sysdba)> exit
 
 ---
 
-The user can drop the database by deleting all Altiabse configuration files.
+The user can drop the database by deleting all Altibase configuration files.
 
 ## Check the files to be dropped
 
@@ -170,7 +171,8 @@ $ cat $ALTIBASE_HOME/conf/altibase.properties | grep ^LOG | grep DIR
 - After Altibase is shut down, the database is dropped in the process stage.
 
 ```
-$ isql -u sys -p manager -sysdba...
+$ isql -u sys -p manager -sysdba
+...
 iSQL(sysdba)> startup process;
 Connecting to the DB server.... Connected.
 
@@ -194,4 +196,5 @@ iSQL(sysdba)> exit
 
 The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
 
+- The Korean source adds a version-specific database creation guide for Altibase 3, 4, and 5.
 - [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/13436812/ALTIBASE_%EB%B2%84%EC%A0%84%EB%B3%84_DB_%EC%83%9D%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=2&modificationDate=1758150003000&api=v2)

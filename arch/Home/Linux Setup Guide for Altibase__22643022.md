@@ -14,23 +14,18 @@ labels: []
 Source: https://docs.altibase.com/display/arch/Linux+Setup+Guide+for+Altibase
 Updated: 2025-10-21T09:27:03.000+0900
 
-- [OverviewCheck the current setting value, and if the setting is not recom](#LinuxSetupGuideforAltibase-OverviewCheckthecurrentsettingvalue,andifthesettingisnotrecom) - [Linux Compatibility](#LinuxSetupGuideforAltibase-LinuxCompatibility) - [glibc Compatibility Version](#LinuxSetupGuideforAltibase-glibcCompatibilityVersion) - [glibc Recommended Version](#LinuxSetupGuideforAltibase-glibcRecommendedVersion) - [How to Check the glibc Version](#LinuxSetupGuideforAltibase-HowtoChecktheglibcVersion) - [Kernel Parameters](#LinuxSetupGuideforAltibase-KernelParameters) - [CPU Frequency Governor](#LinuxSetupGuideforAltibase-CPUFrequencyGovernor) - [RemoveIPC](#LinuxSetupGuideforAltibase-RemoveIPC) - [Swappiness](#LinuxSetupGuideforAltibase-Swappiness) - [THP(Transparent Huge Pages)](#LinuxSetupGuideforAltibase-THP(TransparentHugePages)) - [max_map_count](#LinuxSetupGuideforAltibase-max_map_count) - [Shared Memory](#LinuxSetupGuideforAltibase-SharedMemory) - [Semaphore](#LinuxSetupGuideforAltibase-Semaphore) - [How to Change Kernel Parameters](#LinuxSetupGuideforAltibase-HowtoChangeKernelParameters) - [CPU frequency Governor](#LinuxSetupGuideforAltibase-CPUfrequencyGovernor) - [RemoveIPC](#LinuxSetupGuideforAltibase-RemoveIPC.1) - [swappiness](#LinuxSetupGuideforAltibase-swappiness) - [How to change the swappiness setting](#LinuxSetupGuideforAltibase-Howtochangetheswappinesssetting) - [THP](#LinuxSetupGuideforAltibase-THP) - [max_map_count](#LinuxSetupGuideforAltibase-max_map_count.1) - [Shared Memory and Semaphore](#LinuxSetupGuideforAltibase-SharedMemoryandSemaphore) - [User Setting](#LinuxSetupGuideforAltibase-UserSetting) - [Resource Limitation](#LinuxSetupGuideforAltibase-ResourceLimitation) - [Related Error Message](#LinuxSetupGuideforAltibase-RelatedErrorMessage) - [View and Change Resource Settings](#LinuxSetupGuideforAltibase-ViewandChangeResourceSettings) - [How to Change the Settings](#LinuxSetupGuideforAltibase-HowtoChangetheSettings.3) - [Environment Variables](#LinuxSetupGuideforAltibase-EnvironmentVariables) - [Summary](#LinuxSetupGuideforAltibase-Summary) - [Others](#LinuxSetupGuideforAltibase-Others) - [Red Hat Enterprise Linux Recommended Swap Size](#LinuxSetupGuideforAltibase-RedHatEnterpriseLinuxRecommendedSwapSize) - [Force termination of Altibase server process by timeout setting when registering Altibase startup service with systemd](#LinuxSetupGuideforAltibase-ForceterminationofAltibaseserverprocessbytimeoutsettingwhenregisteringAltibasestartupservicewithsystemd) - [SYS area CPU usage increase in the server where'Symantec Endpoint Protection (SEP) for Linux' is installed](#LinuxSetupGuideforAltibase-SYSareaCPUusageincreaseintheserverwhere'SymantecEndpointProtection(SEP)forLinux'isinstalled)
-
-## OverviewCheck the current setting value, and if the setting is not recom
-
-- [max_map_count 설정값 변경 방법](https://aid.altibase.com/display/ENTD/Linux+Setup+Guide+for+Altibase#LinuxSetupGuideforAltibase-max_map_count%EC%84%A4%EC%A0%95%EA%B0%92%EB%B3%80%EA%B2%BD%EB%B0%A9%EB%B2%95)
-
-- ```
-  vm.max_map_count = 2147483647를 추가하거나 값을 변경한다.
-  ```
-
-  [Check the current setting value, and if the setting is not recommended, change it by referring to the guide below.swappiness](https://aid.altibase.com/display/ENTD/Linux+Setup+Guide+for+Altibase#LinuxSetupGuideforAltibase-swappiness)
-
-  ```
-  파일 끝에 아래 내용을 추가한다.
-  ```
+- [Overview](#overview)
+- [Linux Compatibility](#linux-compatibility)
+- [Kernel Parameters](#kernel-parameters)
+- [How to Change Kernel Parameters](#how-to-change-kernel-parameters)
+- [User Setting](#user-setting)
+- [Summary](#summary)
+- [Others](#others)
+- [References](#references)
 
 ---
+
+## Overview
 
 This document provides a guide for setting kernel parameters and OS user configuration for the stable operation of the Altibase server on the Linux system.
 
@@ -43,7 +38,7 @@ This document is based on the version below:
 
 ---
 
-Linux has many distribution types, but the Altibase compatibility check is based on glib version regardless of the distribution type and kernel version.
+Linux has many distribution types, but the Altibase compatibility check is based on glibc version regardless of the distribution type and kernel version.
 
 ### glibc Compatibility Version
 
@@ -83,7 +78,7 @@ The glibc versions with guaranteed compatibility for each Altibase server versio
 
 ### glibc Recommended Version
 
-glibc-2.12-1.166.el6_7.1 or later is recommended.
+Use the glibc version recommended for the Altibase version.
 
 In the previous version of glibc, there was a bug in which a system call (malloc/free) function could cause deadlock due to a race condition.
 
@@ -143,7 +138,7 @@ Therefore, it is important to properly set the swappiness to maintain the stable
 
 | Kernel Parameter | Description | Recommended Value |
 | --- | --- | --- |
-| swappiness | This can be set between 0 to 100. A low value makes the kernel use pages from page cache as much as possible, and a high value prefers to swap out less frequently used pages(cold pages)Linux for managing a car amount of memory in physical memory. | 1 |
+| swappiness | A low value makes the kernel use page-cache pages as much as possible, and a high value makes the kernel prefer to swap out less frequently used physical memory pages (cold pages). | 1 |
 
 - Disabling swappiness completely increases the likelihood that the Altibase server process will be killed abnormally by the OOM Killer in low memory situations.
 - Recommendation '1' is a setting to minimize swapping without disabling swappiness.
@@ -157,7 +152,7 @@ However, in the Altibase operating environment, cases of performance issues due 
 
 | Kernel Parameter | Description | Recommended Value |
 | --- | --- | --- |
-| THP(transparent_hugepage) | This automates the function to expand the memory page unit managed by the kernel from the existing 4K to 2M or 1G. The default value is 'always' | Never |
+| THP(transparent_hugepage) | This automates the function to expand the memory page unit managed by the kernel from the existing 4K to 2M or 1G. The default value is 'always'. | never |
 
 ### max_map_count
 
@@ -205,7 +200,7 @@ Semaphore-related parameters provided by Linux and recommended values from Altib
 | semmsl | The maximum number of semaphores in a set of semaphores and must be logically equal to or less than semmns. If set too large, several semaphore IDs can monopolize the entire system semaphore | 2000 |
 | semmns | The maximum number of semaphores in the operating system, and 16 bytes of kernel memory are allocated per one. | 32000 |
 | semopm | The maximum number of operations handled by the semop system call. | 512 |
-| semmni | The maximum number of semaphore sets can be set within 65535 and 85 bytes of kernel memory is allocated per set. | 5029 |
+| semmni | The maximum number of semaphore sets can be set within 65535, and 84 bytes of kernel memory are allocated per set. | 5029 |
 
 ## How to Change Kernel Parameters
 
@@ -902,7 +897,7 @@ Restart the OS to verify the changes. You can perform the OS reboot once after a
 
 #### How to Check Set Value
 
-###### lpcs command
+###### ipcs command
 
 How to check shared memory and semaphore 1 - Using ipcs command
 
@@ -1159,8 +1154,8 @@ The table below shows the ALTIBASE_NLS_USE and LANG environment variable setting
 | Altibase Server Character Set | ALTIBASE_NLS_USE | LANG |
 | --- | --- | --- |
 | MS949 | MS949 | ko_KR.euckr |
-| KOS16KSC5601 | KOS16KSC5601 | ko_KR.euckr |
-| UTF88 | UTF8 | Ko_KR.utf8 |
+| KO16KSC5601 | KO16KSC5601 | ko_KR.euckr |
+| UTF8 | UTF8 | ko_KR.utf8 |
 
 Refer to the table above and add environment variables to the user configuration file .bash_profile.
 
@@ -1190,14 +1185,14 @@ Apply the environment variable added with the following command.
 | **Kernel Parameter** | CPU frequency Governor | performance | cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor \| sort -u |  |
 | CPU core clock speed is fixed at maximum | grep MHz /proc/cpuinfo \| sort -u |  |  |  |
 | RemoveIPC | no | grep RemoveIPC /etc/systemd/logind.conf |  |  |
-| swappiness | 1 | cat /proc/sys/vm/swappiness or sysctl -a \| grepswappiness |  |  |
-| THP | never | cat /sys/kernel/mm/transparent_hugepage/enabled |  |  |
+| swappiness | 1 | cat /proc/sys/vm/swappiness or sysctl -a \| grep swappiness |  |  |
+| THP | never | cat /sys/kernel/mm/transparent_hugepage/enabled<br>cat /sys/kernel/mm/transparent_hugepage/defrag |  |  |
 | All 0 besides Hugepagesize | grep -i huge /proc/meminfo |  |  |  |
 | Including transparent_hugepage=never | cat /proc/cmdline |  |  |  |
 | max_map_count | 2147483647 | cat /proc/sys/vm/max_map_count |  |  |
 | **Shared Memory** | shmmni | 4096 | ipcs -m -l<br>sysctl -a \| grep -e kernel.shmmax -e kernel.shmmni |  |
 | shmmax | 2147483648 |  |  |  |
-| Semaphore | semmsl | 2000 | ipcs -s -l<br>sysctl -a \| grep -kernel.sem |  |
+| Semaphore | semmsl | 2000 | ipcs -s -l<br>sysctl -a \| grep kernel.sem |  |
 | semmns | 32000 |  |  |  |
 | semopm |  | 512 |  |  |
 | semmni | 5029 |  |  |  |
@@ -1222,12 +1217,12 @@ Apply the environment variable added with the following command.
 
 Red Hat Linux recommends the following for Swap sizing.
 
-- In the past, twice as much swap space as physical memory was recommended, but today with terabytes of memory, the last recommendation is not practical.
+- In the past, twice as much swap space as physical memory was recommended, but today with terabytes of memory, the previous recommendation is not practical.
 - For systems with more than 140 logical processors or systems with more than 3 TB of RAM, a minimum swap space of 100 GB is recommended.
 
 For details, refer to the Red Hat CUSTOMER PORTAL page.
 
-https://access.redhat.com/solutions/15244[What is the recommended swap size for Red Hat platforms?](https://access.redhat.com/solutions/15244)
+- [What is the recommended swap size for Red Hat Enterprise Linux?](https://access.redhat.com/ko/solutions/744483)
 
 ### Force termination of Altibase server process by timeout setting when registering Altibase startup service with systemd
 
@@ -1253,7 +1248,7 @@ Similarly, there is a TimeoutStopSec setting.
 
 Please refer to 'man systemd.service' for more details.
 
-### SYS area CPU usage increase in the server where'Symantec Endpoint Protection (SEP) for Linux' is installed
+### SYS area CPU usage increase on servers where Symantec Endpoint Protection (SEP) for Linux is installed
 
 It has been found that the CPU usage of the SYS area of the Altibase server process is increased by the Symantec Endpoint Protection process.
 
@@ -1265,6 +1260,76 @@ The server environment where the symptoms are reported is as follows.
 
 - Red Hat Enterprise Linux 7
 - Symantec Endpoint Protection(SEP) for Linux
+
+# References
+
+---
+
+### Linux Compatibility
+
+- [Altibase 7.1 Korean manuals - Installation Guide#OS-Patch](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation.md#os-patch)
+- [Bug 1244002 - NFS and Fuse mounts hang while running IO - Malloc/free deadlock](https://bugzilla.redhat.com/show_bug.cgi?id=1244002)
+- [Which platforms (OS) does Altibase HDB support?](https://docs.altibase.com/pages/viewpage.action?pageId=9110736)
+
+### CPU Frequency Governor
+
+- [Red Hat Enterprise Linux 6 Power Management Guide - 3.2. Using CPUfreq Governors](https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/6/html/power_management_guide/cpufreq_governors)
+- [Red Hat Enterprise Linux 6 Power Management Guide - 2.5.2. Tuned-adm](https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/6/html/power_management_guide/tuned-adm)
+- [Red Hat Enterprise Linux 6 Performance Tuning Guide - 7.2. File System Performance Profiles](https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/6/html/performance_tuning_guide/ch07s02)
+- [Red Hat Enterprise Linux 6 Power Management Guide - CPUfreq Setup](https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/6/html-single/power_management_guide/index#cpufreq_setup)
+- [Red Hat Enterprise Linux 7 Power Management Guide - CPUfreq Drivers](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html-single/power_management_guide/index#cpufreq_drivers)
+- [Red Hat Enterprise Linux 6 Power Management Guide](https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/6/html-single/power_management_guide/index)
+- [Red Hat Enterprise Linux 7 Performance Tuning Guide](https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/7/html-single/performance_tuning_guide/index)
+- [RHEL7: How to get started with CPU governor](https://www.certdepot.net/rhel7-get-started-cpu-governor/)
+
+### RemoveIPC
+
+- [logind.conf(5) - Linux manual page - man7.org](http://man7.org/linux/man-pages/man5/logind.conf.5.html)
+- [Daemons using IPC terminate unexpectedly after update to Red Hat Enterprise Linux 7.2](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.2_release_notes/known-issues-installation_and_booting)
+- [Database Installation and Operation Fails if RemoveIPC=yes Is Configured for systemd - Oracle Docs](https://docs.oracle.com/cd/E52668_01/E67200/html/section-t51_kcn_f5.html)
+- [IBM Db2 servers might crash when RemoveIPC for Red Hat Enterprise Linux 7.2 is set to yes](https://www.ibm.com/support/knowledgecenter/en/SS5R93_5.3.2/com.ibm.spectrum.sc.doc/fqz0_r_tbs_db2_rhel72.html)
+
+### Swappiness
+
+- [Wikipedia - Paging#Swappiness](https://en.wikipedia.org/wiki/Paging#Swappiness)
+- [Wikipedia - Page cache](https://en.wikipedia.org/wiki/Page_cache)
+- [Wikipedia - Talk:Swappiness](https://en.wikipedia.org/wiki/Talk%3ASwappiness)
+- [Recommended swap size for Red Hat Enterprise Linux](https://access.redhat.com/ko/solutions/744483)
+- [Red Hat Enterprise Linux 7 Performance Tuning Guide - 4.3. Configuration Tools](https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/7/html/performance_tuning_guide/sect-red_hat_enterprise_linux-performance_tuning_guide-memory-configuration_tools)
+
+### THP
+
+- [Red Hat Enterprise Linux - Huge Pages and Transparent Huge Pages](https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/6/html/performance_tuning_guide/s-memory-transhuge)
+- [System hang due to THP (Transparent Huge Page)](https://support.hpe.com/hpsc/doc/public/display?docId=mmr_kc-0111835)
+- [How to use, monitor, and disable transparent hugepages in Red Hat Enterprise Linux 6 and 7?](https://access.redhat.com/solutions/46111)
+- [Disabling Transparent HugePages - Oracle Docs](https://docs.oracle.com/en/database/oracle/oracle-database/18/ladbi/disabling-transparent-hugepages.html#GUID-02E9147D-D565-4AF8-B12A-8E6E9F74BEEA)
+- [Transparent Huge Pages on Linux - SAP Help Portal](https://help.sap.com/viewer/bed8c14f9f024763b0777aa72b5436f6/2.0.04/en-US/8049ba0c8df2454dbbf8dc7caf636021.html)
+- [Transparent hugepages are not disabled on Red Hat Enterprise Linux 6](https://access.redhat.com/ja/solutions/1315213)
+- [Disable transparent hugepages (THP) on Red Hat Enterprise Linux 7](https://access.redhat.com/ja/solutions/1565043)
+- [CentOS / RHEL 6: How to disable Transparent Huge Pages (THP)](https://www.thegeekdiary.com/centos-rhel-6-how-to-disable-transparent-huge-pages-thp/)
+- [CentOS / RHEL 7: How to disable Transparent Huge Pages (THP)](https://www.thegeekdiary.com/centos-rhel-7-how-to-disable-transparent-huge-pages-thp/)
+
+### max_map_count
+
+- [Linux kernel sysctl vm documentation](https://www.kernel.org/doc/Documentation/sysctl/vm.txt)
+- [Red Hat Enterprise Linux 7 Performance Tuning Guide - 7.5. Configuring System Memory Capacity](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/performance_tuning_guide/sect-red_hat_enterprise_linux-performance_tuning_guide-configuration_tools-configuring_system_memory_capacity)
+- [Additional OS validations required for SAP Applications on RHEL 7](https://blogs.sap.com/2018/11/29/additional-os-validations-required-for-sap-applications-on-rhel-7./)
+
+### Shared Memory and Semaphore
+
+- IPCDA is a communication method supported from Altibase 7.
+- [Altibase 7.1 Korean manuals - Administrator's Manual 2#Server-client communication](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Admin_2.md#%ED%86%B5%EC%8B%A0-%EB%B0%A9%EB%B2%95)
+- [Altibase 7.1 Korean manuals - Installation Guide#OS-specific kernel parameter settings](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation.md#os%EB%B3%84-%EC%BB%A4%EB%84%90-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EC%84%A4%EC%A0%95)
+
+### Locale
+
+- [ArchWiki - Locale](https://wiki.archlinux.org/index.php/Locale_(%ED%95%9C%EA%B5%AD%EC%96%B4))
+
+### MALLOC_ARENA_MAX
+
+- [Red Hat Enterprise Linux 6.0 Release Notes - Compiler and Tools](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/6.0_release_notes/compiler)
+- [Linux glibc 2.10 / RHEL 6 malloc may show excessive virtual memory usage](https://www.ibm.com/developerworks/community/blogs/kevgrig/entry/linux_glibc_2_10_rhel_6_malloc_may_show_excessive_virtual_memory_usage?lang=en)
+- [Presto issue 8993](https://github.com/prestodb/presto/issues/8993)
 
 # Korean Source Attachments
 

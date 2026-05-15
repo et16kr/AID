@@ -26,9 +26,9 @@ This document describes troubleshooting for each type of problem that may occur 
 
 Problems not listed in the document may occur and the type of occurrence may differ depending on the version of ALTIBASE.
 
-For problems that are no described in this document, please send an email to [support@altibase.com](mailto:support@altibase.com) with a description of the occurrence conditions and the ALTIBASE trace log files ('trc' directory under the ALTIBASE installation path).
+For problems that are not described in this document, send an email to [support@altibase.com](mailto:support@altibase.com) with a description of the occurrence conditions and the ALTIBASE trace log files (the `trc` directory under the ALTIBASE installation path).
 
-- Altibase version 5.5.1 or later
+- Altibase version 6.5 or later
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
@@ -46,28 +46,29 @@ This section describes the list of types of problems that may occur during the i
 ---
 
 - The ALTIBASE package is compiled and distributed according to the supported CPU classification.
-- This can occur if the user tries to download and install the ALTIBASe package that does not match the CPU of the device where the user wants to install ALTIBASE.com
+- This can occur if the user downloads and installs an ALTIBASE package that does not match the CPU of the device where ALTIBASE will be installed.
 - To check whether the installed executable file is normal, simply use the altibase -v command.
 - The error message in the example below is the most common error situation. In addition to this, other error messages such as library compatibility can be returned.
 
-**Example 1: When the CPU of the device and the ALTIBASe package do not match**
+**Example 1: When the CPU of the device and the ALTIBASE package do not match**
 
 ```
 $ ./altibase-HDB-server-6.5.1.6.8-LINUX-POWERPC-64bit-release.run
 -bash: ./altibase-HDB-server-6.5.1.6.8-LINUX-POWERPC-64bit-release.run: cannot execute binary file
 ```
 
-- **Solution: Reinstall the pack for the CPU of the device.**
+- **Solution: Reinstall the package for the CPU of the device.**
 
 ## Environment variable not registered
 
 ---
 
-- In order to connect ALTIBASE in sysdba mode, the path where ALTIBASe is installed must be registered in a variable named "ALTIBASE_HOME'.
+- In order to connect to ALTIBASE in sysdba mode, the path where ALTIBASE is installed must be registered in a variable named `ALTIBASE_HOME`.
 - If this variable is not registered, the following error occurs.
 
 ```
-$ isql -s 127.0.0.1 -u sys -p manager -port 20300 -sysdbaISQL_CONNECTION = UNIX, SERVER = 127.0.0.1, PORT_NO = 20300
+$ isql -s 127.0.0.1 -u sys -p manager -port 20300 -sysdba
+ISQL_CONNECTION = UNIX, SERVER = 127.0.0.1, PORT_NO = 20300
 [ERR-91003 : Environment (ALTIBASE_HOME) does not exists.
 ```
 
@@ -81,7 +82,8 @@ $ isql -s 127.0.0.1 -u sys -p manager -port 20300 -sysdbaISQL_CONNECTION = UNIX,
 - At this time access to sysdba mode is possible only with the user who installed ALTIBASE.
 
 ```
-$ isql -s 127.0.0.1 -u sys -p manager -port 26084 -sysdba-----------------------------------------------------------------
+$ isql -s 127.0.0.1 -u sys -p manager -port 26084 -sysdba
+-----------------------------------------------------------------
      Altibase Client Query utility.
      Release Version 6.5.1.6.8
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
@@ -92,20 +94,20 @@ ISQL_CONNECTION = UNIX, SERVER = 127.0.0.1
 [ERR-9100B : Privilege error for sysdba user account.]
 ```
 
-- **Solution: Try again as the user who installed ALTIBASE, or change the owner's privileges of all files under the ALTIABSE installation path to the current user.**
+- **Solution: Try again as the user who installed ALTIBASE, or change the ownership of all files under the ALTIBASE installation path to the current user.**
 
 ## Absence of altibase.properties file
 
 ---
 
-- This problem occurs when there is no altibase.properfies file in the 'conf' directory under the ALTIBASE installation path.
+- This problem occurs when there is no altibase.properties file in the `conf` directory under the ALTIBASE installation path.
 
 ```
 iSQL(sysdba)> startup process
 idp readConf() Error : Open File [/hdb_home/651/conf/altibase.properties] Error.
 ```
 
-- **Solution: 'altibase.properties.sample' file for first-time users is provided in the 'conf' directory under the ALTIBASE installation path. Edit this file and the altibase.properties file to suit the environment.**
+- **Solution: The `altibase.properties.sample` file for first-time users is provided in the `conf` directory under the ALTIBASE installation path. Use this sample to create or update `altibase.properties` for the user environment.**
 
 ## Absence of license file
 
@@ -114,14 +116,15 @@ idp readConf() Error : Open File [/hdb_home/651/conf/altibase.properties] Error.
 - This problem occurs when proceeding without creating a license file in the 'conf' directory under the ALTIBASE installation path.
 
 ```
-TRANSITION TO PHASE : PROCESSCommencing Server as Community Edition
+TRANSITION TO PHASE : PROCESS
+Commencing Server as Community Edition
 DISK_MAX_DB_SIZE(Unlimited) exceeded limit 8192M
 [FAILURE] License invalid or expired.
 Startup Failed....
 [ERR-91015 : Communication failure.]
 ```
 
-- **Solution: Based on the license issued from ALTIBASe, a license file should be created in the corresponding location.**
+- **Solution: Create the license file in the corresponding location based on the license issued by ALTIBASE.**
 
 ## License error
 
@@ -130,7 +133,8 @@ Startup Failed....
 - MAC ADDRESS may be changed for reasons such as changing the network card of the device. Or, the wrong license may been issued because the license issuance information was incorrectly sent to ALTIBASE.
 
 ```
-TRANSITION TO PHASE : PROCESSInvalid or expired license in License File(/hdb_home/651/conf/license)
+TRANSITION TO PHASE : PROCESS
+Invalid or expired license in License File(/hdb_home/651/conf/license)
 [FAILURE] License invalid or expired.
 Startup Failed....
 [ERR-91015 : Communication failure.]
@@ -145,7 +149,8 @@ Startup Failed....
 This problem occurs when the issued license has expired.
 
 ```
-TRANSITION TO PHASE : PROCESSInvalid or expired license in License File(/hdb_home/651/conf/license)
+TRANSITION TO PHASE : PROCESS
+Invalid or expired license in License File(/hdb_home/651/conf/license)
 [FAILURE] License invalid or expired.
 Startup Failed....
 [ERR-91015 : Communication failure.]
@@ -187,7 +192,8 @@ idp insertBySrc() Error : Property [property_name] Can't Store Multiple Values.
 - The disk may not have enough free space, or the directory may have omitted privileges.
 
 ```
-TRANSITION TO PHASE : PROCESSCommand execute success.
+TRANSITION TO PHASE : PROCESS
+Command execute success.
 
 DB Info (Page Size     = 32768)
         (Page Count    = 257)
@@ -210,7 +216,8 @@ FAILURE of createdb.
 - Usually, when ALTIBASE starts up, the loganchor file is retrieved for the first time, so an error message indicating that the file does not exist is returned.
 
 ```
-TRANSITION TO PHASE : CONTROL[FAILURE] The log anchor file does not exist or it is not valid.
+TRANSITION TO PHASE : CONTROL
+[FAILURE] The log anchor file does not exist or it is not valid.
 
 Startup Failed....
 
@@ -226,7 +233,8 @@ Startup Failed....
 - This problem occurs when the ALTIBASE process fails to bind the TCP port to be used.
 
 ```
-TRANSITION TO PHASE : SERVICE  [CM] Listener failed  : TCP on port 20300 [IPV4]
+TRANSITION TO PHASE : SERVICE
+  [CM] Listener failed  : TCP on port 20300 [IPV4]
 [FAILURE] Unable to bind the socket.
 Startup Failed....
 [ERR-91015 : Communication failure.]
@@ -242,7 +250,8 @@ Startup Failed....
 - This problem occurs when the ALTIBASE replication thread fails in the step of binding the port to be used.
 
 ```
-TRANSITION TO PHASE : SERVICE  [CM] Listener started : TCP on port 20300 [IPV4]
+TRANSITION TO PHASE : SERVICE
+  [CM] Listener started : TCP on port 20300 [IPV4]
   [CM] Listener started : UNIX
   [CM] Listener started : IPC
   [RP] Initialization : FAIL

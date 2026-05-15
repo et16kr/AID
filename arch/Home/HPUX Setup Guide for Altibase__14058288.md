@@ -18,7 +18,7 @@ Updated: 2025-09-23T08:41:23.000+0900
 
 ## Overview
 
-This document provides guides for setting appropriate values of kernel parameters and various user environment settings for installing and operating Altibase in Hewlett Packard Unix (UPUX) Operating System.
+This document provides guidance for setting appropriate kernel parameter values and user environment settings for installing and operating Altibase in the Hewlett Packard Unix (HPUX) operating system.
 
 In this document, the guide is presented only for the operating system related items to be set before Altibase is installed, and refer to the separate document "Altibase Configuration File Guide" for setting Altibase properties for setting Altibase itself.
 
@@ -75,7 +75,7 @@ This kernel parameter is not required to be changed, but it suppresses the requi
 
 File cache is a kind of system buffer managed at the operating system level to solve the bottleneck caused by the speed difference between main memory device and auxiliary memory device. These file caches are managed by unique policies of each operating system. But commonly have a direct correlation with the swap policy.
 
-Swapping itself has the usefulness of handling applications or data files larger than main memory, but in systems where long-term resident applications such as DBMS are operated, the disk I/O delay of the operating system layer due to swappdbc_min_pcting since the response time of the DBMS may be irregular or delayed with time. So file cache is a consideration factor depending on the system use.
+Swapping itself is useful for handling applications or data files larger than main memory. However, in systems running long-resident applications such as a DBMS, disk I/O delay at the operating system layer caused by swapping can make DBMS response time irregular or delayed. Therefore, file cache behavior must be considered according to system usage.
 
 Therefore, in order to guarantee Altibase's consistent response time, it is recommended to set file cache and swap-related kernel parameters in advance so that swap does not occur as much as possible.
 
@@ -96,14 +96,14 @@ In the case of HPUX, some of the resource limit items are set through the follow
 
 | Kernel Parameter | Description | Recommended Value |
 | --- | --- | --- |
-| maxdiz | The sum of allocable data segments by one 32-bit process | 2 GB |
+| maxdsiz | The sum of allocable data segments by one 32-bit process | 2 GB |
 | maxdsiz_64bit | The sum of allocable data segments by one 64-bit process | 1 TB Up to 4 TB<br>Considering the maximum size of the predicted Altibase process |
 | max_thread_proc | The maximum number of threads a process can have | 600 or more |
 | maxfiles | The maximum number of files that a process can open simultaneously (soft-limit) Can be increased to maxfiles_lim (hard-limit). | 2048 or more |
 | nproc | The maximum number of processes in the system | 6142 |
-| maxusers | Default values of nproc, callout, ninode, and file | 124<br>Only under 11.23 |
+| maxusers | Basis for the default values of nproc, ncallout, ninode, and nfile | 124<br>Only earlier than 11.23 |
 
-In the case of “maxusers”, since HPUX 11.23 has disappeared, it is not necessary to consider it in HPUX 11.23 or later. In HPUX 11.23 and below, instead of setting “nproc” directly, setting “maxusers” to 124 is replaced.
+Because “maxusers” was removed starting in HPUX 11.23, it does not need to be considered in HPUX 11.23 or later. In HPUX versions earlier than 11.23, set “maxusers” to 124 instead of setting “nproc” directly.
 
 ### How to Change
 
@@ -164,7 +164,7 @@ $ kctune maxfiles=2048
 $ kctune nproc=6142
 ```
 
-In HPUX 11.23 and below, "nproc" is not set directly, but "maxusers" is set to 124.
+In HPUX versions earlier than 11.23, "nproc" is not set directly; set "maxusers" to 124 instead.
 
 ## User Settings
 
@@ -260,13 +260,13 @@ $ export _M_ARENA_OPTS = 24:64
 
 In general, the higher the number of threads in an application program, the higher the number of arenas to improve performance.
 
-However, if it is set too large, fragmentatiCompatible with data seg sizeon of the heap area may occur, and the size of the process may be too large due to the inefficient use of memory.
+However, if it is set too large, fragmentation of the heap area may occur, and inefficient memory usage can make the process size excessively large.
 
 For example, if there is a concern about insufficient memory due to the lack of physical memory of the system itself, in some cases, it is set to 1: 8 to operate as a single-threaded application program. If the bottleneck is related to a memory request (malloc/free), it is common to increase the value within the resource range.
 
 ## Multi-Thread Related Patch
 
-Altibase is a single process, multi-threaded application. Therefore, a multi-thread related HPUX patch is needed. Among these, 'thread library cumulative patch' has a direct effect on performance, so it must be checked whether a patch exists.
+Altibase is a single-process, multi-threaded application. Therefore, multi-thread related HPUX patches are required. Among these, the “pthread library cumulative patch” has a direct effect on performance, so it must be checked.
 
 The method to check the patch list of the current system is as follows.
 
@@ -314,7 +314,7 @@ Refer to the table below to set the kernel parameters properly. For reference, i
 | Resource limit | maxfiles | 5029 or more | Corresponds to open files |
 | Resource limit | max_thread_proc | 5029 or more |  |
 | Resource limit | nproc | 6142 | Corresponds to max user process<br>>= semmnu + 4 |
-| Resource limite | maxusers | 124 | Not available starting in HPUX 11.23 |
+| Resource limit | maxusers | 124 | Not available starting in HPUX 11.23 |
 
 #### User Resource Limitation
 
@@ -322,11 +322,11 @@ Please refer to the table below and set it as unlimited as possible.
 
 | Classification | Description | Recommended Value |
 | --- | --- | --- |
-| data set size (data) | The maximum size of process data area | maxdsiz maxdsiz_64bit unlimited |
+| data seg size (data) | The maximum size of process data area | maxdsiz<br>maxdsiz_64bit<br>unlimited |
 | file size | The maximum size of created file | unlimited |
-| open files (no files) | The maximum number of files that can be accessed by more process at the same time | maxfiles unlimited |
+| open files (nofiles) | The maximum number of files that one process can access at the same time | maxfiles<br>unlimited |
 | max memory size (rss) | The maximum size of available memory | unlimited |
-| max user process | The number of processes that can be created per user | nproc unlimited |
+| max user process | The number of processes that can be created per user | nproc<br>unlimited |
 
 #### User Environment Variables
 
@@ -354,7 +354,7 @@ ulimit –f unlimited  # file size, fsize
 ulimit -m unlimited  # max memory size, rss
 ```
 
-For reference, in the case of ksh, an error may occur when defining another environment variable using the environment variable without the environment variable being predefined.
+For reference, in ksh, an error can occur when defining one environment variable by using another environment variable that has not already been defined.
 
 In the above example, “_M_ARENA_OPTS” is simply a default value, and should be properly set according to the system. For details, refer to “Configuration for Multi-threaded Application (2)” in the [Environment Variables] section.
 

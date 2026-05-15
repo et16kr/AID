@@ -26,16 +26,16 @@ The content to be referred after the basic installation is provided as a separat
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)
 - Technical support center: 02-2082-1114
 
 # Preparation
 
 ---
 
-1. The OS user account for installing the server(system) clone Altibase package must be created.
+1. The OS user account for installing the Altibase package on the server must be created.
 2. Download the Altibase package installer from support.altibase.com/en/ and upload the file to the system.
-3. For Altibase version information, OS type, OS Big information, and Mac address information, please receive a temporary license at support.altibase.com/en/ or contact Altibase Sales Department to confirm the agreement and issue a formal license.
+3. Check the Altibase version, OS type, OS bit information, and MAC address information. Then obtain a temporary license from support.altibase.com/en/ or contact the Altibase sales department to confirm the contract status and issue a formal license.
 
 Access the Altibase package installer file from the URL described below, sign up for the membership, log in, and download the package.
 
@@ -79,7 +79,7 @@ Since Altibase cannot be operated until the DB is created, the DB must be create
   $ ls -al
   -rwxr--r--  1 altibase dba 74639019 Jul 30 14:46 altibase-HDB-server-6.5.1.7.1-LINUX-X86-64bit-release.run
   ```
-- Execute the Altibase package and set the absolute path to install the Altinbase engine in the installation directory.
+- Execute the Altibase package and set the absolute path where the Altibase engine will be installed.
 
   ```
   $ ./altibase-HDB-server-6.5.1.7.1-LINUX-X86-64bit-release.run
@@ -423,8 +423,8 @@ Since Altibase cannot be operated until the DB is created, the DB must be create
   DEFAULT_DISK_DB_DIR = ?/dbs # Disk   DB Directory     (This is the $ALTIBASE_HOME/dbs area and the path to save data files of the basic disk tablespace. The default can be checked with ?/dbs.)
   ========================= omitted =========================
   LOGANCHOR_DIR       = ?/logs # LOGANCHOR_DIR1         (This is the ALTIBASE_HOME/logs area and the path to save the log anchor file (the first of the three files). The default can be checked with ?/logs.)
-  LOGANCHOR_DIR       = ?/logs # LOGANCHOR_DIR2         (This is the ALTIBASE_HOME/logs area and the path to save the log anchor file (the second file out of three).The default can be checked with ?/logs.)
-  LOGANCHOR_DIR       = ?/logs # LOGANCHOR_DIR3         (This is the ALTIBASE_HOME/logs area and the path to save the log anchor file (the third file out of three).The default can be checked with ?/logs.)
+  LOGANCHOR_DIR       = ?/logs # LOGANCHOR_DIR2         (This is the ALTIBASE_HOME/logs area and the path to save the log anchor file (the second file out of three). The default can be checked with ?/logs.)
+  LOGANCHOR_DIR       = ?/logs # LOGANCHOR_DIR3         (This is the ALTIBASE_HOME/logs area and the path to save the log anchor file (the third file out of three). The default can be checked with ?/logs.)
   ========================= omitted =========================
   LOG_DIR             = ?/logs # LOG_DIR                (This is the $ALTIBASE_HOME/logs area and the path to save log files. The default can be checked with ?/logs.)
   ========================= omitted =========================
@@ -528,9 +528,9 @@ This section is about basic installation and operation, and describes only the m
 
 The following document describes how to create the Altibase database in detail.
 
-[Creating Altibase Database](https://aid.altibase.com/display/arch/Creating+ALTIBASE+Database)
+[Creating ALTIBASE Database](https://docs.altibase.com/display/arch/Creating+ALTIBASE+Database)
 
-# [Starting Altibase](https://aid.altibase.com/display/arch/Creating+ALTIBASE+Database)
+# Starting Altibase
 
 ---
 
@@ -586,7 +586,7 @@ Command executed successfully.
        All Rights Reserved.
   -----------------------------------------------------------------
   Write UserID : SYS                       (Enter user "SYS")
-  Write Password : MANAGER                 (Enter the default password "Manager)
+  Write Password : MANAGER                 (Enter the default password "MANAGER")
   ISQL_CONNECTION = UNIX, SERVER = localhost
   [ERR-910FB : Connected to idle instance]
   iSQL(sysdba)> startup service;
@@ -726,7 +726,7 @@ If the Altibase installation is completed and started normally, this section des
 ---
 
 - Details on starting and stopping Altibase are described in detail in the URL below.
-- [Understanding the Altibase Star/Shut down Process](https://aid.altibase.com/pages/viewpage.action?pageId=14909450)https://aid.altibase.com/pages/viewpage.action?pageId=14909450
+- [Understanding the Altibase Start/Shut down Process](https://docs.altibase.com/pages/viewpage.action?pageId=13434993)
 
 # Use-Cases of Altibase
 
@@ -734,13 +734,13 @@ If the Altibase installation is completed and started normally, this section des
 
 - This chapter describes how to create a DB user, create a tablespace, and create a table simply as an example.
 - Altibase complies with the SQL92 standard, so there is no significant difference in statements from other DBMSs.
-- For more detailed information on SQL statements, refer to the manual provided by Altibase. (Go to Altibase.com or github.com/ALTIBASe to access and download the manual)
+- For more detailed information on SQL statements, refer to the manual provided by Altibase. (Go to Altibase.com or github.com/ALTIBASE to access and download the manual)
 
 ## iSQL commands
 
 ---
 
-- Altibase provides a utility program for users to use SQL statements in terminals and applications. * When the DB is created, only the user with DBA authority called "SYS" exists, so only $ALTIBASE_HOME/bin/is can be executed and accessed. ("ls" is provided as a shell script made for easy access and use of iSQL.)
+- Altibase provides a utility program for users to use SQL statements in terminals and applications. * When the DB is created, only the user with DBA authority called "SYS" exists, so only $ALTIBASE_HOME/bin/is can be executed and accessed. ("is" is provided as a shell script made for easy access and use of iSQL.)
 
   ```
   $ is
@@ -827,7 +827,7 @@ If the Altibase installation is completed and started normally, this section des
   Altibase
   ?????
   2 rows selected.
-  -> When retrieving Korean data in a session connected to US7ASCII, the input "Altibase" data may be broken and displayed as ?????
+  -> When retrieving Korean data in a session connected with US7ASCII, the input "알티베이스" data may be broken and displayed as ?????
 
   $ export ALTIBASE_NLS_USE=MS949
   -> For sessions connected to Altibase, environment variables are dynamically set and applied so that they can be accessed with the MS949 charset.
@@ -971,7 +971,7 @@ If the Altibase installation is completed and started normally, this section des
 
   iSQL> drop table disk_tbl;
   Drop success.
-  -> Creating tables can done in the same as for both the memory table and the disk table.
+  -> Memory tables and disk tables can both be dropped in the same way.
   ```
 
 # Korean Source Attachments

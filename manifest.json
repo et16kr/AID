@@ -2654,8 +2654,8 @@
       "title": "AIX Setup Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/AIX+Setup+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/AIX Setup Guide for Altibase__14058298.md",
-      "body_chars": 15789,
-      "word_count": 2362
+      "body_chars": 16157,
+      "word_count": 2585
     },
     {
       "space_key": "arch",
@@ -2789,8 +2789,8 @@
       "title": "Altibase Configuration File Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Configuration+File+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Configuration File Guide__22642991.md",
-      "body_chars": 16775,
-      "word_count": 2511
+      "body_chars": 16837,
+      "word_count": 2478
     },
     {
       "space_key": "arch",
@@ -2924,8 +2924,8 @@
       "title": "1. Altibase HDB package installer",
       "source_url": "https://docs.altibase.com/display/arch/1.+Altibase+HDB+package+installer",
       "path": "altibase_docs_md/arch/Home/Altibase Installation Guide/1. Altibase HDB package installer__14647639.md",
-      "body_chars": 4990,
-      "word_count": 609
+      "body_chars": 6157,
+      "word_count": 780
     },
     {
       "space_key": "arch",
@@ -2933,8 +2933,8 @@
       "title": "2. Product Installation using the Package Installer",
       "source_url": "https://docs.altibase.com/display/arch/2.+Product+Installation+using+the+Package+Installer",
       "path": "altibase_docs_md/arch/Home/Altibase Installation Guide/2. Product Installation using the Package Installer__14647653.md",
-      "body_chars": 15597,
-      "word_count": 1751
+      "body_chars": 18000,
+      "word_count": 1985
     },
     {
       "space_key": "arch",
@@ -2942,8 +2942,8 @@
       "title": "3. License Key Request",
       "source_url": "https://docs.altibase.com/display/arch/3.+License+Key+Request",
       "path": "altibase_docs_md/arch/Home/Altibase Installation Guide/3. License Key Request__14647666.md",
-      "body_chars": 3759,
-      "word_count": 454
+      "body_chars": 3868,
+      "word_count": 589
     },
     {
       "space_key": "arch",
@@ -3311,8 +3311,8 @@
       "title": "Altibase Quick Install & Start for UNIX",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16875604",
       "path": "altibase_docs_md/arch/Home/Altibase Quick Install & Start for UNIX__16875604.md",
-      "body_chars": 46396,
-      "word_count": 5709
+      "body_chars": 45888,
+      "word_count": 5681
     },
     {
       "space_key": "arch",
@@ -3419,8 +3419,8 @@
       "title": "Configuration Guide For Minimizing Disk I/O Contention",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22643018",
       "path": "altibase_docs_md/arch/Home/Configuration Guide For Minimizing Disk I_O Contention__22643018.md",
-      "body_chars": 21492,
-      "word_count": 3073
+      "body_chars": 21490,
+      "word_count": 3055
     },
     {
       "space_key": "arch",
@@ -3464,8 +3464,8 @@
       "title": "Creating ALTIBASE Database",
       "source_url": "https://docs.altibase.com/display/arch/Creating+ALTIBASE+Database",
       "path": "altibase_docs_md/arch/Home/Creating ALTIBASE Database__22643020.md",
-      "body_chars": 7041,
-      "word_count": 920
+      "body_chars": 6845,
+      "word_count": 915
     },
     {
       "space_key": "arch",
@@ -3527,8 +3527,8 @@
       "title": "HPUX Setup Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/HPUX+Setup+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/HPUX Setup Guide for Altibase__14058288.md",
-      "body_chars": 21032,
-      "word_count": 3103
+      "body_chars": 21461,
+      "word_count": 3457
     },
     {
       "space_key": "arch",
@@ -3644,8 +3644,8 @@
       "title": "Linux Setup Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Linux+Setup+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Linux Setup Guide for Altibase__22643022.md",
-      "body_chars": 46841,
-      "word_count": 6902
+      "body_chars": 49876,
+      "word_count": 7127
     },
     {
       "space_key": "arch",
@@ -3869,8 +3869,8 @@
       "title": "1. Kernel Parameters",
       "source_url": "https://docs.altibase.com/display/arch/1.+Kernel+Parameters",
       "path": "altibase_docs_md/arch/Home/Solaris Setup Guide for Altibase/1. Kernel Parameters__22643040.md",
-      "body_chars": 5934,
-      "word_count": 913
+      "body_chars": 6674,
+      "word_count": 1070
     },
     {
       "space_key": "arch",
@@ -3878,8 +3878,8 @@
       "title": "2. User Settings",
       "source_url": "https://docs.altibase.com/display/arch/2.+User+Settings",
       "path": "altibase_docs_md/arch/Home/Solaris Setup Guide for Altibase/2. User Settings__14058294.md",
-      "body_chars": 4658,
-      "word_count": 697
+      "body_chars": 4703,
+      "word_count": 746
     },
     {
       "space_key": "arch",
@@ -3887,8 +3887,8 @@
       "title": "3. Summary",
       "source_url": "https://docs.altibase.com/display/arch/3.+Summary",
       "path": "altibase_docs_md/arch/Home/Solaris Setup Guide for Altibase/3. Summary__14058296.md",
-      "body_chars": 1951,
-      "word_count": 260
+      "body_chars": 2065,
+      "word_count": 332
     },
     {
       "space_key": "arch",
@@ -4058,8 +4058,8 @@
       "title": "Troubleshooting Altibase Installation Problems",
       "source_url": "https://docs.altibase.com/display/arch/Troubleshooting+Altibase+Installation+Problems",
       "path": "altibase_docs_md/arch/Home/Troubleshooting Altibase Installation Problems__15138879.md",
-      "body_chars": 11141,
-      "word_count": 1393
+      "body_chars": 10795,
+      "word_count": 1372
     },
     {
       "space_key": "arch",

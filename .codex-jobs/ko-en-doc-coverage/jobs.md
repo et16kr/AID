@@ -15,7 +15,7 @@
 | ID | Status | Title | Goal |
 | --- | --- | --- | --- |
 | `J001` | `Done` | Baseline inventory and mapping | Confirm requirements, current git state, document counts, Korean-English mappings, FAQ category mappings, and attachment inventory before content review. |
-| `J002` | `ToDo` | Technical docs: installation and platform setup | Compare Korean DOCK installation, platform setup, database creation, quick start, installation troubleshooting, and Linux/Unix setup documents against English arch documents, then update English from Korean where needed. |
+| `J002` | `Done` | Technical docs: installation and platform setup | Compare Korean DOCK installation, platform setup, database creation, quick start, installation troubleshooting, and Linux/Unix setup documents against English arch documents, then update English from Korean where needed. |
 | `J003` | `ToDo` | Technical docs: operations and administration | Compare Korean DOCK configuration, operation, startup/shutdown, system resource, memory, CPU, monitoring, and OS utility documents against English arch documents, then update English from Korean where needed. |
 | `J004` | `ToDo` | Technical docs: replication, backup, and recovery | Compare Korean DOCK replication, replication constraints, backup policy, failure response, and recovery-related documents against English arch documents, then update English from Korean where needed. |
 | `J005` | `ToDo` | Technical docs: development and API integrations | Compare Korean DOCK developer, precompiler, APRE, Java, ODBC, ADO.NET, Spring, iBATIS, MyBatis, Hibernate, PHP, WAS integration, and client tool documents against English arch documents, then update English from Korean where needed. |

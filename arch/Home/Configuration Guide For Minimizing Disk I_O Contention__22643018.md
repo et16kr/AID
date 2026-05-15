@@ -112,7 +112,7 @@ This issue becomes most apparent when the system is under significant load. Redo
 
 As depicted visually above, avoiding disk bottlenecks is difficult if redo log writing, checkpointing and buffer management all occur on a single disk.
 
-![1.%20disk%20IO.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Configuration%20Guide%20For%20Minimizing%20Disk%20I/O%20Contention/1.%20disk%20IO.JPG?api=v2)
+![diskio_1.png](https://docs.altibase.com/download/attachments/embedded-page/DOCK/21.%20Altibase%20%EB%94%94%EC%8A%A4%ED%81%ACI/O%20%EB%B3%91%EB%AA%A9%EC%9D%84%20%EA%B3%A0%EB%A0%A4%ED%95%9C%20%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1%20%EA%B0%80%EC%9D%B4%EB%93%9C/diskio_1.png?api=v2)
 
 ## Configuration Example
 
@@ -129,24 +129,24 @@ Adhering to the configuration below is highly recommended. If this configuration
 | Disk Indexes | /ALTIBASE_DISK_INDEX |
 | Undo Tablespace Datafiles | /ALTIBASE_DISK_UNDO |
 
-- - ALTIBASE_HOME is not only reserved for binary, header, library and other files for development and operation. ALTIBASE_HOME also saves critical trace files and should be allocated its own physical disk for maximum performance.
+- ALTIBASE_HOME stores binaries, headers, libraries, and other files for development and operation. Because important trace logs generated during operation are also written under ALTIBASE_HOME, it is recommended to allocate a separate physical disk for it.
 
-- - There is no need to allocate a separate physical disk for memory indexes, because indexes are reorganized in memory after they are loaded during ALTIBASE HDB’s STARTUP phase. Changing memory indexes does not require a separate login.
+- There is no need to allocate a separate physical disk for memory indexes because indexes are rebuilt in memory after the memory DB is loaded during ALTIBASE HDB startup. Changes to memory indexes are not logged separately.
 
-- - Separating disk table datafiles and disk indexes onto separate physical disks is recommended for the purpose of minimizing disk I/O contention that may occur from changes such as datafile expansion.
+- Separating disk DB datafiles and disk indexes onto separate physical disks is recommended to minimize disk I/O contention caused by datafile expansion or DB schema changes.
 
-- - This document does not describe disk I/O considerations related to backup procedures. Please refer to the Backup/Recovery document for more information.
+- This document does not describe disk considerations related to backup. Refer to the Backup/Recovery guide for backup and recovery considerations.
 
 ### **Example 2.**
 
-If physical disk availability is limited, the following configuration is recommended as a bare minimum.
+The following configuration is the minimum separation model. It is recommended when the system is configured mainly with memory DB, when the disk DB workload has few changes, or when the system has only the minimum number of disks.
 
 | **Classification** | **Disk Configuration** |
 | --- | --- |
 | Redo Logs | /ALTIBASE_REDO_LOG |
 | ALTIBASE HOME and All Datafiles | /ALTIBASE |
 
-This configuration is also plausible if ALTIBASE HDB’s hybrid functionality is not utilized. When using only memory tables or only disk tables, the risk of disk I/O contention is minimized.
+This configuration can reduce disk I/O contention only for environments mainly using memory DB or disk DB services with few update operations.
 
 ### Example 3.
 
@@ -179,7 +179,7 @@ If the file system does not support Direct I/O, the Altibase properties must be 
 
 For detailed configuration, refer to the manual or the altibase.properties file.
 
-| **OS** | **File System** | **특징** |
+| **OS** | **File System** | **Characteristics** |
 | --- | --- | --- |
 | Solaris | UFS | Mount option changes are required when using Direct I/O. |
 | VxFS |  |  |
@@ -280,7 +280,7 @@ For guidance on appropriate file cache settings, please refer to the following d
 
 The OS file system uses a structure like Buffered I/O, which includes a File Buffer Cache memory area to cache accessed file blocks, improving access performance to slow disks.
 
-![diskio_2.png](https://aid.altibase.com/download/attachments/11698408/diskio_2.png?version=1&modificationDate=1701854242000&api=v2)![disIO.PNG](https://docs.altibase.com/download/attachments/11698413/disIO.PNG?version=1&modificationDate=1490754079000&api=v2)
+![diskio_2.png](https://docs.altibase.com/download/attachments/embedded-page/DOCK/21.%20Altibase%20%EB%94%94%EC%8A%A4%ED%81%ACI/O%20%EB%B3%91%EB%AA%A9%EC%9D%84%20%EA%B3%A0%EB%A0%A4%ED%95%9C%20%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1%20%EA%B0%80%EC%9D%B4%EB%93%9C/diskio_2.png?api=v2)![disIO.PNG](https://docs.altibase.com/download/attachments/11698413/disIO.PNG?version=1&modificationDate=1490754079000&api=v2)
 
 However, when an application like a DBMS performs data caching at the application level, overhead can occur as data moves from the disk to the file buffer cache and then again to the DB’s own buffer cache. This is called "double copying," and it can result in increased CPU and memory usage.
 

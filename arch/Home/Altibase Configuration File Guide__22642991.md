@@ -22,10 +22,10 @@ Updated: 2025-10-21T08:50:42.000+0900
 
 This document describes the properties of the altibase.properties file for effective use of Altibase, and how to specify values. This document does not include a description of the hidden property.
 
-This documentation is written based on Altibase versions 7.1.0 and 7.3.0.. It is recommended that users refer to the following documents:
+This documentation is written based on Altibase versions 7.1.0 and 7.3.0. It is recommended that users refer to the following documents:
 
-1. System Resource Capacity Planning Guide for Altibase
-2. Altibase Replication Configuration Guide
+1. System Resource Capacity Planning Guide for Altibase: [https://docs.altibase.com/x/n4HW](https://docs.altibase.com/x/n4HW)
+2. Altibase Replication Configuration Guide: [https://docs.altibase.com/x/AgDT](https://docs.altibase.com/x/AgDT)
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
@@ -106,12 +106,12 @@ Assuming the above volume configuration, it can be set as follows.
 | LOGANCHOR_DIR | ?/logs | /home/altilog |
 | LOG_DIR | ?/logs | /home/altilog |
 | ARCHIVE_DIR | ?/arch_logs | It is recommended to specify the backup directory when the archive mode is set. (ex:/home/altibackup/arch_log) |
-| MEM_MAX_DB_SIZE | 2G | It is set to the size predicted by calculating the capacity. (ex: 8G) |
-| BUFFER_AREA_SIZE | 128M | When using a disk table, the size of the buffer is closely related to performance, so set it large within the range of available physical memory. 1G or more is recommended. |
+| MEM_MAX_DB_SIZE | 2G | Set this to the size predicted by capacity planning. (ex: 8G)<br>In general, MEM_MAX_DB_SIZE is recommended to be around 50% of physical memory. |
+| BUFFER_AREA_SIZE | 128M | Specifies the buffer size for disk tables. If enough physical memory is available, secure an appropriate buffer size for performance optimization. |
 | PORT_NO | 20300 | Set a port that is not being used by other processes in the system, such as 20300. |
 | AUTO_COMMIT | 1 | If it is set to 1, it is automatically reflected in the DB after DML is executed, so if the user wants to control it directly, set it to 0. |
 | SQL_PLAN_CACHE | 64M | This is the maximum size of the SQL plan cache. The more replicate SQL is, the more effective the SQL plan cache is to save memory. |
-| REPLICATION_PORT_NO | 9 | When replication is required, specify the port. |
+| REPLICATION_PORT_NO | 0 | When replication is required, specify the port. |
 
 ## Properties that cannot be changed after creating DB
 
@@ -120,10 +120,11 @@ Once after creating Altibase, there are some properties that Altibase cannot be 
 | Configuration item | Description |
 | --- | --- |
 | DB_NAME | mydb (Specify when creating) |
-| LOG_FILE_SIZE | 10M (Specify when creating) |
+| LOG_FILE_SIZE | v7.1.0: 10M (Specify when creating)<br>v7.3.0: 100M (Specify when creating) |
 | EXPAND_CHUNK_PAGE_COUNT | 128 (Specify when creating) |
 | TRANSACTION_TABLE_SIZE | 1024 (Only upward adjustment is possible) |
 | CHARACTERSET | Specify when creating DB |
+| NATIONAL CHARACTERSET | Specify when creating DB |
 
 ## File path configuration properties
 
@@ -131,13 +132,13 @@ Once after creating Altibase, there are some properties that Altibase cannot be 
 
 This section only deals with files with configuration paths for transaction log files and data files. Generally, if the transaction log file and data file are specified to use the same disk on one disk, performance degradation occurs due to simultaneous disk I/O. Therefore, it is recommended to change each configuration item by referring to the following document.
 
-Reference: Configuration Guide For Minimizing Disk I/O Contention
+Reference: Configuration Guide For Minimizing Disk I/O Contention: [https://docs.altibase.com/x/6ICy](https://docs.altibase.com/x/6ICy)
 
 | Configuration item | Default Value | Description |
 | --- | --- | --- |
 | LOG_DIR | ?/logs | Directory where transaction log files are created |
-| MEM_DB_DIR | ?/logs | Directory where data files of the memory DB are created unless the user does not explicitly specify it. |
-| DEFAULT_DISK_DB_DIR | ?/logs | Directory where disk files of the disk DB are created unless the user does not explicitly specify it. |
+| MEM_DB_DIR | ?/dbs | Directory where memory DB data files are created. |
+| DEFAULT_DISK_DB_DIR | ?/dbs | Directory where disk DB data files are created. |
 
 It is recommended that the above three paths and each data file to be created by the user in the future use a disk that is physically separated from LOG_DIR.
 
@@ -149,7 +150,7 @@ The properties related to the session are the following items.
 
 | Configuration item | Default Value | Description |
 | --- | --- | --- |
-| MAX_CLIENT | 1000 | Because there is a limit of sessions to connect to the DB at the same time, if it is expected that more sessions will be connected than this value, increase this value and restart the Altibase server. |
+| MAX_CLIENT | 1000 | Because this limits the number of sessions that can connect to the DB at the same time, increase this value and restart the Altibase server if more sessions are expected.<br>Reference: Considerations when increasing concurrent sessions (MAX_CLIENT): [https://docs.altibase.com/x/FARw](https://docs.altibase.com/x/FARw) |
 | MULTIPLEXING_THREAD_COUNT | Number of logical cores on the host machine | This value specifies the number of service threads. If not set, threads as much as the number of cores of the CPU is automatically created in the startup stage. If many sessions are internally connected, it is automatically created when it is determined that more service threads are needed., but the distribution of tasks at the time of creation can cause temporary performance jitter, so it is important to configure to obtain a sufficient number in advance. |
 
 It is recommended for MULTIPLEXING_THREAD_COUNT to be (CPU Core Count * 2) by default, but this value should be set according to the situation.
@@ -197,7 +198,7 @@ This describes the property items related to Altibase's disk I/O performance.
 | CHECKPOINT_BULK_WRITE_PAGE_COUNT | 0 | When it is determined that performance is degraded due to the disk I/O that occurs because there are many pages to be written when the memory DB checkpoint is in progress, the amount of disk I/O of the checkpoint can be distributed with this property value. In other words, after writing the page as much as the value specified in CHECKPOINT_BULK_WRITE_PAGE_COUNT, it waits for (CHECKPOINT_BULK_WRITE_SLEEP_SEC + CHECKPOINT_BULK_WRITE_SLEEP_USEC) and then writes again. This property can be effective on equipment with low disk performance. |
 | CHECKPOINT_BULK_WRITE_SLEEP_SEC | 0 sec |  |
 | CHECKPOINT_BULK_WRITE_SLEEP_USEC | 0 microsec |  |
-| DIRECT_IO | 1 | In the process of writing to a data file with the file cache, it may be difficult to predict two disk writes (file cache, disk sync) and when the file cache will be synced to the disk. As a result, there may be an unexpected performance degradation when the operating system empties the file cache. If DIRECT IO is set, it can be completed with one write. However, it is recommended to set this setting only when the disk performance is high enough. |
+| DIRECT_IO_ENABLED | 1 | In the process of writing to a data file through the file cache, two disk writes may occur (file cache and disk sync), and it may be difficult to predict when the file cache will be synced to disk. As a result, unexpected performance degradation can occur when the operating system flushes the file cache. If Direct I/O is enabled, the write can complete in one step. However, this setting is recommended only when disk performance is high enough. |
 | DATABASE_IO_TYPE | 0 |  |
 | TOTAL_WA_SIZE | 128M | Specify the maximum amount of memory that can be allocated so that disk DB sorting or hashing operations can be performed simultaneously. (TOTAL_WA_SIZE)<br>If SORT_AREA_SIZE and HASH_AREA_SIZE are increased appropriately, the performance of the disk DB can be improved. |
 | SORT_AREA_SIZE | 1M |  |
@@ -213,7 +214,7 @@ This section describes properties necessary for tracking when a problem occurs i
 | --- | --- | --- |
 | QP_MSGLOG_FLAG | 2 | If it is set to 2, all DDL performance records can be checked, so when a problem occurs, which can be helpful for analysis if DDL performance is based. |
 | RP_CONFLICT_MSGLOG_FLAG | 0 | If it is set to 6, a log of DML occurs when a replication conflict is recorded. which can be helpful for analysis. |
-| TIMED_STATISTICS | 0 | The default value is 0. To know the execution times of each SQL statement related to performance, it can be activated in real time as follows.<br>iSQL> ALTER SYSTEM SET timed_statistics = 1 ;<br>When activated, the execution times of each SQL statement start to be recorded in v$statement. |
+| TIMED_STATISTICS | 0 | The default value is 0. To check the execution time of SQL statements for performance analysis, it can be enabled in real time as follows.<br>iSQL> ALTER SYSTEM SET TIMED_STATISTICS = 1 ;<br>When enabled, the execution time of each SQL statement starts to be recorded in v$statement. |
 
 # Korean Source Attachments
 

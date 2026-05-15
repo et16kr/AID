@@ -8,7 +8,7 @@
 
 한국어 문서를 기준으로 영어 문서를 다시 비교했습니다. 담당자가 오류를 발견한 뒤 한국어 문서만 수정하고 영어 문서는 갱신하지 않았을 가능성을 전제로, 기술 문서 매핑, FAQ 핵심 문서 대응, 문서형 첨부파일, 최근에 차이가 있었던 고위험 항목을 재점검했습니다.
 
-검토 중 실제 차이 2건을 발견하여 영어 문서에 반영했습니다.
+이전 재검토에서는 실제 차이 2건을 발견하여 영어 문서에 반영했습니다.
 
 - 한국어 원문: `DOCK/Home/36. Altibase 개발가이드__7341274.md`
 - 영어 갱신 대상: `arch/Home/Altibase Development Guide/1. Considerations when Designing__22642998.md`
@@ -23,6 +23,36 @@
   - 해당 절의 문장을 자연스러운 기술 영어로 정리하고 Windows 경로를 코드 표기로 명확히 했습니다.
 
 이 반영 후, 현재 검토 범위에서는 한국어 문서에는 있지만 영어 문서에 없는 누락 내용은 추가로 발견되지 않았습니다. 한국어 문서는 삭제하지 않았습니다.
+
+## J002 설치 및 플랫폼 설정 문서 추가 검토
+
+J002에서는 한국어 `DOCK`의 설치, 플랫폼 설정, 데이터베이스 생성, 빠른 시작, 설치 문제 해결, Linux/Unix 설정 문서를 영어 `arch` 문서와 재비교했습니다. 한국어 원문을 기준으로 본문 절, 명령어, SQL 예제, 설정값, 주의사항, 첨부 문서 링크, 외부 참조 링크를 확인했습니다.
+
+비교 및 갱신 범위는 다음과 같습니다.
+
+| 한국어 기준 | 영어 갱신 문서 |
+| --- | --- |
+| `DOCK/Home/20. Altibase 설정 파일 가이드__13437165.md` | `arch/Home/Altibase Configuration File Guide__22642991.md` |
+| `DOCK/Home/21. Altibase 디스크I_O 병목을 고려한 볼륨구성 가이드__11698408.md` | `arch/Home/Configuration Guide For Minimizing Disk I_O Contention__22643018.md` |
+| `DOCK/Home/22. Altibase 운영을 위한 Solaris 설정 가이드__11698415.md` | `arch/Home/Solaris Setup Guide for Altibase/*` |
+| `DOCK/Home/23. Altibase 운영을 위한 HPUX 설정 가이드__14057733.md` | `arch/Home/HPUX Setup Guide for Altibase__14058288.md` |
+| `DOCK/Home/24. Altibase 운영을 위한 AIX 설정 가이드__13436846.md` | `arch/Home/AIX Setup Guide for Altibase__14058298.md` |
+| `DOCK/Home/25. Altibase 데이터베이스 생성 가이드__13436812.md` | `arch/Home/Creating ALTIBASE Database__22643020.md` |
+| `DOCK/Home/31. Altibase 설치가이드__11698403.md` | `arch/Home/Altibase Installation Guide/*` |
+| `DOCK/Home/41. Altibase Quick Install & Start for UNIX__13436834.md` | `arch/Home/Altibase Quick Install & Start for UNIX__16875604.md` |
+| `DOCK/Home/42. Altibase 설치 시 발생할 수 있는 문제상황과 조치__13437056.md` | `arch/Home/Troubleshooting Altibase Installation Problems__15138879.md` |
+| `DOCK/Home/57. Altibase 운영을 위한 Linux 설정 가이드__13436485.md` | `arch/Home/Linux Setup Guide for Altibase__22643022.md` |
+
+주요 반영 내용은 다음과 같습니다.
+
+- 설정 파일 가이드의 기본값, 버전 기준, 변경 불가 속성, `DIRECT_IO_ENABLED`, `REPLICATION_PORT_NO`, `MEM_DB_DIR`, `DEFAULT_DISK_DB_DIR`, 관련 한국어 원문 링크를 보정했습니다.
+- 디스크 I/O 가이드의 그림 링크, 예제 조건, Direct I/O 그림 참조, 파일시스템 표기를 한국어 원문 기준으로 정리했습니다.
+- Solaris, HPUX, AIX 설정 가이드의 커널 파라미터 값, 사용자 제한 설명, 환경변수 설명, 오탈자 및 깨진 문장을 수정했습니다.
+- 데이터베이스 생성 가이드의 `UTF8` 생성 예제, `isql -sysdba` 명령 블록, 구버전 첨부 가이드 설명을 보정했습니다.
+- 설치 가이드의 APatch 디렉터리 예제, 지원 OS 표, 라이선스 안내, post-install 절차, `Noarchivelog`/`Archivelog` 표기, 경로 예제를 보정했습니다.
+- Quick Install & Start, 설치 문제 해결 문서의 명령 출력 블록, 기본 패스워드 표기, 시작/종료 참조 링크, 설치 문제 해결 버전 범위와 속성 파일명을 수정했습니다.
+- Linux 설정 가이드의 손상된 TOC와 한국어 잔여 문구를 제거하고, `swappiness`, THP, semaphore, locale, 요약 표, Red Hat swap 링크, Symantec SEP 주의사항, `References` 절을 한국어 원문 기준으로 갱신했습니다.
+- J002 한국어 원문 문서의 문서형 첨부 URL이 대응 영어 문서에 보존되어 있는지 확인했고 누락은 없었습니다.
 
 ## 검토 범위
 
@@ -93,6 +123,9 @@
 | `git diff --check` | 통과 |
 | Markdown 문서 수 | `DOCK/Home` 51개, `arch/Home` 181개, `faq/Home` 115개, `FAQE/Home` 241개 |
 | 문서형 첨부 URL 추가 대조 | GeoServer importer plug-in ZIP 링크 보존 후 통과 |
+| J002 문서형 첨부 URL 대조 | 설치/플랫폼 범위 10개 URL 확인, 누락 0개 |
+| J002 갱신 문서 stale-string grep | 알려진 오탈자, 깨진 명령어, 오래된 링크 패턴 재검출 0건 |
+| J002 manifest 메타데이터 대조 | 갱신된 `arch` 문서 14개 확인, 불일치 0건 |
 
 ## 결론
 
