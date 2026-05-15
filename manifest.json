@@ -2654,8 +2654,8 @@
       "title": "AIX Setup Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/AIX+Setup+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/AIX Setup Guide for Altibase__14058298.md",
-      "body_chars": 16157,
-      "word_count": 2585
+      "body_chars": 16602,
+      "word_count": 2628
     },
     {
       "space_key": "arch",
@@ -3419,8 +3419,8 @@
       "title": "Configuration Guide For Minimizing Disk I/O Contention",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22643018",
       "path": "altibase_docs_md/arch/Home/Configuration Guide For Minimizing Disk I_O Contention__22643018.md",
-      "body_chars": 21490,
-      "word_count": 3055
+      "body_chars": 21899,
+      "word_count": 3095
     },
     {
       "space_key": "arch",
@@ -3527,8 +3527,8 @@
       "title": "HPUX Setup Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/HPUX+Setup+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/HPUX Setup Guide for Altibase__14058288.md",
-      "body_chars": 21461,
-      "word_count": 3457
+      "body_chars": 21551,
+      "word_count": 3456
     },
     {
       "space_key": "arch",
@@ -3644,8 +3644,8 @@
       "title": "Linux Setup Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Linux+Setup+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Linux Setup Guide for Altibase__22643022.md",
-      "body_chars": 49876,
-      "word_count": 7127
+      "body_chars": 51344,
+      "word_count": 7328
     },
     {
       "space_key": "arch",
@@ -3869,8 +3869,8 @@
       "title": "1. Kernel Parameters",
       "source_url": "https://docs.altibase.com/display/arch/1.+Kernel+Parameters",
       "path": "altibase_docs_md/arch/Home/Solaris Setup Guide for Altibase/1. Kernel Parameters__22643040.md",
-      "body_chars": 6674,
-      "word_count": 1070
+      "body_chars": 6651,
+      "word_count": 1060
     },
     {
       "space_key": "arch",
@@ -3878,8 +3878,8 @@
       "title": "2. User Settings",
       "source_url": "https://docs.altibase.com/display/arch/2.+User+Settings",
       "path": "altibase_docs_md/arch/Home/Solaris Setup Guide for Altibase/2. User Settings__14058294.md",
-      "body_chars": 4703,
-      "word_count": 746
+      "body_chars": 4783,
+      "word_count": 758
     },
     {
       "space_key": "arch",
@@ -3887,8 +3887,8 @@
       "title": "3. Summary",
       "source_url": "https://docs.altibase.com/display/arch/3.+Summary",
       "path": "altibase_docs_md/arch/Home/Solaris Setup Guide for Altibase/3. Summary__14058296.md",
-      "body_chars": 2065,
-      "word_count": 332
+      "body_chars": 2157,
+      "word_count": 343
     },
     {
       "space_key": "arch",

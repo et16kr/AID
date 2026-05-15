@@ -17,7 +17,7 @@
 | --- | --- | --- | --- |
 | `P201` | `Done` | Baseline after J013 | Confirm J013 completion, git state, document counts, manifest validity, first-pass reports, and pass2 sentence-level audit boundary before editing product documentation. |
 | `P202` | `Done` | Tech audit: installation core and database creation | Sentence-level audit Korean installation guide, quick install, troubleshooting, database creation, and configuration core sections against English arch targets; update English from Korean where needed. |
-| `P203` | `ToDo` | Tech audit: OS platform and disk I/O setup | Sentence-level audit Korean Linux, Solaris, HPUX, AIX, and disk I/O setup documents against English arch targets; update English from Korean where needed. |
+| `P203` | `Done` | Tech audit: OS platform and disk I/O setup | Sentence-level audit Korean Linux, Solaris, HPUX, AIX, and disk I/O setup documents against English arch targets; update English from Korean where needed. |
 | `P204` | `ToDo` | Tech audit: operations failure startup resource utilities | Sentence-level audit Korean failure response, startup/shutdown, system resource sizing, OS utility, UNIX memory, and operation-related configuration sections against English arch targets; update English from Korean where needed. |
 | `P205` | `ToDo` | Tech audit: monitoring queries | Sentence-level audit the Korean Altibase monitoring queries guide, including section IDs, SQL, meta tables, performance views, examples, and warnings against English arch targets; update English from Korean where needed. |
 | `P206` | `ToDo` | Tech audit: CPU and memory analysis | Sentence-level audit Korean CPU overload and memory usage increase analysis guides against English arch targets; update English from Korean where needed. |

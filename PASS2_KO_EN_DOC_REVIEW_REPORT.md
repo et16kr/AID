@@ -133,3 +133,71 @@ P202 audited Korean installation, quick install, troubleshooting, database creat
 
 - P202 did not add broad Korean legal boilerplate to split English installation pages because the job focused on technical installation, database creation, configuration, command, warning, version, attachment, and link semantics.
 - External HTTP availability was not tested; P202 used grep-based source-link and attachment preservation checks.
+
+## P203 Tech audit: OS platform and disk I/O setup
+
+### Scope
+
+P203 audited Korean disk I/O volume configuration and OS platform setup documents against their English `arch` targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English target |
+| --- | --- |
+| `DOCK/Home/21. Altibase 디스크I_O 병목을 고려한 볼륨구성 가이드__11698408.md` | `arch/Home/Configuration Guide For Minimizing Disk I_O Contention__22643018.md` |
+| `DOCK/Home/22. Altibase 운영을 위한 Solaris 설정 가이드__11698415.md` | `arch/Home/Solaris Setup Guide for Altibase__14058290.md`; `arch/Home/Solaris Setup Guide for Altibase/1. Kernel Parameters__22643040.md`; `arch/Home/Solaris Setup Guide for Altibase/2. User Settings__14058294.md`; `arch/Home/Solaris Setup Guide for Altibase/3. Summary__14058296.md` |
+| `DOCK/Home/23. Altibase 운영을 위한 HPUX 설정 가이드__14057733.md` | `arch/Home/HPUX Setup Guide for Altibase__14058288.md` |
+| `DOCK/Home/24. Altibase 운영을 위한 AIX 설정 가이드__13436846.md` | `arch/Home/AIX Setup Guide for Altibase__14058298.md` |
+| `DOCK/Home/57. Altibase 운영을 위한 Linux 설정 가이드__13436485.md` | `arch/Home/Linux Setup Guide for Altibase__22643022.md` |
+
+### Findings And Updates
+
+- Corrected disk I/O guide semantics:
+  - version basis is now `Altibase 6.5 or later`;
+  - checkpoint reference note restored;
+  - undo tablespace recovery wording corrected so original data is copied back to its original location;
+  - supported filesystem and Direct I/O action tables rebuilt so lost row-span semantics are explicit;
+  - PDF attachment filenames, version labels, and URLs preserved.
+- Corrected Solaris setup guide details:
+  - `STARTUP_SHM_CHUNK_SIZE`, `EXPAND_CHUNK_PAGE_COUNT * 32K`, and `shmmni` shared-memory guidance clarified;
+  - semaphore synchronization wording corrected;
+  - summary kernel-parameter table rebuilt;
+  - `PATH`, `LD_LIBRARY_PATH`, and `LD_LIBRARY_PATH_64` descriptions clarified.
+- Corrected HPUX setup guide details:
+  - semaphore, `maxdsiz_64bit`, `maxfiles`, resource limit, `SHLIB_PATH`, and multi-thread environment-variable descriptions clarified;
+  - Korean-source version conditions for HPUX multi-thread settings preserved.
+- Corrected AIX setup guide details:
+  - missing Altibase Configuration File Guide reference restored;
+  - AIX 5.2 ML03 and AIX 6.1 file-cache applicability clarified;
+  - long-resident process swap-out explanation restored;
+  - missing `PTHREAD_FORCE_SCOPE_SYSTEM` MxN thread-model note added;
+  - `file size (fsize)`, file-cache summary rows, patch wording, and IPC channel version wording corrected.
+- Corrected Linux setup guide details:
+  - glibc compatibility table and summary table rebuilt so row-span semantics are explicit and searchable;
+  - `max_map_count`, RHEL 7-or-later CPUfreq wording, swappiness typo, THP `[vm]` section wording, and remaining Korean text in the RHEL 6 GRUB example corrected;
+  - Linux PDF attachment filenames and URLs preserved.
+
+### Attachment And Link Evidence
+
+- Disk I/O Korean source PDF attachments preserved in the English target: 3.
+- Linux Korean source PDF attachments preserved in the English target: 2.
+- Solaris, HPUX, and AIX scoped Korean pages did not contain URL-backed document-format attachments.
+- The AIX IBM IV28577 reference URL remains preserved.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p203-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Scoped grep for empty links, export artifacts, malformed support links, invalid `http://altibase_env.mk`, stale typo patterns, and residual Korean text outside preserved attachment filenames | Passed, no matches |
+| Scoped PDF attachment preservation grep | Passed, 5 preserved links |
+| Scoped Markdown table pipe-count check | Passed |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 7 edited English pages |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P203 used grep-based source-link and attachment preservation checks.
+- The AIX Korean source states that `PTHREAD_FORCE_SCOPE_SYSTEM` must be set but does not provide a value in the AIX example. The English guide now preserves the requirement, but a platform owner may still want to confirm the exact AIX setting value.

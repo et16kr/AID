@@ -46,35 +46,35 @@ Starting from Altibase 5.5.1, the compatibility is checked based on the glibc ve
 
 The glibc versions with guaranteed compatibility for each Altibase server version are as follows.
 
-| Altibase Version | OS Version | glibc Version |
-| --- | --- | --- |
-| Altibase v7.3.0 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 | 2.12 ~ 2.33 |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7 | 2.12 ~ 2.33 |  |
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6 | 2.12 ~ 2.33 |  |
-| Ubuntu 18 | 2.27 ~ 2.33 |  |
-| Ubuntu 16 | 2.23 ~ 2.33 |  |
-| Ubuntu 12 | 2.17 ~ 2.33 |  |
-| POWER7 w/Red Hat Enterprise Linux 6.5 | 2.12 ~ 2.33 |  |
-| POWER8(LE) w/Red Hat Enterprise Linux 7.2 | 2.17 ~ 2.33 |  |
-| Altibase v7.1.0 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 | 2.12 ~ 2.33 |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7 | 2.12 ~ 2.33 |  |
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6 | 2.12 ~ 2.33 |  |
-| Ubuntu 18 | 2.27 ~ 2.33 Altibase 7.1.0.7.2 or higher |  |
-| Ubuntu 16 | 2.23 ~ 2.33 Altibase 7.1.0.7.2 or higher |  |
-| Ubuntu 12 | 2.17 ~ 2.33 |  |
-| POWER7 w/Red Hat Enterprise Linux 6.5 | 2.12 ~ 2.33 |  |
-| POWER8(LE) w/Red Hat Enterprise Linux 7.2 | 2.17 ~ 2.33 Altibase 7.1.0.0.8 or higher |  |
-| Altibase v6.5.1 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 | 2.12 ~ 2.33 |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7 | 2.12 ~ 2.33 |  |
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6 | 2.12 ~ 2.33 |  |
-| Ubuntu 12 | 2.17 ~ 2.33 |  |
-| POWER8 w/Red Hat Enterprise Linux 7.1 | 2.12 ~ 2.33 |  |
-| POWER7 w/Red Hat Enterprise Linux 6.5 | 2.12 ~ 2.33 |  |
-| POWER8(LE) w/Red Hat Enterprise Linux 7.6 | 2.17 ~ 2.33 Altibase 6.5.1.4.5 or higher |  |
-| POWER8(LE) w/Red Hat Enterprise Linux 7.2 | 2.17 ~ 2.33 Altibase 6.5.1.4.5 or higher |  |
-| Altibase v6.3.1 |  | 2.3.4 ~ 2.20 |
-| Altibase v6.1.1 |  | 2.3.4 ~ 2.20 |
-| Altibase v5.5.1 |  | 2.3.4 ~ 2.20 |
+| Altibase Version | OS Version | glibc Version | Note |
+| --- | --- | --- | --- |
+| Altibase v7.3.0 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 | 2.12 ~ 2.33 |  |
+| Altibase v7.3.0 | Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7 | 2.12 ~ 2.33 |  |
+| Altibase v7.3.0 | Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6 | 2.12 ~ 2.33 |  |
+| Altibase v7.3.0 | Ubuntu 18 | 2.27 ~ 2.33 |  |
+| Altibase v7.3.0 | Ubuntu 16 | 2.23 ~ 2.33 |  |
+| Altibase v7.3.0 | Ubuntu 12 | 2.17 ~ 2.33 |  |
+| Altibase v7.3.0 | POWER7 w/Red Hat Enterprise Linux 6.5 | 2.12 ~ 2.33 |  |
+| Altibase v7.3.0 | POWER8(LE) w/Red Hat Enterprise Linux 7.2 | 2.17 ~ 2.33 |  |
+| Altibase v7.1.0 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 | 2.12 ~ 2.33 |  |
+| Altibase v7.1.0 | Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7 | 2.12 ~ 2.33 |  |
+| Altibase v7.1.0 | Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6 | 2.12 ~ 2.33 |  |
+| Altibase v7.1.0 | Ubuntu 18 | 2.27 ~ 2.33 | Altibase 7.1.0.7.2 or higher |
+| Altibase v7.1.0 | Ubuntu 16 | 2.23 ~ 2.33 | Altibase 7.1.0.7.2 or higher |
+| Altibase v7.1.0 | Ubuntu 12 | 2.17 ~ 2.33 |  |
+| Altibase v7.1.0 | POWER7 w/Red Hat Enterprise Linux 6.5 | 2.12 ~ 2.33 |  |
+| Altibase v7.1.0 | POWER8(LE) w/Red Hat Enterprise Linux 7.2 | 2.17 ~ 2.33 | Altibase 7.1.0.0.8 or higher |
+| Altibase v6.5.1 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 | 2.12 ~ 2.33 |  |
+| Altibase v6.5.1 | Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7 | 2.12 ~ 2.33 |  |
+| Altibase v6.5.1 | Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6 | 2.12 ~ 2.33 |  |
+| Altibase v6.5.1 | Ubuntu 12 | 2.17 ~ 2.33 |  |
+| Altibase v6.5.1 | POWER8 w/Red Hat Enterprise Linux 7.1 | 2.12 ~ 2.33 |  |
+| Altibase v6.5.1 | POWER7 w/Red Hat Enterprise Linux 6.5 | 2.12 ~ 2.33 |  |
+| Altibase v6.5.1 | POWER8(LE) w/Red Hat Enterprise Linux 7.6 | 2.17 ~ 2.33 | Altibase 6.5.1.4.5 or higher |
+| Altibase v6.5.1 | POWER8(LE) w/Red Hat Enterprise Linux 7.2 | 2.17 ~ 2.33 | Altibase 6.5.1.4.5 or higher |
+| Altibase v6.3.1 |  | 2.3.4 ~ 2.20 |  |
+| Altibase v6.1.1 |  | 2.3.4 ~ 2.20 |  |
+| Altibase v5.5.1 |  | 2.3.4 ~ 2.20 |  |
 
 ### glibc Recommended Version
 
@@ -160,7 +160,7 @@ When operating a terabyte unit memory table, memory allocation may fail due to t
 
 | Kernel Parameter | Description | Recommended Value |
 | --- | --- | --- |
-| max_map_count | This is the maximum number of memory map areas that a process can use. In most cases, the default value 65530 is suitable, but if the user needs to map more than this file to the application, the user should increase this value. | 2147483647 |
+| max_map_count | This is the maximum number of memory map areas that a process can use. In most cases, the default value `65530` is suitable, but if an application needs to map more files than this value, increase it. | 2147483647 |
 
 - If memory allocation fails due to this parameter limitation,
 
@@ -254,7 +254,7 @@ $ cpupower frequency-info | grep driver
  no or unknown cpufreq driver is active on this CPU
 ```
 
-###### Red Hat Enterprise Linux 7
+###### Red Hat Enterprise Linux 7 or later
 
 ```
 $ cpupower frequency-info | grep driver
@@ -308,7 +308,7 @@ $ cpupower frequency-set -g performance
 
 ##### Permanent Application
 
-This is a way to keep the settings even after restarting the OS.
+This is a way to keep the settings even after restarting the OS. To fully apply the settings, reboot the OS.
 
 ###### 1. rc.local: Applicable only on RHEL 6
 
@@ -451,7 +451,7 @@ example:
 1
 ```
 
-**2. using sysctl comman**
+**2. Using the sysctl command**
 
 ```
 $ sysctl vm.swappiness
@@ -566,7 +566,7 @@ On RHEL 7 or later, configuring a tuned profile may be necessary.
 
 Check the active tuned profile:
 
-If the tuned service is stopped or there is no active profile, this step is not required. If tuned is active, check the current profile and apply the appropriate settings..
+If the tuned service is stopped or there is no active profile, this step is not required. If tuned is active, check the current profile and apply the appropriate settings.
 
 ```
 $ tuned-adm active
@@ -696,7 +696,7 @@ The following settings are for maintaining the configuration even after rebootin
 
 **modify grub.conf :**
 
-**Red Hat Enterprise Linux 6 (/etc/grub.conf 수정)**
+**Red Hat Enterprise Linux 6 (modify /etc/grub.conf)**
 
 ```
 $ vi /etc/grub.conf
@@ -705,7 +705,7 @@ $ vi /etc/grub.conf
 RHEL 6 modification example: Add transparent_hugepage=never transparent_hugepage.defrag=never to the end of the kernel line.
 
 ```
-           # kernel 마지막 부분에 transparent_hugepage=never를 추가한다.
+           # Add transparent_hugepage=never to the end of the kernel line.
         kernel /vmlinuz-2.6.32-504.el6.x86_64 ro root=/dev/mapper/vg_os-lv_os rd_NO_LUKS LANG=en_US.UTF-8 rd_NO_MD SYSFONT=latarcyrheb-sun16 crashkernel=auto rd_LVM_LV=vg_os/lv_os  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_DM rhgb quiet transparent_hugepage=never
         initrd /initramfs-2.6.32-504.el6.x86_64.img
 ```
@@ -724,7 +724,7 @@ GRUB_CMDLINE_LINUX="nomodeset crashkernel=auto rd.lvm.lv=vg_os/lv_root rd.lvm.lv
 GRUB_DISABLE_RECOVERY="true"
 ```
 
-**Regenerate the GRUB configuration file::**
+**Regenerate the GRUB configuration file:**
 
 **- BIOS-based systems:**
 
@@ -784,7 +784,7 @@ $ cd /usr/lib/tuned/throughput-performance
 $ vi tuned.conf
 ```
 
-If there is a transparent_hugepage setting in the [vml] session, modify it; if not, leave it as is.
+If there is a `transparent_hugepage` setting in the `[vm]` section, modify it; if not, leave it as is.
 
 ```
 [vm]
@@ -803,6 +803,8 @@ Restart the OS to confirm the changes. The OS reboot can be done once after all 
 
 Check the current settings, and if the recommended configuration is not applied, refer to the guide below to make the necessary changes.
 
+The setting recommended by Altibase is `2147483647`.
+
 **1. Using cat**
 
 ```
@@ -819,7 +821,7 @@ $ sysctl -a | grep max_map_count
 
 #### **Temporary application**
 
-Use the sysctl command. This setting applies immediately but will reset after the OS is restarted..
+Use the sysctl command. This setting applies immediately but will reset after the OS is restarted.
 
 ```
 $ sysctl -w vm.max_map_count=2147483647
@@ -936,7 +938,7 @@ kernel.sem = 2000        32000   512     5029
 
 ##### Change Immediately
 
-Use the echo command.
+This setting applies immediately, but it is reset when the OS is restarted. Use the `echo` command.
 
 Immediate change shared memory and semaphores
 
@@ -1103,7 +1105,7 @@ This is an environment variable to be set after installing the Altibase server.
 | Required (Auto Setting) | CLASSPATH | Finds the location of the Java Class file | $ALTIBASE_HOME/lib |
 | Required (Manual Setting) | ALTIBASE_NLS_USE | Sets the Altibase client character set. Set the same as the Altibase server character set. | Same as Altibase server character set |
 | Required (Manual Setting) | LANG | Defines the user's system locale | It is affected by the Altibase server character set. |
-| Select (Manual Setting) | MALLOC_ARENA_MAX | - A feature added in Red Hat Enterprise Linux 6 to improve performance issues due to memory contention between threads in a multi-threaded application environment.<br>- The default is the number of CPU cores * MALLOC_ARENA_TEST.<br>- The default value of MALLOC_ARENA_TEST environment: 2 for 32-bit, 8 for 64-bit.<br>- The MALLOC_ARENA_MAX environment variable works properly in glibc2.10 or later. | - |
+| Optional (Manual Setting) | MALLOC_ARENA_MAX | - A feature added in Red Hat Enterprise Linux 6 to improve performance issues due to memory contention between threads in a multi-threaded application environment.<br>- The default is the number of CPU cores * MALLOC_ARENA_TEST.<br>- The default value of MALLOC_ARENA_TEST environment: 2 for 32-bit, 8 for 64-bit.<br>- The MALLOC_ARENA_MAX environment variable works properly in glibc2.10 or later. | - |
 
 - Environment variable MALLOC_ARENA_MAX
 
@@ -1180,34 +1182,36 @@ Apply the environment variable added with the following command.
 
 ---
 
-| Category | Recommendation setting | How to check |  |  |
-| --- | --- | --- | --- | --- |
-| **Kernel Parameter** | CPU frequency Governor | performance | cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor \| sort -u |  |
-| CPU core clock speed is fixed at maximum | grep MHz /proc/cpuinfo \| sort -u |  |  |  |
-| RemoveIPC | no | grep RemoveIPC /etc/systemd/logind.conf |  |  |
-| swappiness | 1 | cat /proc/sys/vm/swappiness or sysctl -a \| grep swappiness |  |  |
-| THP | never | cat /sys/kernel/mm/transparent_hugepage/enabled<br>cat /sys/kernel/mm/transparent_hugepage/defrag |  |  |
-| All 0 besides Hugepagesize | grep -i huge /proc/meminfo |  |  |  |
-| Including transparent_hugepage=never | cat /proc/cmdline |  |  |  |
-| max_map_count | 2147483647 | cat /proc/sys/vm/max_map_count |  |  |
-| **Shared Memory** | shmmni | 4096 | ipcs -m -l<br>sysctl -a \| grep -e kernel.shmmax -e kernel.shmmni |  |
-| shmmax | 2147483648 |  |  |  |
-| Semaphore | semmsl | 2000 | ipcs -s -l<br>sysctl -a \| grep kernel.sem |  |
-| semmns | 32000 |  |  |  |
-| semopm |  | 512 |  |  |
-| semmni | 5029 |  |  |  |
-| OS User Resource Limitation | data seg size | (kbytes, -d) | unlimited | ulimit -a |
-| file size | (blocks, -f) | unlimited |  |  |
-| open files | (-n) | 1048576 |  |  |
-| max memory size | (kbytes, -m) | unlimited |  |  |
-| virtual memory | (kbytes, -v) | unlimited |  |  |
-| max user processes | (-u) | unlimited |  |  |
-| OS User Environment Variable | ALTIBASE_HOME |  | Altibase installation path (absolute path) | env |
-| PATH |  | $ALTIBASE_HOME/bin |  |  |
-| LD_LIBRARY_PATH |  | $ALTIBASE_HOME/lib |  |  |
-| CLASSPATH |  | $ALTIBASE_HOME/lib |  |  |
-| ALTIBASE_NLS_USE |  | Same as Altibase server character set |  |  |
-| LANG |  | Based on Altibase server character set |  |  |
+The following table summarizes how to check the recommended values for the kernel parameters and environment variables described above.
+
+| Category | Setting | Recommended Value | How to Check |
+| --- | --- | --- | --- |
+| Kernel Parameter | CPU frequency Governor | performance | `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor \| sort -u` |
+| Kernel Parameter | CPU core clock speed | Fixed at maximum | `grep MHz /proc/cpuinfo \| sort -u` |
+| Kernel Parameter | RemoveIPC | no | `grep RemoveIPC /etc/systemd/logind.conf` |
+| Kernel Parameter | swappiness | 1 | `cat /proc/sys/vm/swappiness` or `sysctl -a \| grep swappiness` |
+| Kernel Parameter | THP | never | `cat /sys/kernel/mm/transparent_hugepage/enabled`<br>`cat /sys/kernel/mm/transparent_hugepage/defrag` |
+| Kernel Parameter | THP memory counters | All values except `Hugepagesize` are 0 | `grep -i huge /proc/meminfo` |
+| Kernel Parameter | THP boot option | Includes `transparent_hugepage=never` | `cat /proc/cmdline` |
+| Kernel Parameter | max_map_count | 2147483647 | `cat /proc/sys/vm/max_map_count` |
+| Shared Memory | shmmni | 4096 | `ipcs -m -l`<br>`sysctl -a \| grep -e kernel.shmmax -e kernel.shmmni` |
+| Shared Memory | shmmax | 2147483648 | `ipcs -m -l`<br>`sysctl -a \| grep -e kernel.shmmax -e kernel.shmmni` |
+| Semaphore | semmsl | 2000 | `ipcs -s -l`<br>`sysctl -a \| grep kernel.sem` |
+| Semaphore | semmns | 32000 | `ipcs -s -l`<br>`sysctl -a \| grep kernel.sem` |
+| Semaphore | semopm | 512 | `ipcs -s -l`<br>`sysctl -a \| grep kernel.sem` |
+| Semaphore | semmni | 5029 | `ipcs -s -l`<br>`sysctl -a \| grep kernel.sem` |
+| OS User Resource Limitation | data seg size (kbytes, -d) | unlimited | `ulimit -a` |
+| OS User Resource Limitation | file size (blocks, -f) | unlimited | `ulimit -a` |
+| OS User Resource Limitation | open files (-n) | 1048576 | `ulimit -a` |
+| OS User Resource Limitation | max memory size (kbytes, -m) | unlimited | `ulimit -a` |
+| OS User Resource Limitation | virtual memory (kbytes, -v) | unlimited | `ulimit -a` |
+| OS User Resource Limitation | max user processes (-u) | unlimited | `ulimit -a` |
+| OS User Environment Variable | ALTIBASE_HOME | Altibase installation path (absolute path) | `env` |
+| OS User Environment Variable | PATH | `$ALTIBASE_HOME/bin` | `env` |
+| OS User Environment Variable | LD_LIBRARY_PATH | `$ALTIBASE_HOME/lib` | `env` |
+| OS User Environment Variable | CLASSPATH | `$ALTIBASE_HOME/lib` | `env` |
+| OS User Environment Variable | ALTIBASE_NLS_USE | Same as Altibase server character set | `env` |
+| OS User Environment Variable | LANG | Based on Altibase server character set | `env` |
 
 ## Others
 
@@ -1254,7 +1258,7 @@ It has been found that the CPU usage of the SYS area of the Altibase server proc
 
 As a result of vtune analysis, as the number of Altibase sessions increases, the CPU usage of the SYS area increases significantly by system calls select() and write().
 
-There is a case where the cause was not identified by Broadcom, and the vaccine program was changed. (As of June 2020)
+As of June 2020, there was a case where Broadcom had not identified the cause and the antivirus program was changed as the resolution.
 
 The server environment where the symptoms are reported is as follows.
 
@@ -1335,5 +1339,5 @@ The server environment where the symptoms are reported is as follows.
 
 The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
 
-- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/13436485/Altibase_%EC%9A%B4%EC%98%81%EC%9D%84_%EC%9C%84%ED%95%9C_Linux_%EC%84%A4%EC%A0%95_%EA%B0%80%EC%9D%B4%EB%93%9C_2019.pdf?version=1&modificationDate=1584944731000&api=v2)
-- [Korean source attachment 2 (PDF)](https://docs.altibase.com/download/attachments/13436485/ALTIBASE_%EC%9A%B4%EC%98%81%EC%9D%84_%EC%9C%84%ED%95%9C_Linux_%EC%84%A4%EC%A0%95_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698366100000&api=v2)
+- [Altibase_운영을_위한_Linux_설정_가이드_2019.pdf](https://docs.altibase.com/download/attachments/13436485/Altibase_%EC%9A%B4%EC%98%81%EC%9D%84_%EC%9C%84%ED%95%9C_Linux_%EC%84%A4%EC%A0%95_%EA%B0%80%EC%9D%B4%EB%93%9C_2019.pdf?version=1&modificationDate=1584944731000&api=v2)
+- Legacy document: [ALTIBASE_운영을_위한_Linux_설정_가이드.pdf](https://docs.altibase.com/download/attachments/13436485/ALTIBASE_%EC%9A%B4%EC%98%81%EC%9D%84_%EC%9C%84%ED%95%9C_Linux_%EC%84%A4%EC%A0%95_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698366100000&api=v2)

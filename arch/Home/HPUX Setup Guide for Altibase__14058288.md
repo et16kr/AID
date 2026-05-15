@@ -62,7 +62,7 @@ The kernel parameters related to semaphores in a typical Unix system are as foll
 | --- | --- | --- |
 | semmni | The maximum number of semaphore sets in the system. 84 bytes of kernel memory are allocated per set | 5029 |
 | semmns | The maximum number of semaphores in the system, with 16 bytes of kernel memory allocated | 8192 |
-| semmsl | The maximum number of semaphores in a set of semaphores and must be logically less than or equal to semmns If set too large, several semaphore IDs can monopolize the entire system semaphore. | 2000 |
+| semmsl | The maximum number of semaphores in one semaphore set. It must be logically less than or equal to `semmns`. If set too large, several semaphore IDs can monopolize all semaphores in the system. | 2000 |
 | semmnu | The maximum number of undo structures in the system | 1024 |
 | semume | The maximum number of undo entries per process | 512 |
 | semvmx | The maximum value of one semaphore | 32767 |
@@ -97,9 +97,9 @@ In the case of HPUX, some of the resource limit items are set through the follow
 | Kernel Parameter | Description | Recommended Value |
 | --- | --- | --- |
 | maxdsiz | The sum of allocable data segments by one 32-bit process | 2 GB |
-| maxdsiz_64bit | The sum of allocable data segments by one 64-bit process | 1 TB Up to 4 TB<br>Considering the maximum size of the predicted Altibase process |
+| maxdsiz_64bit | The sum of allocable data segments by one 64-bit process | 1 TB<br>Maximum 4 TB<br>Set this value considering the expected maximum size of the Altibase process. |
 | max_thread_proc | The maximum number of threads a process can have | 600 or more |
-| maxfiles | The maximum number of files that a process can open simultaneously (soft-limit) Can be increased to maxfiles_lim (hard-limit). | 2048 or more |
+| maxfiles | The maximum number of files that a process can open simultaneously (soft-limit). This can be increased up to `maxfiles_lim` (hard-limit). | 2048 or more |
 | nproc | The maximum number of processes in the system | 6142 |
 | maxusers | Basis for the default values of nproc, ncallout, ninode, and nfile | 124<br>Only earlier than 11.23 |
 
@@ -185,7 +185,7 @@ In the UNIX operating system, logical limits are set for available resources on 
 | file size (fsize) | The maximum size of files that can be created | unlimited |
 | data seg size(data) | The maximum size of one process data area | unlimited |
 
-The resource limit change is to proactively remove problems that may occur due to logical limitations even when there is a lot of physical resources when expanding the memory and data file area used by a specific user. It is recommended to set as unlimited as possible.
+Resource limit changes are intended to prevent problems caused by logical limits when the memory or datafile area used by a specific user expands, even though enough physical resources are available. Set each value to the maximum allowed by the operating system, preferably `unlimited`.
 
 For example, the meaning of open files includes the number of communication sockets as well as the files accessed by the process, so the maximum number of concurrent clients, the number of data files used simultaneously, the number of redo log files, and the number of trace log files must be considered.
 
@@ -210,14 +210,14 @@ The environment variables that must be set are as follows. Set the following env
 | Environment Variable | Description |
 | --- | --- |
 | ALTIBASE_HOME | Specifies the path where Altibase is installed. |
-| PATH | Specifies the path where Altibase's utilities and shell scripts. Adds ALTIBASE_HOME/bin. |
-| LD_LIBRARY_PATH | Specifies the path where Altibase's dynamic library. Adds ALTIBASE_HOME/lib. |
+| PATH | Adds `ALTIBASE_HOME/bin` so Altibase binaries and shell scripts can be executed regardless of the current path. |
+| LD_LIBRARY_PATH | Adds `ALTIBASE_HOME/lib` so Altibase dynamic libraries can be used. |
 
 In addition, the following environment variables that exist only in HPUX must be added.
 
 | Environment Variable | Description |
 | --- | --- |
-| SHLIB_PATH | Adds ALTIBASE_HOME/lib. Set when linking a dynamic library with 32 bits. |
+| SHLIB_PATH | Adds `ALTIBASE_HOME/lib`. Set this when linking dynamic libraries in 32-bit mode. |
 
 #### Settings for Multi-threaded Application (1)
 
@@ -230,25 +230,25 @@ All of the elements below are essential. Among them, the environment variable PT
 | PTHREAD_FORCE_SCOPE_SYSTEM | Set the thread contention area as the system | Supported in HPUX 11.23 or later |
 | PERF_ENABLE | Omit part of user-space sleep queue operation | HPUX 11.23 only |
 | PTHREAD_FAST_SHARED_OBJECTS | Application of the private algorithm to shared objects | Supported in HPUX 11.31 or later |
-| PTHREAD_DISABLE_HANDOFF | Application of multiple CPU environment | Supported in HPUX 11.23 or later |
+| PTHREAD_DISABLE_HANDOFF | Applies in multi-CPU environments | Supported in HPUX 11.23 or later |
 
-For PERF_ENABLE, from HPUX 11.31 onwards, it is included in PTHREAD_FORCE_SCOPE_SYSTEM and is not considered in HPUX 11.31 or later.
+For `PERF_ENABLE`, starting from HPUX 11.31, the behavior is included in `PTHREAD_FORCE_SCOPE_SYSTEM`, so it does not need to be considered in HPUX 11.31 or later.
 
 #### Settings for Multi-threaded Application (2)
 
-It is mentioned that this is also a tunable element that cannot provide a recommended value as a setting for a multi-thread-based application, or something to be considered in the initial stage.
+This is also a multi-threaded application setting. It is a tuning element that has no fixed recommended value, but it should be considered during initial configuration.
 
 In an operating system that uses only one memory allocation area to request memory for a specific process, when multiple threads of a multi-threaded application program concurrently request memory (malloc, free), contention due to a lock operation occurs, resulting in performance degradation.
 
-To solve this problem, HPUX provides up to 64 memory allocations per process, called arenas, to distribute threads between arenas to reduce lock contention caused by memory request.
+To solve this problem, HPUX provides up to 64 memory allocation areas per process, called arenas. Threads can be distributed across arenas to reduce lock contention caused by memory requests.
 
 It can be set with the following environment variables.
 
 | Environment Variable | Description | Remark |
 | --- | --- | --- |
-| _M_ARENA_OPTS=x:y | x: The number of arenas to be allocated per process. The default value is 8. [Range: 1-64]<br>y: The expansion unit of the arena, expressed as the number of memory pages. The default is 32. [Range: 1-4096] | The larger the number of arenas (x), the more the system memory usage increases, and the smaller the performance of the Altibase decreases, so it is necessary to set the appropriate number. |
+| _M_ARENA_OPTS=x:y | x: The number of arenas to be allocated per process. The default value is 8. [Range: 1-64]<br>y: The expansion unit of the arena, expressed as the number of memory pages. The default is 32. [Range: 1-4096] | As the number of arenas (x) increases, system memory usage increases. If it is too small, Altibase performance may degrade, so set an appropriate value. |
 
-Generally, if it is not a multi-threaded application, it operates as one arena regardless of setting, and when it is set as an invalid value, it operates as a default.
+If an application is not multi-threaded, it operates with one arena regardless of this setting. If an invalid value is set, the default value is used.
 
 For example, if the user sets up as follows, 24 arenas are allocated to multi-threaded applications only, and each arena increases in units of 64*4KB (typical memory page size) when expanded.
 
@@ -258,9 +258,9 @@ _M_ARENA_OPTS setting example
 $ export _M_ARENA_OPTS = 24:64
 ```
 
-In general, the higher the number of threads in an application program, the higher the number of arenas to improve performance.
+In general, applications with more threads need more arenas to improve performance.
 
-However, if it is set too large, fragmentation of the heap area may occur, and inefficient memory usage can make the process size excessively large.
+However, if this value is set too high, fragmentation of the heap area may occur and inefficient memory usage can make the process size excessively large, causing insufficient system memory. Review the setting carefully before applying it.
 
 For example, if there is a concern about insufficient memory due to the lack of physical memory of the system itself, in some cases, it is set to 1: 8 to operate as a single-threaded application program. If the bottleneck is related to a memory request (malloc/free), it is common to increase the value within the resource range.
 
@@ -289,7 +289,7 @@ After checking the patch list, if the patch exists, the following environment va
 
 | Environment Variable | Description | Remark |
 | --- | --- | --- |
-| PTHREAD_SHARED_MUTEX_OLDSPIN | Performance downgrade due to PHCO_33675, PHCO_34718 | Considered only on HPUX 11.23 |
+| PTHREAD_SHARED_MUTEX_OLDSPIN | Restores performance degradation caused by PHCO_33675 and PHCO_34718 | Consider only on HPUX 11.23 |
 
 ## Summary
 

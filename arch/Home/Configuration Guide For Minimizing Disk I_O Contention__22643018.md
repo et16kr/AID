@@ -26,7 +26,7 @@ However, the user should note that significant disk I/O contention may occur if 
 
 This guide describes how ALTIBASE HDB writes redo logs and data and how to configure disk volumes to minimize disk I/O contention.
 
-This guide is up to date as of ALTIBASE HDB version 6.5.
+This guide is based on Altibase 6.5 or later.
 
 # **What Causes Disk I/O**
 
@@ -51,6 +51,8 @@ During the startup stage, data contained within memory tables must be loaded fro
 When data is changed, saved or deleted by a transaction, the page that stored the modified data is registered to the list of dirty pages. This process is managed internally. The process of saving these dirty pages to physical storage on disk is referred to as a checkpoint.
 
 Due to the fact that memory is a volatile storage medium, the checkpoint process is necessary to provide data durability in the case of situations such as power failures.
+
+For more detailed checkpoint information, refer to the checkpoint document.
 
 As the number of transactions being processed by in-memory tables increases, the number of dirty pages that must be flushed to disk by the checkpoint process will increase as well. If redo logs and in-memory table datafiles are located on the same physical disk, this load may cause disk I/O contention. In order to avoid any possible performance degradation, it is highly recommended to store redo logs and datafiles on separate physical disks.
 
@@ -89,7 +91,7 @@ When a transaction modifies data, memory tables manage an undo image in memory f
 
 In contrast, disk tables copy the original data to the undo tablespace. The transaction then modifies the data located in the original location. This method is known as an in-place update.
 
-For recovery, the copy of the original data will be copied back into the undo tablespace. However, it is important to note that the undo tablespace is being constantly updated as disk tables continue to process transactions. Therefore, the user should consider placing disk table datafiles and undo tablespace datafiles on separate physical disks to prevent disk I/O related performance issues.
+For recovery, the original data stored in the undo tablespace is copied back to its original location. However, it is important to note that the undo tablespace is constantly updated as disk tables continue to process transactions. Therefore, the user should consider placing disk table datafiles and undo tablespace datafiles on separate physical disks to prevent disk I/O related performance issues.
 
 For example:
 
@@ -150,16 +152,18 @@ This configuration can reduce disk I/O contention only for environments mainly u
 
 ### Example 3.
 
-If memory tables are used sparsely and the vast majority of data and processing is performed by disk tables, the following configuration can be considered.
+The following configuration is recommended when diverse workloads and large amounts of data are configured as disk DB. It separates tablespaces for complex queries and tablespaces used mainly for simple processing, and places their physical datafiles on separate disks to distribute disk I/O.
+
+However, this configuration may be less effective in environments where disk BufferReplace occurs frequently.
 
 | **Classification** | **Disk Configuration** |
 | --- | --- |
 | Redo Logs | /ALTIBASE_REDO_LOG |
-| ALTIBASE HOME and Memory Table Datafiles | /ALTIBASE |
+| $ALTIBASE_HOME and Memory Table Datafiles | /ALTIBASE |
 | Disk Table Datafiles 1 (Complex Tasks) | /ALTIBASE_DISK_COMPLEX |
 | Disk Table Datafiles 2 (Simple Tasks) | /ALTIBASE_DISK_SIMPLE |
 
-Placing tablespaces that regularly process complex queries and tablespaces that typically process simple queries on separate physical volumes is an effective method of dispersing disk I/O. However, if the environment frequently executes BufferReplace processes, this configuration may suffer from performance degradation.
+Placing tablespaces related to complex query execution and physical datafiles for tablespaces used mainly for simple processing on volumes configured on separate disks can be effective for distributing disk I/O.
 
 # **File System**
 
@@ -182,15 +186,15 @@ For detailed configuration, refer to the manual or the altibase.properties file.
 | **OS** | **File System** | **Characteristics** |
 | --- | --- | --- |
 | Solaris | UFS | Mount option changes are required when using Direct I/O. |
-| VxFS |  |  |
-| ZFS | Database property changes are required when Direct I/O is not supported. |  |
+| Solaris | VxFS |  |
+| Solaris | ZFS | Database property changes are required because Direct I/O is not supported. |
 | HP | HFS |  |
-| JFS | Mount option changes are necessary when using Direct I/O |  |
-| VxFS | Mount option changes are necessary when using Direct I/O. |  |
+| HP | JFS | Mount option changes are required when using Direct I/O. |
+| HP | VxFS | Mount option changes are required when using Direct I/O. |
 | AIX | JFS |  |
-| VxFS |  |  |
+| AIX | VxFS |  |
 | Windows | NTFS |  |
-| FAT32 |  |  |
+| Windows | FAT32 |  |
 | Linux | Ext2/Ext3/Ext4 |  |
 
 ## Unsupported File Systems
@@ -299,15 +303,15 @@ In such cases, the file system must be mounted with specific options as shown in
 | **OS** | **File System** | **Required Action** |
 | --- | --- | --- |
 | Solaris | UFS | None |
-| VxFS | mount with convosync=direct |  |
-| ZFS | Does not support Direct I/O. |  |
+| Solaris | VxFS | Mount with `convosync=direct`. |
+| Solaris | ZFS | Direct I/O is not supported. |
 | HP | HFS | None |
-| JFS | None |  |
-| VxFS | mount with convosync=direct |  |
-| AIX | JFS | mount with use -o dio |
-| VxFS | mount with convosync=direct |  |
+| HP | JFS | None |
+| HP | VxFS | Mount with `convosync=direct`. |
+| AIX | JFS | Mount with `-o dio`. |
+| AIX | VxFS | Mount with `convosync=direct`. |
 | Windows | NTFS | None |
-| FAT32 | None |  |
+| Windows | FAT32 | None |
 | Linux(2.4 > K ) | Ext2/Ext3/Ext4 | None |
 
 ### When Using Direct I/O Is Advantageous
@@ -346,6 +350,6 @@ There have been no reported cases of performance degradation due to mismatches b
 
 The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
 
-- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/11698408/202312_Altibase_%EB%94%94%EC%8A%A4%ED%81%ACIO_%EB%B3%91%EB%AA%A9%EC%9D%84_%EA%B3%A0%EB%A0%A4%ED%95%9C_%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=2&modificationDate=1702282370000&api=v2)
-- [Korean source attachment 2 (PDF)](https://docs.altibase.com/download/attachments/11698408/201511_ALTIBASE_%EB%94%94%EC%8A%A4%ED%81%ACIO_%EB%B3%91%EB%AA%A9%EC%9D%84_%EA%B3%A0%EB%A0%A4%ED%95%9C_%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1701925177000&api=v2)
-- [Korean source attachment 3 (PDF)](https://docs.altibase.com/download/attachments/11698408/200912_ALTIBASE_%EB%94%94%EC%8A%A4%ED%81%ACIO_%EB%B3%91%EB%AA%A9%EC%9D%84_%EA%B3%A0%EB%A0%A4%ED%95%9C_%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1701925145000&api=v2)
+- 2023.12 version: [202312_Altibase_디스크IO_병목을_고려한_볼륨구성_가이드.pdf](https://docs.altibase.com/download/attachments/11698408/202312_Altibase_%EB%94%94%EC%8A%A4%ED%81%ACIO_%EB%B3%91%EB%AA%A9%EC%9D%84_%EA%B3%A0%EB%A0%A4%ED%95%9C_%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=2&modificationDate=1702282370000&api=v2) (Altibase 6.5 or later)
+- 2015.11 version: [201511_ALTIBASE_디스크IO_병목을_고려한_볼륨구성_가이드.pdf](https://docs.altibase.com/download/attachments/11698408/201511_ALTIBASE_%EB%94%94%EC%8A%A4%ED%81%ACIO_%EB%B3%91%EB%AA%A9%EC%9D%84_%EA%B3%A0%EB%A0%A4%ED%95%9C_%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1701925177000&api=v2) (Altibase 6)
+- 2009.12 version: [200912_ALTIBASE_디스크IO_병목을_고려한_볼륨구성_가이드.pdf](https://docs.altibase.com/download/attachments/11698408/200912_ALTIBASE_%EB%94%94%EC%8A%A4%ED%81%ACIO_%EB%B3%91%EB%AA%A9%EC%9D%84_%EA%B3%A0%EB%A0%A4%ED%95%9C_%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1701925145000&api=v2) (Altibase 5)

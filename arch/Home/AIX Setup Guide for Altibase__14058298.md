@@ -20,7 +20,7 @@ Updated: 2025-09-23T08:45:51.000+0900
 
 This document provides guides for setting appropriate values and various user environment settings of kernel parameters for installing and operating Altibase in the AIX (Advanced Interactive eXecutive) Operating System.
 
-In this document, the guide is presented only for operating system related items to be set before Altibase is installed.
+This document covers only operating system items that must be set before Altibase is installed. For Altibase property configuration, refer to the separate document "Altibase Configuration File Guide".
 
 This document is based on AIX 5.x and does not cover AIX 4.3 or earlier versions, as they are no longer supported by Altibase.
 
@@ -32,21 +32,21 @@ For details related to each kernel parameter, refer to the guide provided by IBM
 
 ### Posix AIO
 
-Posix AIO is a kernel parameter in AIX that allows a process to simultaneously process disk I/O processing and application program operations, resulting in improved performance.
+Posix AIO is an AIX kernel parameter that allows a process to handle disk I/O and application operations concurrently, improving performance.
 
 If the corresponding kernel parameter is not set, Altibase cannot be used, so it must be set in advance.
 
-However, starting from AIX 6.1, the default value of Posix AIO is 'Available', there is no need to set it separately.
+However, starting from AIX 6.1, the default value of Posix AIO is `Available`, so it does not need to be set separately.
 
 ### File Cache
 
-This kernel parameter is not an essential element to change, but the proper file cache setting prevents the swap out of the memory area used by Altibase and suppresses the requirement for swap out. It is recommended to minimize the phenomenon that the I/O delay time leads to the degradation of Altibase.
+This kernel parameter is not mandatory to change. However, proper file cache settings are recommended because they suppress swap-out events on memory areas used by Altibase and minimize cases where OS-layer Disk I/O delay caused by swapping leads to Altibase performance degradation.
 
-For reference, there are no relevant parameters under AIX 5.2 ML03, and there is no change starting from AIX 6.1 so it is not necessary to refer to it depending on the operation system version.
+For reference, AIX 5.2 ML03 or earlier does not have the related parameters, and AIX 6.1 or later does not require special changes. Depending on the operating system version, this section may not apply.
 
 File cache is a kind of system buffer managed at the operating system level to solve the bottleneck caused by the speed difference between main memory and auxiliary memory. These file caches are managed by unique policies of each operating system, but commonly have a direct correlation with the swap policy.
 
-Swapping itself has the usefulness of handling applications or data files larger than main memory, but in systems where long-term resident applications such as DBMS are operated, the disk I/O delay of the operating system layer due to swapping since the response time of the DBMS may be irregular or delayed with time. So file cache is a consideration factor depending on the system use.
+Swapping itself is useful because it allows applications or data files larger than main memory to be handled. However, on systems running long-resident applications such as a DBMS, OS-layer Disk I/O delay caused by swapping can make DBMS response times irregular or delayed. Therefore, file cache behavior must be considered according to system usage.
 
 Therefore, in order to guarantee Altibase's consistent response time, it is recommended to set the file cache and swap-related kernel parameters in advance so that swap does not occur as much as possible.
 
@@ -56,7 +56,9 @@ The default memory manager of AIX is to convert unused memory areas to file cach
 
 In this state, if an additional memory allocation request occurs and there is insufficient free memory, AIX swaps out memory being used by a process or less frequently accessed file cache areas, and then allocates the requested memory.
 
-At this time, when a transaction approaching the swapped out area occurs, the performance is not uniform.
+For a long-resident memory process such as Altibase, infrequently accessed data areas can unintentionally be swapped out to disk by the operating system, and that memory area can then be used as file cache.
+
+If a transaction accesses the swapped-out area, performance can become inconsistent.
 
 In this way, the process by which the memory manager acquires the memory requested by the process or the file cache in order to allocate additional memory is called stealing. The stealing target can be specified by the file cache-related kernel parameter lru_file_repage.
 
@@ -145,17 +147,17 @@ In the UNIX operating system, logical limits are set for available resources on 
 | Classification | Description | Recommended Value |
 | --- | --- | --- |
 | data seg size(data) | The maximum size of one process data area | unlimited |
-| file size (size) | The maximum size of files that can be created | unlimited |
+| file size (fsize) | The maximum size of files that can be created | unlimited |
 | open files (nofiles) | The maximum number of files that can be accessed simultaneously by one process | unlimited |
 | max memory size (rss) | The maximum size of available memory | unlimited |
 | virtual memory (memory) | The maximum size of available virtual memory | unlimited |
 | max user process | The number of processes that can be created per user | unlimited |
 
-It is intended to remove problems that may occur due to logical limitations even when there are abundant physical resources when expanding the memory and data file area used by a specific user. This setting has no effect on other processes. It is recommended to set the maximum value allowed by (unlimited if possible).
+This setting is intended to prevent problems caused by logical limits when the memory or datafile area used by a specific user expands, even though enough physical resources are available. This setting has no effect on other processes. It is recommended to set the maximum value allowed by the operating system, preferably `unlimited`.
 
 For example, open files includes not only files accessed by the process but also communication sockets. If Altibase is operated in an environment where this value is limited to 10, more than 10 concurrent sessions are impossible. Considering the files used by Altibase itself, there may be no available session capacity.
 
-To change the method, edit the environment configuration file using, the ulimit command, edit the system resource configuration file, or use the kernel-related utilities provided for each operating system.
+To change these values, edit the environment configuration file using the `ulimit` command, edit the system resource configuration file, or use the kernel-related utilities provided by the operating system.
 
 ### Hard-Limit & Soft-Limit
 
@@ -175,10 +177,13 @@ Separate environment variables need to be set for Altibase, a multi-thread based
 
 The following items are recommended environment variables to prevent performance degradation in multi-threaded SMP systems. Altibase can run without these environment variables, but they must be set because failures of unknown cause may occur later.
 
+Among these settings, `PTHREAD_FORCE_SCOPE_SYSTEM`, an environment variable related to the MxN thread model, must also be set.
+
 | Environment Variable | Description |
 | --- | --- |
 | AIXTHREAD_MNRATIO | The number of k kernel threads for processing n user threads |
 | AIXTHREAD_SCOPE | Sets the thread model to 1:1 |
+| PTHREAD_FORCE_SCOPE_SYSTEM | Environment variable related to the MxN thread model |
 | AIXTHREAD_MUTEX_DEBUG | Set to remove the overhead of the pthread library due to the mutex / condition variable in use / read/write lock management used by the debugger. |
 | AIXTHREAD_RWLOCK_DEBUG |  |
 | AIXTHREAD_COND_DEBUG |  |
@@ -202,9 +207,9 @@ Refer to the table below and set the appropriate kernel parameters. For referenc
 | Classification | Kernel Parameter | Recommended Value | Remark |
 | --- | --- | --- | --- |
 | Posix AIO | Configure Defined Asynchronous I/O | Available | Required before AIX 6.1 |
-| File Cache | lru_file_repage | 0 | Consider before AIX 6.1 (lru_file_repage required) |
-| strict_maxclient | 0 |  |  |
-| minperm | 10 |  |  |
+| File Cache | lru_file_repage | 0 | Consider before AIX 6.1 (`lru_file_repage` is required) |
+| File Cache | strict_maxclient | 0 |  |
+| File Cache | minperm | 10 |  |
 | Resource limitation | The maximum number of PROCESSES allowed per user | More than the number of processes that can be running simultaneously | Corresponds to max user process |
 
 #### User Resource Limits
@@ -221,7 +226,7 @@ Refer to the table below, if possible, set it to unlimited.
 
 #### User Environment Variables
 
-In the case of sh, bash, and ksh, examples of settings required environment variables using the environment setting file are as follows. In the case of csh, it is declared through a shell command such as setenv instead of export.
+For sh, bash, and ksh, the following example shows how to set required environment variables in the environment configuration file. For csh, declare them with a shell command such as `setenv` instead of `export`.
 
 ###### User Environment Variable Setting Examples
 
@@ -257,7 +262,7 @@ Related IBM official document is as follows.
 
 As a measure of this, the user must patch or upgrade to the AIX native compiler where AIX bug IV28577 is resolved.
 
-It can be checked whether or not the patch is done with the following command.
+Use the following command to check whether the patch is applied.
 
 ###### Check heapmin Related Patch
 
@@ -266,7 +271,7 @@ It can be checked whether or not the patch is done with the following command.
 All filesets for IV28577 were found.
 ```
 
-If there is no patch, no value is displayed. It is recommended to perform patch or upgrade through AIX engineer.
+If the patch is not applied, no value is displayed. In that case, ask an AIX engineer to perform the patch or upgrade.
 
 In addition, it is recommended to apply the latest patch to avoid various problems known in AIX.
 
@@ -280,5 +285,5 @@ Since the semume (number of undo entry resources) is fixed at 1024, Altibase use
 
 Therefore, the maximum number of IPC channels that can be used for each version is as follows:
 
-- Up to 512 IPC channels (= 1024/2) can be used under 5.1.5.72 version
-- Up to 341 IPC channels (= 1024/3) can be used in 5.1.5.72 or later
+- In versions earlier than 5.1.5.72, up to 512 IPC channels (= 1024 / 2) can be used.
+- In version 5.1.5.72 or later, up to 341 IPC channels (= 1024 / 3) can be used.
