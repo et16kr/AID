@@ -1,0 +1,313 @@
+---
+title: "ERR-410D2 (266450) Fetch out of sequence."
+page_id: "16876332"
+space_key: "FAQE"
+space_name: "FAQ(English)"
+source_url: "https://docs.altibase.com/pages/viewpage.action?pageId=16876332"
+updated_at: "2021-04-05T10:55:07.000+0900"
+version: 5
+ancestors: ["Home", "09. Error Messages"]
+labels: []
+---
+
+# ERR-410D2 (266450) Fetch out of sequence.
+Source: https://docs.altibase.com/pages/viewpage.action?pageId=16876332
+Updated: 2021-04-05T10:55:07.000+0900
+
+- [Overview](#ERR-410D2(266450)Fetchoutofsequence.-Overview) - [Version](#ERR-410D2(266450)Fetchoutofsequence.-Version) - [Symptom](#ERR-410D2(266450)Fetchoutofsequence.-Symptom) - [Cause](#ERR-410D2(266450)Fetchoutofsequence.-Cause) - [When COMMIT/ROLLBACK is performed in the OPEN CURSOR state](#ERR-410D2(266450)Fetchoutofsequence.-WhenCOMMIT/ROLLBACKisperformedintheOPENCURSORstate) - [Solution](#ERR-410D2(266450)Fetchoutofsequence.-Solution) - [When COMMIT/ROLLBACK is performed in the OPEN CURSOR state](#ERR-410D2(266450)Fetchoutofsequence.-WhenCOMMIT/ROLLBACKisperformedintheOPENCURSORstate.1) - [1. Separation of fetch session and change DML session](#ERR-410D2(266450)Fetchoutofsequence.-1.SeparationoffetchsessionandchangeDMLsession) - [2. Declare a cursor only enough to be stored in the communication buffer, and then repetitively open the cursor](#ERR-410D2(266450)Fetchoutofsequence.-2.Declareacursoronlyenoughtobestoredinthecommunicationbuffer,andthenrepetitivelyopenthecursor) - [3. fetch across commit](#ERR-410D2(266450)Fetchoutofsequence.-3.fetchacrosscommit) - [Reference](#ERR-410D2(266450)Fetchoutofsequence.-Reference) - [Differences by version](#ERR-410D2(266450)Fetchoutofsequence.-Differencesbyversion) - [Reference manual](#ERR-410D2(266450)Fetchoutofsequence.-Referencemanual)
+
+# Overview
+
+---
+
+This document describes an error that occurs during the record fetch process by using a cursor to process a select statement that returns multiple records.
+
+# Version
+
+---
+
+Altibase version 6.3.1 or later
+
+# Symptom
+
+---
+
+To process a query statement that returns multiple records, a cursor (CURSOR) must be used in the following process.
+
+1. DECLARE CURSOR
+2. OPEN CURSOR
+3. FETCH CURSOR
+4. CLOSE/RELEASE CURSOR
+
+Although the cursor is used as above, the 3. FETCH process proceeds to some extent in the CURSOR FETCH stage, and the 'ERR-410D2 (266450) Fetch out of sequence' error occurs even though there are still records to be fetched at some point.
+
+Below is an example where an error occurs when using the cursor and the result of the error.
+
+**Example of using cursor-SESC**
+
+```
+
+DECLARE CURSOR
+
+OPEN CURSOR
+
+/* fetch cursor in loop */
+/* To retrieve all records that meet the conditions, the FETCH CURSOR statement is repeatedly executed until the execution result is SQL_NO_DATA. */
+while(1)
+{
+    FETCH CURSOR ;
+
+    if (sqlca.sqlcode == SQL_SUCCESS)
+    {
+        ...
+    }
+    else if (sqlca.sqlcode == SQL_NO_DATA)
+    {
+        ...
+    }
+    else
+    {
+        /* ERR-410D2 (266450) Fetch out of sequence error occurs even though there are still records to be fetched during the FETCH process. */
+        printf("Error : [%d] %s\n", SQLCODE, sqlca.sqlerrm.sqlerrmc);
+        break;
+    }
+}
+```
+
+**Example of error occurrence result**
+
+```
+$ ./cursor1
+<CURSOR 1>
+[Success declare cursor]
+
+[Success open cursor]
+
+[Fetch Cursor]
+------------------------------------------------------------------
+DNO      DNAME                          DEP_LOCATION       MGR_NO
+------------------------------------------------------------------
+1     BUSINESS DEPT                  Seoul        100
+2     BUSINESS DEPT                  Seoul        100
+...Omitted...
+583     BUSINESS DEPT                  Seoul        100
+584     BUSINESS DEPT                  Seoul        100
+
+Error : [-266450][HY000] Fetch out of sequence.                     /* Error occurred while performing fetch */
+------------------------------------------------------------------
+[Close Cursor]
+------------------------------------------------------------------
+Success close cursor
+```
+
+# Cause
+
+---
+
+## When COMMIT/ROLLBACK is performed in the OPEN CURSOR state
+
+---
+
+Altibase complies with the ANSI standard and is configured not to support the fetch across commit method by default. Therefore, if COMMIT or ROLLBACK is performed after opening the cursor, the cursor is forcibly closed according to the ANSI standard.
+
+This is a method that performed COMMIT while fetching the unit record after opening the cursor, which is not recommended by the ANSI standard.
+
+The reason an error occurs while performing FETCH to some extent is that the first large amount of records is stored in the communication buffer during FETCH. An error occurs when fetching all the records in the communication buffer and fetching the next certain amount of records into the communication buffer.
+
+The following is an example of creating an application that may cause an error by performing COMMIT or ROLLBACK in the cursor OPEN state.
+
+```
+non-autocommit mode
+
+DECLARE CURSOR
+
+OPEN CURSOR
+
+while(1)
+{
+    FETCH CURSOR;
+
+    if (sqlca.sqlcode == SQL_SUCCESS) {
+
+       /* Execute change DML */
+
+       /* Perform COMMIT or ROLLBACK */
+
+    }
+    else if (sqlca.sqlcode == SQL_NO_DATA) {
+       ...
+    }
+    else {
+      /* An error occurs at this stage when all the records in the first communication buffer are processed and then placed in the second communication buffer. */
+       ...
+    }
+}
+```
+
+# Solution
+
+---
+
+## When COMMIT/ROLLBACK is performed in the OPEN CURSOR state
+
+---
+
+Here are three solutions to deal with this error.
+
+### 1. Separation of fetch session and change DML session
+
+By using multiple connections within one application, COMMIT or ROLLBACK does not affect the cursor.
+
+- Create a session that uses a cursor and a session that executes modified DML statements. It is described by defining it as CONN1 and CONN2, respectively.
+- Whenever cursor FETCH is executed in the session using the cursor (CONN1), change DML is executed in CONN2, and COMMIT or ROLLBACK is executed.
+- The session (CONN2) that executes the modified DML statement is set to non-autocommit mode.
+
+The following is an example of creating an application that reflects this action.
+
+```
+/* Session for FETCH */
+EXEC SQL AT conn1 CONNECT;
+
+/* Session for performing change DML */
+EXEC SQL AT conn2 CONNECT;
+
+EXEC SQL AT conn2 AUTOCOMMIT OFF;
+
+/* Declare cursor in CONN1, perform OPEN, FETCH */
+EXEC SQL AT conn1 DECLARE cursor;
+EXEC SQL AT conn1 OPEN cursor;
+while (1)
+{
+    /* Perform FETCH on conn1 */
+	EXEC SQL AT conn1 FETCH cursor
+
+    if (sqlca.sqlcode == SQL_SUCCESS) {
+
+          /* Change DML and COMMIT or ROLLBACK in conn2 */
+          EXEC SQL AT conn2 INSERT or UPDATE or DELETE ;
+
+          /* check sqlca.sqlcode */
+   		  if (sqlca.sqlcode == SQL_SUCCESS) {
+    	     ...
+    	  }
+	      else {
+	         ...
+	      }
+
+          /* The commit or rollback performed in conn2 does not affect the cursor use of conn1. */
+	      EXEC SQL AT conn2 commit or rollback;
+
+          /* check sqlca.sqlcode */
+   		  if (sqlca.sqlcode == SQL_SUCCESS) {
+    	  	  ...
+    	  }
+	      else {
+	       	  ...
+	      }
+  	}
+    else if (sqlca.sqlcode == SQL_NO_DATA)	{
+        ...
+    }
+    else	{
+        ...
+    }
+}
+```
+
+### 2. Declare a cursor only enough to be stored in the communication buffer, and then repetitively open the cursor
+
+After calculating the number of records enough to put in the communication buffer with one FETCH, declare the cursor using the LIMIT clause.
+
+The communication buffer size of Altibase 5 and above is 32K. Since the number of records in the communication buffer depends on the record size, the last value of the LIMIT clause varies depending on the operating environment.
+
+Specify the number of records to be stored in the communication buffer in the LIMIT clause, and open the cursor again and use it while changing the start value of the LIMIT clause before opening the cursor.
+
+```
+
+/* The cursor is declared using the LIMIT clause. n is the last record value to be returned in the LIMIT clause and must be defined according to the operating environment. The number of records in the communication buffer depends on the record size. */
+DECLARE CURSOR
+         SELECT ~
+           FROM ~
+          WHERE ~
+          LIMIT :s_start, n;
+
+/* Declare the starting value used in the LIMIT clause. */
+s_start = 1;
+
+while(1)
+{
+    /* Cursor open is repeated until all records meeting the conditions are fetched. */
+    OPEN CURSOR
+
+		while(1)
+		{
+		    FETCH CURSOR ;
+
+		    if (sqlca.sqlcode == SQL_SUCCESS) {
+
+		       /* Execute change DML */
+		    }
+		    else if (sqlca.sqlcode == SQL_NO_DATA) {
+		       ...
+		    }
+		    else {
+		       ...
+		    }
+		}
+
+		/* Perform COMMIT or ROLLBACK */
+
+       /* Specify the starting value of the LIMIT clause. n is an example. */
+       s_start = s_start + n ;
+
+}
+
+CLOSE CURSOR OR CLOSE RELEASE CURSOR
+
+```
+
+### **3. fetch across commit**
+
+Although not recommended by the ANSI standard, it is a function added from version 6.3.1 for the convenience of users familiar with other DBMSs.
+
+In the case of Precompiler (APRE), when declaring a cursor, declare and use a WITH HOLD cursor.
+
+**Example of declaring a cursor in APRE**
+
+```
+EXEC SQL DECLARE cursor_name
+     CURSOR WITH HOLD FOR SELECT statement
+```
+
+# Reference
+
+---
+
+## Differences by version
+
+---
+
+Depending on the Altibase version, the error messages that occur in the same situation may be different.
+
+The difference in error messages that occurs when COMMIT/ROLLBACK is executed among FETCHs in a non-autocommit environment is as follows.
+
+| Version | Error code | Error message | Reference page |
+| --- | --- | --- | --- |
+| Altibase 4.3.9 | ERR-4103C | Request of fetching data to an unprepared SQL statement. | [http://aid.altibase.com/x/6YKZ](http://aid.altibase.com/x/6YKZ) |
+| Altibase 5.3.3 ~ 6.1.1 | 100 | Not found data | [http://aid.altibase.com/x/7YKZ](http://aid.altibase.com/x/7YKZ) |
+| Altibase 6.3.1 or later | ERR-410D2 | Fetch out of sequence. |  |
+
+## Reference manual
+
+---
+
+This section introduces the manuals related to fetch across commit provided from Altibase 6.3.1.
+
+- Precompiler User's Manual: 8. Cursor processing SQL statement -> Cursor-related embedded SQL statement -> DECLARE CURSOR
+- CLI User's Manual: 2. ALTIBASE HDB CLI Function -> SQLSetStmtAttr
+- JDBC User's Manual: 3. Advanced Features -> Using ResultSet -> Holdability
+
+The manual can be downloaded from the pages below.
+
+- [http://support.altibase.com/en/manual/](http://support.altibase.com/en/manual/)
+- [https://github.com/ALTIBASE/Documents/tree/master/Manuals](https://github.com/ALTIBASE/Documents/tree/master/Manuals)

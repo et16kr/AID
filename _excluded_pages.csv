@@ -1,0 +1,54 @@
+reason,space_key,page_id,title,body_chars,word_count,relative_path,source_url
+brief_category_stub,FAQE,16876245,Disk tablespace usage,69,9,FAQE/Home/08. Monitoring/Disk tablespace usage__16876245.md,https://docs.altibase.com/display/FAQE/Disk+tablespace+usage
+brief_category_stub,FAQE,1802666,ALTIBASE HDB Administration,66,10,FAQE/Home/ALTIBASE HDB Administration__1802666.md,https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+Administration
+brief_category_stub,FAQE,1507342,ALTIBASE HDB Architecture,54,6,FAQE/Home/ALTIBASE HDB Architecture__1507342.md,https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+Architecture
+brief_category_stub,FAQE,2557046,ALTIBASE HDB Developer,57,8,FAQE/Home/ALTIBASE HDB Developer__2557046.md,https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+Developer
+brief_category_stub,FAQE,2555997,ALTIBASE HDB General Information,49,6,FAQE/Home/ALTIBASE HDB General Information__2555997.md,https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+General+Information
+brief_category_stub,FAQE,1802802,ALTIBASE HDB Performance Tuning,48,7,FAQE/Home/ALTIBASE HDB Performance Tuning__1802802.md,https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+Performance+Tuning
+brief_category_stub,FAQE,2555989,ALTIBASE HDB Replication,24,3,FAQE/Home/ALTIBASE HDB Replication__2555989.md,https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+Replication
+brief_category_stub,FAQE,1802664,ALTIBASE HDB Troubleshooting,59,7,FAQE/Home/ALTIBASE HDB Troubleshooting__1802664.md,https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+Troubleshooting
+brief_category_stub,faq,7342005,08-06. 디스크 테이블스페이스 사용량,34,8,faq/Home/08. 모니터링/08-06. 디스크 테이블스페이스 사용량__7342005.md,https://docs.altibase.com/pages/viewpage.action?pageId=7342005
+empty_category_page,FAQE,16875939,Altibase Client Installation,0,0,"FAQE/Home/01. Installation, Patch, Upgrade/Altibase Client Installation__16875939.md",https://docs.altibase.com/display/FAQE/Altibase+Client+Installation
+empty_category_page,FAQE,16875918,"01. Installation, Patch, Upgrade",0,0,"FAQE/Home/01. Installation, Patch, Upgrade__16875918.md",https://docs.altibase.com/display/FAQE/01.+Installation%2C+Patch%2C+Upgrade
+empty_category_page,FAQE,16875945,02. Operation and Management,0,0,FAQE/Home/02. Operation and Management__16875945.md,https://docs.altibase.com/display/FAQE/02.+Operation+and+Management
+empty_category_page,FAQE,16876057,03. Replication,0,0,FAQE/Home/03. Replication__16876057.md,https://docs.altibase.com/display/FAQE/03.+Replication
+empty_category_page,FAQE,16876100,04. Backup and Recovery,0,0,FAQE/Home/04. Backup and Recovery__16876100.md,https://docs.altibase.com/display/FAQE/04.+Backup+and+Recovery
+empty_category_page,FAQE,16876149,05. SQL,0,0,FAQE/Home/05. SQL__16876149.md,https://docs.altibase.com/display/FAQE/05.+SQL
+empty_category_page,FAQE,16876155,06. Stored Procedure,0,0,FAQE/Home/06. Stored Procedure__16876155.md,https://docs.altibase.com/display/FAQE/06.+Stored+Procedure
+empty_category_page,FAQE,16876171,JDBC,0,0,FAQE/Home/07. Development and API/JDBC__16876171.md,https://docs.altibase.com/display/FAQE/JDBC
+empty_category_page,FAQE,16876179,ODBC,0,0,FAQE/Home/07. Development and API/ODBC__16876179.md,https://docs.altibase.com/display/FAQE/ODBC
+empty_category_page,FAQE,16876189,PHP,0,0,FAQE/Home/07. Development and API/PHP__16876189.md,https://docs.altibase.com/display/FAQE/PHP
+empty_category_page,FAQE,16876165,07. Development and API,0,0,FAQE/Home/07. Development and API__16876165.md,https://docs.altibase.com/display/FAQE/07.+Development+and+API
+empty_category_page,FAQE,16876261,Memory tablespace usage,0,0,FAQE/Home/08. Monitoring/Memory tablespace usage__16876261.md,https://docs.altibase.com/display/FAQE/Memory+tablespace+usage
+empty_category_page,FAQE,16876272,Undo Tablespace,0,0,FAQE/Home/08. Monitoring/Undo Tablespace__16876272.md,https://docs.altibase.com/display/FAQE/Undo+Tablespace
+empty_category_page,FAQE,16876197,08. Monitoring,0,0,FAQE/Home/08. Monitoring__16876197.md,https://docs.altibase.com/display/FAQE/08.+Monitoring
+empty_category_page,FAQE,16876299,09. Error Messages,0,0,FAQE/Home/09. Error Messages__16876299.md,https://docs.altibase.com/display/FAQE/09.+Error+Messages
+empty_category_page,FAQE,16876461,10. Migration,0,0,FAQE/Home/10. Migration__16876461.md,https://docs.altibase.com/display/FAQE/10.+Migration
+empty_category_page,FAQE,16876467,iLoader,0,0,FAQE/Home/11. Utilities/iLoader__16876467.md,https://docs.altibase.com/display/FAQE/iLoader
+empty_category_page,FAQE,16876463,11. Utilities,0,0,FAQE/Home/11. Utilities__16876463.md,https://docs.altibase.com/display/FAQE/11.+Utilities
+empty_category_page,FAQE,16876472,12. Others,0,0,FAQE/Home/12. Others__16876472.md,https://docs.altibase.com/display/FAQE/12.+Others
+empty_category_page,FAQE,16876479,13. General,0,0,FAQE/Home/13. General__16876479.md,https://docs.altibase.com/display/FAQE/13.+General
+empty_category_page,FAQE,1802675,Useful SQL,0,0,FAQE/Home/ALTIBASE HDB Administration/Useful SQL__1802675.md,https://docs.altibase.com/display/FAQE/Useful+SQL
+empty_category_page,faq,6520880,"01. 설치, 패치, 업그레이드",0,0,"faq/Home/01. 설치, 패치, 업그레이드__6520880.md",https://docs.altibase.com/pages/viewpage.action?pageId=6520880
+empty_category_page,faq,6520882,02. 운영 및 관리,0,0,faq/Home/02. 운영 및 관리__6520882.md,https://docs.altibase.com/pages/viewpage.action?pageId=6520882
+empty_category_page,faq,6520884,03. 이중화,0,0,faq/Home/03. 이중화__6520884.md,https://docs.altibase.com/pages/viewpage.action?pageId=6520884
+empty_category_page,faq,6520903,04. 백업 및 복구,0,0,faq/Home/04. 백업 및 복구__6520903.md,https://docs.altibase.com/pages/viewpage.action?pageId=6520903
+empty_category_page,faq,6520888,05. SQL,0,0,faq/Home/05. SQL__6520888.md,https://docs.altibase.com/display/faq/05.+SQL
+empty_category_page,faq,6521517,06. Stored Procedures,0,0,faq/Home/06. Stored Procedures__6521517.md,https://docs.altibase.com/display/faq/06.+Stored+Procedures
+empty_category_page,faq,6521522,07-02. JDBC,0,0,faq/Home/07. 개발 및 API/07-02. JDBC__6521522.md,https://docs.altibase.com/display/faq/07-02.+JDBC
+empty_category_page,faq,6521524,07-03. ODBC,0,0,faq/Home/07. 개발 및 API/07-03. ODBC__6521524.md,https://docs.altibase.com/display/faq/07-03.+ODBC
+empty_category_page,faq,6521526,07-04. PHP,0,0,faq/Home/07. 개발 및 API/07-04. PHP__6521526.md,https://docs.altibase.com/display/faq/07-04.+PHP
+empty_category_page,faq,6520896,07. 개발 및 API,0,0,faq/Home/07. 개발 및 API__6520896.md,https://docs.altibase.com/pages/viewpage.action?pageId=6520896
+empty_category_page,faq,8454640,08-09. 메모리 테이블스페이스 사용량,0,0,faq/Home/08. 모니터링/08-09. 메모리 테이블스페이스 사용량__8454640.md,https://docs.altibase.com/pages/viewpage.action?pageId=8454640
+empty_category_page,faq,8454974,08-11. 언두 테이블스페이스(UNDO TABLESPACE),0,0,faq/Home/08. 모니터링/08-11. 언두 테이블스페이스(UNDO TABLESPACE)__8454974.md,https://docs.altibase.com/pages/viewpage.action?pageId=8454974
+empty_category_page,faq,6520890,08. 모니터링,0,0,faq/Home/08. 모니터링__6520890.md,https://docs.altibase.com/pages/viewpage.action?pageId=6520890
+empty_category_page,faq,6520894,09. 에러메시지,0,0,faq/Home/09. 에러메시지__6520894.md,https://docs.altibase.com/pages/viewpage.action?pageId=6520894
+empty_category_page,faq,6520898,10. 마이그레이션,0,0,faq/Home/10. 마이그레이션__6520898.md,https://docs.altibase.com/pages/viewpage.action?pageId=6520898
+empty_category_page,faq,6521528,11-02. iLoader,0,0,faq/Home/11. 유틸리티/11-02. iLoader__6521528.md,https://docs.altibase.com/display/faq/11-02.+iLoader
+empty_category_page,faq,6520892,11. 유틸리티,0,0,faq/Home/11. 유틸리티__6520892.md,https://docs.altibase.com/pages/viewpage.action?pageId=6520892
+empty_category_page,faq,6520900,12. 기타,0,0,faq/Home/12. 기타__6520900.md,https://docs.altibase.com/pages/viewpage.action?pageId=6520900
+empty_category_page,faq,6521038,13. 일반,0,0,faq/Home/13. 일반__6521038.md,https://docs.altibase.com/pages/viewpage.action?pageId=6521038
+home_or_recent_updates,DOCK,7340036,Home,5712,158,DOCK/Home__7340036.md,https://docs.altibase.com/display/DOCK/Home
+home_or_recent_updates,FAQE,6979649,Home,249,49,FAQE/Home__6979649.md,https://docs.altibase.com/display/FAQE/Home
+home_or_recent_updates,arch,557064,Home,5530,185,arch/Home__557064.md,https://docs.altibase.com/display/arch/Home
+home_or_recent_updates,faq,6062093,Home,6712,364,faq/Home__6062093.md,https://docs.altibase.com/display/faq/Home

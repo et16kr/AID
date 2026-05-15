@@ -1,0 +1,188 @@
+---
+title: "Replication monitoring query"
+page_id: "22642947"
+space_key: "FAQE"
+space_name: "FAQ(English)"
+source_url: "https://docs.altibase.com/display/FAQE/Replication+monitoring+query"
+updated_at: "2025-10-20T15:25:34.985+0900"
+version: 1
+ancestors: ["Home", "03. Replication"]
+labels: []
+---
+
+# Replication monitoring query
+Source: https://docs.altibase.com/display/FAQE/Replication+monitoring+query
+Updated: 2025-10-20T15:25:34.985+0900
+
+- [Overall status of replication](#Replicationmonitoringquery-Overallstatusofreplication) - [Replication sender information](#Replicationmonitoringquery-Replicationsenderinformation) - [Replication receiver information](#Replicationmonitoringquery-Replicationreceiverinformation) - [Replication gap](#Replicationmonitoringquery-Replicationgap)
+
+# Overall status of replication
+
+---
+
+```
+set linesize 1024
+set colsize 20
+SELECT a.replication_name rep_name
+     , d.host_ip || decode(d.host_ip, b.peer_ip, ' (*)', NULL) peer_ip
+     , nvl(to_char(e.rep_gap), '-') as rep_gap
+     , a.xsn restart_xsn
+     , decode(b.peer_port, NULL, 'OFF', 'ON') as sender
+     , decode(c.peer_port, NULL, 'OFF', 'ON') as receiver
+  FROM system_.sys_repl_hosts_ d
+     , system_.sys_replications_ a
+       left outer join v$repsender b on a.replication_name = b.rep_name
+       left outer join v$repreceiver c on a.replication_name = c.rep_name
+       left outer join
+       (select rep_name, max(rep_gap) rep_gap from v$repgap group by rep_name) e
+       on a.replication_name = e.rep_name
+ WHERE a.replication_name = d.replication_name
+ ORDER BY rep_name;
+REP_NAME              PEER_IP               REP_GAP               RESTART_XSN          SENDER  RECEIVER
+----------------------------------------------------------------------------------------------------------------
+REP                   192.168.1.149 (*)     0                     9668                 ON   ON
+```
+
+**Column description**
+
+| Column name | Description |
+| --- | --- |
+| restart_xsn | SN reflected by the remote server that is the target of replication, and the starting point for retransmission when the replication is restarted |
+| sender | Whether the sender is running or not |
+| receiver | Whether the receiver is running or not |
+
+The name of the replication, IP, sender status, and receiver status can also be checked.
+
+# Replication sender information
+
+---
+
+```
+set linesize 1024
+set colsize 20
+SELECT trim(REP_NAME) as REP_NAME
+     , decode(START_FLAG, 0, 'Normal',
+                          1, 'Quick',
+                          2, 'Sync',
+                          3, 'Sync Only') as START_FLAG
+     , decode(net_error_flag, 0, 'OK', 'Error') as NET_ERROR_FLAG
+     , decode(STATUS, 0, 'Stop', 1, 'Run', 2, 'Retry') as STATUS
+     , peer_ip
+     , peer_port
+     , XSN
+  FROM V$REPSENDER;
+REP_NAME              START_FLAG  NET_ERROR_FLAG  STATUS  PEER_IP               PEER_PORT   XSN
+-------------------------------------------------------------------------------------------------------------------------
+REP                   Normal      OK              Run     192.168.1.149         30300       9675
+```
+
+**Column description**
+
+| Column name | Description |
+| --- | --- |
+| rep_name | Name of replication object |
+| peer_ip | IP address of the replication target remote server |
+| peer_port | Port number of the replication target remote server |
+| Status | It is normal when the current state of sender is 1. / STOP(0), RUN(1), RETRY(2) |
+| repl_mode | sender's current replication mode / lazy, eager |
+| NET_ERROR_FLAG | network 에러 여부로 0이어야 정상이다. / OK(0), ERROR(1) |
+| XSN | sender가 마지막으로 송신한 SN(Serial Number/리두로그일련번호)으로 v$repgap의 REP_SN과 동일 |
+
+The IP, port, network error, and status of the replication sender's remote server can also be checked.
+
+# Replication receiver information
+
+---
+
+```
+set linesize 1024
+set colsize 20
+SELECT trim(REP_NAME)
+     , trim(MY_IP)
+     , trim(PEER_IP)
+     , MY_PORT
+     , PEER_PORT
+     , apply_xsn
+  FROM X$REPRECEIVER;
+TRIM(REP_NAME)        TRIM(MY_IP)           TRIM(PEER_IP)         MY_PORT     PEER_PORT   APPLY_XSN
+----------------------------------------------------------------------------------------------------------------------
+REP                   192.168.1.145         192.168.1.149         30300       26722       13461585
+```
+
+**Column description**
+
+| Column name | Description |
+| --- | --- |
+| peer_ip | IP address of the remote server as the subject of replication |
+| peer_port | Port number of the remote server that is the subject of replication |
+| apply_xsn | SN of the remote server currently being reflected by the receiver |
+
+The IP and port of the remote server of the replication receiver can be checked.
+
+# Replication gap
+
+---
+
+**[For Altibase versions earlier than 7]**
+
+```
+set linesize 1024
+set colsize 20
+select rep_name
+     , rep_gap
+  from v$repgap;
+REP_NAME              REP_GAP
+----------------------------------------------
+REP                   0
+```
+
+**Column description**
+
+| Column name | Description |
+| --- | --- |
+| rep_name | Name of replication |
+| rep_gap | The degree of unsynchronization is indicated by the interval between rep_last_sn and rep_sn. (I.e. rep_last_sn-rep_sn) |
+
+If the replication gap is increased by a lot, there are things to check.
+
+1. Check the network status (operation, failure, if IP or port is blocked by the firewall, etc.)
+2. Check the remote requirement status (hardware failure, remote DB shutdown, etc.)
+3. Check the BULK DML operation
+
+In the above case, the replication gap may increase, so it is necessary to check the above cases.
+
+**[For Altibase version 7 and above]**
+
+Starting from Altibase version 7, the `v$repgap` view includes a new column called `REP_GAP_SIZE`, which allows you to check the size of the replication gap in **bytes**.
+
+Unlike before, the meaning of the `REP_GAP` column now refers to the size between the most recently logged position by the local server transaction and the current log position being transmitted by the replication sending thread.
+
+The default unit is megabytes (MB), and the value in `REP_GAP_SIZE` is divided by the `REPLICATION_GAP_UNIT` property.
+
+```
+set linesize 1024
+set colsize 20
+select rep_name
+     , rep_gap
+     , rep_gap_size
+  from v$repgap;
+REP_NAME        REP_GAP              REP_GAP_SIZE
+--------------------------------------------------------------------
+REP             0                    0
+```
+
+**Column description**
+
+| Column name | Description |
+| --- | --- |
+| rep_name | 이중화 이름 |
+| rep_gap | The size of the replication gap log files is displayed in the unit set by the property `REPLICATION_GAP_UNIT`. (Unit: `REPLICATION_GAP_UNIT`, default value is 1 MB)<br>- REP_GAP = CEIL(REP_GAP_SIZE / REPLICATION_GAP_UNIT) |
+| rep_gap_size | It represents the size of the replication gap log files and is displayed in bytes. |
+
+*When the replication gap increases significantly, the following items should be checked:*
+
+- Network status (e.g., maintenance, failures, or IP/PORT blocking by firewalls)
+- Remote system status (e.g., hardware failures, remote database shutdowns)
+- Whether any bulk DML operations are being performed
+
+Since these situations can cause the replication gap to increase, they need to be investigated.
