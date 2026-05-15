@@ -2987,7 +2987,7 @@
       "title": "1. Altibase Server Monitoring Overview",
       "source_url": "https://docs.altibase.com/display/arch/1.+Altibase+Server+Monitoring+Overview",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/1. Altibase Server Monitoring Overview__14058232.md",
-      "body_chars": 2247,
+      "body_chars": 2155,
       "word_count": 251
     },
     {
@@ -3005,8 +3005,8 @@
       "title": "2. Major Meta Tables and Performance Views related to tablespace, table, column, index, and constraint",
       "source_url": "https://docs.altibase.com/display/arch/2.+Major+Meta+Tables+and+Performance+Views+related+to+tablespace%2C+table%2C+column%2C+index%2C+and+constraint",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/2. Altibase Meta Table and Performance View Overview/2. Major Meta Tables and Performance Views related to tablespace, table, column, index, and constraint__14058242.md",
-      "body_chars": 4119,
-      "word_count": 642
+      "body_chars": 4660,
+      "word_count": 619
     },
     {
       "space_key": "arch",
@@ -3014,8 +3014,8 @@
       "title": "3. Main Performance View related to Statistical Information",
       "source_url": "https://docs.altibase.com/display/arch/3.+Main+Performance+View+related+to+Statistical+Information",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/2. Altibase Meta Table and Performance View Overview/3. Main Performance View related to Statistical Information__14058244.md",
-      "body_chars": 5840,
-      "word_count": 877
+      "body_chars": 6461,
+      "word_count": 887
     },
     {
       "space_key": "arch",
@@ -3023,8 +3023,8 @@
       "title": "4. Main Meta Tables and Performance Views Related to Replication",
       "source_url": "https://docs.altibase.com/display/arch/4.+Main+Metal+Tables+and+Performance+Views+Related+to+Replication",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/2. Altibase Meta Table and Performance View Overview/4. Main Metal Tables and Performance Views Related to Replication__14058248.md",
-      "body_chars": 3204,
-      "word_count": 380
+      "body_chars": 2876,
+      "word_count": 355
     },
     {
       "space_key": "arch",
@@ -3041,8 +3041,8 @@
       "title": "2. Altibase Meta Table and Performance View Overview",
       "source_url": "https://docs.altibase.com/display/arch/2.+Altibase+Meta+Table+and+Performance+View+Overview",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/2. Altibase Meta Table and Performance View Overview__14058238.md",
-      "body_chars": 3210,
-      "word_count": 426
+      "body_chars": 3083,
+      "word_count": 413
     },
     {
       "space_key": "arch",
@@ -3050,8 +3050,8 @@
       "title": "1. Session",
       "source_url": "https://docs.altibase.com/display/arch/1.+Session",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/1. Session__14058254.md",
-      "body_chars": 3565,
-      "word_count": 523
+      "body_chars": 4049,
+      "word_count": 540
     },
     {
       "space_key": "arch",
@@ -3059,8 +3059,8 @@
       "title": "10. Object",
       "source_url": "https://docs.altibase.com/display/arch/10.+Object",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/10. Object__14058276.md",
-      "body_chars": 25934,
-      "word_count": 2739
+      "body_chars": 33490,
+      "word_count": 4130
     },
     {
       "space_key": "arch",
@@ -3068,8 +3068,8 @@
       "title": "11. Privileges",
       "source_url": "https://docs.altibase.com/display/arch/11.+Privileges",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/11. Privileges__14058278.md",
-      "body_chars": 8184,
-      "word_count": 836
+      "body_chars": 8347,
+      "word_count": 1064
     },
     {
       "space_key": "arch",
@@ -3077,8 +3077,8 @@
       "title": "12. Constraints",
       "source_url": "https://docs.altibase.com/display/arch/12.+Constraints",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/12. Constraints__14058280.md",
-      "body_chars": 5528,
-      "word_count": 550
+      "body_chars": 5671,
+      "word_count": 708
     },
     {
       "space_key": "arch",
@@ -3086,8 +3086,8 @@
       "title": "13. Replication",
       "source_url": "https://docs.altibase.com/display/arch/13.+Replication",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/13. Replication__14058282.md",
-      "body_chars": 6682,
-      "word_count": 782
+      "body_chars": 7221,
+      "word_count": 1045
     },
     {
       "space_key": "arch",
@@ -3095,8 +3095,8 @@
       "title": "2. Statement",
       "source_url": "https://docs.altibase.com/display/arch/2.+Statement",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/2. Statement__14058256.md",
-      "body_chars": 8931,
-      "word_count": 920
+      "body_chars": 10138,
+      "word_count": 1325
     },
     {
       "space_key": "arch",
@@ -3104,8 +3104,8 @@
       "title": "3. Service Thread",
       "source_url": "https://docs.altibase.com/display/arch/3.+Service+Thread",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/3. Service Thread__14058260.md",
-      "body_chars": 1515,
-      "word_count": 168
+      "body_chars": 1754,
+      "word_count": 260
     },
     {
       "space_key": "arch",
@@ -3113,8 +3113,8 @@
       "title": "4. Transaction & Lock",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=14058264",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/4. Transaction & Lock__14058264.md",
-      "body_chars": 3915,
-      "word_count": 425
+      "body_chars": 3963,
+      "word_count": 516
     },
     {
       "space_key": "arch",
@@ -3122,8 +3122,8 @@
       "title": "5. Redo Logfile",
       "source_url": "https://docs.altibase.com/display/arch/5.+Redo+Logfile",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/5. Redo Logfile__14058266.md",
-      "body_chars": 1686,
-      "word_count": 207
+      "body_chars": 1783,
+      "word_count": 272
     },
     {
       "space_key": "arch",
@@ -3131,8 +3131,8 @@
       "title": "6. GC (Garbage Collector)",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=14058268",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/6. GC (Garbage Collector)__14058268.md",
-      "body_chars": 3207,
-      "word_count": 416
+      "body_chars": 3417,
+      "word_count": 504
     },
     {
       "space_key": "arch",
@@ -3140,8 +3140,8 @@
       "title": "7. Memory",
       "source_url": "https://docs.altibase.com/display/arch/7.+Memory",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/7. Memory__14058270.md",
-      "body_chars": 2643,
-      "word_count": 291
+      "body_chars": 2740,
+      "word_count": 344
     },
     {
       "space_key": "arch",
@@ -3149,8 +3149,8 @@
       "title": "8. Tablespace (TBS)",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=14058272",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/8. Tablespace (TBS)__14058272.md",
-      "body_chars": 22772,
-      "word_count": 2114
+      "body_chars": 32504,
+      "word_count": 3707
     },
     {
       "space_key": "arch",
@@ -3158,8 +3158,8 @@
       "title": "9. Disk Buffer",
       "source_url": "https://docs.altibase.com/display/arch/9.+Disk+Buffer",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/3. Monitoring Elements and Corresponding Monitoring Queries/9. Disk Buffer__14058274.md",
-      "body_chars": 819,
-      "word_count": 96
+      "body_chars": 867,
+      "word_count": 129
     },
     {
       "space_key": "arch",

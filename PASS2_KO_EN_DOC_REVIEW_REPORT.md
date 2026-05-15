@@ -268,3 +268,49 @@ P204 audited Korean failure response, startup/shutdown, system resource sizing, 
 
 - External HTTP availability was not tested; P204 used grep-based source-link and attachment preservation checks.
 - Some English split startup/shutdown pages contain valid English-only detail from the existing English structure where the current Korean export only has placeholder images. P204 preserved that material when it did not conflict with Korean-source meaning.
+
+## P205 Tech audit: monitoring queries
+
+### Scope
+
+P205 audited the Korean Altibase monitoring queries guide against the English `arch` split guide targets. The Korean source remained authoritative and was not edited.
+
+| Korean source | English targets |
+| --- | --- |
+| `DOCK/Home/59. Altibase 모니터링 쿼리 가이드__10060431.md` | `arch/Home/Altibase Monitoring Queries Guide__14058229.md`; `arch/Home/Altibase Monitoring Queries Guide/**` |
+
+### Findings And Updates
+
+- Preserved the existing English split-page structure; this job changed documentation content only.
+- Confirmed semantic coverage of all 72 monitoring query IDs from the Korean source in the English guide.
+- Restored missing Korean-source version-specific SQL and labels for service thread, tablespace, object, privilege, constraint, and replication monitoring sections.
+- Restored major missing query variants, including `SV01` Altibase v4, `TS01` Altibase v5.5.1+/v5.3.3/v4, `TS03` Altibase v5.5.1+/v5.3.3-v5.3.5/v5.1.5/v4, `OB01`/`OB03` older memory-table queries, `OB05`/`OB06` disk table/index queries, and the `OB09` Altibase v4.3.9 synonym query.
+- Corrected or clarified meta-table and performance-view references such as `SYSTEM_.SYS_TABLES_`, `TABLE_OID`, `V$MEM_TABLESPACES`, `V$VOL_TABLESPACES`, `INDEX_SEG_PID`, `LF_PREPARE_WAIT_COUNT`, `PREPARE_LOG_FILE_COUNT`, and `V$REPGAP`.
+- Restored version warnings and usage caveats for `CLIENT_APP_INFO`, `TIMED_STATISTICS`, `REPL_MODE`, `START_FLAG`, role filters, object timestamp/access columns, package/job columns, `CHECK_CONDITION`, tablespace queries, redo log queries, GC queries, and disk buffer queries.
+- Preserved source SQL identifiers where the Korean document contains them, including the `RP01` `STAUS` alias.
+
+### Attachment And Link Evidence
+
+- The Korean monitoring guide PDF attachment URL remains preserved in both the English parent guide page and the English overview split page.
+- Scoped grep found no residual Korean text in the English monitoring guide, no empty links, and no Confluence macro error markers.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p205-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Scoped query ID comparison | Passed, 72 Korean IDs and 72 English IDs |
+| Scoped SQL/code block comparison | Passed, 88 Korean blocks and 88 English blocks |
+| Scoped fenced-code balance check | Passed for all scoped English files |
+| Scoped monitoring guide PDF attachment preservation grep | Passed, 2 preserved English links |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 18 edited English pages |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P205 used grep-based source-link and attachment preservation checks.
+- Apparent source-level typos in the Korean guide, including `STAUS` in `RP01`, were preserved because the Korean source is authoritative for this pass.
