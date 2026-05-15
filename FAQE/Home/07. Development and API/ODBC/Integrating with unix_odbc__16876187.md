@@ -35,7 +35,7 @@ All the versions of ALTIBASE HDB
 unix_odbc is an open source project, and unixODBC is mainly used.
 
 1. unixODBC can be downloaded from the link below:
-  - [http://unixodbc.org/](http://unixodbc.org/)
+  - [http://www.unixodbc.org/](http://www.unixodbc.org/)
 
 # INSTALL
 
@@ -50,7 +50,7 @@ $ cd $ALTIBASE_HOME/lib
 $ file libaltibase_odbc-64bit-ul64.so
 libaltibase_odbc-64bit-ul64.so: ELF 64-bit LSB shared object, AMD x86-64, version 1 (SYSV), not stripped
 
-$ ./configure --prefix=/home/wonsik/ODBC_HOME --enable-gui=no --enable-threads=yes
+$ ./configure -prefix=/home/wonsik/ODBC_HOME --enable-gui=no --enable-threads=yes
 ```
 
 Option descriptions:

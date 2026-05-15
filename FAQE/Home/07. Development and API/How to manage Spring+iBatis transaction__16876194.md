@@ -72,7 +72,7 @@ This document describes how to manage Spring+iBatis transactions.
 
 - Configuration file: There is no additional configuration.
 - Commit and rollback are processed directly on the source.
-  SetAutoCommit(false) must be called in order to process as a transaction.
+  `setAutoCommit(false)` must be called in order to process as a transaction.
   Note that `setAutoCommit(false)` must be called when selecting BLOB data.
 
 ## 1-2. When to use TransactionTemplate

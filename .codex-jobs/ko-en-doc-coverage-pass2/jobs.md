@@ -33,7 +33,7 @@
 | `P216` | `Done` | FAQ audit: operation storage logs jobs and resources | Sentence-level audit remaining Korean FAQ category 02 operation/management documents for logs, tablespaces, files, jobs, resources, and operational changes against English FAQE targets; update English from Korean where needed. |
 | `P217` | `Done` | FAQ audit: replication | Sentence-level audit Korean FAQ category 03 replication documents against English FAQE targets; update English from Korean where needed. |
 | `P218` | `Done` | FAQ audit: backup SQL and stored procedures | Sentence-level audit Korean FAQ categories 04, 05, and 06 backup/recovery, SQL, and Stored Procedures documents against English FAQE targets; update English from Korean where needed. |
-| `P219` | `ToDo` | FAQ audit: development API | Sentence-level audit Korean FAQ category 07 development/API documents against English FAQE targets; update English from Korean where needed. |
+| `P219` | `Done` | FAQ audit: development API | Sentence-level audit Korean FAQ category 07 development/API documents against English FAQE targets; update English from Korean where needed. |
 | `P220` | `ToDo` | FAQ audit: monitoring | Sentence-level audit Korean FAQ category 08 monitoring documents against English FAQE targets; update English from Korean where needed. |
 | `P221` | `ToDo` | FAQ audit: error messages | Sentence-level audit Korean FAQ category 09 error message documents against English FAQE targets; update English from Korean where needed. |
 | `P222` | `ToDo` | FAQ audit: utilities others general | Sentence-level audit Korean FAQ categories 11, 12, and 13 utility, others, and general documents against English FAQE targets; update English from Korean where needed. |
