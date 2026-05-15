@@ -2663,8 +2663,8 @@
       "title": "APRE*C/C++ New Features & Upgrade Guide",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22643052",
       "path": "altibase_docs_md/arch/Home/APRE_C_C++ New Features & Upgrade Guide__22643052.md",
-      "body_chars": 24202,
-      "word_count": 1735
+      "body_chars": 26168,
+      "word_count": 1904
     },
     {
       "space_key": "arch",
@@ -2672,8 +2672,8 @@
       "title": "How to make a basic Makefile",
       "source_url": "https://docs.altibase.com/display/arch/How+to+make+a+basic+Makefile",
       "path": "altibase_docs_md/arch/Home/Altibase APRE(SES) _C_C++ Makefile/How to make a basic Makefile__15630382.md",
-      "body_chars": 13987,
-      "word_count": 1936
+      "body_chars": 16512,
+      "word_count": 2065
     },
     {
       "space_key": "arch",
@@ -3257,8 +3257,8 @@
       "title": "1. Considerations for ALTIBASE Development",
       "source_url": "https://docs.altibase.com/display/arch/1.+Considerations+for+ALTIBASE+Development",
       "path": "altibase_docs_md/arch/Home/Altibase Precompiler Guide/1. Considerations for ALTIBASE Development__14647447.md",
-      "body_chars": 9067,
-      "word_count": 1357
+      "body_chars": 10712,
+      "word_count": 1577
     },
     {
       "space_key": "arch",
@@ -3266,8 +3266,8 @@
       "title": "2. How to use APRE",
       "source_url": "https://docs.altibase.com/display/arch/2.+How+to+use+APRE",
       "path": "altibase_docs_md/arch/Home/Altibase Precompiler Guide/2. How to use APRE__14647451.md",
-      "body_chars": 20690,
-      "word_count": 2978
+      "body_chars": 23399,
+      "word_count": 3414
     },
     {
       "space_key": "arch",
@@ -3284,8 +3284,8 @@
       "title": "4. Frequently Occurring Error Messages",
       "source_url": "https://docs.altibase.com/display/arch/4.+Frequently+Occurring+Error+Messages",
       "path": "altibase_docs_md/arch/Home/Altibase Precompiler Guide/4. Frequently Occurring Error Messages__22643006.md",
-      "body_chars": 10149,
-      "word_count": 1638
+      "body_chars": 14318,
+      "word_count": 1981
     },
     {
       "space_key": "arch",
@@ -3347,8 +3347,8 @@
       "title": "1. ADO.NET Settings",
       "source_url": "https://docs.altibase.com/display/arch/1.+ADO.NET+Settings",
       "path": "altibase_docs_md/arch/Home/Altibase Window ADO.NET Development Guide/1. ADO.NET Settings__14647569.md",
-      "body_chars": 8177,
-      "word_count": 897
+      "body_chars": 8739,
+      "word_count": 916
     },
     {
       "space_key": "arch",
@@ -3356,8 +3356,8 @@
       "title": "2. ADO.NET Development Guide",
       "source_url": "https://docs.altibase.com/display/arch/2.+ADO.NET+Development+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Window ADO.NET Development Guide/2. ADO.NET Development Guide__14647573.md",
-      "body_chars": 3012,
-      "word_count": 357
+      "body_chars": 3842,
+      "word_count": 392
     },
     {
       "space_key": "arch",
@@ -3365,8 +3365,8 @@
       "title": "3. Frequent Error Messages",
       "source_url": "https://docs.altibase.com/display/arch/3.+Frequent+Error+Messages",
       "path": "altibase_docs_md/arch/Home/Altibase Window ADO.NET Development Guide/3. Frequent Error Messages__14647579.md",
-      "body_chars": 1344,
-      "word_count": 198
+      "body_chars": 1887,
+      "word_count": 219
     },
     {
       "space_key": "arch",
@@ -3563,8 +3563,8 @@
       "title": "JAVA Developer's Guide",
       "source_url": "https://docs.altibase.com/display/arch/JAVA+Developer%27s+Guide",
       "path": "altibase_docs_md/arch/Home/JAVA Developer's Guide__16875544.md",
-      "body_chars": 27938,
-      "word_count": 3389
+      "body_chars": 27919,
+      "word_count": 3385
     },
     {
       "space_key": "arch",
@@ -3590,8 +3590,8 @@
       "title": "3. Examples",
       "source_url": "https://docs.altibase.com/display/arch/3.+Examples",
       "path": "altibase_docs_md/arch/Home/JBOSS Integration Guide for Altibase/3. Examples__14647382.md",
-      "body_chars": 4121,
-      "word_count": 491
+      "body_chars": 4777,
+      "word_count": 527
     },
     {
       "space_key": "arch",
@@ -3680,8 +3680,8 @@
       "title": "3. Sample Preparation using MyBatis",
       "source_url": "https://docs.altibase.com/display/arch/3.+Sample+Preparation+using+MyBatis",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/3. Sample Preparation using MyBatis__14058356.md",
-      "body_chars": 7082,
-      "word_count": 844
+      "body_chars": 7851,
+      "word_count": 800
     },
     {
       "space_key": "arch",
@@ -3689,8 +3689,8 @@
       "title": "4. Altibase Integration",
       "source_url": "https://docs.altibase.com/display/arch/4.+Altibase+Integration",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/4. Altibase Integration__22643026.md",
-      "body_chars": 16366,
-      "word_count": 2157
+      "body_chars": 17597,
+      "word_count": 2093
     },
     {
       "space_key": "arch",
@@ -3698,8 +3698,8 @@
       "title": "5. MyBatis, Spring, Altibase Integration",
       "source_url": "https://docs.altibase.com/display/arch/5.+MyBatis%2C+Spring%2C+Altibase+Integration",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/5. MyBatis, Spring, Altibase Integration__22643028.md",
-      "body_chars": 4923,
-      "word_count": 587
+      "body_chars": 5765,
+      "word_count": 619
     },
     {
       "space_key": "arch",
@@ -3707,8 +3707,8 @@
       "title": "6. Transaction Management",
       "source_url": "https://docs.altibase.com/display/arch/6.+Transaction+Management",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/6. Transaction Management__22643030.md",
-      "body_chars": 3449,
-      "word_count": 379
+      "body_chars": 4143,
+      "word_count": 412
     },
     {
       "space_key": "arch",
@@ -3725,8 +3725,8 @@
       "title": "8. Appendix 1 (MyBatis-Altibase Integration)",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22643034",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/8. Appendix 1 (MyBatis-Altibase Integration)__22643034.md",
-      "body_chars": 13062,
-      "word_count": 1507
+      "body_chars": 14418,
+      "word_count": 1413
     },
     {
       "space_key": "arch",
@@ -3734,8 +3734,8 @@
       "title": "9. Appendix 2(Spring-MyBatis-Altibase Integration)",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22643036",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/9. Appendix 2(Spring-MyBatis-Altibase Integration)__22643036.md",
-      "body_chars": 20052,
-      "word_count": 2243
+      "body_chars": 22004,
+      "word_count": 2078
     },
     {
       "space_key": "arch",
@@ -3770,8 +3770,8 @@
       "title": "2. ODBC Manger Installation for PHP Integration",
       "source_url": "https://docs.altibase.com/display/arch/2.+ODBC+Manger+Installation+for+PHP+Integration",
       "path": "altibase_docs_md/arch/Home/PHP Integration Guide for Altibase/2. ODBC Manger Installation for PHP Integration__14647312.md",
-      "body_chars": 2163,
-      "word_count": 297
+      "body_chars": 2872,
+      "word_count": 345
     },
     {
       "space_key": "arch",
@@ -4004,8 +4004,8 @@
       "title": "2. JDBC Driver Configuration",
       "source_url": "https://docs.altibase.com/display/arch/2.+JDBC+Driver+Configuration",
       "path": "altibase_docs_md/arch/Home/TOMCAT Integration Guide for Altibase/2. JDBC Driver Configuration__14058500.md",
-      "body_chars": 3069,
-      "word_count": 412
+      "body_chars": 3890,
+      "word_count": 455
     },
     {
       "space_key": "arch",
@@ -4013,8 +4013,8 @@
       "title": "3. Integrating ALTIBASE and TOMCAT",
       "source_url": "https://docs.altibase.com/display/arch/3.+Integrating+ALTIBASE+and+TOMCAT",
       "path": "altibase_docs_md/arch/Home/TOMCAT Integration Guide for Altibase/3. Integrating ALTIBASE and TOMCAT__14058506.md",
-      "body_chars": 5233,
-      "word_count": 664
+      "body_chars": 5955,
+      "word_count": 692
     },
     {
       "space_key": "arch",
@@ -4130,8 +4130,8 @@
       "title": "2. Starting and Shutdown the WebLogic Server Instance",
       "source_url": "https://docs.altibase.com/display/arch/2.+Starting+and+Shutdown+the+WebLogic+Server+Instance",
       "path": "altibase_docs_md/arch/Home/WEBLOGIC Integration Guide for Altibase/2. Starting and Shutdown the WebLogic Server Instance__14058329.md",
-      "body_chars": 5961,
-      "word_count": 837
+      "body_chars": 7183,
+      "word_count": 923
     },
     {
       "space_key": "arch",
@@ -4139,8 +4139,8 @@
       "title": "3. ALTIBASE and WebLogic Integration",
       "source_url": "https://docs.altibase.com/display/arch/3.+ALTIBASE+and+WebLogic+Integration",
       "path": "altibase_docs_md/arch/Home/WEBLOGIC Integration Guide for Altibase/3. ALTIBASE and WebLogic Integration__14058331.md",
-      "body_chars": 14614,
-      "word_count": 1527
+      "body_chars": 16105,
+      "word_count": 1576
     },
     {
       "space_key": "arch",

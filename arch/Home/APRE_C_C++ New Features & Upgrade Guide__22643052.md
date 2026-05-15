@@ -146,20 +146,32 @@ This has been improved so that a specific function can be called when using the 
 **APRE*C/C++ executable file (apre) command option has been changed**
 
 1. -I
-  The name has been changed to -I as an option provided as -include option in the existing SES*C/C++.
-  This specifies the path of the source doe file included during precompiling.
-  This option operations like EXEC SQL OPTION (INCLUDE=library_path) in code
+  The existing SES*C/C++ `-include` option has been renamed to `-I`.
+  This option specifies the path of the source code file included during precompiling.
+  It performs the same function as `EXEC SQL OPTION (INCLUDE=library_path)` in code.
+
+  ```
+  $ apre -t cpp -I$APP_HOME/include/main tmp.sc
+  ```
+
   ![%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%8E%E1%85%A5%E1%84%85%E1%85%B5_%E1%84%89%E1%85%B5_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%83%E1%85%AC%E1%86%AF_%E1%84%86%E1%85%A2%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%89%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A5%E1%86%AB.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%8E%E1%85%A5%E1%84%85%E1%85%B5_%E1%84%89%E1%85%B5_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%83%E1%85%AC%E1%86%AF_%E1%84%86%E1%85%A2%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%89%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A5%E1%86%AB.png?api=v2)
 
 **Command options added to the APRE*C/C++ executable (apre)**
 
-1. -D 전처리(Preprocess)시 사용될 매크로를 선언한다. 이 옵션은 코드 내의 #define 과 같은 기능을 한다.
+1. -D
+  Declares a macro to be used during preprocessing. This option performs the same function as `#define` in code.
 
-  |  |
-  | --- |
-  | `$ apre –DALTIBASE –DOTHER_DBMS -t cpp tmp.sc` |
+  ```
+  $ apre -DALTIBASE -DOTHER_DBMS -t cpp tmp.sc
+  ```
+
 2. -keyword
-  This shows reserved keywords.
+  Shows reserved keywords.
+
+  ```
+  $ apre -keyword
+  ```
+
   ![%E1%84%8B%E1%85%A8%E1%84%8B%E1%85%A3%E1%86%A8%E1%84%83%E1%85%AC%E1%86%AB_%E1%84%8F%E1%85%B5%E1%84%8B%E1%85%AF%E1%84%83%E1%85%B3%E1%84%83%E1%85%B3%E1%86%AF%E1%84%8B%E1%85%B3%E1%86%AF_%E1%84%87%E1%85%A9%E1%84%8B%E1%85%A7%E1%84%8C%E1%85%AE%E1%86%B7.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%8B%E1%85%A8%E1%84%8B%E1%85%A3%E1%86%A8%E1%84%83%E1%85%AC%E1%86%AB_%E1%84%8F%E1%85%B5%E1%84%8B%E1%85%AF%E1%84%83%E1%85%B3%E1%84%83%E1%85%B3%E1%86%AF%E1%84%8B%E1%85%B3%E1%86%AF_%E1%84%87%E1%85%A9%E1%84%8B%E1%85%A7%E1%84%8C%E1%85%AE%E1%86%B7.png?api=v2)
 
 **-parse *parsing_mode***
@@ -172,19 +184,51 @@ c. If the -parse option itself is omitted, the parsing mode is operated as parti
 
 | Parsing mode | Internal SQL A | Macro B | External declaration part/<br>host variable<br>C | Remarks |
 | --- | --- | --- | --- | --- |
-| none | O | X | X | Operates the same as SEC*C/C++ #include format header file is not processed |
-| partial | O | O | X | Additional operation of Partial C Processor Process even header files in #include format APRE*C/C++ default parsing mode |
-| full | O | O | O | Additional operation of C Parser Process even header files in #include format However, source code written in C++ style cannot recognize host variables outside the declaration section |
+| none | O | X | X | Operates the same as SES*C/C++. Header files in `#include` format are not processed. |
+| partial | O | O | X | Runs the Partial C Processor in addition. Processes header files in `#include` format. This is the APRE*C/C++ default parsing mode. |
+| full | O | O | O | Runs the C Parser in addition. Processes header files in `#include` format. However, C++-style source code cannot recognize host variables outside the declaration section. |
 
-In the case of [Processing up to #include type header file], even another header file declared as #include type in the corresponding header file is processed. ![main.sc_header.h.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/main.sc_header.h.png?api=v2)
+In the case of "process up to `#include`-style header files", another header file declared with `#include` inside the corresponding header file is also processed. ![main.sc_header.h.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/main.sc_header.h.png?api=v2)
 
-For example, after changing the query in the example above to an optional query using macros as shown below. ![%E1%84%86%E1%85%A2%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%85%E1%85%B3%E1%86%AF_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB_%E1%84%89%E1%85%A5%E1%86%AB%E1%84%90%E1%85%A2%E1%86%A8%E1%84%8C%E1%85%A5%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB_%E1%84%8F%E1%85%AF%E1%84%85%E1%85%B5%E1%84%85%E1%85%A9_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC%E1%84%92%E1%85%AE.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%86%E1%85%A2%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%85%E1%85%B3%E1%86%AF_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB_%E1%84%89%E1%85%A5%E1%86%AB%E1%84%90%E1%85%A2%E1%86%A8%E1%84%8C%E1%85%A5%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB_%E1%84%8F%E1%85%AF%E1%84%85%E1%85%B5%E1%84%85%E1%85%A9_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC%E1%84%92%E1%85%AE.png?api=v2)
+For example, change the query in the example above to an optional query that uses macros as shown below. ![%E1%84%86%E1%85%A2%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%85%E1%85%B3%E1%86%AF_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB_%E1%84%89%E1%85%A5%E1%86%AB%E1%84%90%E1%85%A2%E1%86%A8%E1%84%8C%E1%85%A5%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB_%E1%84%8F%E1%85%AF%E1%84%85%E1%85%B5%E1%84%85%E1%85%A9_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC%E1%84%92%E1%85%AE.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%86%E1%85%A2%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%85%E1%85%B3%E1%86%AF_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB_%E1%84%89%E1%85%A5%E1%86%AB%E1%84%90%E1%85%A2%E1%86%A8%E1%84%8C%E1%85%A5%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB_%E1%84%8F%E1%85%AF%E1%84%85%E1%85%B5%E1%84%85%E1%85%A9_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC%E1%84%92%E1%85%AE.png?api=v2)
 
-When the parsing option is omitted and precompile with partial(the default parsing mode)
+```
+EXEC SQL select * into n from t1
+#ifdef ALTIBASE
+where i1=:i and i > 'A';
+#else
+where i1=:i;
+#endif
+```
+
+When the parsing option is omitted and precompiled with `partial`, the default parsing mode:
+
+```
+$ apre -t c main.sc
+```
 
 ![partial%E1%84%85%E1%85%A9%20preccompile_%E1%84%92%E1%85%A1%E1%86%AF_%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%AE.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/partial%E1%84%85%E1%85%A9%20preccompile_%E1%84%92%E1%85%A1%E1%86%AF_%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%AE.png?api=v2) The actual created codes remain only in the stage that the macro processing is completed as follows. (After the macro processing, the removed part is replaced with a blank space). ![%E1%84%87%E1%85%AE%E1%86%AF%E1%84%91%E1%85%B5%E1%86%AF%E1%84%8B%E1%85%AD%E1%84%92%E1%85%A1%E1%86%AB%E1%84%87%E1%85%AE%E1%84%87%E1%85%AE%E1%86%AB_%E1%84%80%E1%85%A9%E1%86%BC%E1%84%87%E1%85%A2%E1%86%A8.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%87%E1%85%AE%E1%86%AF%E1%84%91%E1%85%B5%E1%86%AF%E1%84%8B%E1%85%AD%E1%84%92%E1%85%A1%E1%86%AB%E1%84%87%E1%85%AE%E1%84%87%E1%85%AE%E1%86%AB_%E1%84%80%E1%85%A9%E1%86%BC%E1%84%87%E1%85%A2%E1%86%A8.png?api=v2)
 
-If -parse none is specified to precompile in the same way as the existing SEC*C/C++, a variable duplicate declaration error occurs because the macro processing function does not operate. ![%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%8C%E1%85%AE%E1%86%BC%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A5%E1%86%AB_%E1%84%8B%E1%85%A6%E1%84%85%E1%85%A5.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%8C%E1%85%AE%E1%86%BC%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A5%E1%86%AB_%E1%84%8B%E1%85%A6%E1%84%85%E1%85%A5.png?api=v2)
+If `-parse none` is specified to precompile in the same way as the existing SES*C/C++, a variable duplicate declaration error occurs because macro processing does not run.
+
+```
+$ apre -t c -parse none main.sc
+-----------------------------------------------------------------
+     Altibase C/C++ Precompiler.
+     Release Version 7.3.0.1.1
+     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
+     All Rights Reserved.
+-----------------------------------------------------------------
+[ERR-51011 : redefinition of 'i'.]
+
+[ERR-204E : The symbol name [i] can't be added on the symbol table.]
+File  : main.sc
+Line  : 13
+Offset: 24-24
+Error_token:;
+```
+
+![%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%8C%E1%85%AE%E1%86%BC%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A5%E1%86%AB_%E1%84%8B%E1%85%A6%E1%84%85%E1%85%A5.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%8C%E1%85%AE%E1%86%BC%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A5%E1%86%AB_%E1%84%8B%E1%85%A6%E1%84%85%E1%85%A5.png?api=v2)
 
 ## **Precautions**
 
@@ -197,6 +241,10 @@ In order for existing SES*C/C++ to describe EXEC SQL BEGIN/END DECLARE/ARGUMENT 
 This precaution applies the same as other DBMS precompilers.
 
 The following is an error when the terminator is not specified in the END DECLARE SECTION.
+
+```
+[ERR-302L : EXEC SQL END DECLARE SECTION is not exist.]
+```
 
 ![%E1%84%8C%E1%85%A9%E1%86%BC%E1%84%80%E1%85%A7%E1%86%AF%E1%84%8C%E1%85%A1_%E1%84%82%E1%85%AE%E1%84%85%E1%85%A1%E1%86%A8_%E1%84%8B%E1%85%A6%E1%84%85%E1%85%A5.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%8C%E1%85%A9%E1%86%BC%E1%84%80%E1%85%A7%E1%86%AF%E1%84%8C%E1%85%A1_%E1%84%82%E1%85%AE%E1%84%85%E1%85%A1%E1%86%A8_%E1%84%8B%E1%85%A6%E1%84%85%E1%85%A5.png?api=v2)
 
@@ -230,7 +278,7 @@ Since backward compatibility is considered, it is okay to use an existing name.
 
 ---
 
-This section describes considerations and procedures when upgrading from SES*C/C++ environment to the ARPE*C/C++ environment.
+This section describes considerations and procedures when upgrading from the SES*C/C++ environment to the APRE*C/C++ environment.
 
 As the name was changed from SES*C/C++ to APRE*C/C++, the name of execution file, header file, library file, link option, and execution file command options were partially changed as follows.
 
@@ -239,7 +287,7 @@ As the name was changed from SES*C/C++ to APRE*C/C++, the name of execution file
 | Execution file | sesc | apre | $ALTIBASE_HOME/bin | Changed |
 | Header file | ses.h | ulpLibInterface.h | $ALTIBASE_HOME/include | Changed |
 | Library files | libsesc.a | libapre.a | $ALTIBASE_HOME/lib | Changed |
-| libsesc_sl.so | libapre_sl.so | #ALTIBASE_HOME/lib | Changed |  |
+| libsesc_sl.so | libapre_sl.so | $ALTIBASE_HOME/lib | Changed |  |
 | Link option | -lsesc | -lapre | - | Changed |
 | Execution file command option | -include | -include or -I | - | Added |
 

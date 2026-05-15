@@ -181,7 +181,7 @@ At this time, the String type url should be entered as an argument. An example o
 jdbc:Altibase://ip_address:port_no/db_name
   * ip_address : ip of Altibase DB server
   * port_no : port_no of Altibase(Defined as PORT_NO property in $ALTIBASE_HOME/conf/altibase.properties)
-  * db_name : name of Altibase DB의 (Defined as DB_NAME property in $ALTIBASE_HOME/conf/altibase.properties 파일의 DB_NAME)
+  * db_name : Altibase DB name (the `DB_NAME` property in `$ALTIBASE_HOME/conf/altibase.properties`)
 ```
 
 The following is an example of receiving a connection object according to the above format.

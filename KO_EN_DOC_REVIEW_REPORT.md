@@ -105,6 +105,41 @@ J004에서는 한국어 `DOCK`의 이중화 구성, 이중화 제약사항, 백�
 - 장애 대응 및 STARTUP/STOP 문서에서 이중화 Sender 수, `REP_GAP` 의미, 충돌 SQL 추적, 선택별 복구, `kill -9` 표기를 정리했습니다.
 - J004 한국어 원문 문서의 문서형 첨부 URL이 대응 영어 문서에 보존되어 있는지 확인했고 누락은 없었습니다.
 
+## J005 개발 및 API 연동 문서 추가 검토
+
+J005에서는 한국어 `DOCK`의 개발자 교육, Precompiler, APRE, Java, ODBC, ADO.NET, Spring, iBATIS, MyBatis, Hibernate, PHP, WAS 연동 문서를 영어 `arch` 문서와 재비교했습니다. 한국어 원문을 기준으로 본문 절, 명령어, 코드 예제, 설정값, 오류 메시지, 주의사항, 첨부 문서 링크를 확인했습니다.
+
+비교 및 갱신 범위는 다음과 같습니다.
+
+| 한국어 기준 | 영어 갱신 문서 |
+| --- | --- |
+| `DOCK/Home/28. Altibase TOMCAT 연동가이드__7341030.md` | `arch/Home/TOMCAT Integration Guide for Altibase/*` |
+| `DOCK/Home/29. Altibase JEUS 연동가이드__7341028.md` | `arch/Home/JEUS Integration Guide for Altibase/*` |
+| `DOCK/Home/30. Altibase JBoss 연동가이드__13437492.md` | `arch/Home/JBOSS Integration Guide for Altibase/*` |
+| `DOCK/Home/32. Altibase와 unixODBC 연동 가이드__11698379.md` | `arch/Home/Altibase and unixODBC Integration Guide/*` |
+| `DOCK/Home/33. Altibase 개발자교육__19333461.md` | `arch/Home/Altibase Developer Training__22642996.md` |
+| `DOCK/Home/34. Altibase Precompiler 가이드__11698385.md` | `arch/Home/Altibase Precompiler Guide/*` |
+| `DOCK/Home/35. Altibase APRE(SES) _C_C++ Makefile__11698493.md` | `arch/Home/Altibase APRE(SES) _C_C++ Makefile/*` |
+| `DOCK/Home/44. APRE_C_C++ New Features & 업그레이드 가이드__13435760.md` | `arch/Home/APRE_C_C++ New Features & Upgrade Guide__22643052.md` |
+| `DOCK/Home/51. Altibase window ADO.NET 개발 가이드__11698513.md` | `arch/Home/Altibase Window ADO.NET Development Guide/*` |
+| `DOCK/Home/52. Altibase WebSphere 연동 가이드__13435602.md` | `arch/Home/WebSphere Integration Guide for Altibase__14058343.md` |
+| `DOCK/Home/53. Windows 환경의 Altibase ODBC 개발 가이드__13436856.md` | `arch/Home/Altibase ODBC Development Guide in Windows Environment__15138911.md` |
+| `DOCK/Home/54. Altibase Spring 연동 가이드__7340945.md` | `arch/Home/Spring Integration Guide for Altibase/*` |
+| `DOCK/Home/55. Altibase iBATIS 연동가이드__7340053.md` | `arch/Home/iBatis Integration Guide for Altibase/*` |
+| `DOCK/Home/56. JAVA 개발 가이드__14057500.md` | `arch/Home/JAVA Developer's Guide__16875544.md` |
+| `DOCK/Home/58. Altibase Hibernate 연동가이드__14057878.md` | `arch/Home/Hibernate Integration Guide for Altibase__14058388.md` |
+| `DOCK/Home/60. Altibase WebLogic 연동가이드__7340101.md` | `arch/Home/WEBLOGIC Integration Guide for Altibase/*` |
+| `DOCK/Home/64. Altibase MyBatis 연동 가이드__7340818.md` | `arch/Home/MyBatis Integration Guide for Altibase/*` |
+| `DOCK/Home/66. Altibase PHP 연동가이드__7341461.md` | `arch/Home/PHP Integration Guide for Altibase/*` |
+
+주요 반영 내용은 다음과 같습니다.
+
+- APRE New Features 문서에서 이미지로만 남아 있던 `-I`, `-D`, `-keyword`, `-parse`, `ERR-302L` 예제를 텍스트와 코드 블록으로 복원하고 `APRE*C/C++`, `$ALTIBASE_HOME` 표기를 보정했습니다.
+- ADO.NET 개발 가이드의 C# 예제를 fenced code block으로 정리하고 `AltibaseDataAdapter`, `AltibaseTransaction`, `Altibase ADO.NET` 표기를 보정했습니다.
+- MyBatis 연동 문서의 한국어 주석, 표 헤더, 예제 설명, 깨진 `Altibase` 주석을 영어로 정리하고 `jdbc:Altibase://IP:port_no/db_name` URL 형식을 코드 표기로 명확히 했습니다.
+- JBoss, Java, WebLogic, TOMCAT, PHP, Precompiler, APRE Makefile 문서에 남아 있던 한국어 잔여 문구와 오탈자를 영어 기술 문서 표현으로 정리했습니다.
+- J005 한국어 원문 문서의 문서형 첨부 URL이 대응 영어 문서에 보존되어 있는지 확인했고 누락은 없었습니다.
+
 ## 검토 범위
 
 | 구분 | 한국어 기준 문서 | 영어 대상 문서 | 결과 |
@@ -185,6 +220,10 @@ J004에서는 한국어 `DOCK`의 이중화 구성, 이중화 제약사항, 백�
 | J004 이중화/백업 핵심 항목 grep | `Altibase 7.1.0`, `ERR-61035`, `RP_MSGLOG_FLAG`, `REP_GAP`, `Page Change Tracking`, `kill -9` 확인 |
 | J004 갱신 문서 stale-string grep | 알려진 오탈자, 누락 에러 메시지, 잘못된 복구/백업 표 헤더 패턴 재검출 0건 |
 | J004 manifest 메타데이터 대조 | 갱신된 `arch` 문서 확인, 불일치 0건 |
+| J005 문서형 첨부 URL 대조 | 개발/API 연동 범위 17개 문서형 URL 확인, 누락 0개 |
+| J005 개발/API 핵심 항목 grep | `apre -DALTIBASE`, `ERR-302L`, `AltibaseDataAdapter`, `AltibaseTransaction`, `jdbc:Altibase://IP:port_no/db_name`, `ODBC Manager`, `JDBC driver file` 확인 |
+| J005 갱신 문서 stale-string grep | 한국어 잔여 문구, 깨진 `Altibase` 주석, 알려진 오탈자 패턴 재검출 0건 |
+| J005 manifest 메타데이터 대조 | 갱신된 `arch` 문서 확인, 불일치 0건 |
 
 ## 결론
 

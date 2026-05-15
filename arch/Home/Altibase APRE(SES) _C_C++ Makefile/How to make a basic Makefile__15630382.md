@@ -207,7 +207,7 @@ Since libm.so is referenced as above, add "-lm" to Makefile.
 
 Using the UNIX man command, some symbols can be found using the following method for the purpose of the symbol and the library referenced by this symbol.
 
-**$ man 3 cos** ( cos는 undefined symbol name )
+**$ man 3 cos** (`cos` is the undefined symbol name.)
 
 COS(3) Linux Programmer Manual COS(3)
 
