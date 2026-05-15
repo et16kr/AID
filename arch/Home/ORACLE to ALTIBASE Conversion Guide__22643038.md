@@ -14,9 +14,9 @@ labels: []
 Source: https://docs.altibase.com/display/arch/ORACLE+to+ALTIBASE+Conversion+Guide
 Updated: 2025-10-21T09:45:53.000+0900
 
-- [OverviewStored Procedure or Function 변환](#ORACLEtoALTIBASEConversionGuide-OverviewStoredProcedureorFunction변환) - [Migration Process](#ORACLEtoALTIBASEConversionGuide-MigrationProcess) - [System Analysis](#ORACLEtoALTIBASEConversionGuide-SystemAnalysis) - [Supported Version](#ORACLEtoALTIBASEConversionGuide-SupportedVersion) - [Preliminary Checklist](#ORACLEtoALTIBASEConversionGuide-PreliminaryChecklist) - [SQL Conversion Guide](#ORACLEtoALTIBASEConversionGuide-SQLConversionGuide) - [Data type conversion](#ORACLEtoALTIBASEConversionGuide-Datatypeconversion) - [Object Conversion](#ORACLEtoALTIBASEConversionGuide-ObjectConversion) - [SQL Conversion](#ORACLEtoALTIBASEConversionGuide-SQLConversion) - [Stored Procedure or Function Conversion](#ORACLEtoALTIBASEConversionGuide-StoredProcedureorFunctionConversion) - [Database Migration Procedure](#ORACLEtoALTIBASEConversionGuide-DatabaseMigrationProcedure) - [Data Migration and Application Conversion Procedure](#ORACLEtoALTIBASEConversionGuide-DataMigrationandApplicationConversionProcedure) - [Data Integrity Verification](#ORACLEtoALTIBASEConversionGuide-DataIntegrityVerification) - [Contingency Plan for Database Migration Failures](#ORACLEtoALTIBASEConversionGuide-ContingencyPlanforDatabaseMigrationFailures) - [Database Migration Tool](#ORACLEtoALTIBASEConversionGuide-DatabaseMigrationTool)
+- [Overview](#ORACLEtoALTIBASEConversionGuide-Overview) - [Migration Process](#ORACLEtoALTIBASEConversionGuide-MigrationProcess) - [System Analysis](#ORACLEtoALTIBASEConversionGuide-SystemAnalysis) - [Supported Version](#ORACLEtoALTIBASEConversionGuide-SupportedVersion) - [Preliminary Checklist](#ORACLEtoALTIBASEConversionGuide-PreliminaryChecklist) - [SQL Conversion Guide](#ORACLEtoALTIBASEConversionGuide-SQLConversionGuide) - [Data type conversion](#ORACLEtoALTIBASEConversionGuide-Datatypeconversion) - [Object Conversion](#ORACLEtoALTIBASEConversionGuide-ObjectConversion) - [SQL Conversion](#ORACLEtoALTIBASEConversionGuide-SQLConversion) - [Stored Procedure or Function Conversion](#ORACLEtoALTIBASEConversionGuide-StoredProcedureorFunctionConversion) - [Database Migration Procedure](#ORACLEtoALTIBASEConversionGuide-DatabaseMigrationProcedure) - [Data Migration and Application Conversion Procedure](#ORACLEtoALTIBASEConversionGuide-DataMigrationandApplicationConversionProcedure) - [Data Integrity Verification](#ORACLEtoALTIBASEConversionGuide-DataIntegrityVerification) - [Contingency Plan for Database Migration Failures](#ORACLEtoALTIBASEConversionGuide-ContingencyPlanforDatabaseMigrationFailures) - [Database Migration Tool](#ORACLEtoALTIBASEConversionGuide-DatabaseMigrationTool)
 
-# OverviewStored Procedure or Function 변환
+# Overview
 
 ---
 
@@ -226,7 +226,7 @@ Oracle’s Data Tablespace is all Disk Tablespace. Altibase supports both Memory
 
 #### Example of
 
-| Oracle | Altibase | 비고 |
+| Oracle | Altibase | Remarks |
 | --- | --- | --- |
 | TABLESPACE GROUP | - | Not supported by Altibase, so delete the corresponding option during conversion |
 | EXTENT MANAGEMENT LOCAL AUTOALLOCATE\|UNIFORM SIZE | EXTENTSIZE | Extent management is not supported; only EXTENTSIZE can be configured |
@@ -263,11 +263,11 @@ Altibase does not support Object Tables or XMLType Tables, but it does support M
 
 When specifying segment-related details during TABLE creation, the order should be: specify TABLESPACE → specify PCTFREE/PCTUSED → specify INITRANS/MAXTRANS → specify Storage clause → specify Logging clause.
 
-#### COLUMN DEFINITION 절
+#### COLUMN DEFINITION Clause
 
 ---
 
-| Oracle | Altibase | 비고 |
+| Oracle | Altibase | Remarks |
 | --- | --- | --- |
 | SORT | - | Not supported by Altibase, so delete the corresponding option during conversion |
 | DEFAULT | DEFAULT |  |
@@ -285,7 +285,7 @@ When specifying segment-related details during TABLE creation, the order should 
 
 ---
 
-| Oracle | Altibase | 비고 |
+| Oracle | Altibase | Remarks |
 | --- | --- | --- |
 | TABLESPACE | TABLESPACE |  |
 | PCTFREE | PCTFREE |  |
@@ -298,7 +298,7 @@ When specifying segment-related details during TABLE creation, the order should 
 
 ---
 
-| Oracle | Altibase | 비고 |
+| Oracle | Altibase | Remarks |
 | --- | --- | --- |
 | INITIAL | INITEXTENTS | Change from bytes to number of extents |
 | NEXT | NEXTEXTENTS | Change from bytes to number of extents |
@@ -314,9 +314,9 @@ When specifying segment-related details during TABLE creation, the order should 
 
 ---
 
-| Oracle | Altibase | 비고 |
+| Oracle | Altibase | Remarks |
 | --- | --- | --- |
-| TABLESPACE | TABLESPACE | Altibase의 LOB STORAGE절은 TABLESPACE만 지정 가능 |
+| TABLESPACE | TABLESPACE | In Altibase, the LOB STORAGE clause can specify only TABLESPACE. |
 | STORAGE | - | Not supported by Altibase, so delete the corresponding option during conversion |
 | CHUNK | - | Not supported by Altibase, so delete the corresponding option during conversion |
 | PCTVERSION | - | Not supported by Altibase, so delete the corresponding option during conversion |
@@ -370,7 +370,7 @@ The types of indexes supported by Altibase are BTREE, RTREE, and Function-based 
 
 When specifying segment-related details during Altibase INDEX creation, the order should be: specify TABLESPACE → specify PARALLEL/NOPARALLEL → specify LOGGING/NOLOGGING → specify Storage clause.
 
-| Oracle | Altibase | 비고 |
+| Oracle | Altibase | Remarks |
 | --- | --- | --- |
 | TABLESPACE | TABLESPACE |  |
 | LOGGING\|NOLOGGING | LOGGING\|NOLOGGING |  |
@@ -403,7 +403,7 @@ When specifying segment-related details during Altibase INDEX creation, the orde
 
 Altibase VIEWs are created using the CREATE OR REPLACE VIEW statement, the same syntax as Oracle VIEW creation.
 
-| Oracle | Altibase | 비고 |
+| Oracle | Altibase | Remarks |
 | --- | --- | --- |
 | WITH READ ONLY | WITH READ ONLY | If this option is not specified, an updatable view is created |
 | NO FORCE | NO FORCE |  |
@@ -419,7 +419,7 @@ Altibase triggers are created using the CREATE OR REPLACE TRIGGER statement, the
 
 When using Altibase replication, data changes reflected by replication do not trigger trigger execution, so this behavior should be considered in the business logic.
 
-| Oracle | Altibase | 비고 |
+| Oracle | Altibase | Remarks |
 | --- | --- | --- |
 | CREATE OR REPLACE TRIGGER | CREATE OR REPLACE TRIGGER |  |
 | BEFORE\|AFTER\|INSTEAD OF | BEFORE\|AFTER\|INSTEAD OF |  |
@@ -436,7 +436,7 @@ When using Altibase replication, data changes reflected by replication do not tr
 
 Altibase SEQUENCE is created using the CREATE SEQUENCE statement, the same syntax as Oracle SEQUENCE creation.
 
-| Oracle | Altibase | 비고 |
+| Oracle | Altibase | Remarks |
 | --- | --- | --- |
 | CREATE SEQUENCE | CREATE SEQUENCE |  |
 | START WITH | START WITH |  |
@@ -896,27 +896,29 @@ In contrast, Altibase’s PARAMETER TYPE and RETURN TYPE allow size specificatio
 
 If size is not specified, the maximum size of PARAMETER TYPE and RETURN TYPE is determined according to the following property settings:
 
-- PSM_PARAM_AND_RETURN_WITHOUT_PRECISION_ENABLE = 0 The size of CHAR, NCHAR, NVARCHAR, VARCHAR is 1.
-- PSM_PARAM_AND_RETURN_WITHOUT_PRECISION_ENABLE = 1 (default) The size of CHAR, NCHAR, NVARCHAR, VARCHAR is determined by the property settings in the table below.
+- PSM_PARAM_AND_RETURN_WITHOUT_PRECISION_ENABLE = 0
+    - The size of CHAR, NCHAR, NVARCHAR, and VARCHAR is 1.
+- PSM_PARAM_AND_RETURN_WITHOUT_PRECISION_ENABLE = 1 (default)
+    - The size of CHAR, NCHAR, NVARCHAR, and VARCHAR is determined by the property settings in the table below.
 
 #### Maximum size of data types in PROCEDURE/FUNCTION
 
 ---
 
-| Data Type | Maximum Size in Oracle SQL | Maximum Size in Oralce PL/SQL | Maximum Size in Altibase SQL | Maximum Size in Altibase PL/SQL | Maximum Size in Altibase PL/SQL When Size Not Specified |
+| Data Type | Maximum Size in Oracle SQL | Maximum Size in Oracle PL/SQL | Maximum Size in Altibase SQL | Maximum Size in Altibase PL/SQL | Maximum Size in Altibase PL/SQL When Size Not Specified |
 | --- | --- | --- | --- | --- | --- |
-| Maximum Size in Oracle SQL | 2000 bytes | 32767 bytes | 32000 bytes | 65534 bytes | PSM_CHAR_DEFAULT_PRECISION (default: 32767) |
-| Maximum Size in Oracle PL/SQL | 1000(UTF16), 666(UTF8)<br>최대 2000 bytes | 16383(UTF16), 10922(UTF8)<br>Max 32767 bytes | 16000(UTF16), 10666(UTF8)<br>Max 32000 bytes | 32766(UTF16), 21843(UTF8)<br>Max 65534 bytes | PSM_NCHAR_UTF16_DEFAULT_PRECISION (default: 16383)<br>PSM_NCHAR_UTF8_DEFAULT_PRECISION (default: 10921) |
-| Maximum Size in Altibase SQL | 2000 bytes | 32767 bytes |  |  |  |
-| Maximum Size in Altibase PL/SQL | 4000 bytes | 32767 bytes | 32000 bytes | 65534 bytes | PSM_VARCHAR_DEFAULT_PRECISION (default: 32767) |
-| Maximum Size in Altibase PL/SQL When Size Not Specified | 2000(UTF16), 1333(UTF8)<br>최대 4000 bytes | 16383(UTF16), 10922(UTF8)<br>Max 32767 bytes | 16000(UTF16), 10666(UTF8)<br>Max 32000 bytes | 32766(UTF16), 21843(UTF8)<br>Max 65534 bytes | PSM_NVARCHAR_UTF16_DEFAULT_PRECISION (default: 16383)<br>PSM_NVARCHAR_UTF8_DEFAULT_PRECISION (default: 10921) |
+| CHAR | 2000 bytes | 32767 bytes | 32000 bytes | 65534 bytes | PSM_CHAR_DEFAULT_PRECISION (default: 32767) |
+| NCHAR | 1000(UTF16), 666(UTF8)<br>Max 2000 bytes | 16383(UTF16), 10922(UTF8)<br>Max 32767 bytes | 16000(UTF16), 10666(UTF8)<br>Max 32000 bytes | 32766(UTF16), 21843(UTF8)<br>Max 65534 bytes | PSM_NCHAR_UTF16_DEFAULT_PRECISION (default: 16383)<br>PSM_NCHAR_UTF8_DEFAULT_PRECISION (default: 10921) |
+| RAW | 2000 bytes | 32767 bytes |  |  |  |
+| VARCHAR<br>VARCHAR2 | 4000 bytes | 32767 bytes | 32000 bytes | 65534 bytes | PSM_VARCHAR_DEFAULT_PRECISION (default: 32767) |
+| NVARCHAR2<br>NVARCHAR2 | 2000(UTF16), 1333(UTF8)<br>Max 4000 bytes | 16383(UTF16), 10922(UTF8)<br>Max 32767 bytes | 16000(UTF16), 10666(UTF8)<br>Max 32000 bytes | 32766(UTF16), 21843(UTF8)<br>Max 65534 bytes | PSM_NVARCHAR_UTF16_DEFAULT_PRECISION (default: 16383)<br>PSM_NVARCHAR_UTF8_DEFAULT_PRECISION (default: 10921) |
 | LONG | 2 GB - 1 | 32760 bytes |  |  |  |
 | LONG RAW | 2 GB | 32760 bytes |  |  |  |
 | BLOB | (4 GB - 1) * (database block size) | 128 TB | 4 GB - 1 | 100 MB | LOB_OBJECT_BUFFER_SIZE (default: 32000) |
 | CLOB | (4 GB - 1) * (database block size) | 128 TB | 4 GB - 1 | 100 MB | LOB_OBJECT_BUFFER_SIZE (default: 32000) |
 | NCLOB | (4 GB - 1) * (database block size) | 128 TB |  |  |  |
 
-The maximum size of Oracle's Extended Data Types (MAX_STRING_SIZE = EXTENDED) can be found in this document under 'SQL Conversion Guide -> Data Type Conversion.
+The maximum size of Oracle's Extended Data Types (MAX_STRING_SIZE = EXTENDED) can be found in this document under "SQL Conversion Guide -> Data Type Conversion."
 
 ### Stored procedures and functions provided for input/output and file control
 
@@ -981,7 +983,7 @@ The WHERE CURRENT OF clause using Oracle’s CURSOR needs to be converted as fol
 
 | Oracle | Altibase |
 | --- | --- |
-| ```<br>CREATE OR REPLACE PROCEDURE proc1<br>IS<br>CURSOR emp_list IS<br>SELECT empno FROM employee<br>WHERE empno = 1 FOR UPDATE;<br>BEGIN FOR emplst IN emp_list LOOP<br>UPDATE employee SET empjob = 'SALESMAN'<br>WHERE CURRENT OF emp_list;<br>END LOOP;<br>END;<br>/<br>``` | ```<br>CREATE OR REPLACE PROCEDURE proc1<br>AS<br>BEGIN<br>DECLARE CURSOR cur1 IS<br>SELECT empno FROM employee<br>WHERE empno = 1;<br>v_empjob VARCHAR(10);<br>v_empno INTEGER;<br>BEGIN<br>OPEN cur1;<br>LOOP FETCH cur1 INTO v_empno;<br>EXIT WHEN cur1%NOTFOUND;<br>UPDATE employee SET empjob = 'SALESMAN' WHERE empno = v_empno; //emp_no가 PK이어야 한다.<br>END LOOP;<br>CLOSE cur1;<br>END;<br>END;<br>/<br>``` |
+| ```<br>CREATE OR REPLACE PROCEDURE proc1<br>IS<br>CURSOR emp_list IS<br>SELECT empno FROM employee<br>WHERE empno = 1 FOR UPDATE;<br>BEGIN FOR emplst IN emp_list LOOP<br>UPDATE employee SET empjob = 'SALESMAN'<br>WHERE CURRENT OF emp_list;<br>END LOOP;<br>END;<br>/<br>``` | ```<br>CREATE OR REPLACE PROCEDURE proc1<br>AS<br>BEGIN<br>DECLARE CURSOR cur1 IS<br>SELECT empno FROM employee<br>WHERE empno = 1;<br>v_empjob VARCHAR(10);<br>v_empno INTEGER;<br>BEGIN<br>OPEN cur1;<br>LOOP FETCH cur1 INTO v_empno;<br>EXIT WHEN cur1%NOTFOUND;<br>UPDATE employee SET empjob = 'SALESMAN' WHERE empno = v_empno; // emp_no must be the primary key.<br>END LOOP;<br>CLOSE cur1;<br>END;<br>END;<br>/<br>``` |
 
 ### EXCEPTION
 
@@ -1033,9 +1035,9 @@ To migrate a database from Oracle to Altibase, you can use the MigrationCenter t
 
 ---
 
-| APPLICATION 검증 | Deriving Verification Plan<br>- Derive the verification plan through prior consultation with the client Example: Online screen capture or report comparison, batch report comparison, etc. |
+| Application Verification | Deriving Verification Plan<br>- Derive the verification plan through prior consultation with the client. Example: online screen capture or report comparison, batch report comparison, etc. |
 | --- | --- |
-| DATA검증 | Migration Center Report<br>- Compare the total number of table records between the source database and Altibase using the migration result report<br>Deriving Verification Plan<br>- Derive the verification plan through prior consultation with the client Examples: Verify total record counts, Compare sum of data in specific columns, Compare results of specific query executions |
+| Data Verification | Migration Center Report<br>- Compare the total number of table records between the source database and Altibase using the migration result report.<br>Deriving Verification Plan<br>- Derive the verification plan through prior consultation with the client. Examples: verify total record counts, compare sums of data in specific columns, and compare results of specific query executions. |
 
 ## Contingency Plan for Database Migration Failures
 
@@ -1148,3 +1150,16 @@ Perform the data migration.
 ---
 
 Use MigrationCenter to modify the syntax related to data types in Oracle PL/SQL files saved as files. Since business logic is not automatically converted, developers need to manually convert it.
+
+MigrationCenter can be downloaded from the download page on [support.altibase.com](http://support.altibase.com/).
+
+- [http://support.altibase.com/kr/product](http://support.altibase.com/kr/product)
+
+For details about MigrationCenter, refer to the manual below.
+
+- [Migration Center User's Manual - Altibase 7.1 Documentation](https://manual.altibase.com/7.1/external-tools/migration-center/copyright/)
+
+The Korean source lists the following legacy document placeholders without downloadable URLs:
+
+- `ALTIBASE_Oracle_Conversion_Guide.pdf` (Altibase v6 & Oracle 11g)
+- `ORACLE_to_ALTIBASE_Conversion_Guide_5.5.pdf` (Altibase v5 & Oracle 10g)

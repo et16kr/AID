@@ -140,6 +140,37 @@ J005에서는 한국어 `DOCK`의 개발자 교육, Precompiler, APRE, Java, ODB
 - JBoss, Java, WebLogic, TOMCAT, PHP, Precompiler, APRE Makefile 문서에 남아 있던 한국어 잔여 문구와 오탈자를 영어 기술 문서 표현으로 정리했습니다.
 - J005 한국어 원문 문서의 문서형 첨부 URL이 대응 영어 문서에 보존되어 있는지 확인했고 누락은 없었습니다.
 
+## J006 SQL, 튜닝, 마이그레이션, 변환 및 도구 문서 추가 검토
+
+J006에서는 한국어 `DOCK`의 Altibase 개발가이드, SQL 튜닝, Oracle/MSSQL 변환, Altibase 버전 간 마이그레이션, Docker, GeoServer, SQuirrel SQL Client, VC 2008/2010, Migration Center 문서를 영어 `arch` 문서와 재비교했습니다. 한국어 원문을 기준으로 본문 절, 명령어, SQL, 설정값, 주의사항, 첨부 문서 링크를 확인했습니다.
+
+비교 및 갱신 범위는 다음과 같습니다.
+
+| 한국어 기준 | 영어 갱신 문서 |
+| --- | --- |
+| `DOCK/Home/36. Altibase 개발가이드__7341274.md` | `arch/Home/Altibase Development Guide/*` |
+| `DOCK/Home/37. Altibase SQL 튜닝 가이드__19333563.md` | `arch/Home/Altibase SQL Tuning Guide__22643010.md` |
+| `DOCK/Home/38. Altibase VC 2008 개발가이드__19333567.md` | `arch/Home/Altibase VC 2008 Development Guide__19333567.md` |
+| `DOCK/Home/39. Altibase, Oracle 비교 자료__14058137.md` | `arch/Home/Altibase_Oracle Comparison__16875638.md` |
+| `DOCK/Home/40. Oracle to Altibase 변환가이드__7341605.md` | `arch/Home/ORACLE to ALTIBASE Conversion Guide__22643038.md` |
+| `DOCK/Home/46. Altibase 버전 간 마이그레이션 가이드__19333688.md` | `arch/Home/Altibase Data Migration Process Guide__22642994.md` |
+| `DOCK/Home/61. Altibase VC 2010 개발가이드__19334121.md` | `arch/Home/Altibase VC 2010 Development Guide__19334121.md` |
+| `DOCK/Home/65. MSSQL to Altibase 변환가이드__7341431.md` | `arch/Home/MSSQL to ALTIBASE Conversion Guide__22643024.md` |
+| `DOCK/Home/67. Altibase 도커 가이드__14057660.md` | `arch/Home/Altibase Docker Guide/*` |
+| `DOCK/Home/68. Altibase GeoServer 연동가이드__14058194.md` | `arch/Home/Altibase GeoServer Integration Guide__22643004.md` |
+| `DOCK/Home/69. Altibase를 위한 SQuirrel SQL Client Quick 가이드__12255259.md` | `arch/Home/SQuirrel SQL Client Quick Guide for Altibase/*` |
+| `DOCK/Home/70. Migration Center 사용자 가이드__19955861.md` | `arch/Home/Migration Center User Guide__19955861.md` |
+
+주요 반영 내용은 다음과 같습니다.
+
+- Oracle 변환 가이드에서 한국어가 남아 있던 Overview, 표 헤더, `COLUMN DEFINITION` 절, `WHERE CURRENT OF` 예제 주석, 검증 표를 영어로 정리하고, `PROCEDURE/FUNCTION` 데이터 타입 최대 크기 표를 한국어 원문 의미에 맞게 복원했습니다.
+- Oracle 변환 가이드의 MigrationCenter 다운로드 안내, support portal 링크, Migration Center manual 링크를 한국어 원문 기준으로 영어 문서에 반영했습니다.
+- 개발가이드와 Oracle/MSSQL 변환 가이드의 구버전 PDF placeholder는 한국어 원문에 실제 다운로드 URL이 없으므로, 영어 문서에 "downloadable URL 없는 legacy document placeholder"로 기록했습니다.
+- Altibase 버전 간 마이그레이션 문서의 캐릭터셋 확인 문구, `...중략...`, `합계`, `.fmt`/`.dat` 파일 수 확인 주석, `iloader` 성능 옵션 주석에 남아 있던 한국어를 영어로 정리했습니다.
+- Docker 문서에서 `docker build`, `docker run`, `docker network`, `docker ps`, `isql` 명령과 출력이 한 줄로 붙어 있던 부분을 한국어 원문 구조에 맞게 분리하고, 중복된 이중화 추가 노드 절을 제거했습니다.
+- GeoServer 문서의 레이어 미리보기 절, SQuirrel 문서의 JDBC driver registration 제목 및 tab 설명, Development Guide trace/error 절의 한국어 잔여 문구를 영어로 정리했습니다.
+- J006 한국어 원문 문서의 URL-backed 문서형 첨부 URL 6개가 대응 영어 문서에 보존되어 있는지 확인했고 누락은 없었습니다.
+
 ## 검토 범위
 
 | 구분 | 한국어 기준 문서 | 영어 대상 문서 | 결과 |
@@ -224,6 +255,10 @@ J005에서는 한국어 `DOCK`의 개발자 교육, Precompiler, APRE, Java, ODB
 | J005 개발/API 핵심 항목 grep | `apre -DALTIBASE`, `ERR-302L`, `AltibaseDataAdapter`, `AltibaseTransaction`, `jdbc:Altibase://IP:port_no/db_name`, `ODBC Manager`, `JDBC driver file` 확인 |
 | J005 갱신 문서 stale-string grep | 한국어 잔여 문구, 깨진 `Altibase` 주석, 알려진 오탈자 패턴 재검출 0건 |
 | J005 manifest 메타데이터 대조 | 갱신된 `arch` 문서 확인, 불일치 0건 |
+| J006 문서형 첨부 URL 대조 | SQL/튜닝/마이그레이션/변환/도구 범위 6개 URL 확인, 누락 0개 |
+| J006 핵심 항목 grep | `MigrationCenter can be downloaded`, `PSM_PARAM_AND_RETURN_WITHOUT_PRECISION_ENABLE`, `docker build [OPTIONS]`, `docker run [OPTIONS]`, `Altibase JDBC Driver Registration`, `Layer Preview` 확인 |
+| J006 갱신 문서 stale-string grep | 한국어 잔여 문구, Docker 명령/출력 결합 패턴 재검출 0건 (`Registeration`은 원본 source URL과 이미지 경로에만 보존) |
+| J006 manifest 메타데이터 대조 | 갱신된 `arch` 문서 11개 확인, 불일치 0건 |
 
 ## 결론
 

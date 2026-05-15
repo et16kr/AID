@@ -182,7 +182,7 @@ You can import a layer using a shapefile.
 
 The registered layer can be viewed in the layer preview.
 
-- 레이어 미리보기를 클릭하여 확인할 레이어에서 OpenLayers를 클릭한다.
+- Click Layer Preview, and then click OpenLayers for the layer to check.
 
   ![17.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/17.JPG?api=v2)
   ![18.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/18.JPG?api=v2)

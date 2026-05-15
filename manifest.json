@@ -2798,8 +2798,8 @@
       "title": "Altibase Data Migration Process Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Data+Migration+Process+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Data Migration Process Guide__22642994.md",
-      "body_chars": 15963,
-      "word_count": 2115
+      "body_chars": 17625,
+      "word_count": 2341
     },
     {
       "space_key": "arch",
@@ -2834,8 +2834,8 @@
       "title": "3. Altibase Trace Logs",
       "source_url": "https://docs.altibase.com/display/arch/3.+Altibase+Trace+Logs",
       "path": "altibase_docs_md/arch/Home/Altibase Development Guide/3. Altibase Trace Logs__22643000.md",
-      "body_chars": 15411,
-      "word_count": 2198
+      "body_chars": 16255,
+      "word_count": 2462
     },
     {
       "space_key": "arch",
@@ -2843,8 +2843,8 @@
       "title": "4. CLIENT APPLICATION Error Messages",
       "source_url": "https://docs.altibase.com/display/arch/4.+CLIENT+APPLICATION+Error+Messages",
       "path": "altibase_docs_md/arch/Home/Altibase Development Guide/4. CLIENT APPLICATION Error Messages__14058547.md",
-      "body_chars": 10568,
-      "word_count": 1695
+      "body_chars": 13297,
+      "word_count": 1936
     },
     {
       "space_key": "arch",
@@ -2879,8 +2879,8 @@
       "title": "3. Altibase Docker Image",
       "source_url": "https://docs.altibase.com/display/arch/3.+Altibase+Docker+Image",
       "path": "altibase_docs_md/arch/Home/Altibase Docker Guide/3. Altibase Docker Image__14647754.md",
-      "body_chars": 10831,
-      "word_count": 1212
+      "body_chars": 11658,
+      "word_count": 1202
     },
     {
       "space_key": "arch",
@@ -2888,8 +2888,8 @@
       "title": "4. Creating Altibase Service Container",
       "source_url": "https://docs.altibase.com/display/arch/4.+Creating+Altibase+Service+Container",
       "path": "altibase_docs_md/arch/Home/Altibase Docker Guide/4. Creating Altibase Service Container__14647760.md",
-      "body_chars": 13898,
-      "word_count": 1278
+      "body_chars": 14845,
+      "word_count": 1488
     },
     {
       "space_key": "arch",
@@ -2897,8 +2897,8 @@
       "title": "5. Stopping/Deleting Altibase Service Container",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=14909445",
       "path": "altibase_docs_md/arch/Home/Altibase Docker Guide/5. Stopping_Deleting Altibase Service Container__14909445.md",
-      "body_chars": 3583,
-      "word_count": 336
+      "body_chars": 4791,
+      "word_count": 455
     },
     {
       "space_key": "arch",
@@ -2915,8 +2915,8 @@
       "title": "Altibase GeoServer Integration Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+GeoServer+Integration+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase GeoServer Integration Guide__22643004.md",
-      "body_chars": 11436,
-      "word_count": 1073
+      "body_chars": 11464,
+      "word_count": 1078
     },
     {
       "space_key": "arch",
@@ -3653,8 +3653,8 @@
       "title": "MSSQL to ALTIBASE Conversion Guide",
       "source_url": "https://docs.altibase.com/display/arch/MSSQL+to+ALTIBASE+Conversion+Guide",
       "path": "altibase_docs_md/arch/Home/MSSQL to ALTIBASE Conversion Guide__22643024.md",
-      "body_chars": 29340,
-      "word_count": 3817
+      "body_chars": 31362,
+      "word_count": 5007
     },
     {
       "space_key": "arch",
@@ -3752,8 +3752,8 @@
       "title": "ORACLE to ALTIBASE Conversion Guide",
       "source_url": "https://docs.altibase.com/display/arch/ORACLE+to+ALTIBASE+Conversion+Guide",
       "path": "altibase_docs_md/arch/Home/ORACLE to ALTIBASE Conversion Guide__22643038.md",
-      "body_chars": 60717,
-      "word_count": 7673
+      "body_chars": 63259,
+      "word_count": 9953
     },
     {
       "space_key": "arch",
@@ -3839,11 +3839,11 @@
     {
       "space_key": "arch",
       "page_id": "14647628",
-      "title": "2. Altibase JDBC Driver Registeration",
+      "title": "2. Altibase JDBC Driver Registration",
       "source_url": "https://docs.altibase.com/display/arch/2.+Altibase+JDBC+Driver+Registeration",
       "path": "altibase_docs_md/arch/Home/SQuirrel SQL Client Quick Guide for Altibase/2. Altibase JDBC Driver Registeration__14647628.md",
-      "body_chars": 1130,
-      "word_count": 123
+      "body_chars": 1760,
+      "word_count": 175
     },
     {
       "space_key": "arch",
@@ -3851,8 +3851,8 @@
       "title": "3. Integration with Altibase",
       "source_url": "https://docs.altibase.com/display/arch/3.+Integration+with+Altibase",
       "path": "altibase_docs_md/arch/Home/SQuirrel SQL Client Quick Guide for Altibase/3. Integration with Altibase__14647630.md",
-      "body_chars": 1719,
-      "word_count": 175
+      "body_chars": 2614,
+      "word_count": 253
     },
     {
       "space_key": "arch",

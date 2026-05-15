@@ -124,15 +124,15 @@ $ is -f dbms_metadata.plb
 
 Match the Altibase client character set (environment variable ALTIBASE_NLS_USE) to the Altibase server character set.
 
-**Altibase 서버 캐릭터셋 확인**
+**Check the Altibase server character set**
 
 ```
 SELECT NLS_CHARACTERSET FROM V$NLS_PARAMETERS;
 ```
 
-서버 캐릭터셋이 UTF8 일 때:
+When the server character set is UTF8:
 
-**Altibase 클라이언트 캐릭터셋 설정**
+**Set the Altibase client character set**
 
 ```
 $ export ALTIBASE_NLS_USE=UTF8
@@ -144,13 +144,13 @@ To prevent errors caused by delimiter conflicts, remove the comments from `ILOAD
 
 ```
 $ vi $ALTIBASE_HOME/conf/aexport.properties
-...중략...
+... omitted ...
 #######################
 # iloader option
 #######################
 ILOADER_FIELD_TERM = ^C_c^
 ILOADER_ROW_TERM = ^R_r^%n
-...중략...
+... omitted ...
 ```
 
 ### 2.3 Run aexport
@@ -183,7 +183,7 @@ Write Password :                                                                
 ##### TABLE #####
 ** "ALTITEST"."ORDERS"
 ** "SYS"."CUSTOMERS"
-...중략...
+... omitted ...
 ##### JOB #####
 -------------------------------------------------------
   ##### The following script files were generated. #####
@@ -206,7 +206,7 @@ When aexport execution is complete, an SQL file for creating database objects, a
 
 ```
 $ ls -l
-합계 60
+total 60
 -rw-rw-rw- 1 eheejung eheejung  222 2025-08-26 18:45 ALL_ALT_TBL.sql
 -rw-rw-rw- 1 eheejung eheejung    0 2025-08-26 18:45 ALL_CRT_DIR.sql
 -rw-rw-rw- 1 eheejung eheejung    0 2025-08-26 18:45 ALL_CRT_FK.sql
@@ -268,8 +268,8 @@ Check the number of tables
 Verify that the number of `.fmt` files and `.dat` files matches the actual number of tables.
 
 ```
-$ ls -l *.fmt | wc -l               # .fmt 파일 수 확인
-$ ls -l *.dat | wc -l               # .dat 파일 수 확인
+$ ls -l *.fmt | wc -l               # Check the number of .fmt files.
+$ ls -l *.dat | wc -l               # Check the number of .dat files.
 ```
 
 Check for record extraction errors
@@ -332,7 +332,7 @@ SIZE 102400K;
 ALTER TABLESPACE "SYS_TBS_DISK_DATA"
 ALTER DATAFILE '/data/altibase_home/dbs/system001.dbf'                    # Modify the data file paths as needed.
 AUTOEXTEND ON NEXT 1024K MAXSIZE 2097144K;
-...중략...
+... omitted ...
 ```
 
 ### 4.5 Change Altibase connection address in scripts
@@ -381,7 +381,7 @@ $ time nohup sh run_il_in.sh > upload.out 2>&1 &
 
 ```
 $ vi run_il_in.sh
-iloader -s localhost -u ALTITEST -p ALTITEST in -f ALTITEST_ORDERS.fmt -d ALTITEST_ORDERS.dat -log ALTITEST_ORDERS.log -bad ALTITEST_ORDERS.bad -array 1000 -commit 100                # 성능 옵션 array, commit 추가
+iloader -s localhost -u ALTITEST -p ALTITEST in -f ALTITEST_ORDERS.fmt -d ALTITEST_ORDERS.dat -log ALTITEST_ORDERS.log -bad ALTITEST_ORDERS.bad -array 1000 -commit 100                # Add the performance options array and commit.
 iloader -s localhost -u SYS -p manager in -f SYS_CUSTOMERS.fmt -d SYS_CUSTOMERS.dat -log SYS_CUSTOMERS.log -bad SYS_CUSTOMERS.bad -array 1000 -commit 100
 iloader -s localhost -u SYS -p manager in -f SYS_DEPARTMENTS.fmt -d SYS_DEPARTMENTS.dat -log SYS_DEPARTMENTS.log -bad SYS_DEPARTMENTS.bad -array 1000 -commit 100
 iloader -s localhost -u SYS -p manager in -f SYS_D_DEPARTMENTS.fmt -d SYS_D_DEPARTMENTS.dat -log SYS_D_DEPARTMENTS.log -bad SYS_D_DEPARTMENTS.bad -array 1000 -commit 100

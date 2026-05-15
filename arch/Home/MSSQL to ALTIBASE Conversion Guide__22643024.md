@@ -41,7 +41,7 @@ In Altibase, schemas and users are not separated, so conversion must be done by 
 | Item | **SQL Server** | **Altibase** |
 | --- | --- | --- |
 | Feature | Schemas and users are separated (since SQL Server 2005) One user can access multiple schemas Permissions can be granted at the schema level | Schema = User Schemas cannot be created separately; objects must be created per USER |
-| 예시 | CREATE SCHEMA Sales AUTHORIZATION John; CREATE TABLE Sales.Customers (...); | CREATE USER Sales IDENTIFIED BY salespwd; CREATE TABLE Sales.Customers (...); |
+| Example | CREATE SCHEMA Sales AUTHORIZATION John; CREATE TABLE Sales.Customers (...); | CREATE USER Sales IDENTIFIED BY salespwd; CREATE TABLE Sales.Customers (...); |
 
 When migrating SQL Server schemas to Altibase, replace schemas with "Schema = User" as shown in the table below, and common schemas like dbo should be replaced by creating separate users.
 
@@ -97,7 +97,7 @@ This section explains how each DATATYPE in SQL Server tables is converted when m
 
 |  |  |  |  |
 | --- | --- | --- | --- |
-| **분류** | **SQL Server** | **Altibase** | **비고** |
+| **Category** | **SQL Server** | **Altibase** | **Remarks** |
 | Aggregate | AVG | AVG |  |
 | CHECKSUM_AGG | Not Supported |  |  |
 | COUNT | COUNT |  |  |
@@ -486,7 +486,7 @@ In Altibase, every statement must end with a `;` to indicate the end. In SQL Ser
 
 | SQL Server | Altibase |
 | --- | --- |
-| ```<br>IF @ID IS NOT NULL BEGIN<br>EXEC AddCustomer 'David', 'Seoul';<br>또는<br>EXEC AddCustomer @Name = 'David', @City = 'Seoul';<br>``` | ```<br>IF ID IS NOT NULL THEN<br>EXEC AddCustomer('David', 'Seoul');<br>``` |
+| ```<br>IF @ID IS NOT NULL BEGIN<br>EXEC AddCustomer 'David', 'Seoul';<br>or<br>EXEC AddCustomer @Name = 'David', @City = 'Seoul';<br>``` | ```<br>IF ID IS NOT NULL THEN<br>EXEC AddCustomer('David', 'Seoul');<br>``` |
 
 ### Functions
 
@@ -570,3 +570,5 @@ Refer to the [Error Message Reference](https://manual.altibase.com/7.3/en/ref/er
 | "ACCESS_DENIED" | 201236 | 31214 | qpERR_ABORT_QSX_DIRECTORY_ACCESS_DENIED |
 | "DELETE_FAILED" | 201240 | 31218 | qpERR_ABORT_QSX_FILE_DELETE_FAILED |
 | "RENAME_FAILED" | 201241 | 31219 | qpERR_ABORT_QSX_FILE_RENAME_FAILED |
+
+The Korean source lists the legacy document placeholder `ALTIBASE_MSSQL_Conversion_Guide.pdf` without a downloadable URL.
