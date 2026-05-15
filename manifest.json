@@ -2861,8 +2861,8 @@
       "title": "1. Overview of Docker",
       "source_url": "https://docs.altibase.com/display/arch/1.+Overview+of+Docker",
       "path": "altibase_docs_md/arch/Home/Altibase Docker Guide/1. Overview of Docker__14647745.md",
-      "body_chars": 2483,
-      "word_count": 258
+      "body_chars": 2999,
+      "word_count": 291
     },
     {
       "space_key": "arch",
@@ -2870,8 +2870,8 @@
       "title": "2. Docker Installation",
       "source_url": "https://docs.altibase.com/display/arch/2.+Docker+Installation",
       "path": "altibase_docs_md/arch/Home/Altibase Docker Guide/2. Docker Installation__14647748.md",
-      "body_chars": 1380,
-      "word_count": 143
+      "body_chars": 1978,
+      "word_count": 223
     },
     {
       "space_key": "arch",
@@ -2879,8 +2879,8 @@
       "title": "3. Altibase Docker Image",
       "source_url": "https://docs.altibase.com/display/arch/3.+Altibase+Docker+Image",
       "path": "altibase_docs_md/arch/Home/Altibase Docker Guide/3. Altibase Docker Image__14647754.md",
-      "body_chars": 11658,
-      "word_count": 1202
+      "body_chars": 11664,
+      "word_count": 1204
     },
     {
       "space_key": "arch",
@@ -2888,8 +2888,8 @@
       "title": "4. Creating Altibase Service Container",
       "source_url": "https://docs.altibase.com/display/arch/4.+Creating+Altibase+Service+Container",
       "path": "altibase_docs_md/arch/Home/Altibase Docker Guide/4. Creating Altibase Service Container__14647760.md",
-      "body_chars": 14845,
-      "word_count": 1488
+      "body_chars": 14832,
+      "word_count": 1481
     },
     {
       "space_key": "arch",
@@ -2906,8 +2906,8 @@
       "title": "Altibase Docker Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Docker+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Docker Guide__14647741.md",
-      "body_chars": 609,
-      "word_count": 71
+      "body_chars": 1526,
+      "word_count": 188
     },
     {
       "space_key": "arch",
@@ -2915,8 +2915,8 @@
       "title": "Altibase GeoServer Integration Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+GeoServer+Integration+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase GeoServer Integration Guide__22643004.md",
-      "body_chars": 12169,
-      "word_count": 1104
+      "body_chars": 12958,
+      "word_count": 1209
     },
     {
       "space_key": "arch",
@@ -3833,8 +3833,8 @@
       "title": "1. SQuirrel SQL Client Installation",
       "source_url": "https://docs.altibase.com/display/arch/1.+SQuirrel+SQL+Client+Installation",
       "path": "altibase_docs_md/arch/Home/SQuirrel SQL Client Quick Guide for Altibase/1. SQuirrel SQL Client Installation__14647626.md",
-      "body_chars": 669,
-      "word_count": 61
+      "body_chars": 1424,
+      "word_count": 121
     },
     {
       "space_key": "arch",
@@ -3842,8 +3842,8 @@
       "title": "2. Altibase JDBC Driver Registration",
       "source_url": "https://docs.altibase.com/display/arch/2.+Altibase+JDBC+Driver+Registeration",
       "path": "altibase_docs_md/arch/Home/SQuirrel SQL Client Quick Guide for Altibase/2. Altibase JDBC Driver Registeration__14647628.md",
-      "body_chars": 1760,
-      "word_count": 175
+      "body_chars": 1759,
+      "word_count": 174
     },
     {
       "space_key": "arch",
@@ -3860,8 +3860,8 @@
       "title": "SQuirrel SQL Client Quick Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/SQuirrel+SQL+Client+Quick+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/SQuirrel SQL Client Quick Guide for Altibase__14647622.md",
-      "body_chars": 573,
-      "word_count": 65
+      "body_chars": 1584,
+      "word_count": 192
     },
     {
       "space_key": "arch",
