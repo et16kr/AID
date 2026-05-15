@@ -2735,8 +2735,8 @@
       "title": "1. Routine Checklist",
       "source_url": "https://docs.altibase.com/display/arch/1.+Routine+Checklist",
       "path": "altibase_docs_md/arch/Home/Altibase CPU Overload Analysis Guide/1. Routine Checklist__14647587.md",
-      "body_chars": 4485,
-      "word_count": 558
+      "body_chars": 4281,
+      "word_count": 632
     },
     {
       "space_key": "arch",
@@ -2744,8 +2744,8 @@
       "title": "2. General Analysis Procedure",
       "source_url": "https://docs.altibase.com/display/arch/2.+General+Analysis+Procedure",
       "path": "altibase_docs_md/arch/Home/Altibase CPU Overload Analysis Guide/2. General Analysis Procedure__14647591.md",
-      "body_chars": 4210,
-      "word_count": 680
+      "body_chars": 4807,
+      "word_count": 668
     },
     {
       "space_key": "arch",
@@ -2753,8 +2753,8 @@
       "title": "3. CPU Cost of Query Processing",
       "source_url": "https://docs.altibase.com/display/arch/3.+CPU+Cost+of+Query+Processing",
       "path": "altibase_docs_md/arch/Home/Altibase CPU Overload Analysis Guide/3. CPU Cost of Query Processing__14647598.md",
-      "body_chars": 5481,
-      "word_count": 860
+      "body_chars": 5923,
+      "word_count": 855
     },
     {
       "space_key": "arch",
@@ -2762,8 +2762,8 @@
       "title": "4. CPU problems with other cases",
       "source_url": "https://docs.altibase.com/display/arch/4.+CPU+problems+with+other+cases",
       "path": "altibase_docs_md/arch/Home/Altibase CPU Overload Analysis Guide/4. CPU problems with other cases__14647606.md",
-      "body_chars": 6312,
-      "word_count": 811
+      "body_chars": 6250,
+      "word_count": 803
     },
     {
       "space_key": "arch",
@@ -2771,8 +2771,8 @@
       "title": "5. Summary",
       "source_url": "https://docs.altibase.com/display/arch/5.+Summary",
       "path": "altibase_docs_md/arch/Home/Altibase CPU Overload Analysis Guide/5. Summary__14647615.md",
-      "body_chars": 4116,
-      "word_count": 552
+      "body_chars": 3938,
+      "word_count": 521
     },
     {
       "space_key": "arch",
@@ -2780,8 +2780,8 @@
       "title": "Altibase CPU Overload Analysis Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+CPU+Overload+Analysis+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase CPU Overload Analysis Guide__14647581.md",
-      "body_chars": 2211,
-      "word_count": 266
+      "body_chars": 1883,
+      "word_count": 245
     },
     {
       "space_key": "arch",
@@ -2960,8 +2960,8 @@
       "title": "1. Routine Check of Memory Usage",
       "source_url": "https://docs.altibase.com/display/arch/1.+Routine+Check+of+Memory+Usage",
       "path": "altibase_docs_md/arch/Home/Altibase Memory Usage Increase Analysis Guide/1. Routine Check of Memory Usage__14647392.md",
-      "body_chars": 9418,
-      "word_count": 1213
+      "body_chars": 9211,
+      "word_count": 1313
     },
     {
       "space_key": "arch",
@@ -2969,8 +2969,8 @@
       "title": "2. Causes and resolution for increase of Altibase process memory usage",
       "source_url": "https://docs.altibase.com/display/arch/2.+Causes+and+resolution+for+increase+of+Altibase+process+memory+usage",
       "path": "altibase_docs_md/arch/Home/Altibase Memory Usage Increase Analysis Guide/2. Causes and resolution for increase of Altibase process memory usage__14647396.md",
-      "body_chars": 10363,
-      "word_count": 1586
+      "body_chars": 10110,
+      "word_count": 1538
     },
     {
       "space_key": "arch",
@@ -2978,8 +2978,8 @@
       "title": "Altibase Memory Usage Increase Analysis Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Memory+Usage+Increase+Analysis+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Memory Usage Increase Analysis Guide__14647388.md",
-      "body_chars": 1063,
-      "word_count": 124
+      "body_chars": 1857,
+      "word_count": 214
     },
     {
       "space_key": "arch",

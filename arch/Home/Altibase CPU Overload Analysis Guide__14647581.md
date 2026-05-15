@@ -33,9 +33,9 @@ The test environment of this document is as follows.
 - Altibase: Altibase version 6 or later
 - OS: Linux (2.6.32-504.el6.x86_64)
 
-For errors and improvements related to this document, please contact the technical support portal or technical support center
+For errors and improvements related to this document, contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
 - Technical support center: 02-2082-1114
 
 # Korean Source Attachments

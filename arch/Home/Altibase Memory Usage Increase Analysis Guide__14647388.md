@@ -18,13 +18,29 @@ Updated: 2020-08-18T16:12:03.000+0900
 
 ---
 
-Problems caused by an increase in the memory usage of the system are usually caused by an increase in data in the application program (user) and in the memory tablespace.
+Problems caused by increased system memory usage are usually caused by application programs (users) or by data growth in memory tablespaces.
 
-Database memory can increase due to queries used in the application program, which can lead to insufficient memory.
+Queries used by applications can load database memory and lead to insufficient available memory. When data is managed in memory tablespaces for high-performance Altibase processing, accumulated data can also increase storage space usage and lead to insufficient available memory.
 
-This document examines the parts of memory spaces occupied by Altibase and describes how to resolve it when memory is used abnormally.
+This document examines the memory areas occupied by Altibase and describes how to respond when Altibase uses memory abnormally.
 
-This document was written based on Altibase version 7.1 or later.
+It is recommended to refer to the following documents in advance.
+
+1. [Altibase Developer Guide](http://aid.altibase.com/x/2gRw)
+2. [Altibase SQL Tuning Guide](http://aid.altibase.com/x/owGr)
+3. [Altibase Monitoring Query Guide](http://aid.altibase.com/x/j4KZ)
+4. Altibase Memory Tablespace Management
+5. Altibase MVCC & GC
+
+The test environment of this document is as follows.
+
+- Altibase: Altibase version 7 or later
+- OS: Linux (2.6.32-504.el6.x86_64)
+
+For errors and improvements related to this document, contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
+- Technical support center: 02-2082-1114
 
 # Korean Source Attachments
 

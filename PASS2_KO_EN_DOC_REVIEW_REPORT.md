@@ -314,3 +314,53 @@ P205 audited the Korean Altibase monitoring queries guide against the English `a
 
 - External HTTP availability was not tested; P205 used grep-based source-link and attachment preservation checks.
 - Apparent source-level typos in the Korean guide, including `STAUS` in `RP01`, were preserved because the Korean source is authoritative for this pass.
+
+## P206 Tech audit: CPU and memory analysis
+
+### Scope
+
+P206 audited the Korean CPU overload and memory usage increase analysis guides against the English `arch` split guide targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English targets |
+| --- | --- |
+| `DOCK/Home/62. Altibase CPU 과부하 현상에 대한 분석가이드__11698396.md` | `arch/Home/Altibase CPU Overload Analysis Guide__14647581.md`; `arch/Home/Altibase CPU Overload Analysis Guide/**` |
+| `DOCK/Home/63. Altibase Memory 사용량 증가 분석가이드__11698518.md` | `arch/Home/Altibase Memory Usage Increase Analysis Guide__14647388.md`; `arch/Home/Altibase Memory Usage Increase Analysis Guide/**` |
+
+### Findings And Updates
+
+- Preserved the existing English split-page structure; this job changed documentation content only.
+- Corrected the CPU routine checklist so the Korean-source table order, `V$SYSSTAT` SQL, shell output block, and chronological sample history table are clear and searchable.
+- Clarified CPU analysis procedure details for transaction growth, newly added services, long-running query detection, `V$PLANTEXT`, optimizer statistics collection, data growth, and query-plan changes.
+- Corrected CPU query-processing and other-case explanations for PVO cost, repeated `PREPARE`, `V$SESSTAT`/`V$SESSION`, memory-table index behavior, Buffered I/O vs Direct I/O, `NLS_USE`, `Dedicated Thread`, `MULTIPLEXING_POLL_TIMEOUT`, `QUERY_PROF_FLAG`, `*.prof`, and `altiProfile`.
+- Corrected the CPU summary numbering and wording for data collection, old-version statistics collection, `select-poll`, repeated DB connections, and the OS utility reference.
+- Restored missing Korean-source memory overview details, including reference documents, `Altibase version 7 or later`, Linux test OS, support contact, and the Korean-source PDF attachment.
+- Corrected the memory routine page for OS memory/swap checks, Linux available-memory calculations, routine collection wording, `V$MEMSTAT`, and the `V$MEMSTAT` table. Removed the bogus exported `Internal Module | Description` row.
+- Corrected memory cause/resolution explanations for memory table compaction, restart behavior, query object close handling, similar SQL patterns, MVCC copy semantics, `LIMIT`, `V$MEMGC`, `ADD_OID_CNT`, `GC_OID_CNT`, and GC aging cleanup.
+
+### Attachment And Link Evidence
+
+- The CPU guide Korean-source PDF attachment URL is preserved in the English target set.
+- The memory guide Korean-source PDF attachment URL is preserved in the English target set.
+- Scoped grep found no residual Korean text in the scoped English target set and no empty links, Confluence macro error markers, malformed support links, or stale typo patterns checked for this job.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p206-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Scoped grep for residual Korean text, empty links, Confluence macro errors, malformed support links, and stale typo patterns | Passed, no matches |
+| Scoped attachment preservation script | Passed, 2 Korean source document-format URLs preserved |
+| Scoped fenced-code balance check | Passed for all 9 scoped English files |
+| Scoped table pipe-count check | Passed for edited CPU and memory routine tables |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 9 edited English pages |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P206 used grep-based source-link and attachment preservation checks.
+- The Korean CPU source has internally inconsistent optimizer-statistics version wording: one section names `6.1.1.6.1` or later, while the summary names `6.1.1` or earlier. The English guide preserves the scoped meanings in their respective sections.
+- The Korean memory routine checklist pairs a transaction-throughput row with a `v$memstat` SQL example. The English guide clarifies the row around the SQL example and `V$MEMSTAT` because the scoped page is the memory usage guide.
