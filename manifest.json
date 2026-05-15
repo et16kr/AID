@@ -3248,8 +3248,8 @@
       "title": "Altibase Oracle Conversion Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Oracle+Conversion+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Oracle Conversion Guide__14647316.md",
-      "body_chars": 1959,
-      "word_count": 211
+      "body_chars": 2397,
+      "word_count": 337
     },
     {
       "space_key": "arch",
@@ -3518,8 +3518,8 @@
       "title": "Disk Configuration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Disk+Configuration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Disk Configuration Guide for Altibase__14647508.md",
-      "body_chars": 1106,
-      "word_count": 153
+      "body_chars": 1568,
+      "word_count": 193
     },
     {
       "space_key": "arch",
@@ -3536,8 +3536,8 @@
       "title": "Hibernate Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Hibernate+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Hibernate Integration Guide for Altibase__14058388.md",
-      "body_chars": 45379,
-      "word_count": 4629
+      "body_chars": 45702,
+      "word_count": 4654
     },
     {
       "space_key": "arch",
@@ -3662,8 +3662,8 @@
       "title": "1. MyBatis Overview",
       "source_url": "https://docs.altibase.com/display/arch/1.+MyBatis+Overview",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/1. MyBatis Overview__14058351.md",
-      "body_chars": 2529,
-      "word_count": 349
+      "body_chars": 3111,
+      "word_count": 379
     },
     {
       "space_key": "arch",
@@ -3680,7 +3680,7 @@
       "title": "3. Sample Preparation using MyBatis",
       "source_url": "https://docs.altibase.com/display/arch/3.+Sample+Preparation+using+MyBatis",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/3. Sample Preparation using MyBatis__14058356.md",
-      "body_chars": 7851,
+      "body_chars": 7850,
       "word_count": 800
     },
     {

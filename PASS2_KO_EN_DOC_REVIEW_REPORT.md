@@ -1220,3 +1220,48 @@ P222 audited Korean FAQ categories `11. 유틸리티`, `12. 기타`, and `13. �
 
 - External HTTP availability was not tested; P222 used source-link preservation and grep-based checks.
 - The Korean source exports for the `dbx` and `gdb` examples are single-line, collapsed command/output blocks. P222 fenced them for readability but did not infer line breaks beyond the source export.
+
+## P223 Technical Attachment Source and Export Revalidation
+
+### Scope
+
+P223 revalidated technical-document attachments, external source links, empty Markdown links, legacy `#` attachment labels, `Error rendering macro`, `Unknown macro`, and known export artifacts across `arch/Home`. Korean technical documents under `DOCK/Home` remained authoritative and were not edited.
+
+### Findings And Updates
+
+- Rechecked 42 URL-backed Korean technical document-format links: 41 `docs.altibase.com/download/attachments` document links and 1 external GeoServer importer plug-in ZIP link.
+- Confirmed all 42 URL-backed links are preserved in `arch/Home`; missing count is 0.
+- Recorded 6 Korean-source legacy `#` attachment labels with no downloadable URL: `ALTIBASE_개발가이드.pdf`, `ALTIBASE_개발가이드_5.3.pdf`, `ALTIBASE_Oracle_변환_가이드.pdf`, `ORACLE_to_ALTIBASE_변환_가이드_5.5.pdf`, `APRE_New_Features_업그레이드_가이드.pdf`, and `ALTIBASE_MSSQL_변환가이드.pdf`.
+- Corrected two concatenated support-portal export artifacts in `arch/Home/Altibase Oracle Conversion Guide__14647316.md` and `arch/Home/Disk Configuration Guide for Altibase__14647508.md`.
+- Corrected malformed Hibernate and MyBatis source links in:
+  - `arch/Home/Hibernate Integration Guide for Altibase__14058388.md`
+  - `arch/Home/MyBatis Integration Guide for Altibase/1. MyBatis Overview__14058351.md`
+  - `arch/Home/MyBatis Integration Guide for Altibase/3. Sample Preparation using MyBatis__14058356.md`
+- Updated `manifest.json` metadata for all 5 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- `arch/Home` contains no empty Markdown links, `Error rendering macro`, `Unknown macro`, lowercase `unknown-macro` placeholder URLs, concatenated support links, or the corrected Hibernate/MyBatis malformed URL patterns after the P223 edits.
+- The six legacy `#` labels are recorded as non-downloadable source labels, not as missing URL-backed attachments.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p223-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK/Home -type f -name '*.md' \| wc -l` | 51 |
+| `find faq/Home -type f -name '*.md' \| wc -l` | 115 |
+| `find arch/Home -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE/Home -type f -name '*.md' \| wc -l` | 241 |
+| Technical document-format attachment preservation script | Passed, 42 URL-backed links preserved and 0 missing |
+| Legacy `#` technical attachment label inventory | Passed, 6 labels recorded separately |
+| `arch/Home` empty-link/export-artifact grep | Passed, no matches |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 5 edited English pages |
+| `bash -n .codex-jobs/ko-en-doc-coverage-pass2/run_all.sh` and `bash -n .codex-jobs/ko-en-doc-coverage-pass2/run-all.sh` | Passed |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P223 used source-link preservation and grep-based validation.
+- The six legacy `#` attachment labels remain non-downloadable because the Korean source does not provide URLs.
+- P223 corrected link/export artifacts only. It did not perform another sentence-level Korean-to-English semantic audit of the edited English pages.

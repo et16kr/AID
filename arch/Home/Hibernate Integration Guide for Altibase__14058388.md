@@ -95,7 +95,7 @@ The following is an example of creating a hibernate-mapping XML file that define
 - Use the <class> tag to specify the Java class, DBMS table, and <property> tag mappings of the table's columns and the corresponding Java variables.
 - Depending on the Hibernate version, the sequence object must define the param name as sequence_name or sequence.
 
-For more information about each tag, please refer to [http://www.hibernate.org.](http://www.hibernate.org.)
+For more information about each tag, please refer to [http://www.hibernate.org/](http://www.hibernate.org/).
 
 ### Creating hibernate-configuration file
 
@@ -136,7 +136,7 @@ The following is an example of a hibernate-configuration file.
 - **<mapping resource> tag**
   This specifies hibernate-mapping files.
 
-For more information about each tag, please refer to [http://www.hibernate.org.](http://www.hibernate.org.)
+For more information about each tag, please refer to [http://www.hibernate.org/](http://www.hibernate.org/).
 
 ### Writing Application
 
@@ -199,7 +199,7 @@ tx.commit();
   session.get()
   session.createCriteria()
 
-For more information about each tag, please refer to [http://www.hibernate.org.](http://www.hibernate.org.)
+For more information about each tag, please refer to [http://www.hibernate.org/](http://www.hibernate.org/).
 
 ## Integrating Altibase with Hibernate
 
