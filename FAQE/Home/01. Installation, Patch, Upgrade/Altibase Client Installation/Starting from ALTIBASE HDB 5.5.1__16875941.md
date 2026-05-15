@@ -37,7 +37,7 @@ Updated: 2021-04-02T10:43:41.000+0900
 ---
 
 - Upload the installation file to the server where you want to install the Altibase client.
-- As the OS user, you want to install and upload the installation package to a random path.
+- Log in as the OS user that will own the installation and upload the installation package to any path.
 
 # Change Altibase installation file execution permission
 
@@ -92,12 +92,12 @@ Updated: 2021-04-02T10:43:41.000+0900
 
   [1] Patch: patch package install
   [2] Full installation: full package install
-  Please choose an option [1] :                                 # Enter after entering 2 times
+  Please choose an option [1] :                                 # Enter 2, then press Enter.
 
   ----------------------------------------------------------------------------
   ALTIBASE HDB Property setting
 
-  ALTIBASE HDB connection port number (1024-65535)  [20300]:    # Enter the service port of the Altibase server. If it is the default, type enter.
+  ALTIBASE HDB connection port number (1024-65535)  [20300]:    # Enter the service port of the Altibase server. If using the default, press Enter.
 
   ----------------------------------------------------------------------------
   Setup is now ready to install ALTIBASE HDB Client 6.3.1.3.1.
@@ -130,6 +130,28 @@ Updated: 2021-04-02T10:43:41.000+0900
   Setup has finished installing the ALTIBASE HDB Client 6.3.1.3.1 on your client.
   $                                                              # Installation ended.
   ```
+- When installation completes normally, the following directories are created under the installation directory.
+
+  **Altibase client directory structure**
+
+  ```
+  $ ls -l
+  total 132
+  drwxr-xr-x 2 heejung.lee heejung.lee  4096 2015-03-09 10:22 APatch
+  -rwxr-xr-x 1 heejung.lee heejung.lee   230 2015-03-09 10:22 Uninstall ALTIBASE HDB Client 6.3.1.3.1.desktop
+  drwxr-xr-x 2 heejung.lee heejung.lee  4096 2015-03-09 10:22 admin
+  drwxr-xr-x 2 heejung.lee heejung.lee  4096 2015-03-09 10:22 audit
+  drwxr-xr-x 2 heejung.lee heejung.lee  4096 2015-03-09 10:22 bin
+  drwxr-xr-x 2 heejung.lee heejung.lee  4096 2015-03-09 10:22 conf
+  drwxr-xr-x 2 heejung.lee heejung.lee  4096 2015-03-09 10:22 include
+  drwxr-xr-x 2 heejung.lee heejung.lee  4096 2015-03-09 10:22 install
+  drwxr-xr-x 2 heejung.lee heejung.lee  4096 2015-03-09 10:22 lib
+  drwxr-xr-x 2 heejung.lee heejung.lee  4096 2015-03-09 10:22 msg
+  -rw-rw-rw- 1 heejung.lee heejung.lee 84573 2014-11-28 15:46 report.txt
+  drwxr-xr-x 9 heejung.lee heejung.lee  4096 2015-03-09 10:22 sample
+  drwxr-xr-x 2 heejung.lee heejung.lee  4096 2015-03-09 10:22 thirdparty
+  $
+  ```
 
 # Check OS user initialization file
 
@@ -149,7 +171,10 @@ Updated: 2021-04-02T10:43:41.000+0900
   export LD_LIBRARY_PATH=${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH}
   export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH}
   ```
-- The name of the OS user initialization file is different for each SHELL. .profile for Bourne shell(sh), korn shell(ksh) .bash_profile or .profile for the bash shell (bash) .Login or .cshrc for C shell(csh)
+- The OS user initialization file name differs by shell:
+  `Bourne shell(sh), Korn shell(ksh): .profile`
+  `bash shell(bash): .bash_profile` or `.profile`
+  `C shell(csh): .login` or `.cshrc`
 
 # Apply OS user initialization file
 
@@ -166,7 +191,7 @@ Updated: 2021-04-02T10:43:41.000+0900
   ```
   $ . ~/.profile
   ```
-- Check the value of the environment variable to see if it applies.
+- Check the environment variable value to confirm that it was applied.
 
   ```
   $ echo $ALTIBASE_HOME
@@ -180,7 +205,7 @@ Updated: 2021-04-02T10:43:41.000+0900
 - Altibase server connection test is performed by using iSQL
 
   ```
-  isql -u DBusername -p password -s IP -port serviceport
+  isql -u DB_user_name -p password -s IP -port service_port
   ```
 - Example
 

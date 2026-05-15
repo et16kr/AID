@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/User+password+length+limitation+-+Differences+by+version
 Updated: 2025-10-20T15:22:10.000+0900
 
-- [Overview](#Userpasswordlengthlimitation-Differencesbyversion-Overview) - [Version changed from no limit to 8 digits](#Userpasswordlengthlimitation-Differencesbyversion-Versionchangedfromnolimitto8digits) - [Password length changed from 8 digits to 16 digits](#Userpasswordlengthlimitation-Differencesbyversion-Passwordlengthchangedfrom8digitsto16digits) - [Password length changed from 16 digits to 40 digits](#Userpasswordlengthlimitation-Differencesbyversion-Passwordlengthchangedfrom16digitsto40digits)
+- [Overview](#Userpasswordlengthlimitation-Differencesbyversion-Overview) - [Version changed from no limit to 8 characters](#Userpasswordlengthlimitation-Differencesbyversion-Versionchangedfromnolimitto8characters) - [Password length changed from 8 characters to 16 characters](#Userpasswordlengthlimitation-Differencesbyversion-Passwordlengthchangedfrom8charactersto16characters) - [Password length changed from 16 characters to 40 characters](#Userpasswordlengthlimitation-Differencesbyversion-Passwordlengthchangedfrom16charactersto40characters)
 
 # Overview
 
@@ -22,11 +22,11 @@ Updated: 2025-10-20T15:22:10.000+0900
 
 This section summarizes the restrictions on the length of database user passwords that differ depending on the ALTIBASE HDB server version.
 
-## Version changed from no limit to 8 digits
+## Version changed from no limit to 8 characters
 
 ---
 
-There is no length limit when setting a user password, but in ALTIBASE HDB, only 8 digits of the entered password are cut and saved.
+There was no length limit when setting a user password, but internally ALTIBASE HDB stored only the first 8 characters of the entered password.
 
 This part was confusing to the users, so from the version below it has been changed to limit the password length to fit the actual structure.
 
@@ -41,11 +41,11 @@ This part was confusing to the users, so from the version below it has been chan
   Windows, Solaris(sparc, x86) : 11byte
   Other platforms: 8byte
 
-## Password length changed from 8 digits to 16 digits
+## Password length changed from 8 characters to 16 characters
 
 ---
 
-As the length of the password is limited to 8 digits, the length of the password has been doubled to reflect the opinion that the length is short.
+After the password length was limited to 8 characters, user feedback that the length was too short was reflected by doubling the password length to 16 characters.
 
 - **Applied versions**
   ALTIBASE HDB 4.3.9.221
@@ -58,7 +58,7 @@ As the length of the password is limited to 8 digits, the length of the password
   Windows, solaris(sparc, x86) : 22byte
   Other platforms: 16byte
 
-## Password length changed from 16 digits to 40 digits
+## Password length changed from 16 characters to 40 characters
 
 ---
 

@@ -28,7 +28,7 @@ The number of concurrent sessions can be limited by the Altibase server property
 
 ---
 
-All the ALTIBASE HDB versions
+All ALTIBASE HDB versions
 
 # Changing Procedure
 
@@ -37,7 +37,7 @@ All the ALTIBASE HDB versions
 1. Secure service downtime
 2. Shutdown ALTIBASE HDB server
 3. Change ALTIBASE server properties (refer to 'Considerations' below)
-4. Check OS user resources and change them if necessary (refer to' Considerations' below)
+4. Check OS user resources and change them if necessary (refer to 'Considerations' below)
 5. Startup ALTIBASE HDB server
 
 # Considerations
@@ -72,7 +72,7 @@ This property sets the maximum number of transactions that can be performed conc
 
 Since this property cannot be changed during operation, the ALTIBASE HDB server must be restarted if it needs to be changed.
 
-Transactions should be set to be larger than MAX_CLIENT because not only transactions performed by users, but also system transactions and replication transactions.
+Set `TRANSACTION_TABLE_SIZE` larger than `MAX_CLIENT` because transactions include not only user transactions, but also system transactions and replication transactions.
 
 #### How to check the current settings
 
@@ -124,17 +124,19 @@ Add the following command to the environment configuration file (.bash_profile o
 $ id                                                          # Log in as the OS user running the ALTIBASE HDB server
 uid=509(altibase) gid=512(altibase) groups=512(altibase)
 
-$ vi \~/.bash_profile                                         # Add configuration command to environment configuration file (Environment configuration file may be different depending on the shell.)
+$ vi ~/.bash_profile                                          # Add configuration command to environment configuration file (Environment configuration file may be different depending on the shell.)
 
-ulimit \-n unlimited
+ulimit -n unlimited
 
-$ . ~/.bash_profile                                           # Apply user preferences (after logout)
+$ . ~/.bash_profile                                           # Apply user environment settings.
 
 $ ulimit -Sn                                                  # Check the applied value
 unlimited
 ```
 
 ###### How the root user changes
+
+**Linux**
 
 ```
 Change the user's nofiles value in /etc/security/limits.conf file

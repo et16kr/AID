@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/pages/viewpage.action?pageId=16876013
 Updated: 2021-04-02T16:08:24.000+0900
 
-- [Overview](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Overview) - [Restriction](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Restriction) - [How to change](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Howtochange) - [Change (offline)](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Change(offline)) - [Change (ALTER SYSTEM)](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Change(ALTERSYSTEM)) - [Change procedures](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Changeprocedures) - [When data migration is required](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Whendatamigrationisrequired) - [When it is possible to change to offline](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Whenitispossibletochangetooffline) - [Maximum value](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Maximumvalue) - [TRANSACTION_TABLE and Memory usage](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-TRANSACTION_TABLEandMemoryusage) - [When TRANSACTION_TABLE_SIZE is exceeded](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-WhenTRANSACTION_TABLE_SIZEisexceeded) - [Performance View](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-PerformanceView) - [Error Messages](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-ErrorMessages) - [Reference](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Reference)
+- [Overview](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Overview) - [Restriction](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Restriction) - [How to change](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Howtochange) - [Change (offline)](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Change(offline)) - [Change (ALTER SYSTEM)](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Change(ALTERSYSTEM)) - [Change procedures](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Changeprocedures) - [When data migration is required](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Whendatamigrationisrequired) - [When it can be changed offline](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Whenitcanbechangedoffline) - [Maximum value](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Maximumvalue) - [TRANSACTION_TABLE_SIZE and memory usage](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-TRANSACTION_TABLE_SIZEandmemoryusage) - [When TRANSACTION_TABLE_SIZE is exceeded](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-WhenTRANSACTION_TABLE_SIZEisexceeded) - [Performance View](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-PerformanceView) - [Error Messages](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-ErrorMessages) - [Reference](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Reference)
 
 # Overview
 
@@ -53,7 +53,7 @@ Also, the change method differs depending on the ALTIBASE HDB version, so the re
 
 ### Change (offline)
 
-From the version specified below, it can be changed to offline. (Except for ALTIBASE HDB 4 version)
+Starting with the versions listed below, `TRANSACTION_TABLE_SIZE` can be changed offline. (ALTIBASE HDB 4 is excluded.)
 
 | ALTIBASE HDB server version | 4.3.9 | From 5.1.5.93 | From 5.3.3.48 | From 5.3.5.17 | From 5.5.1.1.0 |
 | --- | --- | --- | --- | --- | --- |
@@ -65,7 +65,7 @@ From the version specified below, it can be changed to offline. (Except for ALTI
 
 ### Change (ALTER SYSTEM)
 
-Alter success when changing to ALTER SYSTEM may appear to be changeable by falling off, but TRANSACTION_TABLE_SIZE cannot be changed while online.
+When changed with `ALTER SYSTEM`, the `Alter success.` message may make the property appear changeable, but `TRANSACTION_TABLE_SIZE` cannot be changed while Altibase is online.
 
 | ALTIBASE HDB server version | 4.3.9 | 5.1.5 | From 5.3.3.64 | From 5.3.5.26 | From 5.5.1.2.13 |
 | --- | --- | --- | --- | --- | --- |
@@ -94,10 +94,10 @@ BUG-31862 Improves the ability to change TRANSACTION_TABLE_SIZE without migratio
 3. Shutdown Altibase server
 4. Change TRANSACTION_TABLE_SIZE in altibase.properties
 5. Recreate database
-6. Upload data to the backup backed up in 2
+6. Load the data from the backup created in step 2
 7. Startup Altibase server
 
-### When it is possible to change to offline
+### When it can be changed offline
 
 1. Securing service downtime
 2. Altibase server shutdown
@@ -122,7 +122,7 @@ Depending on the ALTIBASE HDB server version, the maximum value for TRANSACTION_
 
 BUG-37851 The maximum value of the TRANSACTION_TABLE_SIZE value needs to be modified.
 
-# TRANSACTION_TABLE and Memory usage
+# TRANSACTION_TABLE_SIZE and memory usage
 
 ---
 

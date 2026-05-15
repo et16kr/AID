@@ -18,7 +18,7 @@ Updated: 2021-03-03T17:49:21.000+0900
 
 ---
 
-Up to version 5.3.3 or earlier, the DB must be manually created.
+In versions 5.3.3 and earlier, the DB must be created manually.
 
 The following types of tasks can be performed by executing the server command, and the DB can be created with the server create command.
 
@@ -34,7 +34,7 @@ When the first DB is created, the DB NAME is set to mydb, and DB_NAME can be cha
 
 #=================================================================
 
-**DB_NAME = mydb <-- change the DB name**
+**DB_NAME = mydb <-- change to the new DB name**
 
 MEM_DB_DIR = ?/dbs
 
@@ -42,7 +42,7 @@ MEM_DB_DIR = ?/dbs
 
 DEFAULT_DISK_DB_DIR = ?/dbs
 
-When performing server craete after changing DB_NAME, the following error occurs.
+When running `server create` after changing `DB_NAME`, the following error occurs.
 
 **$server create MS949 UTF8**
 
@@ -54,6 +54,8 @@ When performing server craete after changing DB_NAME, the following error occurs
 
 This occurs because the DB name is mydb in the $ALTIBASE_HOME/bin/server script file.
 
-**'create')** **if [ $# = 3 ]; then** **rm -f live-altibase.txt;** **${ISQL} << EOF > /dev/null** **spool live-altibase.txt;** **EOF** **if [ -f live-altibase.txt ]; then** **echo " server is running !!!! \n "** **echo " you must shutdown first before server create "** **rm -f live-altibase.txt;** **else** **${ADMIN} << EOF** **startup process;** **create database mydb INITSIZE=10M noarchivelog character set $2 national character set $3;** **quit** **EOF**
+```
+'create') if [ $# = 3 ]; then rm -f live-altibase.txt; ${ISQL} << EOF > /dev/null spool live-altibase.txt; EOF if [ -f live-altibase.txt ]; then echo " server is running !!!! \n " echo " you must shutdown first before server create " rm -f live-altibase.txt; else ${ADMIN} << EOF startup process; create database mydb INITSIZE=10M noarchivelog character set $2 national character set $3; quit EOF
+```
 
-Create the DB after making the same change as DB_NAME changed in altibase.properties.
+Create the DB after changing this script value to the same `DB_NAME` that was set in `altibase.properties`.

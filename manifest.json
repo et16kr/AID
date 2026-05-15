@@ -485,8 +485,8 @@
       "title": "Starting from ALTIBASE HDB 5.5.1",
       "source_url": "https://docs.altibase.com/display/FAQE/Starting+from+ALTIBASE+HDB+5.5.1",
       "path": "altibase_docs_md/FAQE/Home/01. Installation, Patch, Upgrade/Altibase Client Installation/Starting from ALTIBASE HDB 5.5.1__16875941.md",
-      "body_chars": 6930,
-      "word_count": 696
+      "body_chars": 8060,
+      "word_count": 821
     },
     {
       "space_key": "FAQE",
@@ -494,8 +494,8 @@
       "title": "Altibase Server Patch Procedure on Unix and Linux",
       "source_url": "https://docs.altibase.com/display/FAQE/Altibase+Server+Patch+Procedure+on+Unix+and+Linux",
       "path": "altibase_docs_md/FAQE/Home/01. Installation, Patch, Upgrade/Altibase Server Patch Procedure on Unix and Linux__16875922.md",
-      "body_chars": 9973,
-      "word_count": 1313
+      "body_chars": 13054,
+      "word_count": 1677
     },
     {
       "space_key": "FAQE",
@@ -512,8 +512,8 @@
       "title": "What to do when installing Altibase on Windows, and it says \"It has already been installed\"",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16875943",
       "path": "altibase_docs_md/FAQE/Home/01. Installation, Patch, Upgrade/What to do when installing Altibase on Windows, and it says _It has already been installed__16875943.md",
-      "body_chars": 1073,
-      "word_count": 144
+      "body_chars": 1668,
+      "word_count": 202
     },
     {
       "space_key": "FAQE",
@@ -521,8 +521,8 @@
       "title": "Altibase Server Configuration for IPC Communication",
       "source_url": "https://docs.altibase.com/display/FAQE/Altibase+Server+Configuration+for+IPC+Communication",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Altibase Server Configuration for IPC Communication__22642933.md",
-      "body_chars": 6219,
-      "word_count": 753
+      "body_chars": 6232,
+      "word_count": 755
     },
     {
       "space_key": "FAQE",
@@ -557,8 +557,8 @@
       "title": "Database Security Checklist",
       "source_url": "https://docs.altibase.com/display/FAQE/Database+Security+Checklist",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Database Security Checklist__22642935.md",
-      "body_chars": 24448,
-      "word_count": 3062
+      "body_chars": 24810,
+      "word_count": 3111
     },
     {
       "space_key": "FAQE",
@@ -575,8 +575,8 @@
       "title": "How to change sys user password",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+change+sys+user+password",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to change sys user password__16876004.md",
-      "body_chars": 3683,
-      "word_count": 470
+      "body_chars": 3743,
+      "word_count": 472
     },
     {
       "space_key": "FAQE",
@@ -584,8 +584,8 @@
       "title": "How to change the database's db name",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+change+the+database%27s+db+name",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to change the database's db name__16875966.md",
-      "body_chars": 6102,
-      "word_count": 686
+      "body_chars": 6085,
+      "word_count": 682
     },
     {
       "space_key": "FAQE",
@@ -635,11 +635,11 @@
     {
       "space_key": "FAQE",
       "page_id": "16875986",
-      "title": "How to forcefully close a session that is being locked",
+      "title": "How to forcefully close a session that holds a lock",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+forcefully+close+a+session+that+is+being+locked",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to forcefully close a session that is being locked__16875986.md",
-      "body_chars": 1249,
-      "word_count": 207
+      "body_chars": 2095,
+      "word_count": 243
     },
     {
       "space_key": "FAQE",
@@ -656,8 +656,8 @@
       "title": "How to resolve when LOCK TIMEOUT occurs",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+resolve+when+LOCK+TIMEOUT+occurs",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to resolve when LOCK TIMEOUT occurs__16875984.md",
-      "body_chars": 3181,
-      "word_count": 466
+      "body_chars": 3956,
+      "word_count": 499
     },
     {
       "space_key": "FAQE",
@@ -665,8 +665,8 @@
       "title": "How to start and stop the database",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+start+and+stop+the+database",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to start and stop the database__22642937.md",
-      "body_chars": 11324,
-      "word_count": 1213
+      "body_chars": 13808,
+      "word_count": 1591
     },
     {
       "space_key": "FAQE",
@@ -701,8 +701,8 @@
       "title": "Notes/Considerations when changing TRANSACTION_TABLE_SIZE",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876013",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Notes_Considerations when changing TRANSACTION_TABLE_SIZE__16876013.md",
-      "body_chars": 10977,
-      "word_count": 1571
+      "body_chars": 11021,
+      "word_count": 1569
     },
     {
       "space_key": "FAQE",
@@ -710,8 +710,8 @@
       "title": "Notes/Considerations when increasing the number of concurrent connection sessions (MAX_CLIENT)",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876028",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Notes_Considerations when increasing the number of concurrent connection sessions (MAX_CLIENT)__16876028.md",
-      "body_chars": 7594,
-      "word_count": 865
+      "body_chars": 7600,
+      "word_count": 860
     },
     {
       "space_key": "FAQE",
@@ -728,8 +728,8 @@
       "title": "User password length limitation - Differences by version",
       "source_url": "https://docs.altibase.com/display/FAQE/User+password+length+limitation+-+Differences+by+version",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/User password length limitation - Differences by version__22642941.md",
-      "body_chars": 3623,
-      "word_count": 489
+      "body_chars": 3710,
+      "word_count": 487
     },
     {
       "space_key": "FAQE",
@@ -755,8 +755,8 @@
       "title": "When server create errors occur after DB name change",
       "source_url": "https://docs.altibase.com/display/FAQE/When+server+create+errors+occur+after+DB+name+change",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/When server create errors occur after DB name change__16875972.md",
-      "body_chars": 1685,
-      "word_count": 219
+      "body_chars": 2294,
+      "word_count": 301
     },
     {
       "space_key": "FAQE",

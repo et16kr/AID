@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/Altibase+Server+Patch+Procedure+on+Unix+and+Linux
 Updated: 2021-04-02T10:40:42.000+0900
 
-- [Overview](#AltibaseServerPatchProcedureonUnixandLinux-Overview) - [Preparation before patching](#AltibaseServerPatchProcedureonUnixandLinux-Preparationbeforepatching) - [Patch Procedure](#AltibaseServerPatchProcedureonUnixandLinux-PatchProcedure) - [1. Check the current version](#AltibaseServerPatchProcedureonUnixandLinux-1.Checkthecurrentversion) - [2. Shutdown Altibase Server **](#AltibaseServerPatchProcedureonUnixandLinux-2.ShutdownAltibaseServer**2ndstepforpatch) - [3. Backup existing installation files](#AltibaseServerPatchProcedureonUnixandLinux-3.Backupexistinginstallationfiles3rdstepforpatch) - [4. Upload patch package and change permissions](#AltibaseServerPatchProcedureonUnixandLinux-4.Uploadpatchpackageandchangepermissions) - [ALTIBASE HDB server version 5.5.1 or later (all versions since 5.5.1, 6.1.1, 6.3.1, and 6.3.1)](#AltibaseServerPatchProcedureonUnixandLinux-ALTIBASEHDBserverversion5.5.1orlater(allversionssince5.5.1,6.1.1,6.3.1,and6.3.1)) - [ALTIBASE HDB server version 5.5.1 or earlier (all versions below 5.3.3 such as 4.3.9, 5.3.3, etc.)](#AltibaseServerPatchProcedureonUnixandLinux-ALTIBASEHDBserverversion5.5.1orearlier(allversionsbelow5.3.3suchas4.3.9,5.3.3,etc.)) - [5. Perform the patch](#AltibaseServerPatchProcedureonUnixandLinux-5.Performthepatch) - [ALTIBASE HDB server version 5.5.1 or later (all versions since 5.5.1, 6.1.1, 6.3.1, and 6.3.1)](#AltibaseServerPatchProcedureonUnixandLinux-ALTIBASEHDBserverversion5.5.1orlater(allversionssince5.5.1,6.1.1,6.3.1,and6.3.1).1) - [ALTIBASE HDB server version 5.5.1 or earlier (all versions below 5.3.3 such as 4.3.9, 5.3.3, etc.)](#AltibaseServerPatchProcedureonUnixandLinux-ALTIBASEHDBserverversion5.5.1orearlier(allversionsbelow5.3.3suchas4.3.9,5.3.3,etc.).1) - [6. Check the patch version](#AltibaseServerPatchProcedureonUnixandLinux-6.Checkthepatchversion) - [7. Copy necessary files from the backup file](#AltibaseServerPatchProcedureonUnixandLinux-7.Copynecessaryfilesfromthebackupfile) - [8. STARTUP ALTIBASE HDB Server **](#AltibaseServerPatchProcedureonUnixandLinux-8.STARTUPALTIBASEHDBServer**8thstepforpatch) - [Precautions](#AltibaseServerPatchProcedureonUnixandLinux-Precautions) - [Check meta version before/after patch](#AltibaseServerPatchProcedureonUnixandLinux-Checkmetaversionbefore/afterpatch) - [When patching from ALTIBASE HDB 4.3.9.1 ~ 4.3.9.50 to 4.3.9.51 ~**](#AltibaseServerPatchProcedureonUnixandLinux-WhenpatchingfromALTIBASEHDB4.3.9.1~4.3.9.50to4.3.9.51~**)
+- [Overview](#AltibaseServerPatchProcedureonUnixandLinux-Overview) - [Preparation before patching](#AltibaseServerPatchProcedureonUnixandLinux-Preparationbeforepatching) - [Patch Procedure](#AltibaseServerPatchProcedureonUnixandLinux-PatchProcedure) - [1. Check the current version](#AltibaseServerPatchProcedureonUnixandLinux-1.Checkthecurrentversion) - [2. Shutdown Altibase Server **](#AltibaseServerPatchProcedureonUnixandLinux-2.ShutdownAltibaseServer**2ndstepforpatch) - [3. Backup existing installation files](#AltibaseServerPatchProcedureonUnixandLinux-3.Backupexistinginstallationfiles3rdstepforpatch) - [4. Upload patch package and change permissions](#AltibaseServerPatchProcedureonUnixandLinux-4.Uploadpatchpackageandchangepermissions) - [ALTIBASE HDB server version 5.5.1 or later (5.5.1, 6.1.1, 6.3.1, and all versions after 6.3.1)](#AltibaseServerPatchProcedureonUnixandLinux-ALTIBASEHDBserverversion5.5.1orlater(allversionssince5.5.1,6.1.1,6.3.1,and6.3.1)) - [ALTIBASE HDB server versions earlier than 5.5.1 (4.3.9, 5.3.3, and all versions through 5.3.3)](#AltibaseServerPatchProcedureonUnixandLinux-ALTIBASEHDBserverversion5.5.1orearlier(allversionsbelow5.3.3suchas4.3.9,5.3.3,etc.)) - [5. Perform the patch](#AltibaseServerPatchProcedureonUnixandLinux-5.Performthepatch) - [ALTIBASE HDB server version 5.5.1 or later (5.5.1, 6.1.1, 6.3.1, and all versions after 6.3.1)](#AltibaseServerPatchProcedureonUnixandLinux-ALTIBASEHDBserverversion5.5.1orlater(allversionssince5.5.1,6.1.1,6.3.1,and6.3.1).1) - [ALTIBASE HDB server versions earlier than 5.5.1 (4.3.9, 5.3.3, and all versions through 5.3.3)](#AltibaseServerPatchProcedureonUnixandLinux-ALTIBASEHDBserverversion5.5.1orearlier(allversionsbelow5.3.3suchas4.3.9,5.3.3,etc.).1) - [6. Check the patch version](#AltibaseServerPatchProcedureonUnixandLinux-6.Checkthepatchversion) - [7. Copy necessary files from the backup file](#AltibaseServerPatchProcedureonUnixandLinux-7.Copynecessaryfilesfromthebackupfile) - [8. STARTUP ALTIBASE HDB Server **](#AltibaseServerPatchProcedureonUnixandLinux-8.STARTUPALTIBASEHDBServer**8thstepforpatch) - [Precautions](#AltibaseServerPatchProcedureonUnixandLinux-Precautions) - [Check meta version before/after patch](#AltibaseServerPatchProcedureonUnixandLinux-Checkmetaversionbefore/afterpatch) - [When patching from ALTIBASE HDB 4.3.9.1 ~ 4.3.9.50 to 4.3.9.51 ~**](#AltibaseServerPatchProcedureonUnixandLinux-WhenpatchingfromALTIBASEHDB4.3.9.1~4.3.9.50to4.3.9.51~**)
 
 # Overview
 
@@ -23,7 +23,7 @@ Updated: 2021-04-02T10:40:42.000+0900
 - Patching means **minor version changes**.
   Altibase server version consists of 4 or 5 digits.
   The first three digits refer to the major version and the last one or two digits refer to the minor version.
-  Changing the last three digits without changing the first three digits is called a 'patch', and changing the first three digits is called 'upgrade'.
+  Changing only the last one or two digits without changing the first three digits is called a 'patch', and changing the first three digits is called an 'upgrade'.
 - This page describes the procedure for patching Altibase servers in Unix and Linux environments.
 - Since the Altibase server patch must be performed after the Altibase server is shut down, service downtime is required.
 - Therefore, the user must secure downtime before patching.
@@ -101,7 +101,7 @@ Check the following before proceeding.
 
 ---
 
-### ALTIBASE HDB server version 5.5.1 or later (all versions since 5.5.1, 6.1.1, 6.3.1, and 6.3.1)
+### ALTIBASE HDB server version 5.5.1 or later (5.5.1, 6.1.1, 6.3.1, and all versions after 6.3.1)
 
 - Log in as the ALTIBASE HDB server installation user.
 - Upload the patch package to a random path.
@@ -114,7 +114,7 @@ Check the following before proceeding.
   $ chmod +x altibase-HDB-server-6.1.1.3.8-LINUX-X86-64bit-release.run
   ```
 
-### ALTIBASE HDB server version 5.5.1 or earlier (all versions below 5.3.3 such as 4.3.9, 5.3.3, etc.)
+### ALTIBASE HDB server versions earlier than 5.5.1 (4.3.9, 5.3.3, and all versions through 5.3.3)
 
 - Log in as the ALTIBASE HDB server installation user.
 - Upload the patch package under the $ALTIBASE_HOME directory.
@@ -128,7 +128,7 @@ Check the following before proceeding.
 
 ---
 
-### ALTIBASE HDB server version 5.5.1 or later (all versions since 5.5.1, 6.1.1, 6.3.1, and 6.3.1)
+### ALTIBASE HDB server version 5.5.1 or later (5.5.1, 6.1.1, 6.3.1, and all versions after 6.3.1)
 
 - After executing the executable file as shown below, the subsequent operation proceeds according to the message.
 
@@ -136,7 +136,7 @@ Check the following before proceeding.
   $ ./altibase-HDB-server-6.1.1.3.8-LINUX-X86-64bit-release.run
   ```
 
-### ALTIBASE HDB server version 5.5.1 or earlier (all versions below 5.3.3 such as 4.3.9, 5.3.3, etc.)
+### ALTIBASE HDB server versions earlier than 5.5.1 (4.3.9, 5.3.3, and all versions through 5.3.3)
 
 - Move to the $ALTIBASE_HOME directory and extract the files as follows.
 
@@ -162,7 +162,7 @@ Check the following before proceeding.
 
 ---
 
-- If the default password (manager) of the sys user is changed, the $ATLIBASE_HOME/bin/server, is, il scripts would have changed.
+- If the default password (`manager`) of the `sys` user is changed, the `$ALTIBASE_HOME/bin/server`, `is`, and `il` scripts would have changed.
 - In this case, copy server, is, and il from the bin directory of the backup directory to $ALTIBASE_HOME/bin.
 
   ```
@@ -226,10 +226,10 @@ If the following conditions are satisfied, the replication will not work after p
   $ cd $ALTIBASE_HOME/conf
   $ vi altibase.properties               # Changed PORT_NO in altibase.properties.
   ```
-4. Startup the Altibase server (Refer to step 3 of the patch procedure)
-5. Check the replication gap** Must make sure it is 0.
+4. Startup the Altibase server (Refer to step 8 of the patch procedure)
+5. Check the replication gap. Make sure it is 0.
 
-  **How to check replication cap**
+  **How to check replication gap**
 
   ```
   iSQL> SELECT REP_GAP FROM V$REPGAP;
@@ -245,7 +245,7 @@ If the following conditions are satisfied, the replication will not work after p
   -- Check the replication object name
   iSQL> SELECT REPLICATION_NAME FROM SYSTEM_.SYS_REPLICATIONS_;
 
-  -- Stop the replicaiton
+  -- Stop the replication
   iSQL> ALTER REPLICATION replication_name STOP;
 
   -- Drop replication object
@@ -257,7 +257,7 @@ If the following conditions are satisfied, the replication will not work after p
   iSQL> ALTER SYSTEM CHECKPOINT;                   -- Repeat 4 times
   ```
 9. Shutdown the Altibase server (Refer to step 2 of the patch procedure)
-10. Perform the patch (Refer to step 2 to step 7 of the patch procedure)
+10. Perform the patch (Refer to steps 3 through 7 of the patch procedure)
 11. Add CHECK_LOGFILE property**
 
   ```
@@ -269,7 +269,7 @@ If the following conditions are satisfied, the replication will not work after p
 
   ```
   $ cd $ALTIBASE_HOME/conf
-  $ vi altibase.properties               # CHECK_LOGFILE added to the last line of altibase.properties file = 0 Delete and save.
+  $ vi altibase.properties               # Delete the CHECK_LOGFILE = 0 line added to the end of altibase.properties, then save.
   ```
 14. Insert data after creating temporary table This is to use up the log files created in the previous version and create a new log file.
 
@@ -286,10 +286,10 @@ If the following conditions are satisfied, the replication will not work after p
   ```
 
   ```
-  iSQL> SELECT CUR_WRITE_LF_NO FROM V$LFG; - Check the result (number).
-  iSQL> EXEC IMSI_PROC; - Perform an insert on a temporary table.
-  iSQL> SELECT CUR_WRITE_LF_NO FROM V$LFG; - If it is greater than the result checked above, it is completed. If it is not different from the result checked above, re-execute the IMSI_PROC procedure.
-  iSQL> DROP PROCEDURE IMSI_PROC; - Drop temporary tables and procedures.
+  iSQL> SELECT CUR_WRITE_LF_NO FROM V$LFG;          -- Check the result (number).
+  iSQL> EXEC IMSI_PROC;                             -- Perform insert on the temporary table.
+  iSQL> SELECT CUR_WRITE_LF_NO FROM V$LFG;          -- If this value is greater than the value checked above, the step is complete. If it has not changed, run IMSI_PROC again.
+  iSQL> DROP PROCEDURE IMSI_PROC;                   -- Drop the temporary table and procedure.
   iSQL> DROP TABLE IMSI_T;
   ```
 15. Perform the checkpoint
@@ -305,12 +305,13 @@ If the following conditions are satisfied, the replication will not work after p
 17. Start replication
 
   ```
-  - Check the replicaiton object name
+  -- Check the replication object name
   iSQL> SELECT REPLICATION_NAME FROM SYSTEM_.SYS_REPLICATIONS_;
-  - Stop the replication
+
+  -- Start replication
   iSQL> ALTER REPLICATION replication_name START;
   ```
-18. Shutdown Altibase server (Refer to step 2 of the patch procedure) Change the temporarily changed service port to the original.
+18. Shutdown Altibase server (Refer to step 2 of the patch procedure).
 19. Change the service port Change the temporarily changed service port to the original.
 
   ```

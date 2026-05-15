@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/Database+Security+Checklist
 Updated: 2025-10-20T15:18:17.000+0900
 
-- [Overview](#DatabaseSecurityChecklist-Overview) - [Account Manager](#DatabaseSecurityChecklist-AccountManager) - [List of accounts (User account management to block unauthorized access)](#DatabaseSecurityChecklist-Listofaccounts(Useraccountmanagementtoblockunauthorizedaccess)) - [Using weak password (change default account and password)](#DatabaseSecurityChecklist-Usingweakpassword(changedefaultaccountandpassword)) - [Privileges Management](#DatabaseSecurityChecklist-PrivilegesManagement) - [DBA Privilege Management (System Privilege Restriction)](#DatabaseSecurityChecklist-DBAPrivilegeManagement(SystemPrivilegeRestriction)) - [Using WITH GRANT OPTION](#DatabaseSecurityChecklist-UsingWITHGRANTOPTION) - [Checking Environment Files](#DatabaseSecurityChecklist-CheckingEnvironmentFiles) - [il, is, server file permission setting](#DatabaseSecurityChecklist-il,is,serverfilepermissionsetting) - [Altibase.properties file permission setting](#DatabaseSecurityChecklist-Altibase.propertiesfilepermissionsetting) - [Log Anchor, Logfile, Datafile access privilege setting](#DatabaseSecurityChecklist-LogAnchor,Logfile,Datafileaccessprivilegesetting) - [Setting TRC file permissions](#DatabaseSecurityChecklist-SettingTRCfilepermissions) - [Checking iSQL command shell history](#DatabaseSecurityChecklist-CheckingiSQLcommandshellhistory) - [DBMS Security Settings](#DatabaseSecurityChecklist-DBMSSecuritySettings) - [Using Public Synonym](#DatabaseSecurityChecklist-UsingPublicSynonym) - [Account lockout policy settings such as lockout time according to the number of login failure](#DatabaseSecurityChecklist-Accountlockoutpolicysettingssuchaslockouttimeaccordingtothenumberofloginfailure) - [Password complexity setting](#DatabaseSecurityChecklist-Passwordcomplexitysetting) - [Periodic change of password](#DatabaseSecurityChecklist-Periodicchangeofpassword) - [Changing the ALTIBASE HDB default service port](#DatabaseSecurityChecklist-ChangingtheALTIBASEHDBdefaultserviceport) - [Session IDLE_TIMEOUT settings](#DatabaseSecurityChecklist-SessionIDLE_TIMEOUTsettings) - [Basic auditing (user sentences, privileges, objects, etc.)](#DatabaseSecurityChecklist-Basicauditing(usersentences,privileges,objects,etc.)) - [Restriction of remote access to DB server](#DatabaseSecurityChecklist-RestrictionofremoteaccesstoDBserver) - [Setting SYSDBA login restrictions](#DatabaseSecurityChecklist-SettingSYSDBAloginrestrictions) - [Security Patch](#DatabaseSecurityChecklist-SecurityPatch) - [Applying security patch](#DatabaseSecurityChecklist-Applyingsecuritypatch)
+- [Overview](#DatabaseSecurityChecklist-Overview) - [Account Management](#DatabaseSecurityChecklist-AccountManagement) - [List of accounts (User account management to block unauthorized access)](#DatabaseSecurityChecklist-Listofaccounts(Useraccountmanagementtoblockunauthorizedaccess)) - [Using weak password (change default account and password)](#DatabaseSecurityChecklist-Usingweakpassword(changedefaultaccountandpassword)) - [Privileges Management](#DatabaseSecurityChecklist-PrivilegesManagement) - [DBA Privilege Management (System Privilege Restriction)](#DatabaseSecurityChecklist-DBAPrivilegeManagement(SystemPrivilegeRestriction)) - [Using WITH GRANT OPTION](#DatabaseSecurityChecklist-UsingWITHGRANTOPTION) - [Checking Environment Files](#DatabaseSecurityChecklist-CheckingEnvironmentFiles) - [il, is, server file permission setting](#DatabaseSecurityChecklist-il,is,serverfilepermissionsetting) - [Altibase.properties file permission setting](#DatabaseSecurityChecklist-Altibase.propertiesfilepermissionsetting) - [Log Anchor, Log File, Data File access privilege setting](#DatabaseSecurityChecklist-LogAnchor,LogFile,DataFileaccessprivilegesetting) - [Setting TRC file permissions](#DatabaseSecurityChecklist-SettingTRCfilepermissions) - [Checking iSQL command shell history](#DatabaseSecurityChecklist-CheckingiSQLcommandshellhistory) - [DBMS Security Settings](#DatabaseSecurityChecklist-DBMSSecuritySettings) - [Using Public Synonym](#DatabaseSecurityChecklist-UsingPublicSynonym) - [Account lockout policy settings such as lockout time according to the number of login failures](#DatabaseSecurityChecklist-Accountlockoutpolicysettingssuchaslockouttimeaccordingtothenumberofloginfailures) - [Password complexity setting](#DatabaseSecurityChecklist-Passwordcomplexitysetting) - [Periodic change of password](#DatabaseSecurityChecklist-Periodicchangeofpassword) - [Changing the ALTIBASE HDB default service port](#DatabaseSecurityChecklist-ChangingtheALTIBASEHDBdefaultserviceport) - [Session IDLE_TIMEOUT settings](#DatabaseSecurityChecklist-SessionIDLE_TIMEOUTsettings) - [Basic auditing (user statements, privileges, objects, etc.)](#DatabaseSecurityChecklist-Basicauditing(userstatements,privileges,objects,etc.)) - [Restriction of remote access to DB server](#DatabaseSecurityChecklist-RestrictionofremoteaccesstoDBserver) - [Setting SYSDBA login restrictions](#DatabaseSecurityChecklist-SettingSYSDBAloginrestrictions) - [Security Patch](#DatabaseSecurityChecklist-SecurityPatch) - [Applying security patch](#DatabaseSecurityChecklist-Applyingsecuritypatch)
 
 # Overview
 
@@ -22,7 +22,7 @@ Updated: 2025-10-20T15:18:17.000+0900
 
 This is a guide on database security inspection and remediation methods.
 
-# Account Manager
+# Account Management
 
 ---
 
@@ -60,16 +60,16 @@ The SYS, SYSTEM_, and PUBLIC accounts are default accounts created during the Al
 
 #### How to check
 
-The default password for the user is created when ALTIBASE HDB is installed is as follows.
+The default password for the user created when ALTIBASE HDB is installed is as follows.
 
 | USER | PASSWORD |
 | --- | --- |
-| SYS | MANAGER |
+| sys | manager |
 
 Connect to the database and check whether to use the default password.
 
 ```
-iSQL> CONNECT SYS/MANAGER;
+iSQL> CONNECT sys/manager;
 Connect success.
 ```
 
@@ -80,13 +80,13 @@ If access is possible with the default password, change the password of the user
 **Example of changing password**
 
 ```
-iSQL> ALTER USER user1 IDENTIFIED BY password1234$;
+iSQL> ALTER USER sys IDENTIFIED BY password1234$;
 Alter success.
 
 Run altipasswd under the $ALTIBASE_HOME/conf directory to change the password.
 ```
 
-To know how to change the SYS user password, refer to the "[How to change the sys user password](https://aid.altibase.com/display/FAQE/How+to+change+sys+user+password)' page.
+For how to change the SYS user password, refer to [How to change sys user password](https://aid.altibase.com/display/FAQE/How+to+change+sys+user+password).
 
 # Privileges Management
 
@@ -245,13 +245,13 @@ Set the altibase.properties file permission to 600 or 640.
 $ chmod 600 $ALTIBASE_HOME/conf/altibase.properties
 ```
 
-## Log Anchor, Logfile, Datafile access privilege setting
+## Log Anchor, Log File, Data File access privilege setting
 
-Database failure may occur if the log anchor, logfile and datafile files, which are important files for ALTIBASE HDB database operation, are modified with malicious intent.
+Database failure may occur if the Log Anchor, Log File, or Data File, which are important files for ALTIBASE HDB database operation, are modified with malicious intent.
 
 #### How to check
 
-**Check the permissions of Log Anchor, Logfile and Datafile files**
+**Check the permissions of Log Anchor, Log File, and Data File files**
 
 ```
 $ ls -l $ALTIBASE_HOME/logs
@@ -262,7 +262,7 @@ $ ls -l $ALTIBASE_HOME/dbs
 
 logs and dbs directory permissions are set to 700 or 750.
 
-Log Anchor, Logfile and Datafile file permissions are set to 600 or 640.
+Log Anchor, Log File, and Data File permissions are set to 600 or 640.
 
 **Example of privilege setting**
 
@@ -360,9 +360,10 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 iSQL>
 ```
 
-Set access privilege to 600 to protect the shell history (.history or .sh_history) file.
+If access permissions are not set to protect the shell history file, set them to 600.
 
 ```
+$ ls -al ~/*.*history
 $ chmod 600 ~/.*history
 ```
 
@@ -408,7 +409,7 @@ CREATE SYNONYM GATHER_SYSTEM_STATS FOR SYSTEM_.GATHER_SYSTEM_STATS;
 CREATE SYNONYM GATHER_DATABASE_STATS FOR SYSTEM_.GATHER_DATABASE_STATS;
 ```
 
-## Account lockout policy settings such as lockout time according to the number of login failure
+## Account lockout policy settings such as lockout time according to the number of login failures
 
 ---
 
@@ -418,7 +419,7 @@ CREATE SYNONYM GATHER_DATABASE_STATS FOR SYSTEM_.GATHER_DATABASE_STATS;
 - From ALTIBASE HDB 5.3.3.89
 - From ALTIBASE HDB 5.5.1.5.1
 - From ALTIBASE HDB 6.1.1.2.1
-- From ALTIBASE HDB 6.3.1
+- From ALTIBASE HDB 6.3.1 and all later versions
 
 #### How to check
 
@@ -469,7 +470,7 @@ iSQL(sysdba)> ALTER USER SYS ACCOUNT UNLOCK;
 - From ALTIBASE HDB 5.3.3.89
 - From ALTIBASE HDB 5.5.1.5.1
 - From ALTIBASE HDB 6.1.1.2.1
-- ALTIBASE HDB 6.3.1
+- ALTIBASE HDB 6.3.1 and all later versions
 
 #### How to check
 
@@ -604,7 +605,7 @@ END;
 - ALTIBASE HDB 5.3.3.89
 - ALTIBASE HDB 5.5.1.5.1
 - ALTIBASE HDB 6.1.1.2.1
-- ALTIBASE HDB 6.3.1
+- ALTIBASE HDB 6.3.1 and all later versions
 
 #### How to check
 
@@ -615,11 +616,13 @@ END;
 select user_name, PASSWORD_LIFE_TIME, PASSWORD_GRACE_TIME from system_.sys_users_;
 ```
 
-#### Check the PASSWORD_LIFE_TIME property with the command below. If the value is 0, it means that the password expiration date is not set.
+#### How to manage
+
+Check the `PASSWORD_LIFE_TIME` property with the command below. If the value is 0, the password expiration date is not set.
 
 After adding the PASSWORD_LIFE_TIME and PASSWORD_GRACE_TIME property in $ALTIBASE_HOME/conf/altibase.properties, restart the ALTIBASE HDB server.
 
-When a database user is created after setting this property, the password expiration date and grace period is set based on this value.
+When a database user is created after setting this property, the password expiration date and grace period are set based on this value.
 
 **Setting the PASSWORD_LIFE_TIME property**
 
@@ -686,7 +689,7 @@ ALTER SYSTEM SET IDLE_TIMEOUT = 60;    -- When applied to all sessions. Applied 
 
 - To reflect the changed value even when the Altibase server process is restarted, the value of the IDLE_TIMEOUT property must be changed in $ALTIBASE_HOME/conf/altibase.properties.
 
-## Basic auditing (user sentences, privileges, objects, etc.)
+## Basic auditing (user statements, privileges, objects, etc.)
 
 ---
 
@@ -734,13 +737,25 @@ Manual download page: [http://support.altibase.com/en/manual](http://support.alt
 
 This feature is available starting from ALTIBASE HDB 5.
 
-#### How to check and manage
+#### How to check
 
 Check the ACCESS_LIST property in $ALTIBASE_HOME/conf/altibase.properties.
 
-If it is not set, you need to restart after changing the setting in altibase.properties file.
-
 Refer to ACCESS_LIST property in General Reference Manual.
+
+#### How to manage
+
+Change `ACCESS_LIST` in `$ALTIBASE_HOME/conf/altibase.properties`, then restart the Altibase server process.
+
+**How to manage**
+
+```
+-- IP addresses are examples. Operators and developers must confirm the IP ranges.
+
+access_list = permit, 192.1.1.0, 255.255.255.0
+access_list = permit, 192.2.1.0, 255.255.255.0
+access_list = deny, 0.0.0.0, 0.0.0.0
+```
 
 ## Setting SYSDBA login restrictions
 
@@ -770,6 +785,6 @@ ALTER SYSTEM SET REMOTE_SYSDBA_ENABLE = 0;
 
 ---
 
-Security patch of Altibase can be found on the [Customer Support Service Portal](http://support.altibase.com/en/product).
+Altibase security patches can be found in [Altibase Performance Solutions](http://support.altibase.com/en/patch-note) (Patch Notes).
 
 - When major bugs including security bugs are fixed, new patch is uploaded on the Customer Support Service Portal.

@@ -1,5 +1,5 @@
 ---
-title: "How to forcefully close a session that is being locked"
+title: "How to forcefully close a session that holds a lock"
 page_id: "16875986"
 space_key: "FAQE"
 space_name: "FAQ(English)"
@@ -10,7 +10,7 @@ ancestors: ["Home", "02. Operation and Management"]
 labels: []
 ---
 
-# How to forcefully close a session that is being locked
+# How to forcefully close a session that holds a lock
 Source: https://docs.altibase.com/display/FAQE/How+to+forcefully+close+a+session+that+is+being+locked
 Updated: 2021-03-11T14:31:33.000+0900
 
@@ -20,7 +20,7 @@ Updated: 2021-03-11T14:31:33.000+0900
 
 ---
 
-This is a method of forcibly ending a session that is being locked.
+This is a method for forcibly closing a session that holds a lock.
 
 # Version
 
@@ -59,14 +59,14 @@ Where id = session_id obtained from above;
 
 ```
 iSQL> Alter database mydb session close session_id;
-For mydb, open the $ALTIBASE_HOME/conf/altibase.properties file as the database name and check it by setting the DB_NAME item.
-Enter the Session_id as well as the session_id obtained above.
+For `mydb`, use the database name from the `DB_NAME` setting in `$ALTIBASE_HOME/conf/altibase.properties`.
+For `session_id`, enter the session ID obtained above.
 ```
 
 # Reference
 
 ---
 
--A session in which rollback is in progress is not disconnected even if session close is performed, so must wait until the rollback is finished.
+- A session with rollback in progress is not disconnected even if `session close` is executed, so wait until rollback finishes.
 
--For information on the above v$ view OR SYSTEM_META_TABLE column, refer to the Admin manual.
+- For information about the above `V$` views or `SYSTEM_META_TABLE` columns, refer to the Admin manual.

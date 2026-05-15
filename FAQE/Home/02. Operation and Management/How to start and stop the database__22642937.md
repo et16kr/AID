@@ -24,7 +24,7 @@ There are two methods to stop the Altibase database as follows.
 
 ## (1) Using the server stop script
 
-The DB server can be stopped with a simple command and this is the most used method. The DB server can be stopped from starting with the command "server stop" in the unix user account where Altibase is installed.
+The DB server can be stopped with a simple command, and this is the most commonly used method. Run `server stop` from the Unix user account where Altibase is installed.
 
 Command: shell> server stop
 
@@ -40,7 +40,7 @@ After connecting to isql, the DB can be stopped by selectively using the shutdow
 
 **db stop using shutdown command after connecting isql**
 
-$ **isql -sysdba <- - - Must connect in sysdba mode.** ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- Write UserID : sys Write Password : ISQL_CONNECTION = UNIX, SERVER = localhost [ERR-910FB : Connected to idle instance]
+$ **isql -sysdba <- - - Must connect in sysdba mode.** ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- Write UserID : sys Write Password : ISQL_CONNECTION = UNIX, SERVER = localhost
 
 iSQL(sysdba)> select db_name from v$database; DB_NAME ------------------------------------------------------------------------------------------------------------------------------------ **mydb** 1 row selected. iSQL(sysdba)> **alter database***mydb* **shutdown immediate; <- - mydb, the dbname, is optional during installation and may vary from DB to DB.** Ok..Shutdown Proceeding....
 
@@ -62,17 +62,17 @@ Command: shell> server start
 
 **db start method with the server start command**
 
-**$ server start** ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- ISQL_CONNECTION = UNIX, SERVER = localhost [ERR-910FB : Connected to idle instance] Connecting to the DB server.. Connected.
+**$ server start** ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- ISQL_CONNECTION = UNIX, SERVER = localhost Connected to idle instance. Connecting to the DB server.... Connected.
 
 TRANSITION TO PHASE : PROCESS
 
 TRANSITION TO PHASE : CONTROL
 
-TRANSITION TO PHASE : META [SM] Recovery Phase - 1 : Preparing Database : Dynamic Memory Version => Parallel Loading [SM] Recovery Phase - 2 : Loading Database [SM] Recovery Phase - 3 : Skipping Recovery & Starting Threads... Refining Disk Table [SM] Refine Memory Table : ................................................................................................... [SUCCESS] [SM] Rebuilding Indices [Total Count:102] ...................................................................................................... [SUCCESS]
+TRANSITION TO PHASE : META [SM] Recovery Phase - 1 : Preparing Database : Dynamic Memory Version => Parallel Loading [SM] Recovery Phase - 2 : Loading Database [SM] Recovery Phase - 3 : Skipping Recovery & Starting Threads... Refining Disk Table [SM] Refine Memory Table : ........................................................................................................................................................................... [SUCCESS] [SM] Rebuilding Indices [Total Count:133] ..................................................................................................................................... [SUCCESS]
 
-TRANSITION TO PHASE : SERVICE [CM] Listener started : TCP on port 20419 [CM] Listener started : UNIX [RP] Initialization : [PASS]
+TRANSITION TO PHASE : SERVICE [CM] Listener started : TCP on port 20370 [IPV4] [CM] Listener started : UNIX [CM] Listener started : IPC [RP] Initialization : [PASS]
 
-**--- STARTUP Process SUCCESS ---** **Command execute success.** $
+**--- STARTUP Process SUCCESS ---** **Command executed successfully.** $
 
 ## (2) Using the startup command after connecting to isql
 
@@ -82,17 +82,17 @@ The DB can be started step by step after connecting to the DB in sysdba mode wit
 
 **How to start db after connecting to isql**
 
-**$ isql -sysdba** ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- Write UserID : sys Write Password : ISQL_CONNECTION = UNIX, SERVER = localhost [ERR-910FB : Connected to idle instance] iSQL(sysdba)> **startup;** Connecting to the DB server.. Connected.
+**$ isql -sysdba** ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- Write UserID : sys Write Password : ISQL_CONNECTION = UNIX, SERVER = localhost Connected to idle instance. iSQL(sysdba)> **startup** Connecting to the DB server.... Connected.
 
 TRANSITION TO PHASE : PROCESS
 
 TRANSITION TO PHASE : CONTROL
 
-TRANSITION TO PHASE : META [SM] Recovery Phase - 1 : Preparing Database : Dynamic Memory Version => Parallel Loading [SM] Recovery Phase - 2 : Loading Database [SM] Recovery Phase - 3 : Skipping Recovery & Starting Threads... Refining Disk Table [SM] Refine Memory Table : ................................................................................................... [SUCCESS] [SM] Rebuilding Indices [Total Count:102] ...................................................................................................... [SUCCESS]
+TRANSITION TO PHASE : META [SM] Recovery Phase - 1 : Preparing Database : Dynamic Memory Version => Parallel Loading [SM] Recovery Phase - 2 : Loading Database [SM] Recovery Phase - 3 : Skipping Recovery & Starting Threads... Refining Disk Table [SM] Refine Memory Table : ........................................................................................................................................................................... [SUCCESS] [SM] Rebuilding Indices [Total Count:133] ..................................................................................................................................... [SUCCESS]
 
-TRANSITION TO PHASE : SERVICE [CM] Listener started : TCP on port 20419 [CM] Listener started : UNIX [RP] Initialization : [PASS]
+TRANSITION TO PHASE : SERVICE [CM] Listener started : TCP on port 20370 [IPV4] [CM] Listener started : UNIX [CM] Listener started : IPC [RP] Initialization : [PASS]
 
-**--- STARTUP Process SUCCESS ---** **Command execute success.** iSQL(sysdba)> exit
+**--- STARTUP Process SUCCESS ---** **Command executed successfully.** iSQL(sysdba)> exit
 
 # How to check whether the database is started normally after starting the database
 
@@ -106,13 +106,15 @@ When starting the DB with the server start command or isql, it checks whether "â
 
 **Message after server start**
 
-**$ server start** ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- ISQL_CONNECTION = UNIX, SERVER = localhost [ERR-910FB : Connected to idle instance] Connecting to the DB server.. Connected.
+**$ server start** ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- ISQL_CONNECTION = UNIX, SERVER = localhost Connected to idle instance. Connecting to the DB server.... Connected.
 
-..............................mitted...............................
+..............................omitted...............................
 
-..................................................................... [CM] Listener started : TCP on port 20419 [CM] Listener started : UNIX [RP] Initialization : [PASS]
+..................................................................... [CM] Listener started : TCP on port 20370 [IPV4]
 
-**--- STARTUP Process SUCCESS ---** **Command execute success.**
+[CM] Listener started : UNIX [CM] Listener started : IPC [RP] Initialization : [PASS]
+
+**--- STARTUP Process SUCCESS ---** **Command executed successfully.**
 
 ## (2) Connection test with isql
 
@@ -187,7 +189,7 @@ server kill kills the DB process in the same way as killing ALTIBASE with kill -
 
 If ALTIBASE is forcibly shutdown with the server kill, the recovery process will be performed at the next start. If there is a large amount of undo and redo transactions during the recovery process, it may take a long time to start the server.
 
-Therefore, it is recommended to set the database with the normal server stop command if possible.
+Therefore, it is recommended to stop the database with the normal `server stop` command whenever possible.
 
 # Error message at ALTIBASE server start/stop
 
@@ -197,7 +199,7 @@ Therefore, it is recommended to set the database with the normal server stop com
 
 If the user tries to start an additional server while the Altibase server is already started, the following message is displayed. The server cannot be started because the database has already been started.
 
-$ server start ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- ISQL_CONNECTION = UNIX, SERVER = localhost **The database server is already up and running.** [ERR-4107A : Unable to startup to the specified phase at current state.] $
+$ server start ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- ISQL_CONNECTION = UNIX, SERVER = localhost **The database server is already up and running.** [ERR-4107A : Unable to start up in the specified phase in the current state.] $
 
 ## (2) Another SYSDBA session is already running
 

@@ -32,9 +32,9 @@ Here is how to run the registry: (Windows Start -> Run -> Run regedit.exe)
 
 Below is the item to be deleted.
 
-| computer\HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Altibase Corp., |
+| Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Altibase Corp., |
 | --- |
 
 ![altibase_registry.png](https://docs.altibase.com/download/attachments/embedded-page/FAQE/What%20to%20do%20when%20installing%20Altibase%20on%20Windows,%20and%20it%20says%20%22It%20has%20already%20been%20installed%22/altibase_registry.png?api=v2)
 
-If the user deletes the above item, it is cleaned up in the registry, so the user can proceed with the install the Altibase normally.
+After deleting the above item, the registry is cleaned up and the user can proceed with the Altibase installation normally.

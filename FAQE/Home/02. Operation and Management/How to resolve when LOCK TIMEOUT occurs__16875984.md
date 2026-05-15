@@ -20,11 +20,13 @@ Updated: 2021-03-11T14:19:27.000+0900
 
 ---
 
-During SQL execution, the following errors sometimes prevent the desired operation:
+During SQL execution, the following error can prevent the desired operation:
 
+```
 The transaction exceeds lock timeout specified by user
 
 $ altierr -w "lock timeout" 0x11075 ( 69749) smERR_ABORT_smcExceedLockTimeWait The transaction exceeds lock timeout specified by user. # *Cause: The transaction failed to lock the object. # *Action: Please abort the transaction.
+```
 
 # Version
 
@@ -38,9 +40,9 @@ ALTIBASE HDB version 4 or later
 
 During SQL execution, there are times when the following error occurs and the desired operation cannot be performed.
 
-As shown in the above error code, it is an error that the object-table, view, stored procedure, etc. cannot be locked.
+As shown in the error code above, Altibase cannot lock the target object, such as a table, view, or stored procedure.
 
-All sessions accessing the table hold the LOCK on the table and access it. In other words, if someone is executing DML such as SELECT/INSERT/UPDATE on the table or DDL such as ALTER TABLE, if DROP TABLE is executed, the previous operation will wait to commit/rollback.
+All sessions accessing a table acquire a lock on that table. For example, if another session is executing DML such as SELECT/INSERT/UPDATE or DDL such as ALTER TABLE on the table, a DROP TABLE waits until the previous operation commits or rolls back.
 
 In this case, make sure there are no users and wait for the previous operation to commit, or the session can be forced to be disconnected. The session can be forcibly terminated by using the alter database statement as shown in the example below.
 
@@ -48,13 +50,13 @@ In this case, make sure there are no users and wait for the previous operation t
 
 ---
 
-*** Check the lock information**
+**Check lock information**
 
 ```
 select T.table_name, X.lock_desc  from system_.sys_tables_ T, v$lock X  where T.table_oid = X.table_oid  and T.table_name = 'T1'; //Check the T1 table LOCK information
 ```
 
-*** To forcefully close the session**
+**Forcefully close the session**
 
 1. Find the SESSION ID
 
@@ -103,10 +105,10 @@ alter database mydb session close 162;
 
 ---
 
-Terminating a session with the alter database command does not affect other parts of the session.
+Terminating a session with the `ALTER DATABASE` command does not affect sessions other than the target session.
 
-However, if the service system incorrectly identifies the session id and terminates the session, it may be a problem.
+However, terminating the wrong session ID on a production system can cause problems.
 
-As a reference for operation, if the system is in service, even if the connected session is disconnected, if another application connects to access the table, a lock may be added, so it is necessary to consider this part as well.
+As an operational note, even if the connected session is disconnected on a production system, another application may connect and access the table, creating another lock. Consider this before closing sessions.
 
 If possible, it is advisable to disable the application while operating.

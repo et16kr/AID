@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/How+to+change+sys+user+password
 Updated: 2023-05-25T21:42:54.000+0900
 
-- [Overview](#Howtochangesysuserpassword-Overview) - [Version](#Howtochangesysuserpassword-Version) - [Procedure](#Howtochangesysuserpassword-Procedure) - [1. Execute the alter user command](#Howtochangesysuserpassword-1.Executethealterusercommand) - [2. Execute altipasswd](#Howtochangesysuserpassword-2.Executealtipasswd) - [3. Modify the script containing the sys password](#Howtochangesysuserpassword-3.Modifythescriptcontainingthesyspassword) - [Solution](#Howtochangesysuserpassword-Solution) - [What to do if an "Invalid password" error occurs when starting the server](#Howtochangesysuserpassword-Whattodoifan"Invalidpassword"erroroccurswhenstartingtheserver)
+- [Overview](#Howtochangesysuserpassword-Overview) - [Version](#Howtochangesysuserpassword-Version) - [Procedure](#Howtochangesysuserpassword-Procedure) - [1. Execute the alter user command](#Howtochangesysuserpassword-1.Executethealterusercommand) - [2. Execute altipasswd](#Howtochangesysuserpassword-2.Executealtipasswd) - [3. Modify the script containing the sys password](#Howtochangesysuserpassword-3.Modifythescriptcontainingthesyspassword) - [Troubleshooting](#Howtochangesysuserpassword-Troubleshooting) - [What to do if an "Invalid password" error occurs when starting the server](#Howtochangesysuserpassword-Whattodoifan"Invalidpassword"erroroccurswhenstartingtheserver)
 
 # Overview
 
@@ -59,7 +59,7 @@ New Password : new_password
 Retype New Password : new_password
 ```
 
-altipasswd is...
+`altipasswd` does the following:
 
 - When the ALTIBASE HDB server is in shutdown stage, it checks the sys account password by referring to the syspassword file.
 - Executing altipasswd changes the syspassword file. This file is located under the $ALTIBASE_HOME/conf directory.
@@ -93,18 +93,20 @@ So, when changing the sys password, these scripts also need to be modified.
   ${ALTIBASE_HOME}/bin/iloader -S localhost -U SYS -P MANAGER $*
   ```
 
-# Solution
+# Troubleshooting
 
 ---
 
 ## What to do if an "Invalid password" error occurs when starting the server
 
-a. Open the $ALTIBASE_HOME/bin/server script and check if the password has been modified in the lower part.
+1. Open the `$ALTIBASE_HOME/bin/server` script and check whether the following lines were updated with the changed password.
 
+```
 ADMIN="${ALTIBASE_HOME}/bin/isql -u sys -p manager -sysdba -noprompt"
 
 ISQL="${ALTIBASE_HOME}/bin/isql -s localhost -u sys -p manager -silent"
+```
 
-b. If an invalid password error occurs even though the above is applied with the changed password, it is possible that the sys password was changed only with the alter user command and altipasswd was not executed.
+2. If an invalid password error occurs even though the script uses the changed password, the `sys` password may have been changed only with the `ALTER USER` command and `altipasswd` may not have been executed.
 
-In this case, execute altipasswd, apply the changed password, and then try to start the server.
+In this case, execute `altipasswd`, apply the changed password, and then try to start the server.

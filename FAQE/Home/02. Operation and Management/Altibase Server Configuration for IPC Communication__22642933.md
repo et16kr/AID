@@ -23,7 +23,7 @@ Updated: 2025-10-20T15:16:57.068+0900
 ALTIBASE HDB provides the following communication methods between the database server and clients. Among these, this document describes the ALTIBASE HDB and OS configurations required for IPC communication.
 
 - TCP/IP
-- Unix Domain Socket
+- IPC using Unix Domain Socket (UDS)
 - IPC using shared memory
 - IPCDA (supported from ALTIBASE HDB 7.1.0)
 - SSL/TLS (supported from ALTIBASE HDB version 6.5.1)
@@ -39,7 +39,7 @@ Manual Page:
 
 ---
 
-All the ALTIBASE HDB versions
+All ALTIBASE HDB versions
 
 # ALTIBASE HDB Server Configurations
 
@@ -120,7 +120,7 @@ ALTIBASE HDB server versions prior to 5.5.1.4.2 cannot change the default path a
 
 Shared memory and semaphore resources are used for IPC communication. Therefore, to use the IPC type, the related kernel parameters must be set.
 
-Please refer to the documents below depending on the OS. There is no recommended configurations for AIX and Windows.
+Please refer to the documents below depending on the OS. There are no recommended configurations for AIX and Windows.
 
 - Linux: [Linux Setup Guide for Altibase](https://docs.altibase.com/display/arch/Linux+Setup+Guide+for+Altibase)
 - SunOS: [Solaris Setup Guide for Altibase](https://docs.altibase.com/display/arch/Solaris+Setup+Guide+for+Altibase)

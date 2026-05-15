@@ -32,7 +32,7 @@ This method is applied to ALTIBASE HDB version 5.3.3 or later.
 
 ---
 
-To change the DB NAME, the DB must be recreated. When the DB is recreated, the existing data disappears, so when the existing data is restored, the DB data must be exported and backed up.
+To change `DB_NAME`, the DB must be recreated. Recreating the DB deletes the existing data, so export and back up the DB data first if the existing data must be restored.
 
 # Change procedure
 

@@ -766,3 +766,62 @@ P214 audited the Korean Docker, GeoServer, and SQuirrel SQL Client documents aga
 - External HTTP availability was not tested; P214 used grep-based source-link and attachment preservation checks.
 - Broad embedded-image URL revalidation was not part of P214. The scoped text audit preserved existing image references and left broader image/export checks for later workflow scope.
 - The Korean GeoServer source still contains a mislabeled `GeoServer Documentation` link that points to a Red Hat CPU governor page. As in the first pass, that mismatched Korean source link was not propagated into the English target.
+
+## P215 FAQ audit: installation and operation core
+
+### Scope
+
+P215 audited Korean FAQ category `01. 설치, 패치, 업그레이드` and core category `02. 운영 및 관리` operation/security/user/session/client-configuration documents against English `FAQE` targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English target |
+| --- | --- |
+| `faq/Home/01. 설치, 패치, 업그레이드/*` | `FAQE/Home/01. Installation, Patch, Upgrade/*` |
+| `faq/Home/02. 운영 및 관리/02-03. Database 를 stop 하고 start 하는 방법__9764972.md` | `FAQE/Home/02. Operation and Management/How to start and stop the database__22642937.md` |
+| `faq/Home/02. 운영 및 관리/02-04. Database 의 db name을 바꾸는 방법__10059840.md` | `FAQE/Home/02. Operation and Management/How to change the database's db name__16875966.md` |
+| `faq/Home/02. 운영 및 관리/02-06. DB 이름 변경 후 server create 오류발생시__8454421.md` | `FAQE/Home/02. Operation and Management/When server create errors occur after DB name change__16875972.md` |
+| `faq/Home/02. 운영 및 관리/02-09. IPC 통신을 위한 알티베이스 서버 설정__9110665.md` | `FAQE/Home/02. Operation and Management/Altibase Server Configuration for IPC Communication__22642933.md` |
+| `faq/Home/02. 운영 및 관리/02-10. LOCK TIMEOUT 발생 시 조치 방법__9110702.md` | `FAQE/Home/02. Operation and Management/How to resolve when LOCK TIMEOUT occurs__16875984.md` |
+| `faq/Home/02. 운영 및 관리/02-11. Lock 잡고 있는 세션을 강제로 종료하는 방법__9110706.md` | `FAQE/Home/02. Operation and Management/How to forcefully close a session that is being locked__16875986.md` |
+| `faq/Home/02. 운영 및 관리/02-15. sys 유저 패스워드 변경 방법__6521708.md` | `FAQE/Home/02. Operation and Management/How to change sys user password__16876004.md` |
+| `faq/Home/02. 운영 및 관리/02-17. TRANSACTION_TABLE_SIZE 변경 시 고려사항__7341337.md` | `FAQE/Home/02. Operation and Management/Notes_Considerations when changing TRANSACTION_TABLE_SIZE__16876013.md` |
+| `faq/Home/02. 운영 및 관리/02-18. 데이터베이스 보안 점검 체크리스트__6521702.md` | `FAQE/Home/02. Operation and Management/Database Security Checklist__22642935.md` |
+| `faq/Home/02. 운영 및 관리/02-19. 동시 접속 세션 수(MAX_CLIENT) 증가 시 고려사항__7341076.md` | `FAQE/Home/02. Operation and Management/Notes_Considerations when increasing the number of concurrent connection sessions (MAX_CLIENT)__16876028.md` |
+| `faq/Home/02. 운영 및 관리/02-21. 사용자 생성(CREATE USER) 및 패스워드 변경(ALTER USER) 방법__9110757.md` | `FAQE/Home/02. Operation and Management/How to create a user (CREATE USER) and change a password (ALTER USER)__16876036.md` |
+| `faq/Home/02. 운영 및 관리/02-22. 사용자 패스워드 길이 제약 - 버전 별 차이__7341322.md` | `FAQE/Home/02. Operation and Management/User password length limitation - Differences by version__22642941.md` |
+| `faq/Home/02. 운영 및 관리/02-27. OS시간과 DB시간이 맞질 않습니다__22642857.md` | `FAQE/Home/02. Operation and Management/The OS time and the DB time do not match__22642939.md` |
+
+### Findings And Updates
+
+- No English change was needed for the platform support, `CREATE USER`/`ALTER USER`, or OS/DB time FAQ pages.
+- Corrected the Unix/Linux patch FAQ for minor-version patch semantics, version boundary wording, `$ALTIBASE_HOME`, replication gap wording, step references, `CHECK_LOGFILE = 0`, and SQL/comment formatting.
+- Restored the missing Altibase client installation directory listing and clarified installer prompt, shell initialization, and connection-test wording.
+- Corrected Windows registry cleanup wording, DB start/stop output examples, DB-name recreation risk, and server-create error guidance.
+- Corrected IPC, LOCK TIMEOUT, lock-holder session close, SYS password, `TRANSACTION_TABLE_SIZE`, and `MAX_CLIENT` wording where English was unclear or semantically different from Korean source.
+- Updated the database security checklist for the Korean-source `sys`/`manager` defaults, `ALTER USER sys`, shell-history permission command, `ACCESS_LIST` example, version conditions, audit wording, and patch-note link.
+- Corrected password-length wording from "digits" to "characters" and clarified the older-version first-8-character storage behavior.
+- Updated `manifest.json` metadata for all 14 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- The scoped Korean source set contains 0 URL-backed document-format attachments with `.pdf`, `.ppt`, `.pptx`, `.doc`, `.docx`, `.xls`, `.xlsx`, or `.zip` extensions.
+- The scoped English target set also contains 0 URL-backed document-format attachments with those extensions.
+- Scoped stale-pattern checks found no empty Markdown links, `Error rendering macro`, `Unknown macro`, stale typo patterns, stale command-output patterns, or residual Korean text in edited English pages.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p215-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`, and lock-session title) | Passed for all 14 edited English pages |
+| Scoped document-format attachment grep | Passed, 0 URL-backed document-format attachments |
+| Scoped stale-pattern grep | Passed |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P215 used source-link preservation and grep-based checks.
+- Some legacy FAQE pages in this scope still preserve Confluence-exported one-line command output blocks where the Korean source has the same export shape. P215 corrected semantic drift without broadly reformatting every legacy output block.
