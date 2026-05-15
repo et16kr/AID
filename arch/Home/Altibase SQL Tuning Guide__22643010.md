@@ -29,3 +29,9 @@ This document is an SQL tuning guide for developers using Altibase.
 This guide is based on Altibase version 5.
 
 Available for download: [D68_Altibase_SQL_Tuning_Guide.pdf](https://docs.altibase.com/download/attachments/22643010/D68_Altibase_SQL_Tuning_Guide.pdf?version=1&modificationDate=1761005430000&api=v2)
+
+# Korean Source Attachments
+
+The Korean source page also references this downloadable source attachment. It is preserved here so the English document set does not lose that reference.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/19333563/D68_Altibase_SQL_Tuning_Guide.pdf?version=1&modificationDate=1697696104000&api=v2)

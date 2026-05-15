@@ -49,3 +49,9 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 Thank you. We always welcome your feedback and suggestions.
 
 > This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/10060431/ALTIBASE_%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81_%EC%BF%BC%EB%A6%AC_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698627365000&api=v2)

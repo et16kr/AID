@@ -260,3 +260,9 @@ The RP_MSGLOG_FLAG can be set in iSQL as follows:
 ```
 iSQL> alter system set RP_MSGLOG_FLAG = 6 ;
 ```
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/19333729/ALTIBASE_%EC%9D%B4%EC%A4%91%ED%99%94_%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698111415000&api=v2)

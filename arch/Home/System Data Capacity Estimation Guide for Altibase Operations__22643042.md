@@ -378,3 +378,9 @@ This aspect is not included in the disk capacity calculation example below, so u
 We have covered how to estimate the memory and disk capacity required to operate Altibase.
 
 However, since there are many factors to consider for each item when estimating database system capacity, it is recommended to thoroughly review the data beforehand to determine the most suitable configuration when building an actual system.
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/14057887/ALTIBASE_%EC%9A%B4%EC%98%81%EC%9D%84_%EC%9C%84%ED%95%9C_%EC%8B%9C%EC%8A%A4%ED%85%9C_%EB%A6%AC%EC%86%8C%EC%8A%A4_%EC%9A%A9%EB%9F%89%EC%82%B0%EC%A0%95_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698048077000&api=v2)

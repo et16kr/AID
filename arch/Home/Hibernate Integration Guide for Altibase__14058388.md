@@ -1109,3 +1109,9 @@ After clicking the AltibaseConnection project, Run from the menu or click the Ru
 5. [WebSphere Integration Guide for Altibase](https://aid.altibase.com/display/arch/WebSphere+Integration+Guide+for+Altibase)
 6. [Spring Integration Guide for Altibase](https://aid.altibase.com/display/arch/Spring+Integration+Guide+for+Altibase)
 7. [iBatis Integration Guide for Altibase](https://aid.altibase.com/display/arch/iBatis+Integration+Guide+for+Altibase)
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/14057878/ALTIBASE_Hibernate_%EC%97%B0%EB%8F%99%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698369532000&api=v2)

@@ -253,3 +253,9 @@ Startup Failed....
 
 - **Solution: Find the cause that the port cannot be bound, then solve it.**
   **If another application is preempted, the application or the port used for ALTIBASE must be changed.**
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/13437056/ALTIBASE_%EC%84%A4%EC%B9%98_%EC%8B%9C_%EB%B0%9C%EC%83%9D%ED%95%A0_%EC%88%98_%EC%9E%88%EB%8A%94_%EB%AC%B8%EC%A0%9C%EC%83%81%ED%99%A9%EA%B3%BC_%EC%A1%B0%EC%B9%98.pdf?version=1&modificationDate=1697764061000&api=v2)

@@ -56,7 +56,7 @@ As the length of the password is limited to 8 digits, the length of the password
 
 - **Difference in password length by platform**
   Windows, solaris(sparc, x86) : 22byte
-  Other platforms: 8byte
+  Other platforms: 16byte
 
 ## Password length changed from 16 digits to 40 digits
 

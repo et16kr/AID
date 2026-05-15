@@ -309,3 +309,9 @@ In other words, even if a process calls free() on a memory area explicitly alloc
 This is because kernel cost can have a significant performance impact if the memory manager of the operating system expects the process to reuse the freed memory area by the process to remain in the form of a fragment and reconfigured to a free-list of allocable segments.
 
 Therefore, even if the process is free(), the operating system sees a phenomenon in which the size of the VSZ does not decrease with an actual monitoring tool, for the reason described above.
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/13436842/UNIX_Memory_Management.pdf?version=1&modificationDate=1698104488000&api=v2)

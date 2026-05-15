@@ -26,7 +26,7 @@ This document explains the interfaces provided by Altibase.
 
 ---
 
-All the versions of Altibase HDB
+Altibase HDB 6.1.1 or later
 
 # Interface provided by Altibase
 
@@ -51,7 +51,7 @@ All the versions of Altibase HDB
 
 | Function | Characterstic |
 | --- | --- |
-| SQL | - Support Full Featured SQL92<br>- Support international standard complex query such as Sub Query INLINE view |
+| SQL | - Support Full Featured SQL92<br>- Support international standard complex query such as Sub Query INLINE view<br>- Support tuning using hints and SQL execution plans |
 | Built-in Function | - Provides more than 100 built-in functions<br>- Users can perform various operations in SQL statements by using Built-in Function |
 | Stored Procedure & Function | - Support Stored Procedure and Stored Function based on ANSI SQL standard<br>- Result Set can be sent to the client in the procedure<br>- Support structured type and array type within procedure<br>- Support Dynamic SQL/DDL within the procedure |
 | View | - Efficiently query by unioning multiple tables or creating a specific SQL as a view |

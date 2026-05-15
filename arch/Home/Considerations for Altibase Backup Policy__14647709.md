@@ -26,3 +26,9 @@ For errors and improvements related to this document, please contact the technic
 
 - Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
 - Technical support center: 02-2082-1114
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/14057586/ALTIBASE_%EB%B0%B1%EC%97%85%EC%A0%95%EC%B1%85_%EA%B2%B0%EC%A0%95%EC%9D%84_%EC%9C%84%ED%95%9C_%EA%B3%A0%EB%A0%A4%EC%82%AC%ED%95%AD.pdf?version=1&modificationDate=1698113791000&api=v2)

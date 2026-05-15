@@ -973,3 +973,9 @@ If the Altibase installation is completed and started normally, this section des
   Drop success.
   -> Creating tables can done in the same as for both the memory table and the disk table.
   ```
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/13436834/ALTIBASE_Quick_Install_Start_for_UNIX.pdf?version=1&modificationDate=1697762511000&api=v2)

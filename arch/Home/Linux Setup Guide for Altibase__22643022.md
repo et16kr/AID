@@ -1265,3 +1265,10 @@ The server environment where the symptoms are reported is as follows.
 
 - Red Hat Enterprise Linux 7
 - Symantec Endpoint Protection(SEP) for Linux
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/13436485/Altibase_%EC%9A%B4%EC%98%81%EC%9D%84_%EC%9C%84%ED%95%9C_Linux_%EC%84%A4%EC%A0%95_%EA%B0%80%EC%9D%B4%EB%93%9C_2019.pdf?version=1&modificationDate=1584944731000&api=v2)
+- [Korean source attachment 2 (PDF)](https://docs.altibase.com/download/attachments/13436485/ALTIBASE_%EC%9A%B4%EC%98%81%EC%9D%84_%EC%9C%84%ED%95%9C_Linux_%EC%84%A4%EC%A0%95_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698366100000&api=v2)

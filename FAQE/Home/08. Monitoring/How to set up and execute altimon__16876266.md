@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/How+to+set+up+and+execute+altimon
 Updated: 2021-04-05T10:34:21.000+0900
 
-- [What is ALTIMON?](#Howtosetupandexecutealtimon-WhatisALTIMON?) - [ALTIMON execution and configuration files](#Howtosetupandexecutealtimon-ALTIMONexecutionandconfigurationfiles) - [ALTIMON execution file](#Howtosetupandexecutealtimon-ALTIMONexecutionfile) - [ALTIMON installation file](#Howtosetupandexecutealtimon-ALTIMONinstallationfile) - [ALTIMON configuration file](#Howtosetupandexecutealtimon-ALTIMONconfigurationfile) - [Uploading ALTIMON file](#Howtosetupandexecutealtimon-UploadingALTIMONfile) - [Copying ALTIMON execution file](#Howtosetupandexecutealtimon-CopyingALTIMONexecutionfile) - [Things to be changed in the ALTIMON configuration file](#Howtosetupandexecutealtimon-ThingstobechangedintheALTIMONconfigurationfile) - [Executing ALTIMON](#Howtosetupandexecutealtimon-ExecutingALTIMON) - [Check Altibase Log](#Howtosetupandexecutealtimon-CheckAltibaseLog)
+- [What is ALTIMON?](#what-is-altimon) - [ALTIMON USER GUIDE](#altimon-user-guide) - [ALTIMON execution and configuration files](#altimon-execution-and-configuration-files) - [Uploading ALTIMON file](#uploading-altimon-file) - [Copying ALTIMON execution file](#copying-altimon-execution-file) - [Copying ALTIMON configuration file](#copying-altimon-configuration-file) - [Things to be changed in the ALTIMON configuration file](#things-to-be-changed-in-the-altimon-configuration-file) - [Executing ALTIMON](#executing-altimon) - [Check Altibase Log](#check-altibase-log)
 
 # What is ALTIMON?
 
@@ -30,7 +30,7 @@ ALTIMON USER GUIDE
 
 ---
 
-- TBA
+- [ALTIMON_USER_GUIDE.pdf](https://docs.altibase.com/download/attachments/6979592/ALTIMON_USER_GUIDE.pdf?version=2&modificationDate=1422495172000&api=v2)
 
 # ALTIMON execution and configuration files
 
@@ -97,11 +97,23 @@ Copy the ALTIMON executable file to the $ALTIBASE_HOME/bin directory.
  $ cp -p altimon $ALTIBASE_HOME/bin/
 ```
 
+# Copying ALTIMON configuration file
+
+---
+
+Copy the ALTIMON configuration file to the `$ALTIBASE_HOME/conf/` directory.
+
+```
+$ cp -p altimon.conf $ALTIBASE_HOME/conf/
+```
+
 # Things to be changed in the ALTIMON configuration file
 
 ---
 
 In the ALTIMON configuration file ($ALTIBASE_HOME/conf/altimon.conf), in the Connection Group section and ALTIMON PROPERTY section, change the comment section below to suit your environment.
+
+For time-related queries, including LONG_RUN_QUERY, to run correctly, the TIMED_STATISTICS property must be set to 1.
 
 ```
 #########################################

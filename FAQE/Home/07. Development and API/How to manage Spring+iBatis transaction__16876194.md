@@ -184,7 +184,7 @@ This document describes how to manage Spring+iBatis transactions.
 ---
 
 - If AltibaseClobStringTypeHandler is applied guided by the standard framework, an error may occur when CLOB is 0 byte.
-  In this case, the user can check that it is normally searched by adding annotations without using TypeHandle.
+  In this case, the user can check that it is normally searched by adding annotations without using TypeHandler.
 
 # Sample code
 
@@ -192,4 +192,4 @@ This document describes how to manage Spring+iBatis transactions.
 
 Sample code for handling LOB data.
 
-- [LobSpringIbatisSample.zip](https://aid.altibase.com/download/attachments/9109742/LobSpringIbatisSample.zip?version=1&modificationDate=1447388295000&api=v2)https://aid.altibase.com/download/attachments/9109742/LobSpringIbatisSample.zip?version=1&modificationDate=1447388295000&api=v2
+- [LobSpringIbatisSample.zip](https://docs.altibase.com/download/attachments/9109742/LobSpringIbatisSample.zip?version=1&modificationDate=1447388295000&api=v2)

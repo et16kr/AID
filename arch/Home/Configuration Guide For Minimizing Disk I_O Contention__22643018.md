@@ -341,3 +341,11 @@ While other DB vendors sometimes adjust the DB page size at creation time to opt
 Additionally, Altibase does not recommend changing the OS block size to match the DB page size.
 
 There have been no reported cases of performance degradation due to mismatches between Altibase’s page size and the OS block size.
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/11698408/202312_Altibase_%EB%94%94%EC%8A%A4%ED%81%ACIO_%EB%B3%91%EB%AA%A9%EC%9D%84_%EA%B3%A0%EB%A0%A4%ED%95%9C_%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=2&modificationDate=1702282370000&api=v2)
+- [Korean source attachment 2 (PDF)](https://docs.altibase.com/download/attachments/11698408/201511_ALTIBASE_%EB%94%94%EC%8A%A4%ED%81%ACIO_%EB%B3%91%EB%AA%A9%EC%9D%84_%EA%B3%A0%EB%A0%A4%ED%95%9C_%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1701925177000&api=v2)
+- [Korean source attachment 3 (PDF)](https://docs.altibase.com/download/attachments/11698408/200912_ALTIBASE_%EB%94%94%EC%8A%A4%ED%81%ACIO_%EB%B3%91%EB%AA%A9%EC%9D%84_%EA%B3%A0%EB%A0%A4%ED%95%9C_%EB%B3%BC%EB%A5%A8%EA%B5%AC%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1701925145000&api=v2)

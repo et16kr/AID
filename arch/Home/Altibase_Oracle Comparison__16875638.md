@@ -588,3 +588,9 @@ This section describes a comparison of features that can be referred to when dev
 | OLAP function | CUBE_TABLE | Not supported | Convert 3D data to 2D data |
 | Data cartridge function | DATAOBJ_TO_MAT_PARTITION<br>DATAOBJ_TO_PARTITION | Not supported | Useful for data cartridge development |
 | Encryption | DBMS_CRYPTO | AESDECRYPT<br>AESENCRYPT<br>DESDECRYPT<br>DESENCRYPT<br>TDESDECRYPT<br>TRIPLE_DESDECRYPT<br>TDESENCRYPT<br>TRIPLE_DESENCRYPT |  |
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/14058137/ALTIBASE_ORACLE_%EB%B9%84%EA%B5%90%EC%9E%90%EB%A3%8C.pdf?version=1&modificationDate=1697697201000&api=v2)

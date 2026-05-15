@@ -32,7 +32,7 @@ AdminCenter2 will **not be accepted for any problems encountered during use due 
 
 ---
 
-[AdminCenter2.zip](https://aid.altibase.com/download/attachments/8454900/AdminCenter2.zip?version=1&modificationDate=1424835455000&api=v2)
+[AdminCenter2.zip](https://docs.altibase.com/download/attachments/8454900/AdminCenter2.zip?version=1&modificationDate=1424835455000&api=v2)
 
 # How to execute
 

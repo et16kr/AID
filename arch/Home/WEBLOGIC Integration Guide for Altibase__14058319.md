@@ -32,3 +32,10 @@ In addition to this document, the documents to be referenced during development 
 - Spring Integration Guide for Altibase
 - HIBERNATE Integration Guide for Altibase
 - iBatis Integration Guide for Altibase
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/7340101/ALTIBASE_WebLogic_%EC%97%B0%EB%8F%99_%EA%B0%80%EC%9D%B4%EB%93%9C_12c.pdf?version=1&modificationDate=1417567027000&api=v2)
+- [Korean source attachment 2 (PDF)](https://docs.altibase.com/download/attachments/7340101/ALTIBASE_WebLogic_%EC%97%B0%EB%8F%99_%EA%B0%80%EC%9D%B4%EB%93%9C_10.3.pdf?version=1&modificationDate=1417591117000&api=v2)

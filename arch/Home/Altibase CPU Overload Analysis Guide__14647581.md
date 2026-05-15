@@ -37,3 +37,9 @@ For errors and improvements related to this document, please contact the technic
 
 - Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
 - Technical support center: 02-2082-1114
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/11698396/ALTIBASE_CPU_PBT%EC%A0%88%EC%B0%A8.pdf?version=1&modificationDate=1698801484000&api=v2)

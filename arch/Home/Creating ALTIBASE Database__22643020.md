@@ -189,3 +189,9 @@ Drop success.
 
 iSQL(sysdba)> exit
 ```
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/13436812/ALTIBASE_%EB%B2%84%EC%A0%84%EB%B3%84_DB_%EC%83%9D%EC%84%B1_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=2&modificationDate=1758150003000&api=v2)

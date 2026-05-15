@@ -655,3 +655,9 @@ When a client program requests a task to the DB server, a client error message i
 **Solutions**
 
 - Refer to the JDBC manual for JDBC API support.
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/14057500/JAVA_%EA%B0%9C%EB%B0%9C%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698304337000&api=v2)

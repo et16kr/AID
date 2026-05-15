@@ -18,10 +18,6 @@ Updated: 2025-10-20T15:18:17.000+0900
 
 # Overview
 
-```
-DROP USER user_name ;
-```
-
 ---
 
 This is a guide on database security inspection and remediation methods.
@@ -390,6 +386,22 @@ PUBLIC SYNONYMs are objects automatically created to facilitate database usage. 
 
 ```
 DROP PUBLIC SYNONYM synonym_name;
+```
+
+#### Workaround
+
+Even if PUBLIC SYNONYMs have been dropped, administrators and developers might still need synonyms. In this case, create PRIVATE SYNONYMs instead of PUBLIC SYNONYMs. Log in with the target account and create the synonym.
+
+**Create PRIVATE SYNONYM**
+
+```
+connect user_id/user_passwd;
+CREATE SYNONYM PRINT FOR synonym_name;
+
+-- The following three SYNONYMs can be executed only by the sys account.
+CREATE SYNONYM SET_SYSTEM_STATS FOR SYSTEM_.SET_SYSTEM_STATS;
+CREATE SYNONYM GATHER_SYSTEM_STATS FOR SYSTEM_.GATHER_SYSTEM_STATS;
+CREATE SYNONYM GATHER_DATABASE_STATS FOR SYSTEM_.GATHER_DATABASE_STATS;
 ```
 
 ## Account lockout policy settings such as lockout time according to the number of login failure

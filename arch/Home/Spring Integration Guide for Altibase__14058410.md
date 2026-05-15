@@ -35,3 +35,10 @@ In addition to this document, please refer to the following technical documents 
 6. WEBLOGIC Integration Guide for Altibase
 7. Hibernate Integration Guide for Altibase
 8. iBatis Integration Guide for Altibase
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/7340945/ALTIBASE_Spring_%EC%97%B0%EB%8F%99%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1417566993000&api=v2)
+- [Korean source attachment 2 (PDF)](https://docs.altibase.com/download/attachments/7340945/ALTIBASE_Spring_%EC%97%B0%EB%8F%99%EA%B0%80%EC%9D%B4%EB%93%9C_2.5.pdf?version=1&modificationDate=1417598735000&api=v2)

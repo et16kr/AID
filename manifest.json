@@ -13,7 +13,7 @@
       "page_count": 241
     },
     "arch": {
-      "page_count": 178
+      "page_count": 181
     },
     "faq": {
       "page_count": 115
@@ -557,8 +557,8 @@
       "title": "Database Security Checklist",
       "source_url": "https://docs.altibase.com/display/FAQE/Database+Security+Checklist",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Database Security Checklist__22642935.md",
-      "body_chars": 20539,
-      "word_count": 2684
+      "body_chars": 24374,
+      "word_count": 3050
     },
     {
       "space_key": "FAQE",
@@ -728,8 +728,8 @@
       "title": "User password length limitation - Differences by version",
       "source_url": "https://docs.altibase.com/display/FAQE/User+password+length+limitation+-+Differences+by+version",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/User password length limitation - Differences by version__22642941.md",
-      "body_chars": 2530,
-      "word_count": 350
+      "body_chars": 3623,
+      "word_count": 489
     },
     {
       "space_key": "FAQE",
@@ -764,8 +764,8 @@
       "title": "[Linux] How to register Altibase server process auto start script",
       "source_url": "https://docs.altibase.com/display/FAQE/%5BLinux%5D+How+to+register+Altibase+server+process+auto+start+script",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/[Linux] How to register Altibase server process auto start script__16875947.md",
-      "body_chars": 1571,
-      "word_count": 204
+      "body_chars": 8309,
+      "word_count": 1055
     },
     {
       "space_key": "FAQE",
@@ -818,8 +818,8 @@
       "title": "How to create/delete replication objects",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876082",
       "path": "altibase_docs_md/FAQE/Home/03. Replication/How to create_delete replication objects__16876082.md",
-      "body_chars": 17593,
-      "word_count": 1869
+      "body_chars": 19602,
+      "word_count": 1942
     },
     {
       "space_key": "FAQE",
@@ -953,8 +953,8 @@
       "title": "How to manage Spring+iBatis transaction",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876194",
       "path": "altibase_docs_md/FAQE/Home/07. Development and API/How to manage Spring+iBatis transaction__16876194.md",
-      "body_chars": 7353,
-      "word_count": 648
+      "body_chars": 7771,
+      "word_count": 565
     },
     {
       "space_key": "FAQE",
@@ -1115,8 +1115,8 @@
       "title": "How to set up and execute altimon",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+set+up+and+execute+altimon",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/How to set up and execute altimon__16876266.md",
-      "body_chars": 7473,
-      "word_count": 752
+      "body_chars": 9168,
+      "word_count": 966
     },
     {
       "space_key": "FAQE",
@@ -1457,8 +1457,8 @@
       "title": "AdminCenter2 execution file",
       "source_url": "https://docs.altibase.com/display/FAQE/AdminCenter2+execution+file",
       "path": "altibase_docs_md/FAQE/Home/11. Utilities/AdminCenter2 execution file__16876465.md",
-      "body_chars": 817,
-      "word_count": 98
+      "body_chars": 1530,
+      "word_count": 151
     },
     {
       "space_key": "FAQE",
@@ -1502,8 +1502,8 @@
       "title": "What interface does Altibase provide?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22642982",
       "path": "altibase_docs_md/FAQE/Home/13. General/What interface does Altibase provide__22642982.md",
-      "body_chars": 2881,
-      "word_count": 393
+      "body_chars": 3854,
+      "word_count": 538
     },
     {
       "space_key": "FAQE",
@@ -2780,8 +2780,8 @@
       "title": "Altibase CPU Overload Analysis Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+CPU+Overload+Analysis+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase CPU Overload Analysis Guide__14647581.md",
-      "body_chars": 1347,
-      "word_count": 189
+      "body_chars": 2211,
+      "word_count": 266
     },
     {
       "space_key": "arch",
@@ -2789,8 +2789,8 @@
       "title": "Altibase Configuration File Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Configuration+File+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Configuration File Guide__22642991.md",
-      "body_chars": 14472,
-      "word_count": 2177
+      "body_chars": 16775,
+      "word_count": 2511
     },
     {
       "space_key": "arch",
@@ -2807,8 +2807,8 @@
       "title": "Altibase Developer Training",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Developer+Training",
       "path": "altibase_docs_md/arch/Home/Altibase Developer Training__22642996.md",
-      "body_chars": 373,
-      "word_count": 31
+      "body_chars": 1637,
+      "word_count": 117
     },
     {
       "space_key": "arch",
@@ -2816,8 +2816,8 @@
       "title": "1. Considerations when Designing",
       "source_url": "https://docs.altibase.com/display/arch/1.+Considerations+when+Designing",
       "path": "altibase_docs_md/arch/Home/Altibase Development Guide/1. Considerations when Designing__22642998.md",
-      "body_chars": 11451,
-      "word_count": 1770
+      "body_chars": 13683,
+      "word_count": 1987
     },
     {
       "space_key": "arch",
@@ -2915,8 +2915,8 @@
       "title": "Altibase GeoServer Integration Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+GeoServer+Integration+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase GeoServer Integration Guide__22643004.md",
-      "body_chars": 10209,
-      "word_count": 913
+      "body_chars": 11436,
+      "word_count": 1073
     },
     {
       "space_key": "arch",
@@ -2978,8 +2978,8 @@
       "title": "Altibase Memory Usage Increase Analysis Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Memory+Usage+Increase+Analysis+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Memory Usage Increase Analysis Guide__14647388.md",
-      "body_chars": 497,
-      "word_count": 81
+      "body_chars": 1393,
+      "word_count": 156
     },
     {
       "space_key": "arch",
@@ -3176,8 +3176,8 @@
       "title": "Altibase Monitoring Queries Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Monitoring+Queries+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide__14058229.md",
-      "body_chars": 2282,
-      "word_count": 312
+      "body_chars": 3188,
+      "word_count": 387
     },
     {
       "space_key": "arch",
@@ -3185,8 +3185,8 @@
       "title": "Altibase ODBC Development Guide in Windows Environment",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+ODBC+Development+Guide+in+Windows+Environment",
       "path": "altibase_docs_md/arch/Home/Altibase ODBC Development Guide in Windows Environment__15138911.md",
-      "body_chars": 9070,
-      "word_count": 1076
+      "body_chars": 11235,
+      "word_count": 1229
     },
     {
       "space_key": "arch",
@@ -3311,8 +3311,8 @@
       "title": "Altibase Quick Install & Start for UNIX",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16875604",
       "path": "altibase_docs_md/arch/Home/Altibase Quick Install & Start for UNIX__16875604.md",
-      "body_chars": 43540,
-      "word_count": 5105
+      "body_chars": 46396,
+      "word_count": 5709
     },
     {
       "space_key": "arch",
@@ -3329,8 +3329,8 @@
       "title": "Altibase Replication Constraints Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Replication+Constraints+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Replication Constraints Guide__22643008.md",
-      "body_chars": 13516,
-      "word_count": 1839
+      "body_chars": 16020,
+      "word_count": 2111
     },
     {
       "space_key": "arch",
@@ -3338,8 +3338,8 @@
       "title": "Altibase SQL Tuning Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+SQL+Tuning+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase SQL Tuning Guide__22643010.md",
-      "body_chars": 322,
-      "word_count": 27
+      "body_chars": 1284,
+      "word_count": 106
     },
     {
       "space_key": "arch",
@@ -3374,8 +3374,8 @@
       "title": "Altibase Window ADO.NET Development Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Window+ADO.NET+Development+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Window ADO.NET Development Guide__14647565.md",
-      "body_chars": 698,
-      "word_count": 86
+      "body_chars": 1614,
+      "word_count": 164
     },
     {
       "space_key": "arch",
@@ -3410,8 +3410,8 @@
       "title": "Altibase/Oracle Comparison",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16875638",
       "path": "altibase_docs_md/arch/Home/Altibase_Oracle Comparison__16875638.md",
-      "body_chars": 41383,
-      "word_count": 5556
+      "body_chars": 43443,
+      "word_count": 7692
     },
     {
       "space_key": "arch",
@@ -3419,8 +3419,8 @@
       "title": "Configuration Guide For Minimizing Disk I/O Contention",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22643018",
       "path": "altibase_docs_md/arch/Home/Configuration Guide For Minimizing Disk I_O Contention__22643018.md",
-      "body_chars": 19709,
-      "word_count": 2698
+      "body_chars": 21492,
+      "word_count": 3073
     },
     {
       "space_key": "arch",
@@ -3455,8 +3455,8 @@
       "title": "Considerations for Altibase Backup Policy",
       "source_url": "https://docs.altibase.com/display/arch/Considerations+for+Altibase+Backup+Policy",
       "path": "altibase_docs_md/arch/Home/Considerations for Altibase Backup Policy__14647709.md",
-      "body_chars": 714,
-      "word_count": 92
+      "body_chars": 1688,
+      "word_count": 164
     },
     {
       "space_key": "arch",
@@ -3464,8 +3464,8 @@
       "title": "Creating ALTIBASE Database",
       "source_url": "https://docs.altibase.com/display/arch/Creating+ALTIBASE+Database",
       "path": "altibase_docs_md/arch/Home/Creating ALTIBASE Database__22643020.md",
-      "body_chars": 5505,
-      "word_count": 747
+      "body_chars": 7041,
+      "word_count": 920
     },
     {
       "space_key": "arch",
@@ -3536,8 +3536,8 @@
       "title": "Hibernate Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Hibernate+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Hibernate Integration Guide for Altibase__14058388.md",
-      "body_chars": 44503,
-      "word_count": 5034
+      "body_chars": 45411,
+      "word_count": 4620
     },
     {
       "space_key": "arch",
@@ -3563,8 +3563,8 @@
       "title": "JAVA Developer's Guide",
       "source_url": "https://docs.altibase.com/display/arch/JAVA+Developer%27s+Guide",
       "path": "altibase_docs_md/arch/Home/JAVA Developer's Guide__16875544.md",
-      "body_chars": 24335,
-      "word_count": 3070
+      "body_chars": 27938,
+      "word_count": 3389
     },
     {
       "space_key": "arch",
@@ -3635,8 +3635,8 @@
       "title": "JEUS Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/JEUS+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/JEUS Integration Guide for Altibase__14058459.md",
-      "body_chars": 488,
-      "word_count": 54
+      "body_chars": 1578,
+      "word_count": 133
     },
     {
       "space_key": "arch",
@@ -3644,8 +3644,8 @@
       "title": "Linux Setup Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Linux+Setup+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Linux Setup Guide for Altibase__22643022.md",
-      "body_chars": 42221,
-      "word_count": 5589
+      "body_chars": 46841,
+      "word_count": 6902
     },
     {
       "space_key": "arch",
@@ -3743,8 +3743,8 @@
       "title": "MyBatis Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/MyBatis+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase__14058349.md",
-      "body_chars": 675,
-      "word_count": 88
+      "body_chars": 1558,
+      "word_count": 170
     },
     {
       "space_key": "arch",
@@ -3977,8 +3977,8 @@
       "title": "Spring Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Spring+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Spring Integration Guide for Altibase__14058410.md",
-      "body_chars": 1047,
-      "word_count": 127
+      "body_chars": 2148,
+      "word_count": 207
     },
     {
       "space_key": "arch",
@@ -3986,8 +3986,8 @@
       "title": "System Data Capacity Estimation Guide for Altibase Operations",
       "source_url": "https://docs.altibase.com/display/arch/System+Data+Capacity+Estimation+Guide+for+Altibase+Operations",
       "path": "altibase_docs_md/arch/Home/System Data Capacity Estimation Guide for Altibase Operations__22643042.md",
-      "body_chars": 19289,
-      "word_count": 2797
+      "body_chars": 22196,
+      "word_count": 3601
     },
     {
       "space_key": "arch",
@@ -4049,8 +4049,8 @@
       "title": "TOMCAT Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/TOMCAT+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/TOMCAT Integration Guide for Altibase__14058489.md",
-      "body_chars": 441,
-      "word_count": 48
+      "body_chars": 1531,
+      "word_count": 125
     },
     {
       "space_key": "arch",
@@ -4058,8 +4058,8 @@
       "title": "Troubleshooting Altibase Installation Problems",
       "source_url": "https://docs.altibase.com/display/arch/Troubleshooting+Altibase+Installation+Problems",
       "path": "altibase_docs_md/arch/Home/Troubleshooting Altibase Installation Problems__15138879.md",
-      "body_chars": 8649,
-      "word_count": 1161
+      "body_chars": 11141,
+      "word_count": 1393
     },
     {
       "space_key": "arch",
@@ -4067,8 +4067,8 @@
       "title": "UNIX Memory Management",
       "source_url": "https://docs.altibase.com/display/arch/UNIX+Memory+Management",
       "path": "altibase_docs_md/arch/Home/UNIX Memory Management__16875572.md",
-      "body_chars": 13344,
-      "word_count": 2024
+      "body_chars": 15532,
+      "word_count": 2410
     },
     {
       "space_key": "arch",
@@ -4094,8 +4094,8 @@
       "title": "Understanding the Altibase Start/Shut down Process",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=14909450",
       "path": "altibase_docs_md/arch/Home/Understanding the Altibase Start_Shut down Process__14909450.md",
-      "body_chars": 662,
-      "word_count": 83
+      "body_chars": 1558,
+      "word_count": 160
     },
     {
       "space_key": "arch",
@@ -4103,8 +4103,8 @@
       "title": "Utility Guide for each OS for Problem Analysis",
       "source_url": "https://docs.altibase.com/display/arch/Utility+Guide+for+each+OS+for+Problem+Analysis",
       "path": "altibase_docs_md/arch/Home/Utility Guide for each OS for Problem Analysis__16875587.md",
-      "body_chars": 19774,
-      "word_count": 2164
+      "body_chars": 22458,
+      "word_count": 2773
     },
     {
       "space_key": "arch",
@@ -4175,8 +4175,8 @@
       "title": "WEBLOGIC Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/WEBLOGIC+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/WEBLOGIC Integration Guide for Altibase__14058319.md",
-      "body_chars": 1019,
-      "word_count": 131
+      "body_chars": 2127,
+      "word_count": 215
     },
     {
       "space_key": "arch",
@@ -4184,8 +4184,8 @@
       "title": "WebSphere Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/WebSphere+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/WebSphere Integration Guide for Altibase__14058343.md",
-      "body_chars": 32374,
-      "word_count": 3099
+      "body_chars": 33268,
+      "word_count": 3153
     },
     {
       "space_key": "arch",
@@ -4247,8 +4247,41 @@
       "title": "iBatis Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/iBatis+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/iBatis Integration Guide for Altibase__14058303.md",
-      "body_chars": 672,
-      "word_count": 87
+      "body_chars": 1550,
+      "word_count": 168
+    },
+    {
+      "space_key": "arch",
+      "page_id": "19333567",
+      "title": "Altibase VC 2008 Development Guide",
+      "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=19333567",
+      "path": "altibase_docs_md/arch/Home/Altibase VC 2008 Development Guide__19333567.md",
+      "body_chars": 1758,
+      "word_count": 179,
+      "generated_translation": true,
+      "translated_from_space_key": "DOCK"
+    },
+    {
+      "space_key": "arch",
+      "page_id": "19334121",
+      "title": "Altibase VC 2010 Development Guide",
+      "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=19334121",
+      "path": "altibase_docs_md/arch/Home/Altibase VC 2010 Development Guide__19334121.md",
+      "body_chars": 1758,
+      "word_count": 179,
+      "generated_translation": true,
+      "translated_from_space_key": "DOCK"
+    },
+    {
+      "space_key": "arch",
+      "page_id": "19955861",
+      "title": "Migration Center User Guide",
+      "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=19955861",
+      "path": "altibase_docs_md/arch/Home/Migration Center User Guide__19955861.md",
+      "body_chars": 40468,
+      "word_count": 6803,
+      "generated_translation": true,
+      "translated_from_space_key": "DOCK"
     },
     {
       "space_key": "faq",

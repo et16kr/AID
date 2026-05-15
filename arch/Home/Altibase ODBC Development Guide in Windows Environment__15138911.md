@@ -284,3 +284,9 @@ while (dr.Read())
     fs.Close();
 }
 ```
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/13436856/ALTIBASE_Windows_ODBC_%EA%B0%9C%EB%B0%9C%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698199482000&api=v2)

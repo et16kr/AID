@@ -156,7 +156,7 @@ iSQL> INSERT into spatial_ref_sys (srid, auth_name, auth_srid, proj4text, srtext
 
 You can import a layer using a shapefile.
 
-1. Install the extension plug-in Download the importer plug-in, unzip it, and copy it to C:\Program Files\GeoServer\webapps\geoserver\WEB-INF\lib You need to restart GeoServer for it to take effect.
+1. Install the extension plug-in. [Download the importer plug-in](https://sourceforge.net/projects/geoserver/files/GeoServer/2.16.2/extensions/geoserver-2.16.2-importer-plugin.zip/download), unzip it, and copy it to `C:\Program Files\GeoServer\webapps\geoserver\WEB-INF\lib`. Restart GeoServer for the change to take effect.
 
 2. When you access GeoServer, the "Import Data" option will be added.
 

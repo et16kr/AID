@@ -25,3 +25,9 @@ The database memory is loaded due to queries used int the application program, w
 This document examines the parts of memory spaces occupied by Altibase and describes how to resolve it when memory is used abnormally.
 
 This document was written based on Altibase version 7.1 or later.
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/11698518/ALTIBASE_MEM_PBT%EC%A0%88%EC%B0%A8.pdf?version=1&modificationDate=1698815576000&api=v2)

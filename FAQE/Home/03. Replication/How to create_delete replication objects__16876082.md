@@ -382,3 +382,5 @@ Here are some of the error messages that may occur during the process of creatin
 - SQL Reference
 - Download manual page: [http://support.altibase.com/en/manual](http://support.altibase.com/en/manual)
 - Github: [https://github.com/ALTIBASE/Documents/tree/master/Manuals/](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Altibase_7.1/eng)
+- Korean source attachment: [D24_ALTIBASE Efficient Replication Guide.pdf](https://docs.altibase.com/download/attachments/13008990/D24_ALTIBASE_%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8_%EC%9D%B4%EC%A4%91%ED%99%94_%EA%B0%80%EC%9D%B4%EB%93%9C1.pdf?version=1&modificationDate=1544508306000&api=v2)
+- Korean source attachment: [D67_ALTIBASE Replication Constraints Guide.pdf](https://docs.altibase.com/download/attachments/13008990/D67_ALTIBASE_%EC%9D%B4%EC%A4%91%ED%99%94_%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1544508306000&api=v2)

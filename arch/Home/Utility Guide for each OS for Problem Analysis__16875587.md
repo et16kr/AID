@@ -430,3 +430,9 @@ This section describes commands that do not have special restrictions that can b
   Feb 24 10:32:07 rx5670 vmunix: Logical volume 64, 0x2 configured as SWAP
   Feb 24 10:32:07 rx5670 vmunix: Logical volume 64, 0x2 configured as DUM
   ```
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/13436866/ALTIBASE_%EB%AC%B8%EC%A0%9C%EB%B6%84%EC%84%9D%EC%9D%84_%EC%9C%84%ED%95%9C_OS%EB%B3%84_%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0_%EC%82%AC%EC%9A%A9_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698050117000&api=v2)

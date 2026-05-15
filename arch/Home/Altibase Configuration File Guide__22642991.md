@@ -214,3 +214,10 @@ This section describes properties necessary for tracking when a problem occurs i
 | QP_MSGLOG_FLAG | 2 | If it is set to 2, all DDL performance records can be checked, so when a problem occurs, which can be helpful for analysis if DDL performance is based. |
 | RP_CONFLICT_MSGLOG_FLAG | 0 | If it is set to 6, a log of DML occurs when a replication conflict is recorded. which can be helpful for analysis. |
 | TIMED_STATISTICS | 0 | The default value is 0. To know the execution times of each SQL statement related to performance, it can be activated in real time as follows.<br>iSQL> ALTER SYSTEM SET timed_statistics = 1 ;<br>When activated, the execution times of each SQL statement start to be recorded in v$statement. |
+
+# Korean Source Attachments
+
+The Korean source page also references these downloadable source attachments. They are preserved here so the English document set does not lose those references.
+
+- [Korean source attachment 1 (PDF)](https://docs.altibase.com/download/attachments/13437165/202312_Altibase_%EC%84%A4%EC%A0%95_%ED%8C%8C%EC%9D%BC_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=4&modificationDate=1702279114000&api=v2)
+- [Korean source attachment 2 (PDF)](https://docs.altibase.com/download/attachments/13437165/201003_ALTIBASE_%EC%84%A4%EC%A0%95_%ED%8C%8C%EC%9D%BC_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1701842255000&api=v2)
