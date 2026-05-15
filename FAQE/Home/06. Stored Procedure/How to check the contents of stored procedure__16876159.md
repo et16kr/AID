@@ -26,16 +26,16 @@ This document describes how to check the contents of stored procedures.
 
 ---
 
-All the versions of ALTIBASE HDB
+All versions of ALTIBASE HDB
 
 # How to check
 
 ---
 
-There are two ways to check the contents of the stored procedure.
+There are two ways to check stored procedure contents.
 
-- Use meta table
-- Use aexport utility
+- Use meta tables
+- Use the `aexport` utility
 
 ## Using meta table
 
@@ -46,6 +46,8 @@ After creating user-defined helper procedures that use the `SYSTEM_.SYS_PROCEDUR
 ### How to create a custom procedure
 
 - **Stored procedure for listing stored procedures and user-defined functions**
+
+  **Query stored procedure and user-defined function names**
 
   ```
   -- Output stored procedure and user-defined function names to the screen.
@@ -80,6 +82,8 @@ After creating user-defined helper procedures that use the `SYSTEM_.SYS_PROCEDUR
   /
   ```
 - **Stored procedure to check the contents of the stored procedure**
+
+  **User-defined procedure to check stored procedure contents**
 
   ```
   -- Output the contents of the specified stored procedure on the screen.
@@ -116,7 +120,7 @@ After creating user-defined helper procedures that use the `SYSTEM_.SYS_PROCEDUR
   /
   ```
 
-### How to Execute user-defined stored procedure
+### How to execute user-defined stored procedures
 
 - **Check the list of stored procedures and user-defined functions**
 
@@ -133,11 +137,11 @@ After creating user-defined helper procedures that use the `SYSTEM_.SYS_PROCEDUR
 
 ---
 
-aexport is a utility that saves database object creation statements to a file. After performing aexport, the contents of the stored procedure can be checked in the created file.
+`aexport` is a utility that saves database object creation statements to a file. After executing `aexport`, stored procedure contents can be checked in the generated file.
 
 ### Execute aexport - all objects
 
-- The creation statement of all stored procedures can be checked in ALL_CRT_PROC.sql among the files created after executing aexport.
+- The creation statements of all stored procedures can be checked in `ALL_CRT_PROC.sql` among the files generated after executing `aexport`.
 
   ```
   $ aexport
@@ -189,7 +193,7 @@ aexport is a utility that saves database object creation statements to a file. A
 
 ### Execute aexport for each user
 
-- If the user executes aexport after entering the database user name in the -u option of aexport and the password of the user in the -p option, only the object schema owned by the user is extracted.
+- When you execute `aexport` with the database user name in the `-u` option and that user's password in the `-p` option, only object schemas owned by that user are extracted.
 - For stored procedure contents, refer to the `ALL_CRT_PROC.sql` file.
 - How to execute
 

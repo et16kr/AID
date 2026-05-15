@@ -44,7 +44,7 @@ However, if the directory names must be changed, change the directory paths for 
 
 Copy Cold Backup (mydb*, *.dbf, logs, loganchor) to the desired directory using the OS copy command.
 
-2. Modify $ALTIBASE_HOME/conf/altibase.properties.
+2. Modify `$ALTIBASE_HOME/conf/altibase.properties`.
 
 ```
 ..Omitted
@@ -78,7 +78,7 @@ TRANSITION TO PHASE : CONTROL
 Command execute success.
 ```
 
-4. Rename datafile in ISQL. (Change directory path)
+4. Rename data files in iSQL. (Change directory path)
 
 ```
 iSQL(sysdba)>alter database rename datafile '/home/cheol2/altibase_home/dbs2/system001.dbf'  to '/home/cheol2/altibase_home/dbs/system001.dbf';

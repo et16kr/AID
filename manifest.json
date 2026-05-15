@@ -845,8 +845,8 @@
       "title": "How to recover cold backup by changing directory path",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+recover+cold+backup+by+changing+directory+path",
       "path": "altibase_docs_md/FAQE/Home/04. Backup and Recovery/How to recover cold backup by changing directory path__16876133.md",
-      "body_chars": 4888,
-      "word_count": 583
+      "body_chars": 5543,
+      "word_count": 545
     },
     {
       "space_key": "FAQE",
@@ -854,8 +854,8 @@
       "title": "Online Backup and Time Based Recovery",
       "source_url": "https://docs.altibase.com/display/FAQE/Online+Backup+and+Time+Based+Recovery",
       "path": "altibase_docs_md/FAQE/Home/04. Backup and Recovery/Online Backup and Time Based Recovery__16876135.md",
-      "body_chars": 5616,
-      "word_count": 840
+      "body_chars": 6594,
+      "word_count": 872
     },
     {
       "space_key": "FAQE",
@@ -863,8 +863,8 @@
       "title": "Create database object and upload data",
       "source_url": "https://docs.altibase.com/display/FAQE/Create+database+object+and+upload+data",
       "path": "altibase_docs_md/FAQE/Home/04. Backup and Recovery/Using aexport and iloader/Create database object and upload data__16876145.md",
-      "body_chars": 5612,
-      "word_count": 889
+      "body_chars": 6937,
+      "word_count": 930
     },
     {
       "space_key": "FAQE",
@@ -872,8 +872,8 @@
       "title": "Data download using iloader",
       "source_url": "https://docs.altibase.com/display/FAQE/Data+download+using+iloader",
       "path": "altibase_docs_md/FAQE/Home/04. Backup and Recovery/Using aexport and iloader/Data download using iloader__16876147.md",
-      "body_chars": 8658,
-      "word_count": 1198
+      "body_chars": 10091,
+      "word_count": 1222
     },
     {
       "space_key": "FAQE",
@@ -881,8 +881,8 @@
       "title": "Database object backup using aexport",
       "source_url": "https://docs.altibase.com/display/FAQE/Database+object+backup+using+aexport",
       "path": "altibase_docs_md/FAQE/Home/04. Backup and Recovery/Using aexport and iloader/Database object backup using aexport__22642949.md",
-      "body_chars": 5541,
-      "word_count": 699
+      "body_chars": 6109,
+      "word_count": 776
     },
     {
       "space_key": "FAQE",
@@ -908,8 +908,8 @@
       "title": "Comparison between VARCHAR and CHAR types",
       "source_url": "https://docs.altibase.com/display/FAQE/Comparison+between+VARCHAR+and+CHAR+types",
       "path": "altibase_docs_md/FAQE/Home/05. SQL/Comparison between VARCHAR and CHAR types__16876151.md",
-      "body_chars": 1116,
-      "word_count": 161
+      "body_chars": 1952,
+      "word_count": 257
     },
     {
       "space_key": "FAQE",
@@ -917,8 +917,8 @@
       "title": "How to check the privileges granted to an object",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+check+the+privileges+granted+to+an+object",
       "path": "altibase_docs_md/FAQE/Home/05. SQL/How to check the privileges granted to an object__16876153.md",
-      "body_chars": 1969,
-      "word_count": 251
+      "body_chars": 2770,
+      "word_count": 277
     },
     {
       "space_key": "FAQE",
@@ -926,8 +926,8 @@
       "title": "How to check the contents of stored procedure",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+check+the+contents+of+stored+procedure",
       "path": "altibase_docs_md/FAQE/Home/06. Stored Procedure/How to check the contents of stored procedure__16876159.md",
-      "body_chars": 6828,
-      "word_count": 783
+      "body_chars": 7845,
+      "word_count": 846
     },
     {
       "space_key": "FAQE",
@@ -935,8 +935,8 @@
       "title": "How to check the number of records affected by DML within the stored procedure",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+check+the+number+of+records+affected+by+DML+within+the+stored+procedure",
       "path": "altibase_docs_md/FAQE/Home/06. Stored Procedure/How to check the number of records affected by DML within the stored procedure__16876157.md",
-      "body_chars": 538,
-      "word_count": 79
+      "body_chars": 1190,
+      "word_count": 118
     },
     {
       "space_key": "FAQE",

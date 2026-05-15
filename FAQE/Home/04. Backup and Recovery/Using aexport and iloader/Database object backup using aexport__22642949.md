@@ -172,7 +172,7 @@ Write Password :                                 # Enter USER's password
 
 When aexport is executed, .sh (.bat for Windows system) files and .sql files are created as follows.
 
-The .sql files contain the syntax for creating database objects and are scripts that execute .sh files to .sql files at once.
+The `.sql` files contain database object creation statements, and the `.sh` files are scripts that execute those `.sql` files in one batch.
 
 (**Note:** The number of `.sh` files may vary depending on the supported objects for each Altibase version.)
 

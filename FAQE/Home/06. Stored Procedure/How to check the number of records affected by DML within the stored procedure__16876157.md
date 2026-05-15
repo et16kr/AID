@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/How+to+check+the+number+of+records+affected+by+DML+within+the+stored+procedure
 Updated: 2021-03-18T14:59:03.000+0900
 
-Use SQL%ROWCOUNT to find out how many records were affected by DML.
+Use `SQL%ROWCOUNT` to find out how many records were affected by DML.
 
 **Example**
 

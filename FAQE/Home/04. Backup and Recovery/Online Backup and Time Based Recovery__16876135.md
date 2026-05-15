@@ -46,7 +46,7 @@ iSQL> select ARCHIVE_MODE from v$archive;ARCHIVE_MODE
 
 B. How to change Archive mode
 
-The Archive mode cannot be changed while online and can be changed at the Control stage after DB shutdown.
+Archive mode cannot be changed while the database is online. It can be changed at the `CONTROL` stage after DB shutdown.
 
 After connecting to sysdba mode, start-up in the Control stage and change to Archive mode.
 
@@ -134,7 +134,7 @@ USER_MEMORY_TBS-0-0 USER_DISK_TBS.dbf
 
 2) Finishing online backup by DBA
 
-Commands to force archive log files related to the backup must be executed so that even if the current log file is not used up, it is instructed to close it and continue logging to the next log file.
+Run the command that forces archive processing for the log file related to the backup. This closes the current log file even if it is not full and continues logging to the next log file.
 
 ```
 iSQL(sysdba)> ALTER SYSTEM SWITCH LOGFILE;
@@ -144,11 +144,11 @@ iSQL(sysdba)> ALTER SYSTEM SWITCH LOGFILE;
 
 ---
 
-It is operating in Archivelog Mode and is a recovery procedure when online backup (or cold backup) for the entire DB is performed more than once before the desired recovery point.
+This recovery procedure applies when the database is operating in Archivelog Mode and at least one full online backup (or cold backup) was taken before the desired recovery point.
 
 Ex) The tablespace USER_DISK_TBS was deleted by mistake. (July 23, 2015 14:11)
 
-Database recovery procedure to the state of 10 minutes before the tablespace existed
+The following procedure recovers the database to the state from 10 minutes before the deletion, when the tablespace still existed.
 
 At the last backup, the entire DB was backed up as follows.
 
@@ -186,7 +186,7 @@ In the altibase_sm.log file created in the $ALTIBASE_HOME/trc directory, check t
 $ cp /backup_dir/loganchor* /ALTIBASE_HOME/logs;
 ```
 
-3) Because the SYS_TBS_DISK_TEMP tablespace is not backed up, create a new one.
+3) Because the `SYS_TBS_DISK_TEMP` tablespace is not backed up, create the corresponding data file again.
 
 ```
 iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf'

@@ -35,13 +35,13 @@ Available in ALTIBASE HDB 4.3.9 or later.
 Use the query below.
 
 ```
-SELECT a.user_name grantee,                                     -- User grantee
-       c.user_name grantor,                                     -- User grantor
+SELECT a.user_name grantee,                                     -- User granted the privilege
+       c.user_name grantor,                                     -- User who granted the privilege
        f.user_name object_owner,                                -- Owner of the object
-       e.table_name object_name,                                -- Name of object
+       e.table_name object_name,                                -- Name of the object
        e.table_type object_type,                                -- Type of object
-       replace(d.priv_name, '_', ' ') priv_name,                -- Name of privilege
-       decode(b.with_grant_option, 0, 'NO', 'YES') grantable    -- Whether it is possible to re-grant the rights to the object
+       replace(d.priv_name, '_', ' ') priv_name,                -- Name of the granted privilege
+       decode(b.with_grant_option, 0, 'NO', 'YES') grantable    -- Whether the privilege can be granted onward for the object
   FROM system_.sys_users_ a,
        system_.sys_grant_object_ b,
        system_.sys_users_ c,

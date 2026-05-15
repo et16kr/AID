@@ -67,6 +67,6 @@ iSQL> select 1 from dual where varchar'a ' = char'a ';
 1 row selected.
 ```
 
-In the case of char type, 0x20 is added and compared based on the larger length when comparing, and when comparing char and varchar, the comparison is performed based on the valid data of varchar (position of 0x00).
+When comparing `CHAR` values, `0x20` is added to the shorter value and the comparison uses the longer length. When comparing `CHAR` and `VARCHAR`, the comparison uses the valid data in the `VARCHAR` value, up to the `0x00` position.
 
-Sometimes, when SESC coding, variables are initialized to 0x00 for varchar and 0x20 for char. There are rules above, so it is better to initialize them to 0x00.
+In SESC code, variables are sometimes initialized to `0x00` for `VARCHAR` and to `0x20` for `CHAR`. Because of the comparison rules above, it is better to initialize them to `0x00`.

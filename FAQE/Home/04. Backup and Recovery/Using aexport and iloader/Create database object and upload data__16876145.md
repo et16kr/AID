@@ -22,7 +22,7 @@ Updated: 2021-04-05T09:41:14.000+0900
 
 In order to restore all database objects and data, execute the following .sh files created when aexport is executed in order.
 
-From 2. to 8., execute it in order.
+Execute steps 2 through 8 in order.
 
 ```
 1. run_il_out.sh            : [faq: iloader formout, data-out script ]         # This is a script for backing up data, so it is excluded from this step.
@@ -35,7 +35,7 @@ From 2. to 8., execute it in order.
 8. run_is_job.sh            : [faq: isql job script ]
 ```
 
-Each file contains isql commands that execute .sql files containing object creation statements.
+Each file contains `isql` commands that execute `.sql` files containing object creation statements.
 
 ```
 $ cat run_is.sh
@@ -70,14 +70,14 @@ $ export ALTIBASE_NLS_USE=database_server_character_set
 $ export ILO_DATEFORM='YYYY/MM/DD HH:MI:SS.SSSSSS'
 ```
 
-**How to set environment variables**
+**How to check environment variables**
 
 ```
 $ echo $ALTIBASE_NLS_USE
 $ echo $ILO_DATEFORM
 ```
 
-The ALTIBASE HDB server character set can be checked with the following statement. `NLS_CHARACTERSET` is the Altibase server character set, and `NLS_USE` is the client character set. Korean data is not corrupted only when these two values are set identically.
+The ALTIBASE HDB server character set can be checked with the following statement. `NLS_CHARACTERSET` is the Altibase server character set, and `NLS_USE` is the client character set. Korean character data is preserved only when these two values are set identically.
 
 **How to check the ALTIBASE server character set-Available from ALTIBASE HDB version 5**
 
@@ -112,7 +112,7 @@ $ mv nohup.out run_is.log
 
 ---
 
-Data upload is performed using run_il_in.sh. In order to upload only a table owned by a specific user or only a specific table, the user can extract only what the user wants from run_il_in.sh as follows.
+Data upload is performed using `run_il_in.sh`. To upload only tables owned by a specific user or only a specific table, extract only the required commands from `run_il_in.sh` as follows.
 
 **Ex) In case of uploading only table owned by ALTITEST user**
 
@@ -132,9 +132,9 @@ $ grep 'SYS_ORDERS.fmt' run_il_in.sh
 iloader -s localhost -u SYS -p MANAGER in -f SYS_ORDERS.fmt -d SYS_ORDERS.dat -log SYS_ORDERS.log -bad SYS_ORDERS.bad
 ```
 
-If there are many tables or a lot of data, monitor upload.out to see if it is terminated.
+If there are many tables or a large amount of data, monitor `upload.out` to check whether the upload has finished.
 
-**Data upload performance log monitoring**
+**Data upload execution log monitoring**
 
 ```
 $ tail -f upload.out
@@ -146,7 +146,7 @@ $ tail -f upload.out
 
 ### Checking the .sh running log
 
-Whenever .sh is running, all logs are left to check whether it is normal or not through the log after running .sh.
+Leave a log whenever each `.sh` file is executed, then check the log after execution to confirm whether it completed normally.
 
 **Ex) Checking errors**
 
@@ -164,7 +164,7 @@ $ grep -i err- upload.out                                                 # Chec
 $ ls -l *.fmt|wc -l                                                       # Check the number of tables
 $ ls -l *.log|wc -l                                                       # Check the number of log files created by running run_il_in.sh
 
-$ cat *.log | grep 'Error Row Count' |  awk -F: '{print $2}' | wc -l      # The number of these results should match the number of the two results above. If it is different, it means that the error has occurred as many times as the difference.
+$ cat *.log | grep 'Error Row Count' |  awk -F: '{print $2}' | wc -l      # This count should match both counts above. If it differs, errors occurred for the difference in count.
 
 $ cat *.log | grep 'Error Row Count' |  awk -F: '{print $2}' | sort -u    # If this result is 0, nothing has failed when performing the upload.
 0
