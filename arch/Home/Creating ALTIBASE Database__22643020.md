@@ -30,7 +30,7 @@ This document is based on Altibase version 7.1.0 or higher.
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)
 - Technical support center: 02-2082-1114
 
 This document is provided for informational purposes only and is subject to change without prior notice. It may contain errors, and Altibase makes no express or implied warranties of any kind, including but not limited to warranties of merchantability or fitness for a particular purpose.
@@ -43,7 +43,7 @@ Altibase may hold patents, trademarks, copyrights, or other intellectual propert
 
 ---
 
-This section describes how to create a database of versions supported according to Altibase's End of Service (EOS) policy. As for this document, the latest Altibase version is 'Altibase ver. 7' and 'Altibase ver 6 or below' are for EOS. Altibase cannot be operated until the database is created, so the database must be created as follows before starting the Altibase.
+This section describes how to create a database for versions supported according to Altibase's End of Service (EOS) policy. At the time this document was written, the latest Altibase version was 'Altibase ver. 7', and versions earlier than 'Altibase ver. 6' were EOS targets. Altibase cannot be operated until the database is created, so the database must be created as follows before starting Altibase.
 
 - Check DB_NAME in altibase.properties
 

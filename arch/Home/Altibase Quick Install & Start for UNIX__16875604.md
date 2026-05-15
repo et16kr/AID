@@ -58,9 +58,9 @@ altibase-server-7.1.0.X.X-LINUX-X86-64bit-release.run
 
 ---
 
-This section describes how to create DB of versions supported according to Altibase's End of Service (EOS) policy.
+This section describes how to create a DB for versions supported according to Altibase's End of Service (EOS) policy.
 
-As of this document , the latest Altibase version is 'Altibase ver. 7' and'Altibase ver. earlier than 6' are for EOS.
+At the time this document was written, the latest Altibase version was 'Altibase ver. 7', and versions earlier than 'Altibase ver. 6' were EOS targets.
 
 Since Altibase cannot be operated until the DB is created, the DB must be created as follows before starting.
 
@@ -148,7 +148,7 @@ Since Altibase cannot be operated until the DB is created, the DB must be create
   ```
   ALTIBASE HDB connection port number (1024-65535)      [20300] : 20300 (After entering the set value, press Enter)
   ```
-- Determine the MEM_MAX_DB_SIZE value. (Default = 2G) * MEM_MAX_DB_SIZE refers to the 'maximum value' of data to be stored in memory, and refers to the limit value, not-pre-allocated.
+- Determine the MEM_MAX_DB_SIZE value. (Default = 2G) * MEM_MAX_DB_SIZE refers to the 'maximum value' of data to be stored in memory. It means a limit value, not a pre-allocated value.
 
   ```
   Maximum size of memory database
@@ -157,7 +157,7 @@ Since Altibase cannot be operated until the DB is created, the DB must be create
   ```
 - Determine the total memory size of the buffer pool. (Default = 128M)
 
-  BUFFER_AREA_SIZE refers to the'maximum value' of the memory size to be used as a buffer area in relation to the disk table, and refers to the total value allocated in advance.
+  BUFFER_AREA_SIZE refers to the 'maximum value' of the memory size to be used as a buffer area for disk tables. It means the total value allocated in advance.
 
   ```
   Buffer area size for caching disk-based database pages
@@ -501,7 +501,7 @@ This section is about basic installation and operation, and describes only the m
 | admin | Example SQL and View creation file directory for easy viewing of Altibase performance view |
 | bin | Altibase execution file, utility (execution file) directory |
 | include | Header file directory provided for Altibase application development |
-| install | [altibase_env.mk](http://altibase_env.mk) file and README file directory containing examples of macro settings for makefiles for Altibase application development. |
+| install | `altibase_env.mk` file and README file directory containing examples of macro settings for makefiles for Altibase application development. |
 | lib | Library directory provided for Altibase application development |
 | sample | Example program source (CLI, APRE, JDBC, C/C++, etc.) directory that provided Altibase application as a sample |
 | trc | Trace log file location where Altibase operation status information is recorded |
@@ -539,7 +539,7 @@ The normal startup is possible only when the basic installation and DB creation 
 This section explains how the user can start the DB.
 
 - When the installation and DB creation of the Altibase package is completed, execute the environment variable file in the installed OS user account to start.
-- Since the environment variable file is different for each OS type, check if $ALTIBASE_HOME and PAHT are properly configured in the environment variable for the corresponding version.
+- Since the environment variable file is different for each OS type, check whether $ALTIBASE_HOME and PATH are properly configured in the environment variable file for the corresponding version.
 - For Linux, for example, execute the environment file after checking whether $ALTIBASE_HOME and PATH are properly set in the environment variable file. (Run $.$HOME/.bash_profile or source $HOME/.bash_profile)
 
 ```
@@ -657,7 +657,7 @@ Command executed successfully.
   [ERR-910FB : Connected to idle instance]
   Connecting to the DB server...............................Startup Failure. Check Your Environment.
 
-  $ vi $ALTIBASE_HOME/trc/altibase_boot.log (Trace logs are recored in the $ALTIBASE_HOME/trc directory, and the log on failure can be checked in altibase_boot.log.)
+  $ vi $ALTIBASE_HOME/trc/altibase_boot.log (Trace logs are recorded in the $ALTIBASE_HOME/trc directory, and the log on failure can be checked in altibase_boot.log.)
   ========================= omitted =========================
   [2019/09/01 02:03:35 6][PID:108941][Thread-140685391135488][LWP-108941]
   No valid license present!
@@ -719,7 +719,7 @@ If the Altibase installation is completed and started normally, this section des
   | immediate | All the connected sessions (clients) are forcibly terminated and stopped with a normal shutdown process. |
   | normal | After waiting for all the connected sessions (clients) to be terminated normally, it is stopped through a normal shutdown process. |
 
-  If the "normal" option is used, it has to wait for the session (client) to terminate. If the Altibase is stopped without knowing this reason, it may be taken as a. mistake as if the shutdown process is not in progress.
+  If the "normal" option is used, Altibase must wait for sessions (clients) to terminate. If this behavior is not understood, the wait can be mistaken for the shutdown process not progressing.
 
 # Explanation of Starting and Shutting Down Altibase
 
@@ -734,13 +734,13 @@ If the Altibase installation is completed and started normally, this section des
 
 - This chapter describes how to create a DB user, create a tablespace, and create a table simply as an example.
 - Altibase complies with the SQL92 standard, so there is no significant difference in statements from other DBMSs.
-- For more detailed information on SQL statements, refer to the manual provided by Altibase. (Go to Altibase.com or github.com/ALTIBASE to access and download the manual)
+- For more detailed information on SQL statements, refer to the manual provided by Altibase. (Log in to [support.altibase.com](http://support.altibase.com) to check and download the manual.)
 
 ## iSQL commands
 
 ---
 
-- Altibase provides a utility program for users to use SQL statements in terminals and applications. * When the DB is created, only the user with DBA authority called "SYS" exists, so only $ALTIBASE_HOME/bin/is can be executed and accessed. ("is" is provided as a shell script made for easy access and use of iSQL.)
+- Altibase provides the iSQL utility so users can run SQL statements from terminals and applications. * When the DB is first created, only the DBA user account named "SYS" exists, so access is available only through `$ALTIBASE_HOME/bin/is`. (`is` is provided as a shell script for easier access to and use of iSQL.)
 
   ```
   $ is

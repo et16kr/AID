@@ -18,16 +18,16 @@ Updated: 2021-02-19T16:20:34.000+0900
 
 ---
 
-This chapter describes how to install the Altibase package downloaded from the technical support portal ([http://support.altibase.com/en/)](http://support.altibase.com)) for customers and developers.
+This chapter describes how customers and developers can install the Altibase package downloaded from the technical support portal ([http://support.altibase.com](http://support.altibase.com/)).
 
 This document is based on the native compiler for each device, and in the case of gcc/g++ since there are no special precautions except the compilation bit, its information is not described separately.
 
 The test environment of this document is as follows.
 
-- ALTIBASE: Altibase 7.1
+- ALTIBASE: Altibase v7.1.0
 - OS: Linux ( 2.6.32-504.el6.x86_64 )
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)
 - Technical support center: 02-2082-1114

@@ -32,7 +32,7 @@ For problems that are not described in this document, send an email to [support@
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)
 - Technical support center: 02-2082-1114
 
 # Troubleshooting in common environments
@@ -78,7 +78,7 @@ ISQL_CONNECTION = UNIX, SERVER = 127.0.0.1, PORT_NO = 20300
 
 ---
 
-- When installing and creating a database, it must be connected in the sysdba.
+- When installing and creating a database, connect in sysdba mode.
 - At this time access to sysdba mode is possible only with the user who installed ALTIBASE.
 
 ```
@@ -130,7 +130,7 @@ Startup Failed....
 
 ---
 
-- MAC ADDRESS may be changed for reasons such as changing the network card of the device. Or, the wrong license may been issued because the license issuance information was incorrectly sent to ALTIBASE.
+- The MAC ADDRESS may change if, for example, the network card of the device is changed. A wrong license may also have been issued if incorrect license issuance information was sent to ALTIBASE.
 
 ```
 TRANSITION TO PHASE : PROCESS
@@ -156,7 +156,7 @@ Startup Failed....
 [ERR-91015 : Communication failure.]
 ```
 
-- **Solution: Apply/request for a new license from the Altibase Technical Support Portal ([http://support.altibase.com/en/)](http://support.altibase.com/en/)).**
+- **Solution: Apply for and issue a new license from the Altibase technical support portal ([http://support.altibase.com](http://support.altibase.com/)).**
 
 ## Property value error
 
@@ -189,7 +189,7 @@ idp insertBySrc() Error : Property [property_name] Can't Store Multiple Values.
 ---
 
 - Writing file error can be caused by a number of problem factors
-- The disk may not have enough free space, or the directory may have omitted privileges.
+- The disk may not have enough free space, or the directory may be missing the required privileges.
 
 ```
 TRANSITION TO PHASE : PROCESS
@@ -211,7 +211,7 @@ FAILURE of createdb.
 
 ---
 
-- In order to start Altibase in service mode, the database creation procedure must be preceded.
+- To start Altibase in service mode, the database creation procedure must be performed first.
 - This problem occurs when the user omits this procedure and starts the server in a shell prompt, starts in iSQL, or starts ALTIBASE as a service in the WINDOWS environment.
 - Usually, when ALTIBASE starts up, the loganchor file is retrieved for the first time, so an error message indicating that the file does not exist is returned.
 
@@ -240,8 +240,8 @@ Startup Failed....
 [ERR-91015 : Communication failure.]
 ```
 
-- **Solution: Find the case that the port cannot be bound, and then solve it.**
-  **If another application is preempted, the application or the port used for ALTIBASE must be changed.**
+- **Solution: Find and resolve the reason that the port cannot be bound.**
+  **If another application already occupies the port, change the application or the port used by ALTIBASE.**
 
 ## Replication port bind failure
 
@@ -260,8 +260,8 @@ Startup Failed....
 [ERR-91015 : Communication failure.]
 ```
 
-- **Solution: Find the cause that the port cannot be bound, then solve it.**
-  **If another application is preempted, the application or the port used for ALTIBASE must be changed.**
+- **Solution: Find and resolve the reason that the port cannot be bound.**
+  **If another application already occupies the port, change the application or the port used by ALTIBASE.**
 
 # Korean Source Attachments
 

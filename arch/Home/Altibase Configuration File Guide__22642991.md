@@ -29,7 +29,7 @@ This documentation is written based on Altibase versions 7.1.0 and 7.3.0. It is 
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)
 - Technical support center: 02-2082-1114
 
 # Altibase Configuration Items
@@ -76,6 +76,8 @@ iSQL> ALTER SESSION SET query_timeout = 30;
 
 In the case of DCL, there are items that can be changed at the session level and the system level. However, in both cases, if Altibase is restarted, it is reset to the value described in the configuration file, so in order to reflect it permanently, the configuration file needs to be changed. (Items that cannot be changed after creating a DB are introduced later in this document.)
 
+In `altibase.properties`, the `?` placeholder means the path defined in the `$ALTIBASE_HOME` environment variable.
+
 # Altibase Configuration Guide
 
 ---
@@ -109,8 +111,8 @@ Assuming the above volume configuration, it can be set as follows.
 | MEM_MAX_DB_SIZE | 2G | Set this to the size predicted by capacity planning. (ex: 8G)<br>In general, MEM_MAX_DB_SIZE is recommended to be around 50% of physical memory. |
 | BUFFER_AREA_SIZE | 128M | Specifies the buffer size for disk tables. If enough physical memory is available, secure an appropriate buffer size for performance optimization. |
 | PORT_NO | 20300 | Set a port that is not being used by other processes in the system, such as 20300. |
-| AUTO_COMMIT | 1 | If it is set to 1, it is automatically reflected in the DB after DML is executed, so if the user wants to control it directly, set it to 0. |
-| SQL_PLAN_CACHE | 64M | This is the maximum size of the SQL plan cache. The more replicate SQL is, the more effective the SQL plan cache is to save memory. |
+| AUTO_COMMIT | 1 | If it is set to 1, changes are automatically reflected in the DB after DML is executed. If the user wants to control commits directly, set it to 0.<br>The session setting takes precedence over the configuration file (`altibase.properties`). |
+| SQL_PLAN_CACHE | 64M | This is the maximum size of the SQL plan cache. The more duplicate SQL there is, the more effective the SQL plan cache is for saving memory. |
 | REPLICATION_PORT_NO | 0 | When replication is required, specify the port. |
 
 ## Properties that cannot be changed after creating DB
@@ -125,6 +127,8 @@ Once after creating Altibase, there are some properties that Altibase cannot be 
 | TRANSACTION_TABLE_SIZE | 1024 (Only upward adjustment is possible) |
 | CHARACTERSET | Specify when creating DB |
 | NATIONAL CHARACTERSET | Specify when creating DB |
+
+To change these properties, all data must be migrated and the DB must be recreated.
 
 ## File path configuration properties
 
@@ -151,7 +155,7 @@ The properties related to the session are the following items.
 | Configuration item | Default Value | Description |
 | --- | --- | --- |
 | MAX_CLIENT | 1000 | Because this limits the number of sessions that can connect to the DB at the same time, increase this value and restart the Altibase server if more sessions are expected.<br>Reference: Considerations when increasing concurrent sessions (MAX_CLIENT): [https://docs.altibase.com/x/FARw](https://docs.altibase.com/x/FARw) |
-| MULTIPLEXING_THREAD_COUNT | Number of logical cores on the host machine | This value specifies the number of service threads. If not set, threads as much as the number of cores of the CPU is automatically created in the startup stage. If many sessions are internally connected, it is automatically created when it is determined that more service threads are needed., but the distribution of tasks at the time of creation can cause temporary performance jitter, so it is important to configure to obtain a sufficient number in advance. |
+| MULTIPLEXING_THREAD_COUNT | Number of logical cores on the host machine | This value specifies the number of service threads. If it is not set, threads are automatically created during startup according to the number of CPU cores. If many sessions are connected and Altibase determines internally that more service threads are needed, additional threads are created automatically; however, task distribution at creation time can cause temporary performance jitter, so securing enough threads in advance can be meaningful. |
 
 It is recommended for MULTIPLEXING_THREAD_COUNT to be (CPU Core Count * 2) by default, but this value should be set according to the situation.
 
@@ -159,7 +163,7 @@ It is recommended for MULTIPLEXING_THREAD_COUNT to be (CPU Core Count * 2) by de
 
 ---
 
-The resources used by Altibase refer to resources such as physical memory/disk space and logical tablespace. This section describes each property that flexibly limits query execution, such as a large number of changes at the session/system level, which can lead to resource shortages. It is recommended that these properties be operated to change//apply only necessary sessions with configuration change at the session-level rather than changing the default configuration.
+The resources used by Altibase refer to resources such as physical memory, disk space, and logical tablespace space. This section describes properties that flexibly limit query execution, such as bulk change operations at the session or system level, which can cause resource shortages. Rather than changing the default configuration, it is recommended to change and apply these properties only to sessions that need them by using session-level settings.
 
 | Configuration item | Default Value | Description |
 | --- | --- | --- |
@@ -181,7 +185,7 @@ iSQL> ALTER SESSION SET QUERY_TIMEOUT = 3600 ;
 iSQL> ALTER SESSION SET UTRANS_TIMEOUT = 60 ;
 ```
 
-- Since all the QUERY/IDLE/UTRANS/FETCH Timeout properties and errors related to the session are recorded in altibase.boot.log, find the session and take action when it occurs.
+- Since all QUERY/IDLE/UTRANS/FETCH timeout properties and session-related errors are recorded in `altibase_boot.log`, find the relevant session and take action when an error occurs.
 - Notes/Considerations for ALTER SYSTEM and ALTER SESSION: ALTER SYSTEM changes will take effect from the subsequent sessions. Therefore, since the currently connected session is not applied, the desired result can be applied only by performing ALTER SESSION for individual connected sessions.
 
 ## Disk I/O Performance-related properties
@@ -194,7 +198,7 @@ This describes the property items related to Altibase's disk I/O performance.
 | --- | --- | --- |
 | BUFFER_AREA_SIZE | 128M | Specify the buffer size of the disk DB. If there is enough memory in the system, it is recommended to set it as large as possible. |
 | BUFFER_FLUSHER_CNT | 2 | This is a thread that writes a buffer to the disk to secure dirty pages in the disk DB or free space in the buffer, and adjusts according to the number of CPUs or disk I/O performance of the system. |
-| PREPARE_LOG_FILE_COUNT | 5 | A separate thread creates an empty log file to record the transaction log. If this value is too small, performance may be degraded if the transaction progress has to wait for the creation of an empty log file. Therefore, if thhe LF_PREPARE_WAIT_COUNT value of v$lfg appears to be larger, the value must be adjusted accordingly. Even if it is set too large, disk I/O load that actually creates an empty log file will occur, so it is recommended to change it carefully by testing. |
+| PREPARE_LOG_FILE_COUNT | 5 | A separate thread creates an empty log file to record the transaction log. If this value is too small, performance may be degraded because transaction processing must wait for empty log files to be created. Therefore, if the `LF_PREPARE_WAIT_COUNT` value in `v$lfg` appears larger than this value, adjust this property appropriately. Even if it is set too large, disk I/O load will occur when empty log files are actually created, so it is recommended to change it carefully after testing. |
 | CHECKPOINT_BULK_WRITE_PAGE_COUNT | 0 | When it is determined that performance is degraded due to the disk I/O that occurs because there are many pages to be written when the memory DB checkpoint is in progress, the amount of disk I/O of the checkpoint can be distributed with this property value. In other words, after writing the page as much as the value specified in CHECKPOINT_BULK_WRITE_PAGE_COUNT, it waits for (CHECKPOINT_BULK_WRITE_SLEEP_SEC + CHECKPOINT_BULK_WRITE_SLEEP_USEC) and then writes again. This property can be effective on equipment with low disk performance. |
 | CHECKPOINT_BULK_WRITE_SLEEP_SEC | 0 sec |  |
 | CHECKPOINT_BULK_WRITE_SLEEP_USEC | 0 microsec |  |
