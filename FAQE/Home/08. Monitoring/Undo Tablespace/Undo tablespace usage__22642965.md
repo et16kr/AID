@@ -21,7 +21,7 @@ Updated: 2025-10-20T15:45:22.000+0900
 ---
 
 - Prior to ALTIBASE HDB 5.5.1, only ALLOC of undo tablespace could be checked, but USED could not be checked.
-- This chapter describes how to check the actual usage tablespaces using V$DISK_UNDO_USAGE added from ALTIBASE HDB version 5.5.1.
+- This page describes how to use V$DISK_UNDO_USAGE to check actual undo tablespace usage.
 
 #### ALLOC and USED of undo tablespace
 

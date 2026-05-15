@@ -1034,8 +1034,8 @@
       "title": "ALTIBASE HDB 5.1.5.x",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+5.1.5.x",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk table and index usage/ALTIBASE HDB 5.1.5.x__16876234.md",
-      "body_chars": 13345,
-      "word_count": 1201
+      "body_chars": 14374,
+      "word_count": 1096
     },
     {
       "space_key": "FAQE",
@@ -1043,8 +1043,8 @@
       "title": "ALTIBASE HDB 5.3.x, 5.5.1, 6.1.1, 6.3.1",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+5.3.x%2C+5.5.1%2C+6.1.1%2C+6.3.1",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk table and index usage/ALTIBASE HDB 5.3.x, 5.5.1, 6.1.1, 6.3.1__16876240.md",
-      "body_chars": 16594,
-      "word_count": 1402
+      "body_chars": 16580,
+      "word_count": 1400
     },
     {
       "space_key": "FAQE",
@@ -1052,8 +1052,8 @@
       "title": "Disk table and index usage",
       "source_url": "https://docs.altibase.com/display/FAQE/Disk+table+and+index+usage",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk table and index usage__16876226.md",
-      "body_chars": 346,
-      "word_count": 53
+      "body_chars": 904,
+      "word_count": 95
     },
     {
       "space_key": "FAQE",
@@ -1079,7 +1079,7 @@
       "title": "ALTIBASE HDB 5.3.3, 5.3.5",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+5.3.3%2C+5.3.5",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk tablespace usage/ALTIBASE HDB 5.3.3, 5.3.5__16876253.md",
-      "body_chars": 5620,
+      "body_chars": 5621,
       "word_count": 474
     },
     {
@@ -1088,8 +1088,8 @@
       "title": "ALTIBASE HDB 5.5.1, 6.1.1, 6.3.1",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+5.5.1%2C+6.1.1%2C+6.3.1",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk tablespace usage/ALTIBASE HDB 5.5.1, 6.1.1, 6.3.1__16876255.md",
-      "body_chars": 11642,
-      "word_count": 962
+      "body_chars": 5880,
+      "word_count": 487
     },
     {
       "space_key": "FAQE",
@@ -1106,7 +1106,7 @@
       "title": "How to log queries performed in Altibase (altiProfile)?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22642959",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/How to log queries performed in Altibase (altiProfile)__22642959.md",
-      "body_chars": 36618,
+      "body_chars": 36659,
       "word_count": 4491
     },
     {
@@ -1115,8 +1115,8 @@
       "title": "How to set up and execute altimon",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+set+up+and+execute+altimon",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/How to set up and execute altimon__16876266.md",
-      "body_chars": 9189,
-      "word_count": 969
+      "body_chars": 9214,
+      "word_count": 970
     },
     {
       "space_key": "FAQE",
@@ -1124,8 +1124,8 @@
       "title": "Lock related properties",
       "source_url": "https://docs.altibase.com/display/FAQE/Lock+related+properties",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Lock related properties__16876204.md",
-      "body_chars": 2850,
-      "word_count": 467
+      "body_chars": 3292,
+      "word_count": 432
     },
     {
       "space_key": "FAQE",
@@ -1133,8 +1133,8 @@
       "title": "Memory table and index usage",
       "source_url": "https://docs.altibase.com/display/FAQE/Memory+table+and+index+usage",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Memory table and index usage__16876259.md",
-      "body_chars": 9563,
-      "word_count": 1079
+      "body_chars": 10951,
+      "word_count": 1049
     },
     {
       "space_key": "FAQE",
@@ -1142,8 +1142,8 @@
       "title": "ALTIBASE HDB  5.5.1,  6.1.1, 6.3.1",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB++5.5.1%2C++6.1.1%2C+6.3.1",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Memory tablespace usage/ALTIBASE HDB 5.5.1, 6.1.1, 6.3.1__16876263.md",
-      "body_chars": 5483,
-      "word_count": 650
+      "body_chars": 6277,
+      "word_count": 646
     },
     {
       "space_key": "FAQE",
@@ -1151,8 +1151,8 @@
       "title": "Monitoring Tools for Windows",
       "source_url": "https://docs.altibase.com/display/FAQE/Monitoring+Tools+for+Windows",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Monitoring Tools for Windows__16876220.md",
-      "body_chars": 4715,
-      "word_count": 659
+      "body_chars": 6530,
+      "word_count": 786
     },
     {
       "space_key": "FAQE",
@@ -1178,8 +1178,8 @@
       "title": "Monitoring method when undo tablespace usage increases",
       "source_url": "https://docs.altibase.com/display/FAQE/Monitoring+method+when+undo+tablespace+usage+increases",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Undo Tablespace/Monitoring method when undo tablespace usage increases__22642963.md",
-      "body_chars": 28327,
-      "word_count": 3412
+      "body_chars": 28322,
+      "word_count": 3413
     },
     {
       "space_key": "FAQE",
@@ -1187,8 +1187,8 @@
       "title": "Undo tablespace usage",
       "source_url": "https://docs.altibase.com/display/FAQE/Undo+tablespace+usage",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Undo Tablespace/Undo tablespace usage__22642965.md",
-      "body_chars": 6324,
-      "word_count": 839
+      "body_chars": 6284,
+      "word_count": 834
     },
     {
       "space_key": "FAQE",

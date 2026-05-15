@@ -24,9 +24,9 @@ ALTIMON is a monitoring program that periodically checks the operating status of
 
 This page briefly explains how to set up and run ALTIMON.
 
-For more details regarding ALTIMON, please refer to ALTIMON USER GUIDE.
+For more details regarding ALTIMON, please refer to [ALTIMON USER GUIDE](#altimon-user-guide).
 
-ALTIMON USER GUIDE
+# ALTIMON USER GUIDE
 
 ---
 

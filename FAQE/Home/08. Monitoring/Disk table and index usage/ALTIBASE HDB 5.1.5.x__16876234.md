@@ -35,10 +35,10 @@ Updated: 2021-04-05T10:21:25.000+0900
 set linesize 1024
 set colsize 30
 SELECT U.USER_NAME USER_NAME                                                                                                    -- Database user
-     , DECODE(TBL.IS_PARTITIONED, 'T', 'PARTITIONED', 'F', 'NON-PARTITIONED') PARTITIONED                                       -- If a partitioned table, PARTITIONED a non-partitioned, then NON-PARTITIONED
+     , DECODE(TBL.IS_PARTITIONED, 'T', 'PARTITIONED', 'F', 'NON-PARTITIONED') PARTITIONED                                       -- PARTITIONED for a partitioned table, NON-PARTITIONED for a non-partitioned table
      , TBL.TABLE_NAME TABLE_NAME                                                                                                -- Table name
      , DECODE(TBL.IS_PARTITIONED, 'T', TBL.PARTITION_NAME, 'F', '-') PARTITIONED_TABLE                                          -- Partitioned table name
-     , TBS.NAME TABLESPACE_NAME                                                                                                 -- Tablesapce
+     , TBS.NAME TABLESPACE_NAME                                                                                                 -- Tablespace
      , TO_CHAR((D.MAX * TBS.PAGE_SIZE)/1024, '999,999,999') 'MAX(KB)'                                                           -- Maximum size of the tablespace to which the table belongs
      , TO_CHAR((TBS.EXTENT_PAGE_COUNT * TBS.PAGE_SIZE * SEG.EXTENT_TOTAL_COUNT)/1024, '999,999,999') 'ALLOC(KB)'                -- Total size allocated to date
      , TO_CHAR((((TBS.EXTENT_PAGE_COUNT * TBS.PAGE_SIZE * SEG.EXTENT_TOTAL_COUNT)/(D.MAX*TBS.PAGE_SIZE))*100), '99.99') 'USAGE(%)' -- Percentage of utilization compared to the maximum size of the tablespace
@@ -59,7 +59,7 @@ SELECT U.USER_NAME USER_NAME                                                    
           FROM V$DATAFILES
          GROUP BY SPACEID) D
  WHERE 1=1
-   AND SEG.SEGMENT_TYPE = 'TABLE'  /* 'TABLE' :, 'INDEX' : */
+   AND SEG.SEGMENT_TYPE = 'TABLE'  /* 'TABLE' : table, 'INDEX' : index */
    AND SEG.TABLE_OID = TBL.TABLE_OID
    AND U.USER_ID = TBL.USER_ID
    AND D.SPACEID = TBL.TBS_ID
@@ -103,12 +103,14 @@ SYS                   PARTITIONED      SYS_TBS_DISK_DATA     RANGE_SALES        
 
 ---
 
+**ALTIBASE HDB 5.1.5 Disk Index Usage Query**
+
 ```
 set linesize 1024
 set colsize 20
 SELECT U.USER_NAME USER_NAME                                                                                                   -- Database user
      , I_LIST.TABLE_NAME                                                                                                       -- Table name
-     , DECODE(I_LIST.PARTITION_NAME, NULL, 'NON-PARTITIONED', I_LIST.PARTITION_NAME) PARTITIONED_NAME                          -- Partitioned table name. If a non-partitioned, then NON-PARTITIONED
+     , DECODE(I_LIST.PARTITION_NAME, NULL, 'NON-PARTITIONED', I_LIST.PARTITION_NAME) PARTITIONED_NAME                          -- Partitioned table name, or NON-PARTITIONED for a non-partitioned table
      , I_LIST.INDEX_NAME INDEX_NAME                                                                                            -- Index name
      , DECODE(I_LIST.INDEX_PARTITION_NAME, NULL, 'NON-PARTITIONED', I_LIST.INDEX_PARTITION_NAME) PARTITIONED_INDEX             -- Partitioned index name
      , TBS.NAME TBS_NAME                                                                                                       -- Tablespace to which the index belongs
@@ -193,12 +195,14 @@ SELECT DECODE(T.IS_PARTITIONED, 'T', 'PARTITIONED     TABLE CNT : '||PART_T.CNT,
 ```
 set linesize 1024;
 set colsize 50;
-SELECT DECODE(T.IS_PARTITIONED, 'T', 'PARTITIONED     TABLE CNT : '||PART_T.CNT, 'F', 'NON-PARTITIONED TABLE CNT : '||T.CNT) TABLE_COUNT
+SELECT DECODE(T.IS_PARTITIONED, 'T', 'PARTITIONED     INDEX CNT : '||PART_T.CNT, 'F', 'NON-PARTITIONED INDEX CNT : '||T.CNT) INDEX_COUNT
   FROM (SELECT IS_PARTITIONED
              , COUNT(*) CNT
-          FROM V$DISKTBL_INFO D
-             , SYSTEM_.SYS_TABLES_ T
-         WHERE D.TABLE_OID = T.TABLE_OID
+          FROM SYSTEM_.SYS_INDICES_
+         WHERE TABLE_ID IN (SELECT TABLE_ID
+                              FROM SYSTEM_.SYS_TABLES_ T
+                                 , V$DISKTBL_INFO D
+                             WHERE T.TABLE_OID = D.TABLE_OID)
          GROUP BY IS_PARTITIONED) T
-     , (SELECT COUNT(*) CNT FROM SYSTEM_.SYS_TABLE_PARTITIONS_ ) PART_T ;
+     , (SELECT COUNT(*) CNT FROM SYSTEM_.SYS_INDEX_PARTITIONS_) PART_T ;
 ```

@@ -16,8 +16,6 @@ Updated: 2021-04-05T09:58:44.000+0900
 
 **- [Overview](#Lockrelatedproperties-Overview) - [Version](#Lockrelatedproperties-Version) - [How to monitor](#Lockrelatedproperties-Howtomonitor)**
 
-- [Overview](#Lockrelatedproperties-Overview) - [Version](#Lockrelatedproperties-Version) - [How to monitor](#Lockrelatedproperties-Howtomonitor)
-
 # Overview
 
 ---
@@ -38,9 +36,9 @@ The user can monitor performance degradation due to transaction lock.
 
 First of all, there are two performance views for the lock information of Altibase.
 
-These are v$loc and v$lock_statement.
+These are v$lock and v$lock_statement.
 
-First, in v$lock, the user can inquire what type of lock is applied to a table. In the case of a select statement, IX_LOCK will be locked in case of changes such as IS_LOCK, insert, update, delete, etc.
+In v$lock, users can check which type of lock is held on a table. A SELECT statement holds IS_LOCK, and change operations such as INSERT, UPDATE, and DELETE hold IX_LOCK.
 
 By joining this view and the system_.sys_tables_ meta table, the user can check table name and lock information.
 
@@ -62,11 +60,9 @@ where a.trans_id = b.tx_id;
 
 The user can check the session ID of the query currently holding the lock by using multiple joins.
 
-desc v$lock;
+Use desc v$lock; and desc v$lock_statement; to check which columns are available.
 
-With v$lock_statement;, check which columns are existed.
-
-the session can also be killed with the session_id obtained in this wa.
+The session can also be killed with the session_id obtained in this way.
 
 ```
 ALTER DATABASE database_name SESSION CLOSE session_id;

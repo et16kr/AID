@@ -34,7 +34,7 @@
 | `P217` | `Done` | FAQ audit: replication | Sentence-level audit Korean FAQ category 03 replication documents against English FAQE targets; update English from Korean where needed. |
 | `P218` | `Done` | FAQ audit: backup SQL and stored procedures | Sentence-level audit Korean FAQ categories 04, 05, and 06 backup/recovery, SQL, and Stored Procedures documents against English FAQE targets; update English from Korean where needed. |
 | `P219` | `Done` | FAQ audit: development API | Sentence-level audit Korean FAQ category 07 development/API documents against English FAQE targets; update English from Korean where needed. |
-| `P220` | `ToDo` | FAQ audit: monitoring | Sentence-level audit Korean FAQ category 08 monitoring documents against English FAQE targets; update English from Korean where needed. |
+| `P220` | `Done` | FAQ audit: monitoring | Sentence-level audit Korean FAQ category 08 monitoring documents against English FAQE targets; update English from Korean where needed. |
 | `P221` | `ToDo` | FAQ audit: error messages | Sentence-level audit Korean FAQ category 09 error message documents against English FAQE targets; update English from Korean where needed. |
 | `P222` | `ToDo` | FAQ audit: utilities others general | Sentence-level audit Korean FAQ categories 11, 12, and 13 utility, others, and general documents against English FAQE targets; update English from Korean where needed. |
 | `P223` | `ToDo` | Technical attachment source and export revalidation | Revalidate technical-document attachments, external source links, empty Markdown links, legacy # attachment labels, Error rendering macro, Unknown macro, and known export artifacts across audited arch documents; update English references and report risks. |

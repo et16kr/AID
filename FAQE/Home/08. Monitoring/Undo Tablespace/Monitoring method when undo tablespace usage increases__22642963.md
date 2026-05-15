@@ -64,7 +64,7 @@ SELECT DECODE(TX.LOG_TYPE, 1, REP.REP_NAME, TX.SESSION_ID) AS SESSION_ID        
            ELSE LTRIM(TX.MIN_DISK_LOB_VIEW_SCN)
        END AS MIN_DISK_LOB_VIEW_SCN                                                                         -- Minimum SCN visible to the transaction querying LOB data
      , ROUND(((UD_S.TOTAL_EXTENT_COUNT * UD_S.PAGE_COUNT_IN_EXTENT * 8192) / 1024), 2) AS 'UNDO_USED_KB'    -- Undo usage of the update transaction
-     , ST.UNDO_READ_PAGE + ST.UNDO_GET_PAGE AS UNDO_PAGE_COUNT_COUNT                                              -- Undo pages
+     , ST.UNDO_READ_PAGE + ST.UNDO_GET_PAGE AS UNDO_PAGE_COUNT                                              -- Undo pages
      , DECODE(TX.LOG_TYPE, 1, 'REMOTE_TX_ID : '||REP_TX.REMOTE_TID, LTRIM(ST.QUERY)) AS QUERY               -- Last query executed by the transaction
   FROM V$TRANSACTION TX
   LEFT JOIN (SELECT SESSION_ID
@@ -509,7 +509,7 @@ If the database session cannot be terminated normally or the connection must be 
 $ kill -9 <process_id>
 ```
 
-The *`process_id`*can be obtained from the `CLIENT_IP` field in the monitoring query.
+The *`process_id`* can be obtained from the `CLIENT_IP` field in the monitoring query.
 
 # **6. Preventing Undo Tablespace Growth**
 

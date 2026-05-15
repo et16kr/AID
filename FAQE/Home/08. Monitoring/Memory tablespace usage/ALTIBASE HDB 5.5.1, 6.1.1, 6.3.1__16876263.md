@@ -20,8 +20,10 @@ Updated: 2021-03-24T09:48:18.000+0900
 
 ---
 
-- Starting from ALTIBASE HDB version 5.5.1, V$VOL_TABLESpACES, which stores information on volatile memory tablespaces, has been added.
+- Starting from ALTIBASE HDB version 5.5.1, V$VOL_TABLESPACES, which stores information on volatile memory tablespaces, has been added.
 - Using this Performance View, all memory tablespace usage including volatile memory tablespace usage can be inquired with the following query.
+
+**ALTIBASE HDB 5.5.1, 6.1.1, 6.3.1 memory tablespace usage query**
 
 ```
 --
@@ -42,7 +44,7 @@ Updated: 2021-03-24T09:48:18.000+0900
 --USED(M)  : The size of the memory storing data among ALLOCs
 --USAGE(%) : ALLOC utilization rate compared to MAX
 --STATE    : State of the tablespace
---           1 - Offline, 2 - Online, 3 - Offline tablespace being backed up, 4 - Tablespace in an online state that are up-to-date,
+--           1 - Offline, 2 - Online, 3 - Offline tablespace being backed up, 4 - Online tablespace being backed up,
 --           128 - Dropped tablespace, 1024-discarded tablespace, 1028-discarded tablespace being backed up
 set linesize 1024
 set colsize 20

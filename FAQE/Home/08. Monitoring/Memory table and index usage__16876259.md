@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/Memory+table+and+index+usage
 Updated: 2021-04-05T10:30:52.000+0900
 
-- [Overview](#Memorytableandindexusage-Overview) - [Memory table data usage query](#Memorytableandindexusage-Memorytabledatausagequery) - [Memory table index usage](#Memorytableandindexusage-Memorytableindexusage) - [Query to check memory table index information (all available from HDB 4 to HDB 7)](#Memorytableandindexusage-Querytocheckmemorytableindexinformation(allavailablefromHDB4toHDB7)) - [Query to check usage per memory table index (available from HDB 5.x or later)](#Memorytableandindexusage-Querytocheckusagepermemorytableindex(availablefromHDB5.xorlater)) - [Query to check total index usage per memory table (available from HDB 5.x or later)](#Memorytableandindexusage-Querytochecktotalindexusagepermemorytable(availablefromHDB5.xorlater)) - [Query size per index of memory table (for 6.x)](#Memorytableandindexusage-Querysizeperindexofmemorytable(for6.x))
+- [Overview](#Memorytableandindexusage-Overview) - [Memory table data usage query](#Memorytableandindexusage-Memorytabledatausagequery) - [Memory table index usage](#Memorytableandindexusage-Memorytableindexusage) - [Query to check memory table index information (all available from HDB 4 to HDB 6)](#Memorytableandindexusage-Querytocheckmemorytableindexinformation(allavailablefromHDB4toHDB6)) - [Query to check usage per memory table index (available from HDB 5.x or later)](#Memorytableandindexusage-Querytocheckusagepermemorytableindex(availablefromHDB5.xorlater)) - [Query to check total index usage per memory table (available from HDB 5.x or later)](#Memorytableandindexusage-Querytochecktotalindexusagepermemorytable(availablefromHDB5.xorlater)) - [Query size per index of memory table (for 6.x)](#Memorytableandindexusage-Querysizeperindexofmemorytable(for6.x))
 
 # Overview
 
@@ -24,7 +24,7 @@ This document describes the memory table and index usage query.
 
 # Memory table data usage query
 
-The following query can be used in all versions of Altibase.
+The following query can be used from HDB 4.3.9.x through HDB 6.3.1.x.
 
 ```
 set linesize 2048;
@@ -63,7 +63,7 @@ SYSTEM_                         SYS_TBS_MEM_DIC                 STO_ELLIPSOIDS_ 
 
 The index usage of a memory table cannot be checked directly by a query. Altibase memory tables have a size of 16 bytes per index regardless of the number and type of index columns, and the index usage can be calculated as 16 bytes * number of records.
 
-## Query to check memory table index information (all available from HDB 4 to HDB 7)
+## Query to check memory table index information (all available from HDB 4 to HDB 6)
 
 The index information for each table can be checked with the following query. To check the index size, the user must check the number of records and calculate it separately, or use a query that calculates the size of the index of the memory table containing the function.
 
@@ -105,7 +105,7 @@ SYS                             TABLE  T1                              IDX1_T1  
 
 ## Query to check usage per memory table index (available from HDB 5.x or later)
 
-The usercan use the following query to check the usage per index of a memory table. Before using the query, the user must create a DB function that can get the number of records for that table.
+The user can use the following query to check usage per memory table index. Before using the query, the user must create a DB function that can get the number of records for that table.
 
 ```
 1. Create a function that can count the number of records in the table.

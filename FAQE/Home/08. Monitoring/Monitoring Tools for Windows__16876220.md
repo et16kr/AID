@@ -63,7 +63,7 @@ set ISQL="%ALTIBASE_HOME%\bin\isql.exe" -s localhost -u sys -p manager -silent
 
 If there are items that the user wants to add other than the basic monitoring items, add a monitoring query to the all.sql file in the ALTIMON_SCRIPT folder.
 
-In the monitoring query, enter the identifier starting with sysdate in the first column of the SELECT clause and _MON_ in the second column.
+In the monitoring query, put sysdate in the first column of the SELECT clause and an identifier starting with _MON_ in the second column.
 
 **Example of monitoring query**
 
@@ -118,10 +118,20 @@ Set WshShell = Nothing
 
 Execute Windows Command Prompt (Execution Window). Go to the folder where the altimon.bat file is located and run the batch program.
 
+**To execute it in a new window**
+
 ```
 C:\Users\Altibase>start altimon.bat
 or
 C:\Users\Altibase>start altimon
+```
+
+**To execute it in the current window**
+
+```
+C:\Users\Altibase>altimon.bat
+or
+C:\Users\Altibase>altimon
 ```
 
 The user can also go to the folder where the batch program (altimon.bat) is located in Windows Explorer and double-click the alti_mon.bat file.

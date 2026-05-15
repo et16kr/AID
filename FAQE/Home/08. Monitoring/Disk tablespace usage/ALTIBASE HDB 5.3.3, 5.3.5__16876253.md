@@ -20,7 +20,7 @@ Updated: 2021-03-24T08:49:49.000+0900
 
 ---
 
-- Starting from ALTIBASE HDB version 5.3., the actual usage of the tablespace can be checked by using the TOTAL_USED_SIZE column information of X$SEGMENT.
+- Starting from ALTIBASE HDB version 5.3.3, the actual usage of the tablespace can be checked by using the TOTAL_USED_SIZE column information of X$SEGMENT.
 - The TOTAL_USED_SIZE column of X$SEGMENT was added in [BUG-31372](https://altra.altibase.com/altimis-2.0/app_bug_new/bug_view.jsp?pk=31372).
 - The version reflecting BUG-31372 is as follows.
     - ALTIBASE HDB 5.3.3.33

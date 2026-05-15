@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/Disk+table+and+index+usage
 Updated: 2021-03-23T13:58:29.000+0900
 
-- [Overview](#Disktableandindexusage-Overview)
+- [Overview](#Disktableandindexusage-Overview) - [Reference](#Disktableandindexusage-Reference)
 
 # Overview
 
@@ -26,3 +26,5 @@ The user can use the following two methods for disk table usage. This page provi
 
 - v$segment: A method of calculating physical pages while full-scanning a table
 - v$usage: A sampling method using statistical information
+
+# Reference

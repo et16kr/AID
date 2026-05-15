@@ -47,18 +47,30 @@ This chapter describes how to profile Altibase and check the results.
 
 ---
 
-- Start profiling Record information on all SQL statements executed after the next command is executed in the log file.
+- Start profiling.
+  After the following commands are executed, information about all SQL statements is recorded in the log file.
 
-  ALTER SYSTEM SET QUERY_PROF_FLAG = *value*;
+- Set detailed execution-time measurement in iSQL.
 
   ALTER SYSTEM SET TIMED_STATISTICS = 1;
 
-  Value: Refer to the description of the QUERY_PROF_FLAG property above.
+- Set the SQL profiling value in iSQL.
 
-  TIMED_STATISTICS: In version 5.1.5 or later, to check the execution time of an SQL statement, this property value should be set to 1 (default is 0). (In versions earlier that, there is no corresponding property, and you can check the execution time of all SQL statements by default.)
-- Stop profiling To stop profiling, execute the following command:
+  ALTER SYSTEM SET QUERY_PROF_FLAG = *value*;
+
+  *TIMED_STATISTICS*: This property must be set to measure detailed execution time.
+
+  *value*: Refer to the QUERY_PROF_FLAG property description.
+- Stop profiling.
+  To stop profiling, execute the following commands.
+
+- Set the SQL profiling stop value in iSQL.
 
   ALTER SYSTEM SET QUERY_PROF_FLAG = 0;
+
+- Restore the Altibase server default time setting in iSQL.
+
+  ALTER SYSTEM SET TIMED_STATISTICS = 0;
 
 # How to analyze the results
 

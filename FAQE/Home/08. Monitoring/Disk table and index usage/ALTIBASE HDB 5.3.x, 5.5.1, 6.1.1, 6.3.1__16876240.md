@@ -40,9 +40,9 @@ In ALTIBASE HDB version 5.3.3, 5.3.5, 5.5.1 without BUG-31372 being modified, an
 
 ---
 
-- ALTER TABLE table_name AGING and ALTER INDEX index_name AGING commands must be executed to get the correct usage.
-- Unaging space is calculated as used, so if there are frequent deletes on a table, it may be calculated larger than the actual usage if aging is not performed.
-- During the execution of the ALTER TABLE table_name AGING, ALTER INDEX index_name AGING command, the table is full-scanned while holding X LOCK on the table, so other operations on the table and indexes are waiting.
+- Execute ALTER TABLE table_name AGING and ALTER INDEX index_name AGING to get the correct usage.
+- Unaged space is calculated as used, so if DELETE operations are frequent on a table, the usage can be calculated larger than the actual usage unless aging is performed.
+- During ALTER TABLE table_name AGING and ALTER INDEX index_name AGING execution, the table is full-scanned while holding X LOCK, so other operations on the table and indexes wait.
 - TOTAL_USED_SIZE of v$segment is volatile temporary data. When the Altibase server is restarted, it is initialized to the total allocation size of the table and index, not the actual usage amount.
 - v$segment query itself does not affect the database.
 
@@ -51,12 +51,14 @@ In ALTIBASE HDB version 5.3.3, 5.3.5, 5.5.1 without BUG-31372 being modified, an
 ---
 
 - Even if the table data is deleted with DELETE and USED, it does not decrease.
-- To check the actual USED excluding FREE PAGE after DELETE and table_name AGING; must be executed.
-- While executing ALTER TABLE ~ AGINING;, the table is locked, so other requests for the table are put in waiting for state.
+- To check the actual USED excluding FREE PAGE after DELETE, execute ALTER TABLE table_name AGING;.
+- While ALTER TABLE ~ AGING; is executing, it holds an X lock on the table, so other requests for the table wait. Be careful when executing it.
 
   **ALTIBASE HDB 5.3.x, 5.5.1, 6.1.1, 6.3.1 Disk table usage query**
 
   ```
+  set linesize 1024
+  set colsize 20
   SELECT U.USER_NAME USER_NAME                                                                                            -- Database user
        , TBL.TABLE_NAME TABLE_NAME                                                                                        -- Table name
        , DECODE(TBL.IS_PARTITIONED, 'T', TBL.PARTITION_NAME, 'F', '-') PARTITIONED_TABLE                                  -- Partitioned table name
@@ -75,7 +77,7 @@ In ALTIBASE HDB version 5.3.3, 5.3.5, 5.5.1 without BUG-31372 being modified, an
          ) TBL
        , (SELECT S.TABLE_OID, SUM(S.TOTAL_EXTENT_COUNT) TOTAL_EXTENT_COUNT, SUM(S.TOTAL_USED_SIZE) TOTAL_USED_SIZE
             FROM X$SEGMENT S
-           WHERE S.SEGMENT_TYPE IN (6, 7) /* 6 : Table, 7 : LOB data(6.1.1 or earlier), 5 : Index */
+         WHERE S.SEGMENT_TYPE IN (6, 7) /* 6 : Table, 7 : LOB data(6.1.1 or later), 5 : Index */
            GROUP BY S.TABLE_OID) SEG
        , SYSTEM_.SYS_USERS_ U
        , V$TABLESPACES TBS
@@ -127,8 +129,8 @@ In ALTIBASE HDB version 5.3.3, 5.3.5, 5.5.1 without BUG-31372 being modified, an
 ---
 
 - Even if the table data is deleted with DELETE, the USED of the index does not decrease.
-- To check the actual USED except FREE PAGE after DELETE, ALTER INDEX index_name AGING; must be executed.
-- When executing ALTER INDEX ~ AGINING, the table is locked. Therefore, other requests for the table are put in a waiting state, so be cautious when executing the ALTER INDEX ~ AGAING.
+- To check the actual USED excluding FREE PAGE after DELETE, execute ALTER INDEX index_name AGING;.
+- While ALTER INDEX ~ AGING is executing, it holds an X lock on the table, so other requests for the table wait. Be careful when executing ALTER INDEX ~ AGING.
 
   **ALTIBASE HDB 5.3.x, 5.5.1, 6.1.1, 6.3.1 Disk index usage query**
 
@@ -136,7 +138,7 @@ In ALTIBASE HDB version 5.3.3, 5.3.5, 5.5.1 without BUG-31372 being modified, an
   -- Disk index usage column description
   -- USER_NAME	: Database user
   -- TABLE_NAME	: Table name
-  -- PARTITIONED_NAME	: Partitioned table name. If a non-partitioned, NON-PARTITIONED
+  -- PARTITIONED_NAME	: Partitioned table name, or NON-PARTITIONED for a non-partitioned table
   -- INDEX_NAME	: Index name
   -- PARTITIONED_INDEX	: Partitioned index name
   -- TBS_NAME	: Tablespace to which the index belongs
