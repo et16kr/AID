@@ -21,7 +21,7 @@ For the sake of understanding, we have looked at some errors that may occur duri
 When a problem related to compilation occurs, the following items are the items to be checked:
 
 1. Is the correct library being used for the compiler?
-2. Are there any errors in the Makefile? (Path, specification, type, variable name use, etc.)
+2. Are there any errors in the Makefile? (path specification, typos, variable name usage, etc.)
 3. Are the compile bits different between libraries or objects?
 4. Are you correctly linking the required vendor's library?
 5. Are you specifying the required system library?

@@ -43,40 +43,42 @@ It is necessary to specify the following options to improve performance and spec
 | 32bit/64bit compilation mode | -m64 | Generate 64-bit code |
 | -m32 | Generate 32-bit code |  |
 
-By referring to the $ALTIBASE_HOME/install/altibase_env.mk file and $ALTIBASE_HOME/sample/APRE/Makefile, it can be referred to the optimized compile and link options when compiling APRE.
+Refer to `$ALTIBASE_HOME/install/altibase_env.mk` and `$ALTIBASE_HOME/sample/APRE/Makefile` for optimized compile and link options when compiling APRE.
 
 # **Example of Simple Makefile**
 
 The simplest Makefile that can compile APRE in Linux gcc environment is completed as follows. In addition, if there is an additional library referenced by the program, the library must additionally be described in Makefile.
 
-$ cat Makefile ALTI_INCLUDE=${ALTIBASE_HOME}/include ALTI_LIBRARY=${ALTIBASE_HOME}/lib **-lapre -lodbccli**
+```
+$ cat Makefile
+ALTI_INCLUDE=${ALTIBASE_HOME}/include
+ALTI_LIBRARY=${ALTIBASE_HOME}/lib
+LIBS=-lapre -lodbccli
+SYS_LIBS=-lpthread -lm -ldl -lcrypt -lstdc++ -lrt
 
-SYS_LIBS=******-lpthread -lm -ldl -lcrypt -lstdc++ **-lrt********
+connect1.c: connect1.sc
+	apre -t c connect1.sc
 
-connect1.c:[connect1.sc](http://connect1.sc/)
-
-[apre -t c](http://connect1.sc/)[connect1.sc](http://connect1.sc/)
-
-[connect1:connect1.c](http://connect1.sc/)
-
-cc -o connect1 connect1.c -I$(ALTI_INCLUDE) -L$(ALTI_LIBRARY) $(SYS_LIBS)
+connect1: connect1.c
+	cc -o connect1 connect1.c -I$(ALTI_INCLUDE) -L$(ALTI_LIBRARY) $(LIBS) $(SYS_LIBS)
+```
 
 # **Example of Makefile for 32bit compile**
 
 An example of the APRE Makefile for gcc that specifies the 32bit compile option is as follows. Specify "-m32" as a compile option, and specify the path where 32bit APRE Library is installed in the path referencing the Header file and Library. In addition, the APRE Precompiler specifies the path to run 32bit APRE.
 
-ALTI_INCLUDE=**/alticlient32/include** ALTI_LIBRARY=**/alticlient32/lib** -lapre -lodbccli
+```
+ALTI_INCLUDE=/alticlient32/include
+ALTI_LIBRARY=/alticlient32/lib
+LIBS=-lapre -lodbccli
+SYS_LIBS=-lpthread -lm -ldl -lc
 
-SYS_LIBS=**-lpthread -lm -ldl -lc**
+connect1.c: connect1.sc
+	/alticlient32/bin/apre -t c connect1.sc
 
-connect1.c:[connect1.sc](http://connect1.sc/)
-
-[**/alticlient32/bin/apre** -t c](http://connect1.sc/)[connect1.sc](http://connect1.sc/)
-
-[connect1:connect1.c](http://connect1.sc/)
-
-gcc **-m32** -o connect1 connect1.c -I$(ALTI_INCLUDE) -L$(ALTI_LIBRARY) $(SYS_LIBS)
+connect1: connect1.c
+	gcc -m32 -o connect1 connect1.c -I$(ALTI_INCLUDE) -L$(ALTI_LIBRARY) $(LIBS) $(SYS_LIBS)
 
 clean:
-
-rm *.c *.o
+	rm *.c *.o
+```

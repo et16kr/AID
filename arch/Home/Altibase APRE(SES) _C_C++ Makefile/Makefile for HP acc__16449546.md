@@ -30,10 +30,10 @@ When compiling with only the basic library added, there are system libraries ref
 | --- | --- | --- |
 | Posix thread Library | **-lpthread** | Thread library for POSIX thread functions |
 | Math related Library | **-lm** | Library for using math functions |
-| Dynamic Linking Loader(DL Library) | **-ldld** | Dynamic loaded (DL) library |
-| Unwind Express Library | **-lunwind** | Library for use of API for stack tracking and stack winding in Itanium-based server |
+| Dynamic Linking Loader(DL) Library | **-ldld** | Dynamically loaded (DL) library |
+| Unwind Express Library | **-lunwind** | Library for APIs that perform stack tracing and stack unwinding on Itanium-based servers |
 | C++ Library | **-lstd –lstream –lCsup -lc** | In case of compiling using acc C compiler in Altibase version 5.3.3 or earlier version, specify C++ library |
-| Realtime Extension Library to be added |  |  |
+| Realtime Extensions Library | **-lrt** |  |
 
 ## **Compile options**
 
@@ -46,40 +46,44 @@ It is necessary to specify the following options to improve performance and spec
 | +DD32 | Creating 32-bit code for HP-UX on IA64 |  |
 | Warning option | +vnocompatwarnings | Option to reduce unnecessary warning messages |
 
-By referring to the $ALTIBASE_HOME/install/[altibase_env.mk](http://altibase_env.mk/) file and $ALTIBASE_HOME/sample/APRE/Makefile, it can be referred to the optimized compile and link options when compiling APRE.
+Refer to `$ALTIBASE_HOME/install/altibase_env.mk` and `$ALTIBASE_HOME/sample/APRE/Makefile` for optimized compile and link options when compiling APRE.
 
 # **Example of Simple Makefile**
 
 The simplest Makefile that can compile APRE in HP acc environment is completed as follows. In addition, if there is an additional library referenced by the program, the library must be additionally described in Makefile.
 
-ALTI_INCLUDE=**$(ALTIBASE_HOME)/include** ALTI_LIBRARY=**$(ALTIBASE_HOME)/lib** LIBS=**-lapre -lodbccli -lpthread -lunwind -lm** LFLAGS= **-mt +DD64 -Wl,+vnocompatwarnings -L.**
+```
+ALTI_INCLUDE=$(ALTIBASE_HOME)/include
+ALTI_LIBRARY=$(ALTIBASE_HOME)/lib
+LIBS=-lapre -lodbccli -lpthread -lunwind -lm
+LFLAGS=-mt +DD64 -Wl,+vnocompatwarnings -L.
 
-connect1.c:[connect1.sc](http://connect1.sc/)
+connect1.c: connect1.sc
+	$(ALTIBASE_HOME)/bin/apre -t c connect1.sc
 
-[**$(ALTIBASE_HOME)/bin/apre** -t c](http://connect1.sc/)[connect1.sc](http://connect1.sc/)
-
-[connect1:connect1.c](http://connect1.sc/)
-
-cc $(LFLAGS) -o connect1 connect1.c -I$(ALTI_INCLUDE) -L$(ALTI_LIBRARY) $(LIBS)
+connect1: connect1.c
+	cc $(LFLAGS) -o connect1 connect1.c -I$(ALTI_INCLUDE) -L$(ALTI_LIBRARY) $(LIBS)
 
 clean:
-
-rm *.c *.o
+	rm *.c *.o
+```
 
 # **Example of Makefile for 32bit compile**
 
 An example of the APRE Makefile for acc that specifies the 32bit compile option is as follows. Specify "+DD32" as a compile option, and specify the path where the 32bit APRE library is installed in the path referencing the header file and library. In addition, the APRE precompiler also specifies the path to execute 32bit APRE.
 
-ALTI_INCLUDE=**/alticlient32/include** ALTI_LIBRARY=**/alticlient32/lib** LIBS=**-lapre -lodbccli -lpthread -lunwind -lm** LFLAGS= **-mt +DD32 -Wl,+vnocompatwarnings -L.**
+```
+ALTI_INCLUDE=/alticlient32/include
+ALTI_LIBRARY=/alticlient32/lib
+LIBS=-lapre -lodbccli -lpthread -lunwind -lm
+LFLAGS=-mt +DD32 -Wl,+vnocompatwarnings -L.
 
-connect1.c:[connect1.sc](http://connect1.sc/)
+connect1.c: connect1.sc
+	/alticlient32/bin/apre -t c connect1.sc
 
-[/alticlient32/bin/apre -t c](http://connect1.sc/)[connect1.sc](http://connect1.sc/)
-
-[connect1:connect1.c](http://connect1.sc/)
-
-cc $(LFLAGS) -o connect1 connect1.c -I$(ALTI_INCLUDE) -L$(ALTI_LIBRARY) $(LIBS)
+connect1: connect1.c
+	cc $(LFLAGS) -o connect1 connect1.c -I$(ALTI_INCLUDE) -L$(ALTI_LIBRARY) $(LIBS)
 
 clean:
-
-rm *.c *.o
+	rm *.c *.o
+```

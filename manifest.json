@@ -2663,8 +2663,8 @@
       "title": "APRE*C/C++ New Features & Upgrade Guide",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22643052",
       "path": "altibase_docs_md/arch/Home/APRE_C_C++ New Features & Upgrade Guide__22643052.md",
-      "body_chars": 26136,
-      "word_count": 1896
+      "body_chars": 27937,
+      "word_count": 2198
     },
     {
       "space_key": "arch",
@@ -2672,8 +2672,8 @@
       "title": "How to make a basic Makefile",
       "source_url": "https://docs.altibase.com/display/arch/How+to+make+a+basic+Makefile",
       "path": "altibase_docs_md/arch/Home/Altibase APRE(SES) _C_C++ Makefile/How to make a basic Makefile__15630382.md",
-      "body_chars": 16793,
-      "word_count": 2088
+      "body_chars": 17596,
+      "word_count": 2235
     },
     {
       "space_key": "arch",
@@ -2681,8 +2681,8 @@
       "title": "Makefile for AIX xlc",
       "source_url": "https://docs.altibase.com/display/arch/Makefile+for+AIX+xlc",
       "path": "altibase_docs_md/arch/Home/Altibase APRE(SES) _C_C++ Makefile/Makefile for AIX xlc__16252935.md",
-      "body_chars": 8233,
-      "word_count": 1211
+      "body_chars": 9040,
+      "word_count": 1222
     },
     {
       "space_key": "arch",
@@ -2690,8 +2690,8 @@
       "title": "Makefile for HP acc",
       "source_url": "https://docs.altibase.com/display/arch/Makefile+for+HP+acc",
       "path": "altibase_docs_md/arch/Home/Altibase APRE(SES) _C_C++ Makefile/Makefile for HP acc__16449546.md",
-      "body_chars": 3500,
-      "word_count": 461
+      "body_chars": 4014,
+      "word_count": 547
     },
     {
       "space_key": "arch",
@@ -2699,8 +2699,8 @@
       "title": "Makefile for Linux gcc",
       "source_url": "https://docs.altibase.com/display/arch/Makefile+for+Linux+gcc",
       "path": "altibase_docs_md/arch/Home/Altibase APRE(SES) _C_C++ Makefile/Makefile for Linux gcc__15630400.md",
-      "body_chars": 2899,
-      "word_count": 381
+      "body_chars": 3488,
+      "word_count": 461
     },
     {
       "space_key": "arch",
@@ -2708,8 +2708,8 @@
       "title": "Makefile for SUN(Solaris) cc",
       "source_url": "https://docs.altibase.com/display/arch/Makefile+for+SUN%28Solaris%29+cc",
       "path": "altibase_docs_md/arch/Home/Altibase APRE(SES) _C_C++ Makefile/Makefile for SUN(Solaris) cc__16678920.md",
-      "body_chars": 4062,
-      "word_count": 530
+      "body_chars": 4637,
+      "word_count": 635
     },
     {
       "space_key": "arch",
@@ -2717,8 +2717,8 @@
       "title": "Notes/Considerations",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16678933",
       "path": "altibase_docs_md/arch/Home/Altibase APRE(SES) _C_C++ Makefile/Notes_Considerations__16678933.md",
-      "body_chars": 753,
-      "word_count": 118
+      "body_chars": 890,
+      "word_count": 130
     },
     {
       "space_key": "arch",
@@ -2726,8 +2726,8 @@
       "title": "Altibase APRE(SES) *C/C++ Makefile",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=15630378",
       "path": "altibase_docs_md/arch/Home/Altibase APRE(SES) _C_C++ Makefile__15630378.md",
-      "body_chars": 1095,
-      "word_count": 144
+      "body_chars": 1245,
+      "word_count": 173
     },
     {
       "space_key": "arch",
@@ -2807,8 +2807,8 @@
       "title": "Altibase Developer Training",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Developer+Training",
       "path": "altibase_docs_md/arch/Home/Altibase Developer Training__22642996.md",
-      "body_chars": 1637,
-      "word_count": 117
+      "body_chars": 1771,
+      "word_count": 150
     },
     {
       "space_key": "arch",
@@ -3257,8 +3257,8 @@
       "title": "1. Considerations for ALTIBASE Development",
       "source_url": "https://docs.altibase.com/display/arch/1.+Considerations+for+ALTIBASE+Development",
       "path": "altibase_docs_md/arch/Home/Altibase Precompiler Guide/1. Considerations for ALTIBASE Development__14647447.md",
-      "body_chars": 10712,
-      "word_count": 1577
+      "body_chars": 10296,
+      "word_count": 1531
     },
     {
       "space_key": "arch",
@@ -3266,8 +3266,8 @@
       "title": "2. How to use APRE",
       "source_url": "https://docs.altibase.com/display/arch/2.+How+to+use+APRE",
       "path": "altibase_docs_md/arch/Home/Altibase Precompiler Guide/2. How to use APRE__14647451.md",
-      "body_chars": 23399,
-      "word_count": 3414
+      "body_chars": 23086,
+      "word_count": 3375
     },
     {
       "space_key": "arch",
@@ -3275,8 +3275,8 @@
       "title": "3. APRE Sample Program",
       "source_url": "https://docs.altibase.com/display/arch/3.+APRE+Sample+Program",
       "path": "altibase_docs_md/arch/Home/Altibase Precompiler Guide/3. APRE Sample Program__14647488.md",
-      "body_chars": 3236,
-      "word_count": 434
+      "body_chars": 3396,
+      "word_count": 452
     },
     {
       "space_key": "arch",
@@ -3284,8 +3284,8 @@
       "title": "4. Frequently Occurring Error Messages",
       "source_url": "https://docs.altibase.com/display/arch/4.+Frequently+Occurring+Error+Messages",
       "path": "altibase_docs_md/arch/Home/Altibase Precompiler Guide/4. Frequently Occurring Error Messages__22643006.md",
-      "body_chars": 14318,
-      "word_count": 1981
+      "body_chars": 14027,
+      "word_count": 1956
     },
     {
       "space_key": "arch",
@@ -3293,8 +3293,8 @@
       "title": "5. Considerations when converting from other DBMSs",
       "source_url": "https://docs.altibase.com/display/arch/5.+Considerations+when+converting+from+other+DBMSs",
       "path": "altibase_docs_md/arch/Home/Altibase Precompiler Guide/5. Considerations when converting from other DBMSs__14647506.md",
-      "body_chars": 1890,
-      "word_count": 296
+      "body_chars": 2167,
+      "word_count": 294
     },
     {
       "space_key": "arch",
@@ -3302,8 +3302,8 @@
       "title": "Altibase Precompiler Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Precompiler+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Precompiler Guide__14647438.md",
-      "body_chars": 1074,
-      "word_count": 135
+      "body_chars": 1223,
+      "word_count": 158
     },
     {
       "space_key": "arch",

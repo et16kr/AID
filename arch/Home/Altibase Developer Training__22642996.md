@@ -22,11 +22,16 @@ Updated: 2025-10-21T08:59:57.000+0900
 
 This document is a basic programming guide for developers using Altibase.
 
+For errors or improvements related to this document, contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
+- Technical support center: 02-2082-1114
+
 # Developer Training Document
 
 ---
 
-This document is based on Altibase v7.
+This page includes the Altibase v7 or later training document and a legacy Altibase v5 training document. The Korean source page notes that the original document was based on Altibase v5.
 
 Downloadable Document
 

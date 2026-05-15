@@ -35,5 +35,5 @@ The test environment of this document is as follows:
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
 - Technical support center: 02-2082-1114

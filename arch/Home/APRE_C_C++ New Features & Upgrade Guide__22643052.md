@@ -26,35 +26,35 @@ The document is based on APRE*C/C++ for Altibase 7.3.
 
 It is recommended to refer to the following technical documents to understand the contents of this document.
 
-- [Altibase APRE(SES) *C/C++ Makefile](https://aid.altibase.com/pages/viewpage.action?pageId=15630378)
-- [Altibase Precompiler Guide](https://aid.altibase.com/display/arch/Altibase+Precompiler+Guide)
+- [Altibase APRE(SES) *C/C++ Makefile](https://docs.altibase.com/pages/viewpage.action?pageId=15630378)
+- [Altibase Precompiler Guide](https://docs.altibase.com/display/arch/Altibase+Precompiler+Guide)
 
-For errors and improvements related to this document, please contact the technical support portal or technical support center
+For errors and improvements related to this document, please contact the technical support portal or technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)[/en/](http://support.altibase.com/en/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
 - Technical support center: 02-2082-1114
 
 # APRE*C/C++
 
 ---
 
-This section describes Altibase's new Embedded SQL precompiler. For detailed usage and function summaries, refer to the [Altibase Precompiler Guide](https://aid.altibase.com/display/arch/Altibase+Precompiler+Guide).
+This section describes Altibase's new Embedded SQL precompiler. For detailed usage and function summaries, refer to the [Altibase Precompiler Guide](https://docs.altibase.com/display/arch/Altibase+Precompiler+Guide).
 
 ## Terms
 
 ---
 
-****Precompiler of Embedded SQL****
+**Precompiler of Embedded SQL**
 
-The program that receives source code including embedded SQL and converts the embedded SQL into execution-time library function calls.
+The program that receives source code including embedded SQL and converts the embedded SQL into execution-time library function calls. It determines the preprocessing range.
 
 **SES*C/C++**
 
-It is an abbreviation of the Precompiler of Embedded SQL for versions lower than Altibase 5.1.5, and supports C and C++ as source code.
+It is an abbreviation of the Precompiler of Embedded SQL for Altibase 5.1.5 or earlier versions, and supports C and C++ as source code.
 
 **APRE*C/C++**
 
-It is an abbreviation of the Precompiler of Embedded SQL for versions lower than Altibase 5.3.3, and supports C and C++ as source code. Compared to SES*C/C++, the upgrade level function is improved.
+It is an abbreviation of the Precompiler of Embedded SQL for Altibase 5.3.3 or later versions, and supports C and C++ as source code.
 
 ## Overview of New Features
 
@@ -68,8 +68,8 @@ The functions newly added to APRE*C/C++ are as follows:
 
 - Partial C Preprocessor for macro processing
 - C Parser for host variable declaration
-- Function to rewrite the library to alleviate host variable declaration method and usage restrictions
-- DECLARE STATEMENT statement support
+- Library rewrite to relax host variable declaration and usage restrictions
+- DECLARE STATEMENT support
 
 In addition, the following improvements were made:
 
@@ -89,43 +89,138 @@ Most of the macros below can be processed without any restrictions on the declar
 
 ![(tick)](https://docs.altibase.com/s/en_GB/5637/e1ef10868e8fe2f234a1a0b171b01cde1d9717c4.69/_/images/icons/emoticons/check.png) #include, #define #if, #ifdef, #ifndef, #endif, #else, #elif
 
+```
+#define ALTIBASE
+...
+EXEC SQL BEGIN DECLARE SECTION;
+...
+EXEC SQL END DECLARE SECTION;
+
+EXEC SQL INSERT INTO T1 VALUES
+#ifdef ALTIBASE
+( :altibase );
+#else
+( :other_dbms );
+#endif
+...
+```
+
 ![1.Partial%20C%20Preprocessor%20%E1%84%90%E1%85%A1%E1%86%B8%E1%84%8C%E1%85%A2.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/1.Partial%20C%20Preprocessor%20%E1%84%90%E1%85%A1%E1%86%B8%E1%84%8C%E1%85%A2.png?api=v2)
 
 **Equipped with C Parser**
 
 Only when the source code is written in C, the host variable declaration is possible outside the host variable declaration section (DECLARE SECTION).
 
+```
+int i = 10;
+EXEC SQL BEGIN DECLARE SECTION;
+int j;
+int k;
+EXEC SQL END DECLARE SECTION;
+varchar vc[LEN];
+...
+EXEC SQL INSERT INTO T1 VALUES (:i, :j, :k, :vc);
+```
+
 ![C%20parse%20%E1%84%90%E1%85%A1%E1%86%B8%E1%84%8C%E1%85%A2.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/C%20parse%20%E1%84%90%E1%85%A1%E1%86%B8%E1%84%8C%E1%85%A2.png?api=v2)
 
 **Host variable declaration method and ease of using restrictions**
 
-Many restrictions related to the user of host variables have been removed. Details are as follows.
+Many restrictions related to the use of host variables have been removed. Details are as follows.
 
 1. The initial value can be assigned at the same time as the host variable declaration
+
+```
+EXEC SQL BEGIN DECLARE SECTION;
+int i = 10*10;
+char j[10] = "abcd"
+EXEC SQL END DECLARE SECTION;
+```
 
 ![%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%89%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A5%E1%86%AB%E1%84%80%E1%85%AA_%E1%84%83%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%84%8B%E1%85%A6_%E1%84%8E%E1%85%A9%E1%84%80%E1%85%B5%E1%84%80%E1%85%A1%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%AF_%E1%84%92%E1%85%A1%E1%86%AF%E1%84%83%E1%85%A1%E1%86%BC_%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%89%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A5%E1%86%AB%E1%84%80%E1%85%AA_%E1%84%83%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%84%8B%E1%85%A6_%E1%84%8E%E1%85%A9%E1%84%80%E1%85%B5%E1%84%80%E1%85%A1%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%AF_%E1%84%92%E1%85%A1%E1%86%AF%E1%84%83%E1%85%A1%E1%86%BC_%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png?api=v2)
 
 2. Structure definition available after typedef (reverse also available)
 
+```
+EXEC SQL BEGIN DECLARE SECTION;
+typedef struct department department;
+struct department
+{
+    short dno;
+    char dname[30+1];
+    dep_location[9+1];
+};
+EXEC SQL END DECLARE SECTION;
+```
+
 ![typedef_%E1%84%92%E1%85%AE_%E1%84%80%E1%85%AE%E1%84%8C%E1%85%A9%E1%84%8E%E1%85%A6_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8B%E1%85%B4_%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/typedef_%E1%84%92%E1%85%AE_%E1%84%80%E1%85%AE%E1%84%8C%E1%85%A9%E1%84%8E%E1%85%A6_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8B%E1%85%B4_%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png?api=v2)
 
 3. Array elements can be specified when using array-type host variables in embedded SQL statements.
+
+```
+EXEC SQL BEGIN DECLARE SECTION;
+struct tagl
+{
+    int i1;
+    int i2;
+} var1[10];
+EXEC SQL END DECLARE SECTION;
+
+EXEC SQL INSERT INTO T1(I1, I2) VALUES(:var1[0].i1, :var1[0].i2);
+```
 
 ![%E1%84%82%E1%85%A2%E1%84%8C%E1%85%A1%E1%86%BC_SQL%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A5_%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%92%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B4_%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%82%E1%85%A2%E1%84%8C%E1%85%A1%E1%86%BC_SQL%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A5_%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%92%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B4_%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC.png?api=v2)
 
 4. Data types other than char * and struct * can be used as pointer type host variables.
 
+```
+struct {
+    int i;
+    char c;
+} structvar;
+int *i_ptr = &structvar.i;
+char *c_ptr = &structvar.c;
+EXEC SQL SELECT I, C INTO :i_ptr, :c_ptr FROM TMP;
+```
+
 ![point_%E1%84%8B%E1%85%AC%E1%84%8B%E1%85%B4_%E1%84%83%E1%85%A1%E1%84%85%E1%85%B3%E1%86%AB_%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC%E1%84%83%E1%85%A9_%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC_%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE%E1%84%85%E1%85%A9_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/point_%E1%84%8B%E1%85%AC%E1%84%8B%E1%85%B4_%E1%84%83%E1%85%A1%E1%84%85%E1%85%B3%E1%86%AB_%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC%E1%84%83%E1%85%A9_%E1%84%91%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC_%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE%E1%84%85%E1%85%A9_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png?api=v2)
 
 5. The host variable for output can be used without ":" in INTO clause of the SELECT statement
+
+```
+EXEC SQL BEGIN DECLARE SECTION;
+char name[10];
+EXEC SQL END DECLARE SECTION;
+EXEC SQL SELECT DEP_NAME INTO name FROM DEPT;
+```
 
 ![select_%E1%84%80%E1%85%AE%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%B4into%E1%84%8C%E1%85%A5%E1%86%AF%E1%84%8B%E1%85%A6_%E1%84%91%E1%85%AD%E1%84%89%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B5_%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/select_%E1%84%80%E1%85%AE%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%B4into%E1%84%8C%E1%85%A5%E1%86%AF%E1%84%8B%E1%85%A6_%E1%84%91%E1%85%AD%E1%84%89%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B5_%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png?api=v2)
 
 6. Can be used even if the input host variable of the embedded SQL including the FOR clause is not an array type
 
+```
+EXEC SQL BEGIN DECLARE SECTION;
+int cnt = 1;
+int var1 = 10;
+EXEC SQL END DECLARE SECTION;
+...
+EXEC SQL FOR :cnt INSERT INTO T1 VALUES (:var1);
+```
+
 ![for_%E1%84%8C%E1%85%A5%E1%86%AF%E1%84%8B%E1%85%B4_%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8_%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE%E1%84%80%E1%85%A1_%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF_%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B5_%E1%84%8B%E1%85%A1%E1%84%82%E1%85%B5%E1%84%83%E1%85%A5%E1%84%85%E1%85%A1%E1%84%83%E1%85%A9_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/for_%E1%84%8C%E1%85%A5%E1%86%AF%E1%84%8B%E1%85%B4_%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8_%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE%E1%84%80%E1%85%A1_%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF_%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B5_%E1%84%8B%E1%85%A1%E1%84%82%E1%85%B5%E1%84%83%E1%85%A5%E1%84%85%E1%85%A1%E1%84%83%E1%85%A9_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png?api=v2)
 
 7. The union type host variable can be used
+
+```
+EXEC SQL BEGIN DECLARE SECTION;
+union uni {
+int a;
+char s[10];
+} u;
+EXEC SQL END DECLARE SECTION;
+...
+EXEC SQL INSERT INTO T1 VALUES (:u.s);
+```
 
 ![%E1%84%8B%E1%85%B2%E1%84%82%E1%85%B5%E1%84%8B%E1%85%A9%E1%86%AB%E1%84%92%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B4_%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%8B%E1%85%B2%E1%84%82%E1%85%B5%E1%84%8B%E1%85%A9%E1%86%AB%E1%84%92%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B4_%E1%84%92%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png?api=v2)
 
@@ -135,11 +230,21 @@ The DECLARE STATEMENT is supported as a standard embedded SQL statement.
 
 Identifiers for SQL statements or PL/SQL blocks can be declared so that they can be used in other embedded SQL statements.
 
+```
+EXEC SQL DECLARE my_statement STATEMENT;
+EXEC SQL DECLARE emp_cursore CURSOR FOR my_statement;
+EXEC SQL PREPARE my_statement FROM :my_string;
+```
+
 ![declare_statement_%E1%84%80%E1%85%AE%E1%84%86%E1%85%AE%E1%86%AB_%E1%84%8E%E1%85%AE%E1%84%80%E1%85%A1%E1%84%8C%E1%85%B5%E1%84%8B%E1%85%AF%E1%86%AB.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/declare_statement_%E1%84%80%E1%85%AE%E1%84%86%E1%85%AE%E1%86%AB_%E1%84%8E%E1%85%AE%E1%84%80%E1%85%A1%E1%84%8C%E1%85%B5%E1%84%8B%E1%85%AF%E1%86%AB.png?api=v2)
 
 **Function callable when using WHENEVER statement**
 
 This has been improved so that a specific function can be called when using the WHENEVER statement in the form of WHENEVER <condition> DO <function>.
+
+```
+EXEC SQL WHENEVER SQLERROR DO sql_error_occur();
+```
 
 ![whenever%E1%84%80%E1%85%AE%E1%84%86%E1%85%AE%E1%86%AB_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%89%E1%85%B5_%E1%84%92%E1%85%A1%E1%86%B7%E1%84%89%E1%85%AE_%E1%84%92%E1%85%A9%E1%84%8E%E1%85%AE%E1%86%AF%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/whenever%E1%84%80%E1%85%AE%E1%84%86%E1%85%AE%E1%86%AB_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%89%E1%85%B5_%E1%84%92%E1%85%A1%E1%86%B7%E1%84%89%E1%85%AE_%E1%84%92%E1%85%A9%E1%84%8E%E1%85%AE%E1%86%AF%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%BC.png?api=v2)
 
@@ -303,27 +408,51 @@ The procedure for upgrading from SES*C/C++ to APRE*C/C++ development environment
 
 Refer to the table in the Changes section, execute the relevant statements, and modify options in compilation files such as link options and the makefile.
 
-1. 1. Change the execution file name
-      ![%E1%84%89%E1%85%B5%E1%86%AF%E1%84%92%E1%85%A2%E1%86%BC%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%86%E1%85%A7%E1%86%BC_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%89%E1%85%B5%E1%86%AF%E1%84%92%E1%85%A2%E1%86%BC%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%86%E1%85%A7%E1%86%BC_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC.png?api=v2)
-    2. Change the link option
-      ![%E1%84%85%E1%85%B5%E1%86%BC%E1%84%8F%E1%85%B3%E1%84%8B%E1%85%A9%E1%86%B8%E1%84%89%E1%85%A7%E1%86%AB_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%85%E1%85%B5%E1%86%BC%E1%84%8F%E1%85%B3%E1%84%8B%E1%85%A9%E1%86%B8%E1%84%89%E1%85%A7%E1%86%AB_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC.png?api=v2)
-    3. makefile
-      ![makefile.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/makefile.png?api=v2)
+1. Change the execution file name.
+
+  ```
+  $ apre -t cpp connect1.sc
+  ```
+
+  ![%E1%84%89%E1%85%B5%E1%86%AF%E1%84%92%E1%85%A2%E1%86%BC%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%86%E1%85%A7%E1%86%BC_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%89%E1%85%B5%E1%86%AF%E1%84%92%E1%85%A2%E1%86%BC%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%86%E1%85%A7%E1%86%BC_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC.png?api=v2)
+
+2. Change the link option.
+
+  ```
+  $ g++ -Wl,-relax -L. -O3 -L/home/altibase/altibase_home/lib -o connect1
+  connect1.o -lapre -lodbccli -ldl -lpthread -lcrypt -lrt
+  ```
+
+  ![%E1%84%85%E1%85%B5%E1%86%BC%E1%84%8F%E1%85%B3%E1%84%8B%E1%85%A9%E1%86%B8%E1%84%89%E1%85%A7%E1%86%AB_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/%E1%84%85%E1%85%B5%E1%86%BC%E1%84%8F%E1%85%B3%E1%84%8B%E1%85%A9%E1%86%B8%E1%84%89%E1%85%A7%E1%86%AB_%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC.png?api=v2)
+
+3. Modify the makefile.
+
+  ```
+  %.cpp : %.sc
+      apre -t cpp $<
+  ...
+  connect1: connect1.$(OBJEXT) connect1.cpp
+      $(LD) $(LFLAGS) $(LDOUT)connect1$(BINEXT) connect1.$(OBJEXT) $(LIBOPT)apre$(LIBAFT) $(LIBOPT)odbccli$(LIBAFT) $(LIBS)
+  ```
+
+  ![makefile.png](https://docs.altibase.com/download/attachments/embedded-page/arch/APRE*C/C++%20New%20Features%20&%20Upgrade%20Guide/makefile.png?api=v2)
 
 If the file related to a change is not easily identified or cannot be changed due to the large amount, the procedure in the example above can be omitted, but it is recommended to do a normal upgrade by changing the related name as much as possible.
 
 ## Considerations
 
-**-Adding parse none option**
+**-parse none option added**
 
-**APRE*C/C++ -> [Notes] ->** Although the syntax is not mentioned in the section, the source that was precompiled without any problems in SES*C/C++ may cause an error in APRE*C/C++. In this case, since the parsing mode of APRE*C/C++ is partial, it is likely an error that occurs while macro processing up to the header file included in the #include method.
+Even when the error is unrelated to the syntax strengthening described in **APRE*C/C++ -> [Precautions]**, source code that was precompiled without problems in SES*C/C++ may cause an error in APRE*C/C++. In this case, since the parsing mode of APRE*C/C++ is partial by default, it is likely an error that occurs while macro processing up to the header file included in the `#include` method.
 
 Therefore, if the cause of the error is not easily specified, it is necessary to check by adding the -parse none option to precompile the same as SES*C/C++.
 
-**-Error due to use of the precompiler library**
+**Error due to use of the precompiler library**
 
 If the existing source code is written to use the SES*C/C++ library directly, compilation may not be possible due to the change of the precompiler library interface. In this case, all related codes must be removed from the existing source code.
 
-The library interface of the precompiler is an internal element that is frequently changed, and used directly by the user is prohibited.
+The library interface of the precompiler is an internal element that changes frequently, and direct use by users is prohibited.
 
 Therefore, Altibase is not responsible for any errors that occur in the future while analyzing the precompiled source code and using the related macros, structures, and functions in the source code arbitrarily.
+
+Legacy document placeholder: `APRE_New_Features_업그레이드_가이드.pdf` (`#`) (changes after Altibase v5).

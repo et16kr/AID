@@ -455,3 +455,53 @@ P208 audited Korean backup policy, failure response recovery sections, and start
 
 - External HTTP availability was not tested; P208 used grep-based source-link and attachment preservation checks.
 - Legal boilerplate beyond the technical support contact remained outside the content changes because this job focused on backup, recovery, failure response, startup recovery, archive log, online/offline/logical/incremental backup, warnings, attachments, and links.
+
+## P209 Tech audit: C C++ precompiler APRE developer basics
+
+### Scope
+
+P209 audited Korean developer training, precompiler, APRE Makefile, and APRE C/C++ upgrade documents against their English `arch` targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English target |
+| --- | --- |
+| `DOCK/Home/33. Altibase 개발자교육__19333461.md` | `arch/Home/Altibase Developer Training__22642996.md` |
+| `DOCK/Home/34. Altibase Precompiler 가이드__11698385.md` | `arch/Home/Altibase Precompiler Guide__14647438.md`; `arch/Home/Altibase Precompiler Guide/**` |
+| `DOCK/Home/35. Altibase APRE(SES) _C_C++ Makefile__11698493.md` | `arch/Home/Altibase APRE(SES) _C_C++ Makefile__15630378.md`; `arch/Home/Altibase APRE(SES) _C_C++ Makefile/**` |
+| `DOCK/Home/44. APRE_C_C++ New Features & 업그레이드 가이드__13435760.md` | `arch/Home/APRE_C_C++ New Features & Upgrade Guide__22643052.md` |
+
+### Findings And Updates
+
+- Clarified developer training version coverage, preserving both the Altibase v7-or-later training attachment and the Korean-source legacy Altibase v5 training document.
+- Corrected malformed support portal links in the scoped parent pages.
+- Corrected precompiler split-page details for DBeaver, `iSQL>`, APRE Makefile references, `-lapre -lodbccli`, dynamic SQL, `CTF`, failover `DSN`, timeout checks, date functions, trace collection, `UTrans`, and `CONNECT`/`DISCONNECT` conversion references.
+- Corrected APRE Makefile pages for `altibase_env.mk`, compile/link option tables, OS-specific libraries, 32-bit examples, shared-library examples, APRE shared-library build restrictions on AIX, and final checklist wording.
+- Replaced fake exported local links with code literals or fenced code blocks for APRE and Makefile examples.
+- Restored APRE C/C++ New Features details for Embedded SQL terminology, SES/APRE version conditions, Partial C Preprocessor, C Parser, host variables, `DECLARE STATEMENT`, `WHENEVER`, upgrade steps, `-parse none`, direct precompiler-library-use warning, and the legacy PDF placeholder.
+- Updated `manifest.json` metadata for all 15 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- Scoped Korean source pages contain 2 URL-backed document-format attachments, and both Korean-source developer training attachment URLs are preserved in the scoped English target set.
+- The Korean APRE New Features source contains the legacy placeholder `APRE_New_Features_업그레이드_가이드.pdf` with `#`; the English target records the same placeholder because no downloadable source URL is present.
+- Scoped grep found no empty links, Confluence macro error markers, malformed support links, fake APRE local links, stale typo patterns, or residual visible Korean text after excluding the preserved legacy placeholder filename.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p209-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Scoped grep for empty links, Confluence macro errors, malformed support links, fake APRE local links, stale typo patterns, and residual Korean text | Passed |
+| Scoped document-format attachment preservation script | Passed, 2 Korean source URLs preserved |
+| Scoped fenced-code balance check | Passed for all scoped English files |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 15 edited English pages |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P209 used grep-based source-link and attachment preservation checks.
+- The Korean APRE New Features legacy PDF is a `#` placeholder, so the English target can preserve the filename but cannot provide a real download URL.
+- Some source-exported image URLs retain URL-encoded Korean image filenames; the visible English prose was checked separately.
