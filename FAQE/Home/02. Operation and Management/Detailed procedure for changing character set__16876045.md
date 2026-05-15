@@ -20,7 +20,7 @@ Updated: 2021-03-15T16:07:20.000+0900
 
 ---
 
-The character set of the database is determined by the set value at the time of database creation and cannot be changed again. So, to make any changes, the database must be deleted, and create a new one.
+The character set of the database is determined by the setting value at database creation time and cannot be changed later. To change it, delete the database and create a new one.
 
 When the database is deleted, all objects and data disappear. Therefore, the necessary data must be backed up and re-imported after recreating the database.
 
@@ -30,7 +30,7 @@ This document assumes and describes a situation where the database character set
 
 ---
 
-This document is written based on ALTIBASE HDB version 5.3.1 or later, which supports multi-language support.
+This document applies to ALTIBASE HDB version 5.3.1 or later, which supports multiple languages.
 
 # Change procedure
 
@@ -94,17 +94,19 @@ $ export ALTIBASE_NLS_USE=US7ASCII
 
 iSQL> create table hangul_t (c1 char(500));
 
-iSQL> insert into hangul_t values('US7ASII_Hangul test');
+iSQL> insert into hangul_t values('US7ASII_한글테스트합니다');
 
 iSQL> select * from hangul_t;
 
-C1 : US7ASII_Hangul test
+C1 : US7ASII_한글테스트합니다
 
 $ cat run_il_out.sh | grep formout > formout.sh
 
 $ cat run_il_out.sh | grep 'out -f' > dataout.sh
 
-#2.3 Create a formout script and check if the NLS_USE of the form script is the same character set as the DB.$ sh formout.sh
+#2.3 Create a formout script and check whether `NLS_USE` in the form script uses the same character set as the DB.
+
+$ sh formout.sh
 
 $ cat *.fmt
 
@@ -124,7 +126,7 @@ $ sh dataout.sh
 
 $ cat *.dat
 
-"Hangul test"
+"한글 데이터입니다"
 
 ### STEP 3: Delete the database and create a new database with the character set setting the user wants to change. Example) UTF8
 
@@ -214,4 +216,4 @@ NLS_NCHAR_LITERAL_REPLACE : FALSE
 
 iSQL> select * from hangul_t;
 
-C1 : US7ASI Hangul test
+C1 : US7ASII_한글테스트합니다 .

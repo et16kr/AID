@@ -20,7 +20,7 @@ Updated: 2021-03-03T17:36:59.000+0900
 
 ---
 
-Data file addition or change time information is not recorded in a separate performance view or v$datafiles. However, if the QP_MSGLOG_FLAG property is set to record DDL statements, DDL statements are recorded in $ALTIBASE_HOME/trc/altibase_qp.log, so this file can be opened, and the changes can be checked in the datafile.
+Data file addition or change time information is not recorded in a separate performance view or `V$DATAFILES`. However, if the `QP_MSGLOG_FLAG` property is set to record DDL statements, DDL statements are recorded in `$ALTIBASE_HOME/trc/altibase_qp.log`, so open this file to check datafile changes.
 
 # Version
 
@@ -32,7 +32,7 @@ This is supported by Altibase HDB version 4.3.9 or later.
 
 ---
 
-Change the setting value of QP_MSGLOG_FLAG so that DDL can be logged in altibase_qp.log. One of the following two methods can be used to change the method.
+Change the value of `QP_MSGLOG_FLAG` so that DDL statements are logged in `altibase_qp.log`. Use one of the following two methods.
 
 ## How to use the ALTER SYSTEM command
 
@@ -66,7 +66,7 @@ Starting from Altibase HDB version 5.1.5.33 or later, the default value of QP_MS
 
 ---
 
-When a data file is added with the alter tablespace ~ add datafiles statement, the following log is displayed in altibase_qp.log.
+When a data file is added with the `ALTER TABLESPACE ~ ADD DATAFILE` statement, the following log is written to `altibase_qp.log`.
 
 |  |
 | --- |

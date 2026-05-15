@@ -539,8 +539,8 @@
       "title": "Can PUBLIC SYNONYM be dropped?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16875993",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Can PUBLIC SYNONYM be dropped__16875993.md",
-      "body_chars": 917,
-      "word_count": 142
+      "body_chars": 1744,
+      "word_count": 213
     },
     {
       "space_key": "FAQE",
@@ -548,8 +548,8 @@
       "title": "Can table data be saved on disk and only indexes can be created in memory?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876008",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Can table data be saved on disk and only indexes can be created in memory__16876008.md",
-      "body_chars": 1054,
-      "word_count": 168
+      "body_chars": 1624,
+      "word_count": 241
     },
     {
       "space_key": "FAQE",
@@ -566,8 +566,8 @@
       "title": "Detailed procedure for changing character set",
       "source_url": "https://docs.altibase.com/display/FAQE/Detailed+procedure+for+changing+character+set",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Detailed procedure for changing character set__16876045.md",
-      "body_chars": 6397,
-      "word_count": 843
+      "body_chars": 6925,
+      "word_count": 911
     },
     {
       "space_key": "FAQE",
@@ -594,7 +594,7 @@
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+change+the+path+of+log+anchor%2C+online+log+file%2C+archive+log+file%2C+and+double+write+file",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to change the path of log anchor, online log file, archive log file, and double write file__16876052.md",
       "body_chars": 6500,
-      "word_count": 671
+      "word_count": 668
     },
     {
       "space_key": "FAQE",
@@ -602,8 +602,8 @@
       "title": "How to change the tablespace data file path",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+change+the+tablespace+data+file+path",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to change the tablespace data file path__16876049.md",
-      "body_chars": 12646,
-      "word_count": 1678
+      "body_chars": 12611,
+      "word_count": 1670
     },
     {
       "space_key": "FAQE",
@@ -611,8 +611,8 @@
       "title": "How to check the history of adding datafiles",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+check+the+history+of+adding+datafiles",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to check the history of adding datafiles__16875969.md",
-      "body_chars": 2364,
-      "word_count": 353
+      "body_chars": 3449,
+      "word_count": 439
     },
     {
       "space_key": "FAQE",
@@ -629,8 +629,8 @@
       "title": "How to create and execute Job objects",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+create+and+execute+Job+objects",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to create and execute Job objects__16876042.md",
-      "body_chars": 11962,
-      "word_count": 1556
+      "body_chars": 12142,
+      "word_count": 1587
     },
     {
       "space_key": "FAQE",
@@ -647,8 +647,8 @@
       "title": "How to modify column",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+modify+column",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to modify column__16875952.md",
-      "body_chars": 4459,
-      "word_count": 613
+      "body_chars": 4519,
+      "word_count": 604
     },
     {
       "space_key": "FAQE",
@@ -674,7 +674,7 @@
       "title": "How to startup Altibase automatically when booting from HP-UX",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+startup+Altibase+automatically+when+booting+from+HP-UX",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to startup Altibase automatically when booting from HP-UX__16875976.md",
-      "body_chars": 7277,
+      "body_chars": 7266,
       "word_count": 923
     },
     {
@@ -692,8 +692,8 @@
       "title": "Notes on using floating point data type (double, float)",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16875974",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Notes on using floating point data type (double, float)__16875974.md",
-      "body_chars": 4984,
-      "word_count": 596
+      "body_chars": 6646,
+      "word_count": 778
     },
     {
       "space_key": "FAQE",
@@ -737,8 +737,8 @@
       "title": "What is MEM_MAX_DB_SIZE?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16875991",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/What is MEM_MAX_DB_SIZE__16875991.md",
-      "body_chars": 9503,
-      "word_count": 1190
+      "body_chars": 9560,
+      "word_count": 1197
     },
     {
       "space_key": "FAQE",
@@ -746,8 +746,8 @@
       "title": "When log disk is FULL and its countermeasures",
       "source_url": "https://docs.altibase.com/display/FAQE/When+log+disk+is+FULL+and+its+countermeasures",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/When log disk is FULL and its countermeasures__16876034.md",
-      "body_chars": 10251,
-      "word_count": 1103
+      "body_chars": 10952,
+      "word_count": 1301
     },
     {
       "space_key": "FAQE",

@@ -22,7 +22,7 @@ Updated: 2021-04-02T11:24:53.000+0900
 
 Altibase's double data type is the same as the C language's double data type. While the double data type can represent a wider range of numbers than the fixed-point method, the value may be inaccurate because it is expressed as an approximate value, and meaningless values after the decimal point may be too long.
 
-In addition, when double/float type values are retrieved with iSQL or exported to iloader, the value after the decimal point may not be truncated.
+In addition, when double/float type values are retrieved with iSQL or exported with iloader, the values after the decimal point may be truncated.
 
 Therefore, in order to accurately retrieve or store values below the decimal point, a fixed-point number type such as numeric must be used.
 
@@ -52,7 +52,7 @@ iSQL> select c1, to_char(c1) from t1 where c1 = double'100.000000000000014210854
 
 ### When data is exported from iLoader
 
-$ iloader -s localhost -u SYS -p MANAGER out -f SYS_T1.fmt -d SYS_T1.dat -log SYS_T1.log $ cat SYS_T1.dat 100 <--- The value truncated to the decimal point is exported.
+$ iloader -s localhost -u SYS -p MANAGER out -f SYS_T1.fmt -d SYS_T1.dat -log SYS_T1.log $ cat SYS_T1.dat 100 <--- The value after the decimal point is truncated in the exported data.
 
 ### When it comes to a double type host variable from a program, it is normally retrieved.
 
@@ -88,7 +88,7 @@ C1 TO_CHAR(C1) ---------- ---------------------------------------- 1.0E+002 1.00
 
 In order to accurately retrieve or store values below the decimal point, a fixed-point number type such as numeric(scale, precision) must be used.
 
-The following is an example of executing a value in iSQL when using numeric type.
+The following execution example shows that values are retrieved normally in iSQL when the numeric type is used.
 
 iSQL> create table t2 ( c1 numeric(35, 32 ) ); Create success. iSQL> desc t2; [ TABLESPACE : SYS_TBS_MEM_DATA ] [ ATTRIBUTE ] ------------------------------------------------------------------------------ NAME TYPE IS NULL ------------------------------------------------------------------------------ C1 NUMERIC(35, 32) FIXED
 

@@ -30,7 +30,7 @@ Change the data file path after securing service downtime.
 
 1. Check the current path of the data file
 2. Stop the Altibase server.
-3. Change the data file path.
+3. Change the data file default path.
 4. Copy the data file to the new path.
 5. Start Altibase server as a control stage.
 6. Execute the data file path change DDL.
@@ -64,7 +64,7 @@ The verification method differs depending on the disk tablespace and the memory 
   **How to check in Altibase version 5 or later**
 
   ```
-  -- For in-memory tablespaces, only check the tablespace name and path can be checked.
+  -- For memory tablespaces, only the tablespace name and path can be checked.
   set linesize 1024
   set colsize 100
   SELECT TBS.NAME TBS_NAME,
@@ -198,7 +198,7 @@ The disk data file and memory checkpoint image file path information are stored 
   ```
 - **Change the memory checkpoint image file path**
 
-  1. Repeat the ALTER TABLESPACE statement as many as the number of memory tablespaces checked in "Check the current path of the data file". In this case, only the old and new paths are used without specifying a file name.
+  Repeat the ALTER TABLESPACE statement for the number of memory tablespaces checked in "1. Check the current path of the data file". In this case, specify only the old and new paths without specifying a file name.
 
   **Altibase version 5 or later**
 
@@ -260,7 +260,7 @@ iSQL(sysdba)>
 
 ---
 
-These are error messages that may occur while changing the data file path, and this section describes how to prevent these errors.
+These are error messages that may occur while changing the data file path, and this section describes how to handle them.
 
 ## The data file does not exist
 
@@ -287,9 +287,9 @@ These are error messages that may occur while changing the data file path, and t
 
 - **Cause**
 
-  This can happen if the double write file does not exist. The double write file is a file required for restart recovery when the database is abnormally terminated. The default path is $ALTIBASE_HOME/dbs.If all files in the $ALTIBASE_HOME/dbs path are moved, an error may occur. The error message may differ depending on the Altibase server version.
+  This can happen if the double write file does not exist. The double write file is required for restart recovery when the database is abnormally terminated. The default path is `$ALTIBASE_HOME/dbs`. If all files in the `$ALTIBASE_HOME/dbs` path are moved, an error may occur. The error message may differ depending on the Altibase server version.
 
-- **Solution** dwfile0.dwf and dwfile1.dwf files can be created after creating them with the touch command.
+- **Solution** `dwfile0.dwf` and `dwfile1.dwf` files can be manually created with the touch command.
 
   Or change $ALTIBASE_HOME/conf/altibase.properties to USE_DW_BUFFER = 0 (add it if it doesn't exist) and start the Altibase server. When the Altibase server is started, change it to USE_DW_BUFFER = 1 or delete the USE_DW_BUFFER setting from altibase.properties. After changing the default path of the double write file, the Altibase server can be started.
 
@@ -306,7 +306,7 @@ These are error messages that may occur while changing the data file path, and t
 
 - **Cause**
 
-  When starting the Altibase server as a service phase, it happens that the physical data file cannot be found in the path of the data file stored in the meta table. This can happen if an incorrect data file path was entered in the control stage.
+  When starting the Altibase server in the service stage, this can happen if the physical data file cannot be found at the data file path stored in the meta table. This can happen if an incorrect data file path was entered in the control stage.
 
   ```
   iSQL(sysdba)> startup
@@ -323,7 +323,7 @@ These are error messages that may occur while changing the data file path, and t
   ```
 - **Solution**
 
-  The control stage executes the DDL statement by specifying the correct path.
+  In the control stage, execute the DDL statement with the correct path.
 
 # Reference
 

@@ -55,6 +55,8 @@ Both of the above properties must be set to 1 to use the task scheduler. The def
 
 The JOB_SCHEDULER_ENABLE property can be changed even when the Altibase server is running, but to change the value of the JOB_THREAD_COUNT property, the Altibase server must be restarted.
 
+If two or more JOBs will be registered and may run at the same time, set `JOB_THREAD_COUNT` to at least the number of JOBs to prevent JOB execution delays.
+
 Therefore, when using the task scheduler for the first time, change the properties according to the procedure below.
 
 1. Stop the Altibase server
@@ -148,14 +150,14 @@ The user can check the job object information and job execution result with the 
 ```
 -- JOB_NAME  : Name of Job object
 -- PROC_NAME : Name of the procedure registered in the Job object
--- INTERVAL, INTERVAL_TYPE : Performance cycle
+-- INTERVAL, INTERVAL_TYPE : Execution interval
 -- STATE : Check whether Job object is executed. If ING, the user can see that the procedure registered in the Job object is being executed.
 -- EXEC_COUNT : Number of times the job object was executed after creation
 -- ERROR_CODE : Error code when the procedure registered in the Job object fails
 -- START_TIME, END_TIME : Time when the Job object was first executed / Time when it was finished
 -- LAST_EXEC_TIME : Last time the Job object was performed
 SELECT JOB_NAME
-     , DECODE(IS_ENABLE, 'T', 'ENABLE', 'F', 'DISABLE') IS_ENABLE                  -- Delete then use it in Altibase 6.3.1
+     , DECODE(IS_ENABLE, 'T', 'ENABLE', 'F', 'DISABLE') IS_ENABLE                  -- Remove this column before using this query in Altibase 6.3.1
      , EXEC_QUERY PROC_NAME
      , INTERVAL
      , RPAD(DECODE(INTERVAL_TYPE, 'YY', 'YEARLY', 'MM', 'MONTHLY', 'DD', 'DAILY', 'HH', 'HOURLY', 'MI', 'MINUTELY'), 13) INTERVAL_TYPE
@@ -183,7 +185,7 @@ How to check the error message corresponding to the error code
 
 The error message corresponding to the error code can be checked by using the altierr utility.
 
-$altierr 0x31129
+$ altierr 0x31129
 
 0x31129 (201001) qpERR_ABORT_QSV_NOT_EXIST_PROC_SQLTEXT Procedure or function not found : <0%s>. # *Cause: The specified procedure or function name was not found in the database. # *Action: Verify that the procedure or function exists.
 
@@ -208,7 +210,7 @@ $altierr 0x31129
   ALTER SYSTEM SET JOB_SCHEDULER_ENABLE = 1;           -- Enable the job scheduler function
 
   Or,
-  ALTER SYSTEM SET JOB_SCHEDULER_ENABLE = 0;           -- Disable the job scheduler fucntion
+  ALTER SYSTEM SET JOB_SCHEDULER_ENABLE = 0;           -- Disable the job scheduler function
   ```
 
 ##### How to check the set value
@@ -228,8 +230,8 @@ $altierr 0x31129
 - This property configures the number of threads to process a job.
 - The default value is 0. When the Altibase server is started, the thread for executing the task scheduler is not started.
 - If JOB_THREAD_COUNT is set to a value other than 0, JobScheduler threads and JobThread threads as many as JOB_THREAD_COUNT are started.
-- Job is not executed by the service thread, but are processed by a thread called JobThread. So, if the user wants the job to be executed by the job scheduler, this property must be set.
-- Change this property value requires restarting the Altibase server.
+- A Job is not executed by a service thread. It is processed by a thread called JobThread. Therefore, this property must be set for the job scheduler to execute Jobs.
+- Changing this property value requires restarting the Altibase server.
 
 ##### How to change the set value
 
@@ -251,7 +253,7 @@ $altierr 0x31129
 
 ##### Property description
 
-- This property sets the number of queues to process multiple job objects are executed at the same time.
+- This property sets the number of queues used to process multiple Job objects when they are executed at the same time.
   For example, when 4 job objects are executed at the same time by the job scheduler, they are processed in the following order according to the number of JOB_THREAD_COUNT and JOB_THREAD_QUEUE_SIZE.
 
   - JOB_THREAD_COUNT = 4, JOB_THREAD_QUEUE_SIZE = 1: 4 can be executed at the same time

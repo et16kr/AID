@@ -51,7 +51,7 @@ In general, disk full occurs because the file system size is small, and it is re
 
 The following are cases in which there are abnormally many log files because the log files are not deleted even though the disk space is secured and operated.
 
-1. When using replication, replication data is not reflected the other server due to network instability or other reasons => To confirm this, check the replication gap.
+1. When using replication, replication data may not be reflected on the other server because of network instability or another reason. To confirm this, check the replication gap.
 
   ```
   SELECT * FROM V$REPGAP;
@@ -168,7 +168,7 @@ The following are cases in which there are abnormally many log files because the
 4. When the checkpoint is executed normally
   (1) Among the message contents displayed when executing checkpoint
   [CHECKPOINT-step9] Check the Remove Online Log File part.
-  In the case of [None] and skip appearing at the end of each checkpoint execution, it has appeared that the log files cannot be deleted because the checkpoint is normally executed, but there is a long transaction or the redundant data does not pass.
+  If `[None]` or `skip` appears at the end of each checkpoint execution, the checkpoint executed normally, but log files may not be deleted because a long transaction exists or replication data has not been sent.
   (2) If the log partition is full even though the log file is deleted every time a checkpoint occurs, check whether the transaction is very busy and the size of the file system.
   =>Since transactions are very busy while the checkpoint is being executed, new log files may be created as many as the number of log files deleted. Consider this and set the size of the file system to be large enough.
 
@@ -176,7 +176,7 @@ The following are cases in which there are abnormally many log files because the
 
 ---
 
-Move the log files in the $ALTIBASE_HOME/logs space to free space, attach a soft link, and secure the logs space to secure space for the DBMS to I/O log files.
+Move the log files in `$ALTIBASE_HOME/logs` to a directory with enough free space, create symbolic links, and free the logs space so that the DBMS has space to perform I/O on log files.
 
 *Script to move log files and make symbolic links
 

@@ -20,7 +20,7 @@ Updated: 2021-03-03T14:38:03.000+0900
 
 ---
 
-Starting from Altibase HDB version 5.3.3 or later, the column type and length of a table can be modified by using the ALTER TABLE ~ MODIFY COLUMN ~ statements.
+Starting from Altibase HDB version 5.3.3, the column type and length of a table can be modified by using the ALTER TABLE ~ MODIFY COLUMN ~ statement.
 
 # Statement
 
@@ -46,7 +46,7 @@ When the DATE type is changed, the column data is converted according to the DEF
 
 ---
 
-If used incorrectly, the column modify command may cause a load on the DB depending on data loss and the amount of data in the target table, so it should be used with precaution.
+If used incorrectly, the column modify command can cause data loss and can add load to the DB depending on the amount of data in the target table, so use it with caution.
 
 1. **Cannot reduce the column size below the original size**
 2. **If the data type of a column is changed, data loss may occur depending on the data type. If the user wants to change the data type at the expense of this data loss, the TOLERATE DATA LOSS option can be used.**
@@ -79,4 +79,4 @@ As recommended by ALTIBASE, if the target table is a memory table, backup is per
 
 ---
 
-For more detailed information on how to use it, refer to how to use modify columns in the SQL Reference Manual.
+For more detailed usage, refer to the modify column section in the [SQL Reference Manual](http://support.altibase.com/manual/kr/631b/html/SQL%20Reference/wwhelp/wwhimpl/js/html/wwhelp.htm).

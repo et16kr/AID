@@ -20,7 +20,7 @@ Updated: 2021-04-02T11:26:31.000+0900
 
 ---
 
-This section describes how to automatically startup Altibase when booting from HP-UX.
+This section describes how to automatically start Altibase when booting HP-UX.
 
 # What is HP-UX Startup Script?
 
@@ -40,9 +40,9 @@ In HP-UX, script files that are executed during system boot/shutdown are managed
 
   ---
 
-  Create the **/etc/rc.config.d/altibase_conf**file.
+  Create the **/etc/rc.config.d/altibase_conf** file.
 
-  As described above, in this file, variables necessary for starting/shutdown of Altibase are defined and values are set.
+  As described above, this file defines the variables required for Altibase startup and shutdown and sets their values.
 
   The contents of this file are shown below.
 
@@ -53,7 +53,7 @@ In HP-UX, script files that are executed during system boot/shutdown are managed
   START_ALTIBASE=1
   ```
 
-  If the user does not want to automatically start Altibase when booting HP-UX, set the value of START_ALTIBASE to 0. And if ALTIBASE_OWNER or ALTIBASE_HOME is changed, modify the altibase_conf file must be also modified.
+  If the user does not want to automatically start Altibase when booting HP-UX, set the value of START_ALTIBASE to 0. If ALTIBASE_OWNER or ALTIBASE_HOME changes, the altibase_conf file must also be modified.
 - ## STEP 2
 
   ---
@@ -81,7 +81,7 @@ In HP-UX, script files that are executed during system boot/shutdown are managed
 
   ---
 
-  Create the **/sbin/init.d/alti_stop** file.This file is a script that actually shuts down Altibase by using the Altibase shutdown command.
+  Create the **/sbin/init.d/alti_stop** file. This file is a script that actually shuts down Altibase by using the Altibase shutdown command.
 
   #!/sbin/sh
 
@@ -311,7 +311,7 @@ In HP-UX, script files that are executed during system boot/shutdown are managed
 
   ---
 
-  Create Symbolic Link of Startup Script and Shutdown Script in /sbin/rc2.d directory.
+  Create symbolic links for the startup script and shutdown script in the /sbin/rc2.d directory.
 
   # cd /sbin/rc2.d
 

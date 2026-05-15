@@ -825,3 +825,62 @@ P215 audited Korean FAQ category `01. 설치, 패치, 업그레이드` and core 
 
 - External HTTP availability was not tested; P215 used source-link preservation and grep-based checks.
 - Some legacy FAQE pages in this scope still preserve Confluence-exported one-line command output blocks where the Korean source has the same export shape. P215 corrected semantic drift without broadly reformatting every legacy output block.
+
+## P216 FAQ audit: operation storage logs jobs and resources
+
+### Scope
+
+P216 audited the remaining Korean FAQ category `02. 운영 및 관리` pages for automatic startup, log/datafile paths, tablespace files, operational file changes, JOB objects, `MEM_MAX_DB_SIZE`, capacity/resource limits, character-set changes, and related operation topics against English `FAQE` targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English target |
+| --- | --- |
+| `faq/Home/02. 운영 및 관리/02-01. [Linux] Altibase 서버 프로세스 자동 시작 스크립트 등록 방법__12517478.md` | `FAQE/Home/02. Operation and Management/[Linux] How to register Altibase server process auto start script__16875947.md` |
+| `faq/Home/02. 운영 및 관리/02-02. column modify 하는 방법__8454851.md` | `FAQE/Home/02. Operation and Management/How to modify column__16875952.md` |
+| `faq/Home/02. 운영 및 관리/02-05. Datafile 을 추가한 이력 확인 방법__8454956.md` | `FAQE/Home/02. Operation and Management/How to check the history of adding datafiles__16875969.md` |
+| `faq/Home/02. 운영 및 관리/02-07. floating point 형 data type (double, float) 사용 시 주의사항__8454981.md` | `FAQE/Home/02. Operation and Management/Notes on using floating point data type (double, float)__16875974.md` |
+| `faq/Home/02. 운영 및 관리/02-08. HP-UX에서 부팅 시 알티베이스를 자동으로 시작(startup)하는 방법__9110724.md` | `FAQE/Home/02. Operation and Management/How to startup Altibase automatically when booting from HP-UX__16875976.md` |
+| `faq/Home/02. 운영 및 관리/02-11. Maximum Capacity Specifications for Altibase__9110717.md` | `FAQE/Home/02. Operation and Management/Maximum Capacity Specifications for Altibase__16875989.md` |
+| `faq/Home/02. 운영 및 관리/02-12. MEM_MAX_DB_SIZE 프로퍼티 설정 변경__8454891.md` | `FAQE/Home/02. Operation and Management/What is MEM_MAX_DB_SIZE__16875991.md` |
+| `faq/Home/02. 운영 및 관리/02-13. PUBLIC SYNONYM 을 삭제해도 되나요__6520939.md` | `FAQE/Home/02. Operation and Management/Can PUBLIC SYNONYM be dropped__16875993.md` |
+| `faq/Home/02. 운영 및 관리/02-14. Solaris에서 OS booting 시 자동 altibase startup__9110643.md` | `FAQE/Home/02. Operation and Management/Automatic altibase startup during OS booting in Solaris__16875996.md` |
+| `faq/Home/02. 운영 및 관리/02-16. Table 데이터는 Disk 에 저장하고 인덱스만 Memory 에 생성이 가능한가요__8454455.md` | `FAQE/Home/02. Operation and Management/Can table data be saved on disk and only indexes can be created in memory__16876008.md` |
+| `faq/Home/02. 운영 및 관리/02-20. 로그디스크 FULL이 발생하는 경우와 대처 방법__9110748.md` | `FAQE/Home/02. Operation and Management/When log disk is FULL and its countermeasures__16876034.md` |
+| `faq/Home/02. 운영 및 관리/02-23. 작업(Job)객체 생성 및 실행 방법__9109696.md` | `FAQE/Home/02. Operation and Management/How to create and execute Job objects__16876042.md` |
+| `faq/Home/02. 운영 및 관리/02-24. 캐릭터셋 변경 방법 상세 절차__8454470.md` | `FAQE/Home/02. Operation and Management/Detailed procedure for changing character set__16876045.md` |
+| `faq/Home/02. 운영 및 관리/02-25. 테이블스페이스 데이터 파일 경로 변경 방법__9109934.md` | `FAQE/Home/02. Operation and Management/How to change the tablespace data file path__16876049.md` |
+| `faq/Home/02. 운영 및 관리/02-26. 로그앵커, 온라인 로그파일, 아카이브 로그파일, 더블 라이트(Double Write)파일 경로 변경 방법__14057689.md` | `FAQE/Home/02. Operation and Management/How to change the path of log anchor, online log file, archive log file, and double write file__16876052.md` |
+
+### Findings And Updates
+
+- No English change was needed for the Linux automatic startup, Solaris automatic startup, or maximum-capacity FAQ pages.
+- Corrected column-modify, datafile-history, floating-point, HP-UX auto-start, `MEM_MAX_DB_SIZE`, PUBLIC SYNONYM, disk-table/index, log-disk-full, JOB object, character-set, tablespace datafile path, and log/double-write path English pages where Korean-source semantics or wording were missing, unclear, or incorrect.
+- Restored the JOB concurrency note that `JOB_THREAD_COUNT` should be at least the number of concurrently running JOBs to avoid execution delay.
+- Restored Korean Hangul sample data in the character-set procedure so the English example verifies the same Korean-character export/import behavior as the Korean source.
+- Preserved and clarified key identifiers including `V$DATAFILES`, `QP_MSGLOG_FLAG`, `$ALTIBASE_HOME/trc/altibase_qp.log`, `ALTER TABLESPACE ~ ADD DATAFILE`, `MEM_MAX_DB_SIZE`, `V$PROPERTY`, `V$DATABASE`, `ERR-311EC`, `V$REPGAP`, `[CHECKPOINT-step9] Remove Online Log File`, `JOB_THREAD_COUNT`, `LOGANCHOR_DIR`, `LOG_DIR`, `ARCHIVE_DIR`, `DOUBLE_WRITE_DIRECTORY`, and `logfile*#*`.
+- Updated `manifest.json` metadata for all 12 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- The scoped Korean source set contains 0 URL-backed document-format attachments with `.pdf`, `.ppt`, `.pptx`, `.doc`, `.docx`, `.xls`, `.xlsx`, or `.zip` extensions.
+- The scoped English target set also contains 0 URL-backed document-format attachments with those extensions.
+- `total_memory_tablespaces_usage.txt` remains a legacy `#` attachment placeholder in the Korean source with no URL-backed document-format attachment to preserve.
+- The character-set FAQ intentionally contains Korean sample data from the Korean source; this is not residual untranslated prose.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p216-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 12 edited English pages |
+| Scoped document-format attachment grep | Passed, 0 URL-backed document-format attachments |
+| Scoped stale-pattern grep | Passed |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P216 used source-link preservation and grep-based checks.
+- Some legacy FAQE pages in this scope still preserve Confluence-exported one-line command output blocks where the Korean source has the same export shape. P216 corrected semantic drift without broadly reformatting every legacy output block.

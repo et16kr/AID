@@ -28,7 +28,7 @@ Even if PUBLIC SYNONYM is all dropped, it does not affect the operation of the A
 
 ---
 
-PUBLIC SYNONYM is created when a database is created to provide convenience to DB users, and it is not recommended to drop it because it uses general queries such as dual table lookup, or it is frequently used in procedures such as print and println.
+PUBLIC SYNONYM is created when a database is created to provide convenience to DB users. Dropping it is not recommended because PUBLIC SYNONYM is used by common queries such as dual table lookups and is frequently used in procedures such as print and println.
 
 However, if it needs to be dropped, the DROP statement can be used as follows.
 

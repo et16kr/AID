@@ -74,7 +74,7 @@ $ server stop
 
 ---
 
-Copy the file which path you want to change to the new path and change the properties of each.
+Copy each file whose path will change to the new path and change the corresponding property.
 
 - ### Log anchor
 
@@ -83,12 +83,12 @@ Copy the file which path you want to change to the new path and change the prope
   Find the LOGANCHOR_DIR property in the $ALTIBASE_HOME/conf/altibase.properties file and change it to a new path.
 - ### Online log file
 
-  The online log file name format is `logfile#`. Copy all files starting with `logfile` from the path located in the `LOG_DIR` property to the new path.
+  The online log file name format is `logfile*#*`. Copy all files starting with `logfile` from the path located in the `LOG_DIR` property to the new path.
 
   Find the `LOG_DIR` property in the `$ALTIBASE_HOME/conf/altibase.properties` file and change it to a new path.
 - ### Archive log file
 
-  The archive log file name format is `logfile#`. Copy all files starting with `logfile` from the path located in the `ARCHIVE_DIR` property to the new path.
+  The archive log file name format is `logfile*#*`. Copy all files starting with `logfile` from the path located in the `ARCHIVE_DIR` property to the new path.
   Find the `ARCHIVE_DIR` property in the `$ALTIBASE_HOME/conf/altibase.properties` file and change it to a new path.
 - ### Double Write file
 
@@ -117,7 +117,7 @@ $ server start
 
 ---
 
-1. Check the change path with the SQL statement executed in Check the current path settings.
+Check the changed path with the SQL statement used in "1. Check the current path setting".
 
 ```
 SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME IN ('LOGANCHOR_DIR', 'LOG_DIR', 'DOUBLE_WRITE_DIRECTORY', 'ARCHIVE_DIR');

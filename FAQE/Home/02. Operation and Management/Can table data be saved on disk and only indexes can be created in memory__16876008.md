@@ -18,7 +18,7 @@ Updated: 2021-03-11T17:54:29.000+0900
 
 ---
 
-Since indexes are basically created in the same type as the table, indexes of disk tables cannot be created in the memory tablespace, and an ERR-311EC error is displayed.
+Because indexes are created in the same tablespace type as their table, indexes of disk tables cannot be created in a memory tablespace, and an ERR-311EC error is displayed.
 
 - **Create test table T1 in disk tablespace**
 

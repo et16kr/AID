@@ -45,9 +45,9 @@ This page explains what `MEM_MAX_DB_SIZE` means and how to change it.
 ---
 
 - **It is recommended to set it to about 60~70% of the physical memory.**
-- **In addition to the memory data, must consider the size of the record replicas**that will be created by the MVCC technique when performing a change transaction.
+- **In addition to the memory data, consider the size of the record replicas** that will be created by the MVCC technique when performing a change transaction.
   For example, if a change transaction occurs in a 1G memory table, the size of the table may be 2G when the transaction is completed.
-- Since memory is a shared resource that should be used by the OS and other processes as well as the Altibase server process, it should be set lesser than the physical memory.
+- Since memory is a shared resource used by the OS and other processes as well as the Altibase server process, it should be set smaller than the physical memory.
 - Although it is possible to set MEM_MAX_DB_SIZE larger than the physical memory, if the memory is used beyond the physical memory, swap in/out may occur, resulting in performance degradation and various problems in the system.
 
 # How to Change
@@ -62,7 +62,7 @@ This section describes the parts to be considered when setting MEM_MAX_DB_SIZE l
 
 ### Disk space
 
-Memory tablespaces store two sets of 'memory checkpoint image files on disk for backup purposes. So it requires **twice as much disk space as the memory data usage.**
+Memory tablespaces store two sets of memory checkpoint image files on disk for backup purposes. Therefore, they require **twice as much disk space as the memory data usage.**
 
 If MEM_MAX_DB_SIZE is set large, disk usage will also increase, so make sure to free up disk space before changing MEM_MAX_DB_SIZE.
 
@@ -72,7 +72,7 @@ Ex) If MEM_MAX_DB_SIZE is 60G, 120G of disk space is required.
 
 The user should run ulimit -a to make sure that the settings below are **set to the maximum values allowed by the OS.**
 
-max memory size virtual memory
+max memory size / virtual memory
 
 ### Kernel parameters (AIX, HP-UX)
 
@@ -205,18 +205,18 @@ $ server start
 
 ---
 
-The setting value can be checked in two methods as below.
+The setting value can be checked with the queries below.
 
 ```
+-- v$property
 iSQL> set linesize 1024
 iSQL> set colsize 20
 iSQL> SELECT NAME, TO_CHAR(VALUE1/1024/1024, '999,999') AS 'VALUE(MB)' FROM V$PROPERTY WHERE NAME = 'MEM_MAX_DB_SIZE';
-```
 
-Or,
-
-```
-SELECT TO_CHAR(MEM_MAX_DB_SIZE/1024/1024, '999,999') AS 'MEM_MAX_DB_SIZE(MB)' FROM V$DATABASE;
+-- v$database
+iSQL> set linesize 1024
+iSQL> set colsize 20
+iSQL> SELECT TO_CHAR(MEM_MAX_DB_SIZE/1024/1024, '999,999') AS 'MEM_MAX_DB_SIZE(MB)' FROM V$DATABASE;
 ```
 
 # Reference
