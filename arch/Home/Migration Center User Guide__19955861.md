@@ -31,7 +31,7 @@ The test environment for this document is Migration Center 7.12.
 
 For errors and improvement requests related to this document, contact the technical support portal or the technical support center.
 
-- Technical support portal: [http://support.altibase.com](http://support.altibase.com/)
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
 - Technical support center: 02-2082-1114
 
 This document is provided for informational purposes and may be changed without prior notice. It may contain errors, and Altibase assumes no express or implied liability for merchantability or fitness for a particular purpose.
@@ -638,4 +638,4 @@ Tibero procedures, functions, views, materialized views, and triggers are migrat
 
 Objects in PostgreSQL that are not listed in the table, such as exclusion constraints, types, and enums, have no corresponding Altibase object and are excluded from migration.
 
-Original downloadable document: [Migration Center User Guide.pdf](https://docs.altibase.com/download/attachments/19955861/Migration_Center_%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=2&modificationDate=1701652961000&api=v2)
+Original downloadable document: [Migration_Center_사용자가이드.pdf](https://docs.altibase.com/download/attachments/19955861/Migration_Center_%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=2&modificationDate=1701652961000&api=v2)

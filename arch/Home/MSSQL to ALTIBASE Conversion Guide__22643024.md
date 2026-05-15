@@ -24,6 +24,11 @@ This document explains the considerations and methods for migrating from Microso
 
 It targets SQL Server 2016 and Altibase version 7.1 or later.
 
+For errors and improvements related to this document, contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
+- Technical support center: 02-2082-1114
+
 This document is provided for informational purposes only and may be changed without prior notice. It may contain errors, and there is no explicit or implicit liability for commercial use or suitability for specific purposes.
 
 The timing of development or release of the features and functions of Altibase products included in this document is at Altibase’s discretion.
@@ -571,4 +576,4 @@ Refer to the [Error Message Reference](https://manual.altibase.com/7.3/en/ref/er
 | "DELETE_FAILED" | 201240 | 31218 | qpERR_ABORT_QSX_FILE_DELETE_FAILED |
 | "RENAME_FAILED" | 201241 | 31219 | qpERR_ABORT_QSX_FILE_RENAME_FAILED |
 
-The Korean source lists the legacy document placeholder `ALTIBASE_MSSQL_Conversion_Guide.pdf` without a downloadable URL.
+The Korean source lists the legacy document placeholder `ALTIBASE_MSSQL_변환가이드.pdf` without a downloadable URL.

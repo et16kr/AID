@@ -24,6 +24,17 @@ This document describes the standard procedure for safely migrating database obj
 
 It covers procedures commonly required in practice, such as version upgrades, server migration, and logical backup and recovery, focusing on the use of the Altibase tools aexport and iloader.
 
+For errors and improvements related to this document, contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
+- Technical support center: 02-2082-1114
+
+This document is provided for informational purposes and may change without prior notice. This document may contain errors, and Altibase assumes no express or implied responsibility for merchantability or fitness for a particular purpose.
+
+The schedule for developing or releasing features and functions of Altibase products described in this document is at Altibase's discretion.
+
+Altibase may hold patent rights, trademark rights, copyrights, or other intellectual property rights related to this document.
+
 # **Key Concepts**
 
 ---
@@ -377,7 +388,7 @@ If there is a large amount of data or the process takes a long time, run it in t
 $ time nohup sh run_il_in.sh > upload.out 2>&1 &
 ```
 
-![(info)](https://docs.altibase.com/s/en_GB/5637/e1ef10868e8fe2f234a1a0b171b01cde1d9717c4.69/_/images/icons/emoticons/information.png) To improve data loading speed, add the performance options `-array` and `-commit` to the iloader command inside `run_il_in.sh` when executing.
+![(info)](https://docs.altibase.com/s/en_GB/5637/e1ef10868e8fe2f234a1a0b171b01cde1d9717c4.69/_/images/icons/emoticons/information.png) To improve data loading speed, add the [performance options](https://manual.altibase.com/7.3/tools/iloader/2.-Using-iLoader/#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98) `-array` and `-commit` to the iloader command inside `run_il_in.sh` when executing.
 
 ```
 $ vi run_il_in.sh
@@ -420,7 +431,7 @@ $ grep -i 'error row count' *.log
 
 **Verify .bad files**
 
-Check the log files for any failed records during loading. The `Error Row Count` should be 0 in all logs.
+Verify that all `.bad` files have size 0:
 
 ```
 $ ls -l *.bad | awk '{print $5}' | sort -u
@@ -434,7 +445,7 @@ $ find ./ -type f -name "*.bad" ! -size 0
 
 If there are tables with an Error Row Count or .bad file size greater than 0, check the records and error messages in the `username_tablename.log` file, address the issues, and then re-extract the data.
 
-**Example of execution**: Since an error was found in `SYS_CUSTOMERS.log`, review the `SYS_CUSTOMERS.log` file.
+**Example of execution**: Since an error was found in the sample output, review the corresponding log file (`SYS_ORDERS.log` in this example).
 
 ```
 $ grep -i 'error row count' *.log

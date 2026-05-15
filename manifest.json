@@ -2798,8 +2798,8 @@
       "title": "Altibase Data Migration Process Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+Data+Migration+Process+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase Data Migration Process Guide__22642994.md",
-      "body_chars": 17625,
-      "word_count": 2341
+      "body_chars": 18486,
+      "word_count": 2439
     },
     {
       "space_key": "arch",
@@ -3653,8 +3653,8 @@
       "title": "MSSQL to ALTIBASE Conversion Guide",
       "source_url": "https://docs.altibase.com/display/arch/MSSQL+to+ALTIBASE+Conversion+Guide",
       "path": "altibase_docs_md/arch/Home/MSSQL to ALTIBASE Conversion Guide__22643024.md",
-      "body_chars": 31362,
-      "word_count": 5007
+      "body_chars": 31630,
+      "word_count": 5039
     },
     {
       "space_key": "arch",
@@ -3752,8 +3752,8 @@
       "title": "ORACLE to ALTIBASE Conversion Guide",
       "source_url": "https://docs.altibase.com/display/arch/ORACLE+to+ALTIBASE+Conversion+Guide",
       "path": "altibase_docs_md/arch/Home/ORACLE to ALTIBASE Conversion Guide__22643038.md",
-      "body_chars": 63259,
-      "word_count": 9953
+      "body_chars": 64011,
+      "word_count": 10053
     },
     {
       "space_key": "arch",
@@ -4256,8 +4256,8 @@
       "title": "Altibase VC 2008 Development Guide",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=19333567",
       "path": "altibase_docs_md/arch/Home/Altibase VC 2008 Development Guide__19333567.md",
-      "body_chars": 1758,
-      "word_count": 179,
+      "body_chars": 1774,
+      "word_count": 182,
       "generated_translation": true,
       "translated_from_space_key": "DOCK"
     },
@@ -4267,8 +4267,8 @@
       "title": "Altibase VC 2010 Development Guide",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=19334121",
       "path": "altibase_docs_md/arch/Home/Altibase VC 2010 Development Guide__19334121.md",
-      "body_chars": 1758,
-      "word_count": 179,
+      "body_chars": 1774,
+      "word_count": 182,
       "generated_translation": true,
       "translated_from_space_key": "DOCK"
     },
@@ -4278,8 +4278,8 @@
       "title": "Migration Center User Guide",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=19955861",
       "path": "altibase_docs_md/arch/Home/Migration Center User Guide__19955861.md",
-      "body_chars": 40468,
-      "word_count": 6803,
+      "body_chars": 40492,
+      "word_count": 6805,
       "generated_translation": true,
       "translated_from_space_key": "DOCK"
     },

@@ -22,6 +22,19 @@ Updated: 2025-10-21T09:45:53.000+0900
 
 This document is about how to migrate Oracle Database to Altibase v7.1 or higher.
 
+For questions related to this document, contact the technical support portal or technical support center.
+
+- Technical support portal: [http://support.altibase.com](http://support.altibase.com/) > Technical Knowledge > Q&A
+- Technical support center: 02-2082-1114
+
+This document is provided for informational purposes and may change without prior notice.
+
+This document may contain errors, and Altibase assumes no express or implied responsibility for merchantability or fitness for a particular purpose.
+
+The schedule for developing or releasing features and functions of Altibase products described in this document is at Altibase's discretion.
+
+Altibase may hold patent rights, trademark rights, copyrights, or other intellectual property rights related to this document.
+
 # Migration Process
 
 ---
@@ -1051,8 +1064,6 @@ To migrate a database from Oracle to Altibase, you can use the MigrationCenter t
 
 When migrating from Oracle to Altibase, the automatic migration tool MigrationCenter is used.
 
-1.
-
 ### 1) Advantages of MigrationCenter
 
 ---
@@ -1161,5 +1172,5 @@ For details about MigrationCenter, refer to the manual below.
 
 The Korean source lists the following legacy document placeholders without downloadable URLs:
 
-- `ALTIBASE_Oracle_Conversion_Guide.pdf` (Altibase v6 & Oracle 11g)
-- `ORACLE_to_ALTIBASE_Conversion_Guide_5.5.pdf` (Altibase v5 & Oracle 10g)
+- `ALTIBASE_Oracle_변환_가이드.pdf` (Altibase v6 & Oracle 11g)
+- `ORACLE_to_ALTIBASE_변환_가이드_5.5.pdf` (Altibase v5 & Oracle 10g)

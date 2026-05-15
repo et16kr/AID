@@ -662,3 +662,57 @@ P212 audited the Korean Altibase Development Guide, SQL Tuning Guide, and Altiba
 - External HTTP availability was not tested; P212 used grep-based source-link and attachment preservation checks.
 - The Korean source contains legacy `#` placeholders for Development Guide PDFs; the English target preserves exact filenames but cannot add download URLs that the Korean source does not provide.
 - The Altibase/Oracle comparison document remains a feature comparison against Oracle 12c and keeps legacy product/version context where the Korean source keeps it.
+
+## P213 Tech audit: migration conversion and VC guides
+
+### Scope
+
+P213 audited the Korean Oracle conversion, MSSQL conversion, Altibase version migration, Migration Center, VC 2008, and VC 2010 documents against their English `arch` targets. The Korean sources remained authoritative and were not edited.
+
+| Korean source | English target |
+| --- | --- |
+| `DOCK/Home/38. Altibase VC 2008 개발가이드__19333567.md` | `arch/Home/Altibase VC 2008 Development Guide__19333567.md` |
+| `DOCK/Home/40. Oracle to Altibase 변환가이드__7341605.md` | `arch/Home/ORACLE to ALTIBASE Conversion Guide__22643038.md` |
+| `DOCK/Home/46. Altibase 버전 간 마이그레이션 가이드__19333688.md` | `arch/Home/Altibase Data Migration Process Guide__22642994.md` |
+| `DOCK/Home/61. Altibase VC 2010 개발가이드__19334121.md` | `arch/Home/Altibase VC 2010 Development Guide__19334121.md` |
+| `DOCK/Home/65. MSSQL to Altibase 변환가이드__7341431.md` | `arch/Home/MSSQL to ALTIBASE Conversion Guide__22643024.md` |
+| `DOCK/Home/70. Migration Center 사용자 가이드__19955861.md` | `arch/Home/Migration Center User Guide__19955861.md` |
+
+### Findings And Updates
+
+- Restored Korean-source support route, support center, legal/disclaimer text, and intellectual-property notice in the Oracle conversion and Altibase data migration guides.
+- Restored the support route and support center in the MSSQL conversion guide, and added the `Technical Knowledge > Q&A` support route to the VC 2008, VC 2010, and Migration Center guides.
+- Preserved exact Korean-source document filenames in English attachment labels and legacy placeholder notes: `ALTIBASE_VC_2008_개발가이드.zip`, `ALTIBASE_VC_2010_개발가이드.pdf`, `ALTIBASE_Oracle_변환_가이드.pdf`, `ORACLE_to_ALTIBASE_변환_가이드_5.5.pdf`, `ALTIBASE_MSSQL_변환가이드.pdf`, and `Migration_Center_사용자가이드.pdf`.
+- Restored the Korean-source `iloader` performance-options link in the Altibase data migration guide and preserved the exact options `-array` and `-commit`.
+- Corrected the Altibase data migration `.bad` file verification wording so users are told to confirm `.bad` file sizes are 0, and clarified the sample error-log reference as `SYS_ORDERS.log`.
+- Removed an exported stray `1.` marker before the Oracle conversion `MigrationCenter` advantages subsection.
+- Updated `manifest.json` metadata for all 6 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- Scoped Korean source pages contain 6 document-format references, and all 6 exact filenames are preserved in the scoped English target set.
+- VC 2008, VC 2010, and Migration Center document-format references preserve their original `docs.altibase.com` download URLs.
+- Oracle and MSSQL conversion legacy PDF entries remain filename-only notes because the Korean source uses `#` placeholders with no downloadable URL.
+- Oracle and MSSQL conversion table counts match the Korean sources at contiguous-table level.
+- Scoped checks found no empty links, Confluence macro errors, malformed support links, invalid `http://altibase_env.mk` links, stale English replacement attachment names, or the checked stray marker pattern.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p213-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 6 edited English pages |
+| Scoped document-format attachment preservation script | Passed, 6 Korean source filenames preserved |
+| Scoped grep/Python stale-pattern check | Passed |
+| Oracle and MSSQL contiguous table-count comparison | Passed |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P213 used grep-based source-link and attachment preservation checks.
+- The Oracle and MSSQL Korean sources contain legacy `#` placeholders for old PDF files. The English targets preserve exact filenames but cannot add download URLs that the Korean sources do not provide.
+- The Migration Center English target remains a condensed text guide rather than a screenshot-by-screenshot reproduction. The procedure, field, option, and supported-object semantics were audited, and the original downloadable PDF link is preserved; broad embedded image/export-link revalidation remains in later P223 scope.
