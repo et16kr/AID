@@ -47,12 +47,12 @@ By configuring the properties as shown below, you can reduce I/O and buffer miss
 
 2. `SORT_AREA_SIZE`
 
-- When building a single index, memory usage is at least the size of SORT_AREA_SIZE. If two indexes are built in parallel, memory usage doubles to SORT_AREA_SIZE × 2.
-   SORT_AREA_SIZE is also a shared property with disk temp tables, so changing it affects the operation of disk temp tables.
+- When building a single index, memory usage is at least the size of `SORT_AREA_SIZE`. If two indexes are built in parallel, memory usage doubles to `SORT_AREA_SIZE * 2`.
+   `SORT_AREA_SIZE` is also a shared property with disk temp tables, so changing it affects the operation of disk temp tables.
 
 3. `DISK_INDEX_BUILD_MERGE_PAGE_COUNT`
 
-- The unit of the property is the number of pages, while the unit of BUFFER_AREA_SIZE is bytes.
+- The unit of the property is the number of pages, while the unit of `BUFFER_AREA_SIZE` is bytes.
 - If the property value is large but the index size is small, performance may actually degrade.
 - Index build performance may degrade if the following condition is met:
   `DISK_INDEX_BUILD_MERGE_PAGE_COUNT > (index key length * number of records) / SORT_AREA_SIZE`
@@ -76,12 +76,12 @@ By configuring the properties as shown below, you can reduce I/O and buffer miss
 
 2. `DISK_INDEX_BUILD_SORT_AREA_SIZE`
 
-- When building a single index, at least the amount of memory equal to DISK_INDEX_BUILD_SORT_AREA_SIZE is used. If two indexes are built in parallel, memory usage doubles to DISK_INDEX_BUILD_SORT_AREA_SIZE × 2.
-   (SORT_AREA_SIZE is not used.)
+- When building a single index, at least the amount of memory equal to `DISK_INDEX_BUILD_SORT_AREA_SIZE` is used. If two indexes are built in parallel, memory usage doubles to `DISK_INDEX_BUILD_SORT_AREA_SIZE * 2`.
+   (`SORT_AREA_SIZE` is not used.)
 
 3. `DISK_INDEX_BUILD_MERGE_PAGE_COUNT`
 
-- The unit of the property is the number of pages, while the unit of BUFFER_AREA_SIZE is bytes.
+- The unit of the property is the number of pages, while the unit of `BUFFER_AREA_SIZE` is bytes.
 - The following issue does not occur in version 7.3.0 or later:
   - If the property value is large but the index size is small, performance may actually degrade.
   - Index build performance may degrade if the following condition is met:

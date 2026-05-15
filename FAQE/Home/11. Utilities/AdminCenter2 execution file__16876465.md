@@ -26,7 +26,7 @@ This is the last version of AdminCenter2.
 
 From ALTIBASE HDB 5, Orange for Altibase of Ware Valley (Download Orange for Altibase: [http://www.warevalley.com](http://www.warevalley.com))
 
-AdminCenter2 will **not be accepted for any problems encountered during use due to maintenance.**
+Maintenance for AdminCenter2 has ended, so issues that occur while using it are not accepted for support.
 
 # Execution file
 
@@ -38,12 +38,14 @@ AdminCenter2 will **not be accepted for any problems encountered during use due 
 
 ---
 
-After downloading the executable file, unzip it and execute the AdminCenter.exe file.
+After downloading the executable file, unzip it and run AdminCenter.exe.
 
-For the JDBC driver required to connect to ALTIBASE HDB, use $ALTIBASE_HOME/lib/Altibase.jar on the server where the ALTIBASE HDB server is running.
+For the JDBC driver required to connect to ALTIBASE HDB, use `$ALTIBASE_HOME/lib/Altibase.jar` on the server where the ALTIBASE HDB server is running.
 
 # Manual
 
 ---
 
-Execute AdminCenter.exe and use the Help -> Help Contents menu.
+Run AdminCenter.exe and use the Help -> Help Contents menu.
+
+A Korean version is not provided separately.

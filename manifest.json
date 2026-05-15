@@ -1457,8 +1457,8 @@
       "title": "AdminCenter2 execution file",
       "source_url": "https://docs.altibase.com/display/FAQE/AdminCenter2+execution+file",
       "path": "altibase_docs_md/FAQE/Home/11. Utilities/AdminCenter2 execution file__16876465.md",
-      "body_chars": 1530,
-      "word_count": 151
+      "body_chars": 1569,
+      "word_count": 159
     },
     {
       "space_key": "FAQE",
@@ -1466,8 +1466,8 @@
       "title": "An error occurs when uploading a DOS format data file to iloader.",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876469",
       "path": "altibase_docs_md/FAQE/Home/11. Utilities/iLoader/An error occurs when uploading a DOS format data file to iloader__16876469.md",
-      "body_chars": 2436,
-      "word_count": 348
+      "body_chars": 3717,
+      "word_count": 447
     },
     {
       "space_key": "FAQE",
@@ -1475,7 +1475,7 @@
       "title": "Building a Large-Scale DRDB Index",
       "source_url": "https://docs.altibase.com/display/FAQE/Building+a+Large-Scale+DRDB+Index",
       "path": "altibase_docs_md/FAQE/Home/12. Others/Building a Large-Scale DRDB Index__22642978.md",
-      "body_chars": 3376,
+      "body_chars": 3392,
       "word_count": 448
     },
     {
@@ -1484,8 +1484,8 @@
       "title": "Thread process debugging method",
       "source_url": "https://docs.altibase.com/display/FAQE/Thread+process+debugging+method",
       "path": "altibase_docs_md/FAQE/Home/12. Others/Thread process debugging method__16876474.md",
-      "body_chars": 5055,
-      "word_count": 660
+      "body_chars": 6093,
+      "word_count": 837
     },
     {
       "space_key": "FAQE",
@@ -1493,7 +1493,7 @@
       "title": "The entire database exists in memory. Is there any problem with the safety of the data?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22642980",
       "path": "altibase_docs_md/FAQE/Home/13. General/The entire database exists in memory. Is there any problem with the safety of the data__22642980.md",
-      "body_chars": 3313,
+      "body_chars": 3356,
       "word_count": 446
     },
     {
@@ -1502,8 +1502,8 @@
       "title": "What interface does Altibase provide?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22642982",
       "path": "altibase_docs_md/FAQE/Home/13. General/What interface does Altibase provide__22642982.md",
-      "body_chars": 3857,
-      "word_count": 537
+      "body_chars": 3860,
+      "word_count": 528
     },
     {
       "space_key": "FAQE",
@@ -1511,8 +1511,8 @@
       "title": "What is the biggest difference between Altibase and disk-based DBMS?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876485",
       "path": "altibase_docs_md/FAQE/Home/13. General/What is the biggest difference between Altibase and disk-based DBMS__16876485.md",
-      "body_chars": 2472,
-      "word_count": 237
+      "body_chars": 2572,
+      "word_count": 251
     },
     {
       "space_key": "FAQE",

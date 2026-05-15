@@ -18,11 +18,13 @@ Updated: 2021-04-01T13:21:53.000+0900
 
 ---
 
+This document explains the biggest differences between an in-memory DBMS and a disk-based DBMS.
+
 # Version
 
 ---
 
-All the versions of Altibase
+All versions of ALTIBASE HDB
 
 # The biggest difference between In-Memory-based DBMS and Disk-based DBMS
 
@@ -30,10 +32,10 @@ All the versions of Altibase
 
 As a hybrid DBMS, Altibase supports both in-memory databases and disk-based databases.
 
-- Differences from Altibase HDB's in-memory database
+- Differences from Altibase HDB's in-memory database:
     1. The location where the database resides is different.
 
-          1. In a disk-based DBMS, the entire database resides on disk and required data is cached in memory buffers. In an in-memory DBMS, the full backup database that exists on disk is loaded into main memory and managed there.
+          1. In a disk-based DBMS, the entire database resides on disk and required data is cached in memory buffers. In an in-memory DBMS, the entire backup database that exists on disk is loaded into main memory and managed there.
 
       ![HDB_architecture.jpeg](https://docs.altibase.com/download/attachments/embedded-page/FAQE/What%20is%20the%20biggest%20difference%20between%20Altibase%20and%20disk-based%20DBMS%3F/HDB_architecture.jpeg?api=v2)
     2. There is a significant difference in performance.

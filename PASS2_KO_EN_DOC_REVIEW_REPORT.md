@@ -1168,3 +1168,55 @@ The audit covered 29 Korean FAQ source documents and 29 English targets:
 
 - External HTTP availability was not tested; P221 used source-link preservation and grep-based checks.
 - The Korean source includes a duplicated `ALTER SESSION SET` phrase in one APRE example. Because the same command text already existed in English and was outside a Korean/English discrepancy, it was left unchanged and recorded as a source-review risk.
+
+## P222 FAQ Utilities, Others, and General Audit
+
+### Scope
+
+P222 audited Korean FAQ categories `11. 유틸리티`, `12. 기타`, and `13. 일반` against the corresponding English `FAQE` targets. Korean FAQ pages remained authoritative and were not edited.
+
+| Korean source category | English target category |
+| --- | --- |
+| `faq/Home/11. 유틸리티/**` | `FAQE/Home/11. Utilities/**` |
+| `faq/Home/12. 기타/**` | `FAQE/Home/12. Others/**` |
+| `faq/Home/13. 일반/**` | `FAQE/Home/13. General/**` |
+
+### Findings And Updates
+
+- Restored the Korean-source AdminCenter2 manual note that no separate Korean version is provided, clarified the maintenance-ended support warning, and formatted `$ALTIBASE_HOME/lib/Altibase.jar`.
+- Clarified the DOS-format `iloader` upload FAQ while preserving `ERR-9102B`, `%n`, `%r%n`, `dos2unix`, `sed`, `^M`, and the upload example.
+- Corrected the thread process debugging FAQ wording for Unix CPU overuse, hangs, `pstack`, `dbx`, and `gdb`, and fenced the exported `dbx` and `gdb` example output blocks.
+- Clarified large DRDB index property wording for `SORT_AREA_SIZE`, `BUFFER_AREA_SIZE`, and `DISK_INDEX_BUILD_SORT_AREA_SIZE`.
+- Improved the Altibase interface FAQ wording while preserving Korean-source version conditions for JDBC, ADO.NET, PDO, and Hibernate support.
+- Restored the missing overview and exact `ALTIBASE HDB` all-version wording in the in-memory versus disk-based DBMS FAQ.
+- Clarified the memory safety FAQ heading and backup/recovery explanation while preserving WAL, checkpoint, recovery, and failure-management semantics.
+- Updated `manifest.json` metadata for all 7 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- The scoped Korean source set contains 1 URL-backed document-format attachment: `AdminCenter2.zip`.
+- The exact `AdminCenter2.zip` URL is preserved in the scoped English target.
+- The Korean source disk-vs-memory page contains image links; the English target already contains corresponding FAQE embedded image links, and P222 did not replace those localized image references.
+- Scoped Korean and English pages contain no empty Markdown links, `Error rendering macro`, or `Unknown macro` markers.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p222-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 7 edited English pages |
+| Scoped document-format attachment preservation script | Passed, 1 Korean source ZIP link preserved |
+| Scoped empty-link/export-artifact grep | Passed, no matches |
+| Scoped stale-pattern and Korean-residue grep in English targets | Passed, no matches |
+| Scoped code-fence balance check | Passed |
+| `bash -n .codex-jobs/ko-en-doc-coverage-pass2/run_all.sh` and `bash -n .codex-jobs/ko-en-doc-coverage-pass2/run-all.sh` | Passed |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P222 used source-link preservation and grep-based checks.
+- The Korean source exports for the `dbx` and `gdb` examples are single-line, collapsed command/output blocks. P222 fenced them for readability but did not infer line breaks beyond the source export.

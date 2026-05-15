@@ -20,24 +20,31 @@ Updated: 2021-04-05T13:30:06.000+0900
 
 ---
 
-When a process on Unix over-occupies cpu or falls into a situation such as a process hang, the process debugging utility can be used, provided for each Unix OS, to find the cause by analyzing the currently running call stack.
+When a process on Unix consumes excessive CPU or hangs, the process debugging utilities provided by each Unix OS can help identify the cause by analyzing the currently running call stack.
 
-Unix process debugging methods are different for each utility and slightly different for each Unix, so the command is often confused. It explains how to view each thread stack, focusing on simple commands.
+Unix process debugging methods differ by utility and by Unix variant, so commands are often confused. This document explains simple commands for viewing each thread stack.
 
 # Using pstack
 
 ---
 
-As a utility provided by SUN and some other Unix and Linux, it is a very useful command to view the call stack of the running process by thread. When it is DB Hang, use it.
+`pstack` is provided by Sun, several other Unix variants, and Linux. It is useful for viewing the call stack of a running process by thread, and can be used when a database hang occurs.
 
 ## How to use
 
 ---
 
-- Linux
-  shell> **pstack** processid
-- Sun
-  shell> **pstack** -F processid
+- Linux:
+
+  ```
+  shell> pstack processid
+  ```
+
+- Sun:
+
+  ```
+  shell> pstack -F processid
+  ```
 
 ## Example
 
@@ -68,7 +75,7 @@ Thread 40 (Thread 1094719840 (LWP 22980)):
 
 ---
 
-Provided by AIX, HP, and SUN. You can check the call stack information of the running process through the dbx command, or the stack for each thread can be checked in the core file.
+`dbx` is provided by AIX, HP, and Sun. You can check call stack information for a running process with the `dbx` command, and you can also check the stack for each thread in a core file.
 
 This section describes the method used on AIX as an example.
 
@@ -76,44 +83,48 @@ This section describes the method used on AIX as an example.
 
 ---
 
-1. Check the process id of the procesd in question. **shell> ps -eafl | grep altibase**
-2. Attach to process. **shell> dbx -a <pid of altibase process>**
-3. View all thread information **(dbx) thread**
-4. View individual thread information only **(dbx) thread current <thread number>** **(dbx) where**
-5. Detach **(dbx) detach**
+1. Check the process ID of the process in question: `shell> ps -eafl | grep altibase`
+2. Attach to the process: `shell> dbx -a <pid of altibase process>`
+3. View all thread information: `(dbx) thread`
+4. View only individual thread information: `(dbx) thread current <thread number>` and `(dbx) where`
+5. Detach: `(dbx) detach`
 
-  Tthe connected process must be releasedby executing the detach command. Otherwise, if exited, it may end up to the target process, so be careful.
-6. Exit **(dbx) quit**
+  Always execute the detach command to release the connected process. If you exit without detaching, the target process may also be terminated.
+6. Exit: `(dbx) quit`
 
 ## Example
 
 ---
 
+```
 $ dbx -a 421920 Waiting to attach to process 421920 ... Successfully attached to altibase. warning: Directory containing altibase could not be determined. Apply 'use' command to initialize source path.
 
 Type 'help' for help. reading symbolic information ...warning: no source compiled with -g
 
 stopped in _event_sleep at 0x9000000004b6a84 ($t6) 0x9000000004b6a84 (_event_sleep+0xe8) e8410028 ld r2,0x28(r1) (dbx) where _event_sleep(??, ??, ??, ??, ??, ??) at 0x9000000004b6a84 _event_wait(??, ??) at 0x9000000004b6f5c _cond_wait_local(??, ??, ??) at 0x9000000004c305c _cond_wait(??, ??, ??) at 0x9000000004c3628 pthread_cond_timedwait(??, ??, ??) at 0x9000000004c3e38 run()() at 0x100187228 staticRunner(void*)() at 0x10007ea70 (dbx) list no source file (dbx) detach
+```
 
 # Using gdb
 
 ---
 
-If gdb (GNU debugger) is installed, the stack information for each thread can be checked by using gdb.
+If `gdb` (GNU debugger) is installed, stack information for each thread can be checked by using `gdb`.
 
 ## How to use
 
 ---
 
-1. attach gdb to the target process shell> $gdb $ALTIBASE_HOME/bin/altibase process-id
-2. Information output for each thread (gdb) info threads
-3. Output stack trace of all threads (gdb) thread apply all bt
-4. Switch to a specific thread (gdb) t 1: switch to thread 1
-5. Output the current thread's stack (gdb) bt: stack output
-6. Quit (gdb) quit
+1. Attach `gdb` to the target process: `shell> $gdb $ALTIBASE_HOME/bin/altibase process-id`
+2. Print information for each thread: `(gdb) info threads`
+3. Print the stack trace of all threads: `(gdb) thread apply all bt`
+4. Switch to a specific thread: `(gdb) t 1` switches to thread 1.
+5. Print the current thread's stack: `(gdb) bt`
+6. Quit: `(gdb) quit`
 
 ## Example
 
 ---
 
+```
 $gdb $ALTIBASE_HOME/bin/altibase 34567 gdb> info threads 42 Thread 31 (LWP 4) 0x329614 in _poll () 41 Thread 30 0x300cf8 in _lwp_sema_wait () 40 Thread 29 0x300cf8 in _lwp_sema_wait () 39 Thread 28 (LWP 29) 0x329614 in _poll () 38 Thread 27 (LWP 28) 0x329614 in _poll () 37 Thread 26 (LWP 27) 0x329614 in _poll () 36 Thread 25 (LWP 26) 0x329614 in _poll () 5 LWP 28 0x329614 in _poll () 4 LWP 29 0x329614 in _poll () 3 LWP 30 0x300cf8 in _lwp_sema_wait () * 2 Thread 1 (LWP 1) 0x329614 in _poll () 1 LWP 1 0x329614 in _poll ()  gdb> thread apply all bt; Output stack trace of all threads Thread 2 (Thread 1 (LWP 1)): #0 0x329614 in _poll () #1 0x2f2548 in select_large_fdset () #2 0x286908 in __1cKidcManagerGselect6FpnGfd_set_pnOPDL_Time_Value__i_ () #3 0x978d8 in __1cMmmtThreadMgrIDispatch6M_nGIDE_RC__ () #4 0x945f4 in __1cGmmiMgrIMainLoop6F_nGIDE_RC__ () #5 0x929e0 in main ()  Thread 1 (LWP 1 ): #0 0x329614 in _poll () #1 0x2f2548 in select_large_fdset () #2 0x286908 in __1cKidcManagerGselect6FpnGfd_set_pnOPDL_Time_Value__i_ () #3 0x978d8 in __1cMmmtThreadMgrIDispatch6M_nGIDE_RC__ () ---Type to continue, or q to quit--- #4 0x945f4 in __1cGmmiMgrIMainLoop6F_nGIDE_RC__ () #5 0x929e0 in main () #0 0x329614 in _poll ()  gdb> t 1 ; Switch to thread 1 gdb> bt ; Output stack gdb> quit
+```

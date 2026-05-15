@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/pages/viewpage.action?pageId=22642980
 Updated: 2025-10-20T15:55:10.650+0900
 
-**- [Overview](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Overview) - [Version](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Version) - [How to secure](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Howtosecure) - [Failure management operation plan](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Failuremanagementoperationplan)**
+**- [Overview](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Overview) - [Version](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Version) - [How to secure data durability](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Howtosecuredatadurability) - [Failure management operation plan](#Theentiredatabaseexistsinmemory.Isthereanyproblemwiththesafetyofthedata?-Failuremanagementoperationplan)**
 
 # Overview
 
@@ -29,7 +29,7 @@ This document describes techniques that secure data durability for volatile main
 - The information is applicable to all versions of ALTIBASE HDB.
 - For additional information or updates, please leave a request at [http://support.altibase.com/en/](http://support.altibase.com/en/) or in the comment section on this page.
 
-# How to secure
+# How to secure data durability
 
 ---
 
@@ -37,7 +37,7 @@ This document describes techniques that secure data durability for volatile main
   Altibase uses WAL (Write Ahead Logging) during transaction processing to provide database durability and protect committed transactions. When the number of log files exceeds a configured threshold or a fixed interval is reached, checkpoints write changed memory data pages to disk, minimizing recovery time.
   * WAL: The procedure for saving logs to disk before saving DB pages. Because the latest transaction information is stored on disk, the database can be recovered through transaction logs after abnormal termination.
 2. Backup and recovery support
-  Backup creates a logical/physical copy of the database in case of an abnormal situation in the DBMS. Such a copy of the database can be created online during the DB operation, and in a recovery situation, the database can be normalized by performing complete or incomplete recovery by using the backed up database copy.
+  Backup creates a logical or physical copy of the database in case an abnormal DBMS situation occurs. This database copy can be created online during database operation. During recovery, the database can be brought back to a normal state by performing complete or incomplete recovery with the backed-up database copy.
 
 # Failure management operation plan
 

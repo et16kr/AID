@@ -14,25 +14,25 @@ labels: []
 Source: https://docs.altibase.com/pages/viewpage.action?pageId=16876469
 Updated: 2021-04-05T13:29:22.000+0900
 
-- [Overview](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-Overview) - [How to remove](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-Howtoremove) - [On Windows](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-OnWindows) - [On Linux/Unix](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-OnLinux/Unix) - [Convert to unix type file using dos2unix.](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-Converttounixtypefileusingdos2unix.) - [Remove ^M using sed](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-Remove^Musingsed) - [Starting from ALTIBASE HDB 5.5.1 ...](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-StartingfromALTIBASEHDB5.5.1...)
+- [Overview](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-Overview) - [How to remove](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-Howtoremove) - [On Windows](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-OnWindows) - [On Linux/Unix](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-OnLinux/Unix) - [Convert to a UNIX-format file using dos2unix](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-ConverttoaUNIX-formatfileusingdos2unix) - [Remove ^M using sed](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-Remove^Musingsed) - [Starting from ALTIBASE HDB 5.5.1 ...](#AnerroroccurswhenuploadingaDOSformatdatafiletoiloader.-StartingfromALTIBASEHDB5.5.1...)
 
 # Overview
 
 ---
 
-To upload a DOS format data file from Unix/Linux server to the iloader, you need to convert the file using an editing program or dos2unix.
+To upload a DOS-format data file to `iloader` on a Unix/Linux server, convert the file by using an editor or `dos2unix`.
 
-If the iloader is executed without conversion, the following error may occur.
+If `iloader` is executed without conversion, the following error may occur.
 
 ```
 ERR-9102B : Token value length overflow.
 ```
 
-In DOS format files, Row Termination Code is composed of CR (Carriage Return) + LF (Line Feed).
+In DOS-format files, the row termination code is CR (Carriage Return) + LF (Line Feed).
 
-When the iloader parses the data file, it recognizes %n(LF) as a row terminator. So when uploading a data file in DOS format, a parsing error might occur.
+When `iloader` parses the data file, it recognizes `%n` (LF) as a row terminator. Therefore, a parsing error can occur when uploading a DOS-format data file.
 
-When opening a DOS format file with vi in Linux/Unix, ^M is attached to the line or looks like the following:
+When a DOS-format file is opened with `vi` on Linux/Unix, `^M` is attached to the line ends, or the file appears as follows:
 
 "SYS_T.dat" [DOS] 225L, 33822C
 
@@ -51,9 +51,9 @@ When opening a DOS format file with vi in Linux/Unix, ^M is attached to the line
 
 ---
 
-### Convert to unix type file using dos2unix.
+### Convert to a UNIX-format file using dos2unix
 
-- The dos2unix command converts DOS/MAC files to UNIX format.
+- The `dos2unix` command converts DOS/MAC files to UNIX format.
 
   **Example**
 
@@ -77,8 +77,8 @@ When opening a DOS format file with vi in Linux/Unix, ^M is attached to the line
 
 ### Remove ^M using sed
 
-- Use sed to remove ^M as an iloader data file.
-- ^M must be entered as Ctrl+v+m.
+- Use the file from which `sed` removed `^M` as the `iloader` data file.
+- `^M` must be entered as Ctrl+v+m.
 
   **Example**
 
@@ -90,7 +90,7 @@ When opening a DOS format file with vi in Linux/Unix, ^M is attached to the line
 
 ---
 
-From ALTIBASE HDB 5.5.1, it is possible to upload without file conversion/modification by using %r%n, which means CR+LF as a record separator.
+From ALTIBASE HDB 5.5.1, a file can be uploaded without conversion or modification by using `%r%n`, which means CR+LF, as the record separator.
 
 **Example**
 
