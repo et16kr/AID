@@ -26,7 +26,7 @@
 | `J010` | `Done` | Attachment and source-link coverage | Recheck all Korean document-format attachment links and important source references against English counterparts; update English documents and manifest where needed. |
 | `J011` | `Done` | English quality and LLM-readability pass | Review updated English documents for technical English quality, terminology consistency, LLM searchability, and preservation of non-translatable identifiers; make scoped improvements without changing meaning. |
 | `J012` | `Done` | Final coverage validation and review report | Run final coverage checks, JSON/diff validation, document counts, and update the review report with all changes, remaining risks, and evidence. |
-| `J013` | `ToDo` | LLM reference handoff package plan | Create or update the handoff plan for consolidating English documents into GPTs/Codex/LLM reference documents, including topic groups, source paths, and multilingual terminology rules. |
+| `J013` | `Done` | LLM reference handoff package plan | Create or update the handoff plan for consolidating English documents into GPTs/Codex/LLM reference documents, including topic groups, source paths, and multilingual terminology rules. |
 
 ## Resume Rules
 
