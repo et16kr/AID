@@ -129,7 +129,7 @@ This section describes how to download, install, and remove Migration Center.
 
 ---
 
-1. Download Migration Center from [http://support.altibase.com/kr/product](http://support.altibase.com/kr/product).
+1. Download Migration Center from [http://support.altibase.com/en/product](http://support.altibase.com/en/product).
 2. To install Migration Center, unzip the downloaded package to any directory.
 3. To remove Migration Center, delete the Migration Center directory.
 4. To run Migration Center on Windows, execute `migcenter.bat` from the installation directory.

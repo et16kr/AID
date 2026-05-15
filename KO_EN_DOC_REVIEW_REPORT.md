@@ -22,7 +22,7 @@
   - 공간정보 Import 절의 GeoServer importer plug-in ZIP 다운로드 링크를 영어 문서에 보존했습니다.
   - 해당 절의 문장을 자연스러운 기술 영어로 정리하고 Windows 경로를 코드 표기로 명확히 했습니다.
 
-이 반영 후, 현재 검토 범위에서는 한국어 문서에는 있지만 영어 문서에 없는 누락 내용은 추가로 발견되지 않았습니다. 한국어 문서는 삭제하지 않았습니다.
+이 반영 후, J002부터 J009까지 범위별 본문과 첨부 링크를 갱신했습니다. J010에서는 문서형 첨부와 중요 출처 링크를 전체 범위에서 다시 대조하여 영어 문서의 누락되거나 깨진 참조 링크를 보정했습니다. 한국어 문서는 삭제하지 않았습니다.
 
 ## J002 설치 및 플랫폼 설정 문서 추가 검토
 
@@ -241,13 +241,27 @@ J009에서는 한국어 `faq`의 `08. 모니터링` 19개 문서, `09. 에러메
 - 대용량 DRDB Index 구축 FAQ에서 `BUFFER_AREA_SIZE`, `SORT_AREA_SIZE`, `DISK_INDEX_BUILD_SORT_AREA_SIZE`, `DISK_INDEX_BUILD_MERGE_PAGE_COUNT`, `INDEX_BUILD_THREAD_COUNT` 설명을 한국어 원문 의미에 맞게 정리하고 버전 `6.5.1~7.1.0`, `7.3.0 or later` 기준을 명확히 했습니다.
 - 일반 FAQ에서 Altibase 제공 인터페이스 표, In-Memory DBMS와 Disk-based DBMS 차이, WAL 및 장애 관리 설명을 자연스러운 영어 기술 문장으로 정리했습니다.
 
+## J010 문서형 첨부 및 출처 링크 전체 대조
+
+J010에서는 전체 한국어 기술 문서와 FAQ의 문서형 첨부 링크 및 중요 출처 링크를 영어 대응 문서와 다시 대조했습니다. 대상 확장자는 `.pdf`, `.ppt`, `.pptx`, `.doc`, `.docx`, `.xls`, `.xlsx`, `.zip`이며, GeoServer importer plug-in처럼 URL 경로에 `.zip/download`가 포함된 외부 ZIP도 문서형 출처 링크로 함께 확인했습니다.
+
+주요 반영 내용은 다음과 같습니다.
+
+- 한국어 기술 문서의 URL-backed 문서형 링크 42개(문서 첨부 41개와 GeoServer importer ZIP 1개)와 한국어 FAQ의 URL-backed 문서형 첨부 7개가 영어 대응 문서에 보존되어 있음을 확인했습니다.
+- GeoServer 연동 가이드에서 한국어 원문에 있던 OpenJDK, Oracle JRE, GeoServer download, Altibase spatial driver, JTS, `altibase_spatial_ref_sys.sql`, OGC, OSGeo 출처 링크를 영어 문서에 복원했습니다.
+- WebSphere 연동 가이드의 IBM Installation Manager 다운로드 URL이 공백으로 깨져 있던 문제를 한국어 원문 URL 기준으로 보정했습니다.
+- APRE Makefile, Windows ODBC, 장애 대응 참고 문서, 이중화 DDL FAQ, Oracle 변환, Migration Center 문서의 영어 지원/매뉴얼/제품 다운로드 링크를 보정했습니다.
+- APRE Makefile 문서에는 한국어 원문에 있는 64-bit client development tool 다운로드 안내를 영어로 추가했습니다.
+
+검토 중 한국어 GeoServer 문서의 `GeoServer Documentation` 링크가 Red Hat Enterprise Linux CPU governor 페이지를 가리키는 것을 확인했습니다. 이 링크는 라벨과 URL이 일치하지 않아 영어 문서에는 전파하지 않았고, 수동 검토 리스크로 남겼습니다.
+
 ## 검토 범위
 
 | 구분 | 한국어 기준 문서 | 영어 대상 문서 | 결과 |
 | --- | ---: | ---: | --- |
 | 기술 문서 | `DOCK/Home`: 51개 Markdown | `arch/Home`: 181개 Markdown, 그중 한국어 대응 상위 문서 51개 | 51개 모두 영어 대응 문서 확인 |
 | FAQ 핵심 문서 | `faq/Home`: 115개 Markdown | `FAQE/Home`: 한국어 FAQ에 대응하는 핵심 문서 115개 | 115개 모두 영어 대응 문서 확인 |
-| 문서형 첨부파일 | 한국어 기술 문서 41개, 한국어 FAQ 7개 | 대응 영어 문서 | 누락 0개 |
+| 문서형 첨부파일 및 외부 ZIP 출처 | 한국어 기술 문서 URL-backed 링크 42개, 한국어 FAQ URL-backed 링크 7개 | 대응 영어 문서 | 누락 0개 |
 
 ## 검토 방법
 
@@ -279,7 +293,7 @@ J009에서는 한국어 `faq`의 `08. 모니터링` 19개 문서, `09. 에러메
 | 누락된 기술 문서 대응 경로 | 0 |
 | 한국어 FAQ 핵심 문서의 영어 대응 문서 | 115 / 115 |
 | FAQ 카테고리별 문서 수 불일치 | 0 |
-| 한국어 기술 문서의 문서형 첨부파일 | 41 |
+| 한국어 기술 문서의 URL-backed 문서형 링크 | 42 |
 | 영어 기술 문서에서 누락된 한국어 첨부파일 | 0 |
 | 한국어 FAQ의 문서형 첨부파일 | 7 |
 | 영어 FAQ에서 누락된 한국어 첨부파일 | 0 |
@@ -344,9 +358,12 @@ J009에서는 한국어 `faq`의 `08. 모니터링` 19개 문서, `09. 에러메
 | J009 핵심 항목 grep | `Bind variable value`, `Disk table count query`, `UTRANS_TIMEOUT`, `FETCH CURSOR`, `DISK_INDEX_BUILD_SORT_AREA_SIZE`, `ADO.NET`, `TPC-C`, `WAL` 확인 |
 | J009 갱신 문서 stale-string grep | 한국어 잔여 문구, `Error rendering macro`, `WIndows`, `Characterstic`, `Disability`, 깨진 manual link 패턴 재검출 0건 |
 | J009 manifest 메타데이터 대조 | 갱신된 `FAQE` 문서 확인, 불일치 0건 |
+| J010 문서형 첨부 URL 전체 대조 | 기술 문서 42개, FAQ 7개 URL-backed 문서형 링크 확인, 누락 0개 |
+| J010 출처 링크 보정 grep | GeoServer 외부 출처 링크, IBM Installation Manager URL, 영어 support/manual/product 링크 확인 |
+| J010 manifest 메타데이터 대조 | 갱신된 `arch`/`FAQE` 문서 8개 확인, 불일치 0건 |
 
 ## 결론
 
-이번 재검토와 갱신 후의 현재 상태에서는, 검토 범위 기준으로 한국어 문서에만 있고 영어 문서에 없는 내용은 발견되지 않았습니다.
+이번 재검토와 갱신 후의 현재 상태에서는, 검토 범위 기준으로 한국어 문서의 URL-backed 문서형 첨부 및 확인한 중요 출처 링크가 영어 대응 문서에 보존되어 있습니다.
 
 다만 이 보고서는 문서 매핑, 첨부파일, 기술 키워드, 변경 위험이 높은 항목을 중심으로 한 재검토 결과입니다. 최종 목표인 Codex, GPTs, LLM 참고 문서로 취합할 때는 영어 문서를 다시 읽기 쉬운 구조로 통합하면서 문장 단위 품질과 용어 일관성을 추가로 다듬는 것이 좋습니다.

@@ -1153,7 +1153,7 @@ Use MigrationCenter to modify the syntax related to data types in Oracle PL/SQL 
 
 MigrationCenter can be downloaded from the download page on [support.altibase.com](http://support.altibase.com/).
 
-- [http://support.altibase.com/kr/product](http://support.altibase.com/kr/product)
+- [http://support.altibase.com/en/product](http://support.altibase.com/en/product)
 
 For details about MigrationCenter, refer to the manual below.
 

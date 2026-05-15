@@ -48,12 +48,12 @@ This document is based on installing GeoServer on Windows 10.
 1. To install GeoServer, JRE (Java Runtime Environment) must be installed:
 
 - JRE version 8 or higher is recommended.
-- You can download and install it from OpenJDK or Oracle JRE.
+- You can download and install it from [OpenJDK](https://adoptopenjdk.net/) or [Oracle JRE](https://www.oracle.com/java/technologies/javase-downloads.html).
 - After installation, verify the JAVA environment settings.
 
 2. Installing GeoServer:
 
-- Download the stable version from the GeoServer download site. This document uses version 2.16.2 as the reference.
+- Download a stable version from the [GeoServer download site](http://geoserver.org/download/). This document uses version 2.16.2 as the reference.
 - Extract the downloaded Zip file to the installation path and configure the environment. Here, GeoServer is installed at `C:\Program Files\GeoServer`. Set the environment variables as follows:
 
     - `GEOSERVER_HOME = C:\Program Files\GeoServer`
@@ -61,8 +61,8 @@ This document is based on installing GeoServer on Windows 10.
 
 3. To integrate with Altibase, additional libraries need to be installed. Copy the required libraries to `C:\Program Files\GeoServer\webapps\geoserver\WEB-INF\lib`:
 
-- Altibase-specific spatial DBMS driver: `gt-jdbc-altibase-21-SNAPSHOT.jar`
-- JTS Topology Suite: `jts-1.14.jar`
+- Altibase-specific spatial DBMS driver: [`gt-jdbc-altibase-21-SNAPSHOT.jar`](https://sourceforge.net/projects/gt-jdbc-korean/files/Altibase/)
+- JTS Topology Suite: [`jts-1.14.jar`](https://sourceforge.net/projects/jts-topo-suite/files/jts/)
 - Altibase JDBC driver: The `Altibase.jar` file can be found in the `lib` directory of your Altibase installation folder.
 
 4. Altibase Spatial module installation and coordinate system setup:
@@ -80,7 +80,7 @@ $isql
 iSQL> INSERT into spatial_ref_sys (srid, auth_name, auth_srid, proj4text, srtext) values ( 4326, 'EPSG', 4326, '+proj=longlat +datum=WGS84 +no_defs ', 'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]]');
 ```
 
-* More coordinate system information can be found here.
+* More coordinate system information is available in the [`altibase_spatial_ref_sys.sql`](https://github.com/mangosystem/geotools-jdbc-korean/blob/master/jdbc-altibase/altibase_spatial_ref_sys.sql) reference script.
 
 5. Starting GeoServer
 
@@ -219,4 +219,12 @@ The registered layer can be viewed in the layer preview.
 - [Altibase 7.3 Getting Started Guide manuals](https://manual.altibase.com/7.3/en/start-here/getting-started/copyright/)
 - [Altibase 7.3 Spatial SQL manuals](https://manual.altibase.com/7.3/en/ref/spatial-sql/copyright/)
 
+### GeoServer
+
+- [GeoServer download site](http://geoserver.org/download/)
+
 ### Open Geospatial
+
+- [Open Geospatial Consortium (OGC)](https://www.ogc.org/)
+- [Open Source Geospatial Foundation (OSGeo)](https://www.osgeo.org/)
+- [Open Source Geospatial Foundation Korean chapter](https://www.osgeo.kr/)

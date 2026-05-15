@@ -34,7 +34,9 @@ To download WebSphere, the IBM Installation must be installed first.
 
 (This document is based on IBM Installation Manager version 1.8.5.)
 
-The link to download IBM Installation Manager is: https://www-945.ibm.com/support/fixcentral/swg/downloadFixes?parent=ibm~Rational&product=ibm/Rational/IBM+Installation+Manager&release=1.8.5.0&platform=Windows&function=fixId&fixids=1.8.5.0-IBMIM -WIN64-20160506_1125 & useReleaseAsTarget = true & includeRequisites = 1 & includeSupersedes = 0 & downloadMethod = ddp
+The link to download IBM Installation Manager is:
+
+[https://www-945.ibm.com/support/fixcentral/swg/downloadFixes?parent=ibm~Rational&product=ibm/Rational/IBM+Installation+Manager&release=1.8.5.0&platform=Windows&function=fixId&fixids=1.8.5.0-IBMIM-WIN64-20160506_1125&useReleaseAsTarget=true&includeRequisites=1&includeSupersedes=0&downloadMethod=ddp](https://www-945.ibm.com/support/fixcentral/swg/downloadFixes?parent=ibm~Rational&product=ibm/Rational/IBM+Installation+Manager&release=1.8.5.0&platform=Windows&function=fixId&fixids=1.8.5.0-IBMIM-WIN64-20160506_1125&useReleaseAsTarget=true&includeRequisites=1&includeSupersedes=0&downloadMethod=ddp)
 
 ![image2019-6-21%208_19_13.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-6-21%208_19_13.png?api=v2)
 

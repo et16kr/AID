@@ -231,7 +231,9 @@ Similarly, to make a 32bit program for the APRE, a 32bit APRE compiler, a 32bit 
 
 ### Downloading 32bit client development tool (Library and Precompiler)
 
-Download and install the 32bit client install package for the platform you want to install from the client selection at [http://support.altibase.com/en/product](http://support.altibase.com/kr/product).
+Download and install the 32-bit client install package for the platform you want to install from the client selection at [http://support.altibase.com/en/product](http://support.altibase.com/en/product).
+
+If the database server package is 64-bit, the 64-bit client development tools are installed with the server package by default. To install 64-bit development tools on a different server, download and install the 64-bit client install package from the client section at [http://support.altibase.com/en/product](http://support.altibase.com/en/product).
 
 **![32bitclient_package.png](https://docs.altibase.com/download/attachments/embedded-page/arch/How%20to%20make%20a%20basic%20Makefile/32bitclient_package.png?api=v2)**
 

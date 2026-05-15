@@ -43,7 +43,7 @@ Before the development, the ODBC Driver provided by Altibase must be installed. 
 
 ---
 
-Go to [http://support.altibase.com/en/,](http://support.altibase.com/en/,) then "Downloads" → "Products" to download Windows ODBC files for each version. (Supports up to Altibase version 6.5.1)
+Go to [http://support.altibase.com/en/](http://support.altibase.com/en/), then "Downloads" -> "Products" to download Windows ODBC files for each version. (Supports up to Altibase version 6.5.1)
 
 For older versions that are unable on the website, please contact [support@altibase.com](mailto:support@altibase.com).
 

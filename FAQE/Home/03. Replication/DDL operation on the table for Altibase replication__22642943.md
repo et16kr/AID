@@ -30,7 +30,7 @@ DDL-like operations are not sent to the log, so DDL operations are not replicate
 
 The types of DDL statements supported by ALTIBASE HDB vary depending on the version, and the features of DDL statements related to replication also differ.
 
-For detailed information, please refer to the manual for your specific version at [http://support.altibase.com/kr/manual](http://support.altibase.com/kr/manual).
+For detailed information, please refer to the manual for your specific version at [http://support.altibase.com/en/manual](http://support.altibase.com/en/manual).
 
 # Procedure
 
@@ -59,5 +59,5 @@ In an environment that requires uninterrupted service, there may be a limitation
 
 Under these conditions, more steps are required than in an environment where service interruption is allowed, and extra caution may be required.
 
-- For details, refer to the manual for your Altibase version at [http://support.altibase.com/kr/manual](http://support.altibase.com/kr/manual).
+- For details, refer to the manual for your Altibase version at [http://support.altibase.com/en/manual](http://support.altibase.com/en/manual).
 - Get technical support from the ALTIBASE Technical Support Division. Service portal: [http://support.altibase.com](http://support.altibase.com), TEL +82-2-2082-1114.
