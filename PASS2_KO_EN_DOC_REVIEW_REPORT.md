@@ -10,7 +10,9 @@ This report tracks the second-pass Korean-to-English documentation audit after J
 
 The second pass uses Korean `DOCK/Home` and `faq/Home` documents as authoritative sources. Later scoped jobs compare Korean and English content at sentence, bullet, table-row, command, SQL, configuration, warning, version, attachment, and link level, using semantic units when document structures differ.
 
-P201 establishes the baseline and includes the newly generated pass2 workflow scaffold. It does not edit product documentation.
+P201 established the baseline and included the newly generated pass2 workflow scaffold. P202-P214 audited Korean technical documents against `arch/Home`; P215-P222 audited Korean FAQ categories against Korean-core `FAQE/Home`; P223-P224 revalidated attachments, links, export artifacts, and English-only FAQE classification; P225 refreshed LLM handoff readiness and multilingual terminology rules.
+
+P226 completed final pass2 validation. The checked English source set is ready for the next LLM reference consolidation phase, provided later work preserves the source classification boundaries and remaining risks recorded in this report.
 
 ## P201 Baseline after J013
 
@@ -1372,3 +1374,58 @@ P225 reviewed `LLM_REFERENCE_REVIEW_PLAN.md` and the J013 handoff section to con
 - P225 is a planning/readiness review only; final LLM consolidation still waits for P226 final pass2 validation.
 - External HTTP availability was not tested in P225.
 - English-only `FAQE` material remains outside Korean-source semantic verification unless later explicitly audited and labeled.
+
+## P226 Final Pass2 Validation and Report
+
+### Scope
+
+P226 ran final validation across the pass2 Korean-English documentation audit result. The job checked JSON validity, whitespace/diff hygiene, document counts, mapping coverage, URL-backed attachment preservation, stale export/link patterns, workflow control state, and LLM consolidation readiness.
+
+This job did not perform another sentence-level product-document audit, did not edit Korean source documents, did not edit English product documents, did not edit `manifest.json`, and did not create final consolidated `llm-reference/` documents.
+
+### Findings And Updates
+
+- Added `.codex-jobs/ko-en-doc-coverage-pass2/P226-final-pass2-validation-report.md`.
+- Updated this report with final pass2 validation evidence, remaining risks, and readiness for LLM consolidation.
+- Marked P226 as `Done` in pass2 workflow control files.
+- No product documentation files under `DOCK/`, `faq/`, `arch/`, or `FAQE/` were edited.
+
+### Final Validation Evidence
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p226-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK/Home -type f -name '*.md' \| wc -l` | 51 |
+| `find faq/Home -type f -name '*.md' \| wc -l` | 115 |
+| `find arch/Home -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE/Home -type f -name '*.md' \| wc -l` | 241 |
+| Manifest page-count and path-existence validation | Passed, 588 page entries and 0 missing paths |
+| Technical mapping validation from J001 | Passed, 51 mappings and 0 missing targets |
+| FAQ category mapping validation from J001 | Passed, 12 categories, 115 Korean-core FAQ sources, 115 English core FAQ targets, and 0 count mismatches |
+| Technical URL-backed document attachment preservation | Passed, 42 links and 0 missing in `arch/Home` |
+| FAQ URL-backed document attachment preservation | Passed, 7 links and 0 missing in `FAQE/Home` |
+| Legacy attachment label inventory | Passed, 6 technical `#` labels and 1 FAQ `#` label recorded as non-downloadable source labels |
+| Required empty-link/macro scan: `rg -n "\[\]\(|Error rendering macro|Unknown macro" arch/Home FAQE/Home` | Passed, no matches |
+| Narrow stale export/link scan for legacy Markdown `](#)`, lowercase `unknown-macro`, malformed support links, invalid `http://altibase_env.mk`, and fake Java package HTTP links | Passed, no matches |
+| `bash -n .codex-jobs/ko-en-doc-coverage-pass2/run_all.sh` and `bash -n .codex-jobs/ko-en-doc-coverage-pass2/run-all.sh` | Passed |
+| First-pass workflow status | Passed, J001-J013 are `Done` |
+| Pass2 workflow prompts | Passed, 26 prompts are present |
+| LLM source path validation from `LLM_REFERENCE_REVIEW_PLAN.md` | Passed, 108 source-path references, 101 unique patterns, and 0 missing paths or Markdown-bearing directories |
+| `test ! -e llm-reference` | Passed |
+
+A broader literal `(#)` probe found two expected OS script identification comments inside FAQE startup examples. These were not Markdown legacy links, and the narrowed Markdown-link scan passed.
+
+### Readiness
+
+P226 found no final blocker in JSON validity, diff hygiene, document counts, mapping coverage, attachment preservation, stale export/link patterns, workflow scripts, or LLM source path readiness.
+
+The pass2-reviewed English source set is ready for the next LLM reference consolidation phase. Later consolidation should create new output documents, preserve original Korean and English source documents, keep URL-backed attachments unchanged, and label English-only `FAQE` material as `English-only source` when used.
+
+### Remaining Risk
+
+- P226 is a final validation and reporting job, not a new sentence-level audit of every Korean/English page.
+- External HTTP availability was not tested; validation used source-link preservation, path existence, and grep-based checks.
+- Six Korean technical legacy attachment labels and one Korean FAQ legacy attachment label still have no downloadable source URL.
+- English-only `FAQE` pages remain outside Korean-source semantic verification unless later explicitly audited and labeled.
+- P224 replaced unavailable Gliffy exports with diagram-unavailable notes, but diagram content was not reconstructed.

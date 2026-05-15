@@ -40,7 +40,7 @@
 | `P223` | `Done` | Technical attachment source and export revalidation | Revalidate technical-document attachments, external source links, empty Markdown links, legacy # attachment labels, Error rendering macro, Unknown macro, and known export artifacts across audited arch documents; update English references and report risks. |
 | `P224` | `Done` | FAQ attachment source English-only and export revalidation | Revalidate FAQ attachments, external source links, empty Markdown links, English-only FAQE classification candidates, legacy # labels, and export artifacts across audited FAQE documents; update English references and report risks. |
 | `P225` | `Done` | LLM readiness and multilingual terminology review | Review J013 handoff structure, LLM package readiness, duplicate-handling rules, and multilingual terminology preservation rules without creating final consolidated LLM documents. |
-| `P226` | `ToDo` | Final pass2 validation and report | Run final JSON, diff, document count, mapping, attachment/link, stale-pattern, and workflow checks; update the pass2 review report with changes, evidence, remaining risks, and readiness for LLM consolidation. |
+| `P226` | `Done` | Final pass2 validation and report | Run final JSON, diff, document count, mapping, attachment/link, stale-pattern, and workflow checks; update the pass2 review report with changes, evidence, remaining risks, and readiness for LLM consolidation. |
 
 ## Resume Rules
 
