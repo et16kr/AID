@@ -22,7 +22,7 @@ Updated: 2025-10-20T15:42:03.000+0900
 
 All SQL statements executed on the Altibase server can be traced.
 
-It is possible by setting/disabling Altibase properties, and in addition to SQL statements, it is possible to trace execution time, index/disk access information, PLAN information, session information, and ALTIBASE HDB system information.
+Query logging can be controlled by enabling or disabling Altibase properties. In addition to SQL statements, altiProfile can trace execution time, index and disk access information, plan information, session information, and ALTIBASE HDB system information.
 
 This chapter describes how to profile Altibase and check the results.
 

@@ -38,7 +38,7 @@ For errors and improvements related to this document, please contact the technic
 
 ---
 
-This section describes Altibase's new Precompiler of Embedded SQL. Please refer to [Altibase Precompiler Guide](https://aid.altibase.com/display/arch/Altibase+Precompiler+Guide) for specific details such as usage of the function as a summary form.
+This section describes Altibase's new Embedded SQL precompiler. For detailed usage and function summaries, refer to the [Altibase Precompiler Guide](https://aid.altibase.com/display/arch/Altibase+Precompiler+Guide).
 
 ## Terms
 

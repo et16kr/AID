@@ -514,7 +514,7 @@ When using a PreparedStatement object, setObject() and setNull() method can be u
 - Use setObject(parameterIndex, null, SQLType.NULL) method
 - Use setNull(parameterIndex, null) method
 
-Altibase do not support setObject(parameterIndex, null) method.
+Altibase does not support the setObject(parameterIndex, null) method.
 
 ## LOB Data Processing
 
@@ -522,9 +522,9 @@ Altibase do not support setObject(parameterIndex, null) method.
 
 In order to process LOB data, **autocommit** must be set to **off**.
 
-If LOB data is processed while autocommit is on, “Connection is in autocommit mode. One can not operate on LOB data with autocommit mode on” error or null value may be returned, resulting in unwanted results.
+If LOB data is processed while autocommit is on, the "Connection is in autocommit mode. One can not operate on LOB data with autocommit mode on" error or a null value may be returned, resulting in unwanted behavior.
 
-Since autocommit is on by default in JDBC, LOB data must be processed after calling setAutoCommit(false); of Connection.
+Since autocommit is on by default in JDBC, process LOB data after calling `setAutoCommit(false)` on the `Connection`.
 
 For an example of integrating LOB data, refer to $ALTIBASE_HOME/sample/JDBC/CLOB and the java source file in the BLOB.
 

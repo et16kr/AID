@@ -112,19 +112,15 @@ SELECT TO_CHAR(MEM_MAX_DB_SIZE/1024/1024, '999,999,999') '       MAX(M)',       
 1 row selected.
 ```
 
-![grey_arrow_down.png](https://docs.altibase.com/images/icons/grey_arrow_down.png)TOTAL is...
+![grey_arrow_down.png](https://docs.altibase.com/images/icons/grey_arrow_down.png) TOTAL is...
 
-TOTAL(M) means the total page size allocated to the memory tablespace.
+`TOTAL(M)` means the total page size allocated to the memory tablespace.
 
 This value also includes free pages in the memory tablespace. Free pages may not be loaded into physical memory. So this value cannot be viewed as the physical memory usage of the memory tablespace.
 
-```
 This value also refers to the size of the checkpoint image file.
-```
 
-```
-TOTAL does not decrease except in the case of DROP TABESPACE. Restarting the Altibase server does not decrease the value.
-```
+`TOTAL` does not decrease except when `DROP TABLESPACE` is executed. Restarting the Altibase server does not decrease the value.
 
 **Comparing to checkpoint image file**
 

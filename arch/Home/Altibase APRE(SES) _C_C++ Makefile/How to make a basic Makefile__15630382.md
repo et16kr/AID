@@ -16,7 +16,7 @@ Updated: 2025-09-23T09:14:35.000+0900
 
 - [Basic structure of Makefile](#HowtomakeabasicMakefile-BasicstructureofMakefile) - [Example Sources](#HowtomakeabasicMakefile-ExampleSources) - [Running the Precompile](#HowtomakeabasicMakefile-RunningthePrecompile) - [Makefile contents](#HowtomakeabasicMakefile-Makefilecontents) - [Execution](#HowtomakeabasicMakefile-Execution) - [Compling](#HowtomakeabasicMakefile-Compling) - [Specifying the header file and library path](#HowtomakeabasicMakefile-Specifyingtheheaderfileandlibrarypath) - [Specifying the basic library for APRE compilation](#HowtomakeabasicMakefile-SpecifyingthebasiclibraryforAPREcompilation) - [Add basic library fo APRE](#HowtomakeabasicMakefile-AddbasiclibraryfoAPRE) - [Adding the system library](#HowtomakeabasicMakefile-Addingthesystemlibrary) - [Referring to Altibase sample Makefile](#HowtomakeabasicMakefile-ReferringtoAltibasesampleMakefile) - [Using the ldd command](#HowtomakeabasicMakefile-Usingthelddcommand) - [Using the man page](#HowtomakeabasicMakefile-Usingthemanpage) - [Causes and solutions for bit errors during compilation](#HowtomakeabasicMakefile-Causesandsolutionsforbiterrorsduringcompilation) - [Using the APRE library suitable for compilation mode](#HowtomakeabasicMakefile-UsingtheAPRElibrarysuitableforcompilationmode) - [Downloading 32bit client development tool (Library and Precompiler)](#HowtomakeabasicMakefile-Downloading32bitclientdevelopmenttool(LibraryandPrecompiler)) - [Bit error when compiling](#HowtomakeabasicMakefile-Biterrorwhencompiling) - [How to check the bit in the library](#HowtomakeabasicMakefile-Howtocheckthebitinthelibrary) - [Adding C++ library](#HowtomakeabasicMakefile-AddingC++library) - [Using the C++ compiler](#HowtomakeabasicMakefile-UsingtheC++compiler)
 
-To understand the structure of Makefile, let's take a look at how to make a Makefile with simple c code. As the Altibase Makefile specification complies with the GNU specification, it is recommended to use gmake. However, in this document, it is explained according to the general rules.
+To understand the structure of a Makefile, start with a simple C example. Because the Altibase Makefile specification follows the GNU specification, `gmake` is recommended. This document explains the general rules.
 
 # Basic structure of Makefile
 
@@ -284,7 +284,7 @@ $ vi Makefile ALTI_INCLUDE=${ALTIBASE_HOME}/include ALTI_LIBRARY=${ALTIBASE_HOME
 
 **...............................**
 
-When using the C compiler, the C++ library required for each platform is as follows. Please refer to the table below and add them to Makefil for each compiler.
+When using a C compiler, add the C++ library required for each platform. Refer to the table below and add the appropriate library to the Makefile for each compiler.
 
 | Platform | **Library** |
 | --- | --- |
@@ -297,4 +297,4 @@ Starting from Altibase version 5.5.1, the APRE library was rewritten as C source
 
 ### Using the C++ compiler
 
-In the case of using the C++ compiler, most of the problems listed above can be avoided, so it will be not be explained separately. However, the C++ compiler has a separate 64bit option, so be aware of this for each compiler.
+When using a C++ compiler, most of the problems listed above can be avoided, so this case is not explained separately. However, each C++ compiler has its own 64-bit option, so check the option for the compiler being used.

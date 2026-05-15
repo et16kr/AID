@@ -737,8 +737,8 @@
       "title": "What is MEM_MAX_DB_SIZE?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16875991",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/What is MEM_MAX_DB_SIZE__16875991.md",
-      "body_chars": 9509,
-      "word_count": 1194
+      "body_chars": 9503,
+      "word_count": 1190
     },
     {
       "space_key": "FAQE",
@@ -1106,8 +1106,8 @@
       "title": "How to log queries performed in Altibase (altiProfile)?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22642959",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/How to log queries performed in Altibase (altiProfile)__22642959.md",
-      "body_chars": 36599,
-      "word_count": 4488
+      "body_chars": 36618,
+      "word_count": 4491
     },
     {
       "space_key": "FAQE",
@@ -2663,8 +2663,8 @@
       "title": "APRE*C/C++ New Features & Upgrade Guide",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22643052",
       "path": "altibase_docs_md/arch/Home/APRE_C_C++ New Features & Upgrade Guide__22643052.md",
-      "body_chars": 26168,
-      "word_count": 1904
+      "body_chars": 26136,
+      "word_count": 1896
     },
     {
       "space_key": "arch",
@@ -2672,8 +2672,8 @@
       "title": "How to make a basic Makefile",
       "source_url": "https://docs.altibase.com/display/arch/How+to+make+a+basic+Makefile",
       "path": "altibase_docs_md/arch/Home/Altibase APRE(SES) _C_C++ Makefile/How to make a basic Makefile__15630382.md",
-      "body_chars": 16865,
-      "word_count": 2108
+      "body_chars": 16793,
+      "word_count": 2088
     },
     {
       "space_key": "arch",
@@ -2915,8 +2915,8 @@
       "title": "Altibase GeoServer Integration Guide",
       "source_url": "https://docs.altibase.com/display/arch/Altibase+GeoServer+Integration+Guide",
       "path": "altibase_docs_md/arch/Home/Altibase GeoServer Integration Guide__22643004.md",
-      "body_chars": 12162,
-      "word_count": 1105
+      "body_chars": 12169,
+      "word_count": 1104
     },
     {
       "space_key": "arch",
@@ -2993,11 +2993,11 @@
     {
       "space_key": "arch",
       "page_id": "14058240",
-      "title": "1. Main meta table and performance views related to session, query, transaction, lock, service thread, and memory DB GC",
+      "title": "1. Main Meta Tables and Performance Views for Sessions, Queries, Transactions, Locks, Service Threads, and Memory DB GC",
       "source_url": "https://docs.altibase.com/display/arch/1.+Main+meta+table+and+performance+views+related+to+session%2C+query%2C+transaction%2C+lock%2C+service+thread%2C+and+memory+DB+GC",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/2. Altibase Meta Table and Performance View Overview/1. Main meta table and performance views related to session, query, transaction, lock, service thread, and memory DB GC__14058240.md",
-      "body_chars": 4424,
-      "word_count": 555
+      "body_chars": 4247,
+      "word_count": 509
     },
     {
       "space_key": "arch",
@@ -3023,17 +3023,17 @@
       "title": "4. Main Meta Tables and Performance Views Related to Replication",
       "source_url": "https://docs.altibase.com/display/arch/4.+Main+Metal+Tables+and+Performance+Views+Related+to+Replication",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/2. Altibase Meta Table and Performance View Overview/4. Main Metal Tables and Performance Views Related to Replication__14058248.md",
-      "body_chars": 3133,
-      "word_count": 417
+      "body_chars": 3204,
+      "word_count": 380
     },
     {
       "space_key": "arch",
       "page_id": "14058250",
-      "title": "5. Whether Users can Access the Tablespace, System/Object Privileges, PSM, View-related Meta Tables and Performance Views",
+      "title": "5. Meta Tables and Performance Views for Tablespace Access, Privileges, PSM, and Views",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=14058250",
       "path": "altibase_docs_md/arch/Home/Altibase Monitoring Queries Guide/2. Altibase Meta Table and Performance View Overview/5. Whether Users can Access the Tablespace, System_Object Privileges, PSM, View related Meta Tables and Peformance Views__14058250.md",
-      "body_chars": 2761,
-      "word_count": 336
+      "body_chars": 2756,
+      "word_count": 316
     },
     {
       "space_key": "arch",
@@ -3563,8 +3563,8 @@
       "title": "JAVA Developer's Guide",
       "source_url": "https://docs.altibase.com/display/arch/JAVA+Developer%27s+Guide",
       "path": "altibase_docs_md/arch/Home/JAVA Developer's Guide__16875544.md",
-      "body_chars": 27919,
-      "word_count": 3385
+      "body_chars": 27929,
+      "word_count": 3387
     },
     {
       "space_key": "arch",
@@ -4127,11 +4127,11 @@
     {
       "space_key": "arch",
       "page_id": "14058329",
-      "title": "2. Starting and Shutdown the WebLogic Server Instance",
+      "title": "2. Starting and Shutting Down the WebLogic Server Instance",
       "source_url": "https://docs.altibase.com/display/arch/2.+Starting+and+Shutdown+the+WebLogic+Server+Instance",
       "path": "altibase_docs_md/arch/Home/WEBLOGIC Integration Guide for Altibase/2. Starting and Shutdown the WebLogic Server Instance__14058329.md",
-      "body_chars": 7183,
-      "word_count": 923
+      "body_chars": 6650,
+      "word_count": 845
     },
     {
       "space_key": "arch",

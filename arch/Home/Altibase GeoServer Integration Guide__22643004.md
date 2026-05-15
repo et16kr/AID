@@ -102,7 +102,12 @@ iSQL> INSERT into spatial_ref_sys (srid, auth_name, auth_srid, proj4text, srtext
 
 - Add Altibase as a data store.
 
-![1.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/1.JPG?api=v2) ![2.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/2.JPG?api=v2) ![3.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/3.JPG?api=v2) ![4.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/4.JPG?api=v2)  - The required input fields are as follows:
+![1.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/1.JPG?api=v2)
+![2.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/2.JPG?api=v2)
+![3.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/3.JPG?api=v2)
+![4.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/4.JPG?api=v2)
+
+The required input fields are as follows:
 
 | Item | Description |
 | --- | --- |
@@ -162,7 +167,9 @@ You can import a layer using a shapefile.
 
 ![11.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/11.JPG?api=v2)
 
-3. Select the spatial file from the data source to import. Currently, Altibase only supports importing spatial files. Click the browse button to select the spatial file. ![12.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/12.JPG?api=v2)
+3. Select the spatial file from the data source to import. Currently, Altibase only supports importing spatial files. Click the browse button to select the spatial file.
+
+![12.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/12.JPG?api=v2)
 
 4. Select the directory where the spatial file is located.
 
@@ -176,7 +183,7 @@ You can import a layer using a shapefile.
 
 ![15.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/15.JPG?api=v2)
 
-## Check the registered layer.
+## Check the registered layer
 
 ---
 
@@ -186,7 +193,7 @@ The registered layer can be viewed in the layer preview.
 
   ![17.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/17.JPG?api=v2)
   ![18.JPG](https://docs.altibase.com/download/attachments/embedded-page/arch/Altibase%20GeoServer%20Integration%20Guide/18.JPG?api=v2)
-- In Altibase, it can be verified as follows.
+- In Altibase, verify the registered layer as follows.
 
   ```
   $isql

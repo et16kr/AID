@@ -255,6 +255,18 @@ J010에서는 전체 한국어 기술 문서와 FAQ의 문서형 첨부 링크 �
 
 검토 중 한국어 GeoServer 문서의 `GeoServer Documentation` 링크가 Red Hat Enterprise Linux CPU governor 페이지를 가리키는 것을 확인했습니다. 이 링크는 라벨과 URL이 일치하지 않아 영어 문서에는 전파하지 않았고, 수동 검토 리스크로 남겼습니다.
 
+## J011 영어 품질 및 LLM 가독성 검토
+
+J011에서는 J002-J010에서 갱신되었거나 오류 가능성이 높은 영어 문서를 대상으로 자연스러운 기술 영어, 용어 일관성, LLM 검색 가능성, 번역하면 안 되는 기술 식별자 보존 여부를 검토했습니다. 이 작업은 전체 한국어-영어 본문 재비교가 아니라, 의미를 바꾸지 않는 범위의 품질 보정으로 제한했습니다. 한국어 문서는 수정하거나 삭제하지 않았습니다.
+
+주요 반영 내용은 다음과 같습니다.
+
+- 모니터링 쿼리 가이드의 메타 테이블/성능 뷰 설명에서 기계번역투 문장을 정리하고, `SYS_USERS_`, `SYS_TABLES_`, `SYS_REPL_HOSTS_`, `V$REPRECEIVER_TRANSTBL` 등 기술 식별자를 코드 표기로 명확히 했습니다.
+- WebLogic 연동 문서에서 시작/종료, JDBC 드라이버 설정, `$DOMAIN_HOME`, `$ALTIBASE_HOME`, `Altibase.jar`, `Altibase5.jar` 설명을 검색 가능한 기술 영어로 정리했습니다.
+- APRE Makefile, APRE New Features, Java 개발 가이드, GeoServer 연동 가이드, altiProfile FAQ, `MEM_MAX_DB_SIZE` FAQ의 명백한 오탈자, 깨진 문장, 불필요한 코드 블록, 이미지와 본문이 한 줄에 붙은 절차 문장을 보정했습니다.
+- `docs.altibase.com` 원본 URL과 이미지 경로에 남아 있는 `Registeration`, `Peformance` 같은 원본 페이지명 기반 오탈자는 출처 추적성을 위해 보존했습니다.
+- 변경된 영어 Markdown 10개에 대해 `manifest.json`의 제목, `body_chars`, `word_count`를 갱신했습니다.
+
 ## 검토 범위
 
 | 구분 | 한국어 기준 문서 | 영어 대상 문서 | 결과 |
@@ -361,6 +373,9 @@ J010에서는 전체 한국어 기술 문서와 FAQ의 문서형 첨부 링크 �
 | J010 문서형 첨부 URL 전체 대조 | 기술 문서 42개, FAQ 7개 URL-backed 문서형 링크 확인, 누락 0개 |
 | J010 출처 링크 보정 grep | GeoServer 외부 출처 링크, IBM Installation Manager URL, 영어 support/manual/product 링크 확인 |
 | J010 manifest 메타데이터 대조 | 갱신된 `arch`/`FAQE` 문서 8개 확인, 불일치 0건 |
+| J011 영어 품질 및 LLM 가독성 검토 | 변경/고위험 영어 문서 10개 문장 품질, 제목, 식별자 표기 보정 |
+| J011 변경 파일 일관성 점검 | manifest 메타데이터, URL 보존, 한국어 잔여 문구, 빈 Markdown 링크, stale wording 패턴 확인 통과 |
+| J011 문서 수 확인 | `DOCK` 51개, `arch` 181개, `faq` 115개, `FAQE` 241개 |
 
 ## 결론
 
