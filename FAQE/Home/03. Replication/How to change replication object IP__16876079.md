@@ -38,7 +38,7 @@ ALTER REPLICATION replication_name STOP;
 ALTER REPLICATION replication_name ADD HOST 'new_ip_address', replication_port;
 ```
 
-**3. Remove exist IP**
+**3. Remove existing IP**
 
 ```
 ALTER REPLICATION replication_name DROP HOST 'old_ip_address', replication_port;

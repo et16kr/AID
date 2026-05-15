@@ -20,19 +20,19 @@ Updated: 2021-03-18T14:55:00.000+0900
 
 ---
 
-DB users can grant privileges to objects using the grant statement. the user can search the relationship of object authority between DB users granted to the entire DB by using a query.
+DB users can grant privileges on objects by using the `GRANT` statement. You can query the object privileges granted between DB users across the database.
 
 # Version
 
 ---
 
-Available in all versions of ALTIBASE HDB 4.3.9 or later
+Available in ALTIBASE HDB 4.3.9 or later.
 
 # How to check
 
 ---
 
-It can be searched with the query below.
+Use the query below.
 
 ```
 SELECT a.user_name grantee,                                     -- User grantee
@@ -64,6 +64,7 @@ SELECT a.user_name grantee,                                     -- User grantee
 
 **Example**
 
+```
 iSQL> create user user1 identified by user1;
 
 iSQL> create user user2 identified by user2;
@@ -76,4 +77,9 @@ iSQL> grant select on user1_t1 to user2;
 
 iSQL> grant insert on user1_t1 to user2;
 
-GRANTEE GRANTOR OBJECT_OWNER OBJECT_NAME OBJECT_TYPE PRIV_NAME GRANTABLE --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- USER2 USER1 USER1 USER1_T1 T INSERT NO USER2 USER1 USER1 USER1_T1 T SELECT NO 2 rows selected.
+GRANTEE GRANTOR OBJECT_OWNER OBJECT_NAME OBJECT_TYPE PRIV_NAME GRANTABLE
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+USER2 USER1 USER1 USER1_T1 T INSERT NO
+USER2 USER1 USER1 USER1_T1 T SELECT NO
+2 rows selected.
+```

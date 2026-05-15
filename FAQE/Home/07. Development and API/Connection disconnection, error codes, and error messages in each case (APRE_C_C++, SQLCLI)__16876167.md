@@ -66,7 +66,7 @@ It can be checked by calling SQLError(env,dbc,stmt,state,err,msg,msgMax,msgLengt
 
 ---
 
-1. In case of not connecter or previously disconnected
+1. If the application has not connected or was previously disconnected
 
   ```
   [APRE*C/C++]
@@ -79,7 +79,7 @@ It can be checked by calling SQLError(env,dbc,stmt,state,err,msg,msgMax,msgLengt
   	====================================================
 
   [SQLCLI/ODBC]
-  1. In case of haven't connected
+  1. If it has never connected
   	====================================================
   	return value [-2]
   	SQLError(env,dbc,stmt,state,err,msg,msgMax,msgLength)
@@ -87,7 +87,7 @@ It can be checked by calling SQLError(env,dbc,stmt,state,err,msg,msgMax,msgLengt
   	error number (err) [0] in Hex(0)
   	error message (msg) [ ?]
   	====================================================
-  2. In case of disconnected before
+  2. If it was previously disconnected
   	====================================================
   	return value [-1] (SQL_ERROR)
   	SQLError(env,dbc,stmt,state,err,msg,msgMax,msgLength)
@@ -96,7 +96,7 @@ It can be checked by calling SQLError(env,dbc,stmt,state,err,msg,msgMax,msgLengt
   	error message (msg) [Connection does not exist (err8)]
   	====================================================
   ```
-2. In case of the connection is disconnected (the server disconnection or a network error)
+2. If the connection is disconnected (disconnected by the server or due to a network error)
 
   ```
   [APRE*C/C++]
@@ -117,7 +117,7 @@ It can be checked by calling SQLError(env,dbc,stmt,state,err,msg,msgMax,msgLengt
   error message (msg) [Communication link failure('errno')]
   ====================================================
   ```
-3. In case of the query was executed again without detecting that the connection was previously disconnected.
+3. If a query is executed again without detecting that the connection was previously disconnected
 
   ```
   [APRE*C/C++]
@@ -138,7 +138,9 @@ It can be checked by calling SQLError(env,dbc,stmt,state,err,msg,msgMax,msgLengt
   error message (msg) [Connection does not exist (err8)]
   ====================================================
   ```
-4. In case of disconnection by Timeout Fetch Timeout, UTrans Timeout, Idle Timeout all return the same error. (Timeout is recorded in altibase_boot.log.)
+4. If the connection is disconnected by timeout
+
+  Fetch Timeout, UTrans Timeout, and Idle Timeout all return the same error. Timeout details are recorded in `altibase_boot.log`.
 
   ```
   [APRE*C/C++]
@@ -159,7 +161,7 @@ It can be checked by calling SQLError(env,dbc,stmt,state,err,msg,msgMax,msgLengt
   error message (msg) [Communication link failure(131)]
   ====================================================
   ```
-5. In case of the DB server is shutdown
+5. If the DB server is shut down
 
   ```
   [APRE*C/C++]
@@ -208,12 +210,6 @@ It can be checked by calling SQLError(env,dbc,stmt,state,err,msg,msgMax,msgLengt
 
 As a result of checking the error code for each situation, there are 3 cases as follows.
 
-- - SQLSTATE(state) ["08001"] SQLCODE [1(0x01)] errno [32770(0x050032)]
-  Connection failure
-- - SQLSTATE(state) ["08003"] SQLCODE(errno) [331830(0x051036)]
-  In case of not connected (after disconnection)
-  In case the connection is already disconnected
-- - SQLSTATE(state) ["08S01"] SQLCODE(errno) [331843(0x051043)]
-  Socket disconnection
-  In case of interruption due to timeout
-  In case of the server being shutdown
+- `SQLSTATE(state) ["08001"]`, `SQLCODE [1(0x01)]`, `errno [32770(0x050032)]`: connection failure
+- `SQLSTATE(state) ["08003"]`, `SQLCODE(errno) [331830(0x051036)]`: execution without connection after disconnect, or execution when the connection has already been disconnected
+- `SQLSTATE(state) ["08S01"]`, `SQLCODE(errno) [331843(0x051043)]`: socket disconnection, disconnection due to timeout, or server shutdown

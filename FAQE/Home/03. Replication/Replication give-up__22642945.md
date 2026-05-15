@@ -49,7 +49,7 @@ If Redo log files matching the above conditions are not cleaned up and continue 
 
 In cases where Redo log files are not cleaned up due to replication issues, you can configure the maximum number of Redo log files that replication can retain to prevent a disk full error.
 
-If the number of uncleaned Redo log files exceeds the configured threshold, the system will delete the Redo logs—even if data synchronization with the Standby Server has not been completed—in order to prevent a disk full error on the Active Server. This means the replication gap will be abandoned.
+If the number of uncleaned Redo log files exceeds the configured threshold, the system will delete the Redo logs even if data synchronization with the Standby Server has not been completed, in order to prevent a disk full error on the Active Server. This means the replication gap will be abandoned.
 
 This behavior, where Redo log files required for replication are deleted to avoid a disk full issue on the Active Server despite incomplete synchronization, is called **replication GIVE-UP**.
 
@@ -63,7 +63,7 @@ When replication give-up occurs, data inconsistency between both active and stan
 
 ---
 
-- To prevent **replication GIVE-UP**, network performance—which directly affects replication performance—must be maintained in a stable and reliable manner.
+- To prevent **replication GIVE-UP**, network performance, which directly affects replication performance, must be maintained in a stable and reliable manner.
 
 - Additionally, in abnormal situations such as power outages or network disconnections, related property values should be appropriately configured to account for worst-case scenarios.
 
@@ -72,7 +72,7 @@ REPLICATION_MAX_LOGFILE = 400
 ```
 
 - The unit of this property is the **number of Redo log files**. For example, if it is set to 400 and more than 400 Redo log files are generated without being cleaned up, the replication GIVE-UP mechanism will be triggered.
-- This property can be configured in the file: `$ALTIBASE_HOME/conf/altibase.properties`For more details, please refer to the **REPLICATION_MAX_LOGFILE** section in the *General Reference Manual*.
+- This property can be configured in `$ALTIBASE_HOME/conf/altibase.properties`. For details, refer to the [`REPLICATION_MAX_LOGFILE`](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_max_logfile) section in the *General Reference Manual*.
 
 # Set whether to proceed with replication when give-up occurs (automatic)
 
@@ -118,14 +118,8 @@ GIVE_UP_TIME             :
 1 row selected.
 ```
 
-```
-REPLICATION_NAME : Replication name
-```
-
-```
-IS_STARTED       : Whether the replication has started (start 1, stop 0)
-```
-
-```
-GIVE_UP_TIME     : The date and time that the replicated was most recently given up.
-```
+| Column name | Description |
+| --- | --- |
+| REPLICATION_NAME | Replication name |
+| IS_STARTED | Whether replication has started (`start`: 1, `stop`: 0) |
+| GIVE_UP_TIME | The most recent date and time that replication give-up occurred |

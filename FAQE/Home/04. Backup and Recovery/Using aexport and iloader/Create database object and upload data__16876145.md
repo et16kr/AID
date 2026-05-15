@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/Create+database+object+and+upload+data
 Updated: 2021-04-05T09:41:14.000+0900
 
-# - [Database object and data upload procedure](#Createdatabaseobjectanduploaddata-Databaseobjectanddatauploadprocedure) - [Preparation before uploading data](#Createdatabaseobjectanduploaddata-Preparationbeforeuploadingdata) - [Creating database object](#Createdatabaseobjectanduploaddata-Creatingdatabaseobject) - [Uploading data](#Createdatabaseobjectanduploaddata-Uploadingdata) - [Checking the data upload result](#Createdatabaseobjectanduploaddata-Checkingthedatauploadresult) - [Checking the .sh running log](#Createdatabaseobjectanduploaddata-Checkingthe.shrunninglog) - [Checking log files for each table](#Createdatabaseobjectanduploaddata-Checkinglogfilesforeachtable)
+- [Database object and data upload procedure](#Createdatabaseobjectanduploaddata-Databaseobjectanddatauploadprocedure) - [Preparation before uploading data](#Createdatabaseobjectanduploaddata-Preparationbeforeuploadingdata) - [Creating database object](#Createdatabaseobjectanduploaddata-Creatingdatabaseobject) - [Uploading data](#Createdatabaseobjectanduploaddata-Uploadingdata) - [Checking the data upload result](#Createdatabaseobjectanduploaddata-Checkingthedatauploadresult) - [Checking the .sh running log](#Createdatabaseobjectanduploaddata-Checkingthe.shrunninglog) - [Checking log files for each table](#Createdatabaseobjectanduploaddata-Checkinglogfilesforeachtable)
 
 # Database object and data upload procedure
 
@@ -56,17 +56,17 @@ isql -s localhost -u SYS -p MANAGER -f ALL_CRT_LINK.sql
 
 Before restoring data, be sure to check the following environment variables before proceeding.
 
-ALTIBASE_NLS_USE is required to prevent the breakdown of Korean data, and ILO_DATEFORM should be set to prevent duplication when a date type column has a unique value.
+`ALTIBASE_NLS_USE` is required to prevent Korean character data from being corrupted, and `ILO_DATEFORM` should be set to prevent duplicate values when a date-type column has unique values.
 
 - ALTIBASE_NLS_USE
 - ILO_DATEFORM
 
-In the session of executing iloader, it is applied by setting it with the export command as shown below or adding it to the user environment configuration file (.bash_profile or .profile) and logging out and logging in.
+In the session where `iloader` is executed, set these variables with the `export` command as shown below. Alternatively, add them to the user environment file (`.bash_profile` or `.profile`) so they remain applied after logout and login.
 
 **How to set environment variables**
 
 ```
-$ export ALTIBASE_NLS_USE=Database server character set
+$ export ALTIBASE_NLS_USE=database_server_character_set
 $ export ILO_DATEFORM='YYYY/MM/DD HH:MI:SS.SSSSSS'
 ```
 
@@ -77,7 +77,7 @@ $ echo $ALTIBASE_NLS_USE
 $ echo $ILO_DATEFORM
 ```
 
-The ALTIBASE HDB server character set can be checked with the following statement: NLS_CHARACTERSET is the ALTIBASE server's character set and NLS_USE is the client's character set. Hangul data is not broken only when these two are set identically.
+The ALTIBASE HDB server character set can be checked with the following statement. `NLS_CHARACTERSET` is the Altibase server character set, and `NLS_USE` is the client character set. Korean data is not corrupted only when these two values are set identically.
 
 **How to check the ALTIBASE server character set-Available from ALTIBASE HDB version 5**
 
@@ -100,7 +100,7 @@ When running the .sh file, the user should leave a log file to check for errors.
 **Ex) Logging when running .sh**
 
 ```
-$ sh run_is.sh \| tee run_is.log
+$ sh run_is.sh | tee run_is.log
 
 or
 
@@ -117,12 +117,12 @@ Data upload is performed using run_il_in.sh. In order to upload only a table own
 **Ex) In case of uploading only table owned by ALTITEST user**
 
 ```
-$ grep "\-f ALTITEST_" run_il_in.sh > altitest_il_in.sh    # Extract only the iloader command corresponding to the altitest user from run_il_out.sh and saves it in another file.
+$ grep "\-f ALTITEST_" run_il_in.sh > altitest_il_in.sh    # Extract only the iloader command corresponding to the altitest user from run_il_in.sh and save it in another file.
 
 $ sh altitest_il_in.sh | tee upload.out                    # If done in the foreground, closing the terminal window will terminate the execution.
 Or,
 $ nohup sh altitest_il_in.sh &                             # If you do it in the background, closing the terminal window does not terminate the execution.
-$ mv nohup.out upload.out                                  # You can connect again and check the progress with the download.out file.
+$ mv nohup.out upload.out                                  # You can connect again and check the progress with the upload.out file.
 ```
 
 **Ex) In case of uploading the SYS user's ORDERS table**
@@ -159,7 +159,7 @@ $ grep -i err- run_is.log
 Execute the following commands to check if there is an error when uploading data.
 
 ```
-$ grep -i err- upload.out                                                 # Check whether an error has occurred in the result of running the run_il_int.sh script.
+$ grep -i err- upload.out                                                 # Check whether an error has occurred in the result of running the run_il_in.sh script.
 [ERR-311F4 : Invalid column name                                          # If something starts with ERR- like this, it means that an error has occurred.
 $ ls -l *.fmt|wc -l                                                       # Check the number of tables
 $ ls -l *.log|wc -l                                                       # Check the number of log files created by running run_il_in.sh

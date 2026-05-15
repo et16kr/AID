@@ -66,10 +66,10 @@ This document describes how to set up 32-bit ODBC driver on Windows Server 2003 
   Enter the database user password.
   ● Database
   Enter the database name.
-  The database name can be checked with SELECT_DB_NAME FROM V$DATABASE;
+  The database name can be checked with `SELECT DB_NAME FROM V$DATABASE;`.
   ● NLS_USE
   Enter the Altibase server character set.
-  The Altibase server character set can be checked with NLS_CHARACTERSET FROM V$NLS_PARAMETERS;
+  The Altibase server character set can be checked with `SELECT NLS_CHARACTERSET FROM V$NLS_PARAMETERS;`.
 4. Click the Test Connection button to check the connection.
   ![image2018-11-7%2017_54_58.png](https://docs.altibase.com/download/attachments/embedded-page/FAQE/32-bit%20ODBC%20installation%20on%2064-bit%20Windows/image2018-11-7%2017_54_58.png?api=v2)
 5. Check the Altibase DSN added to the User DSN tab.

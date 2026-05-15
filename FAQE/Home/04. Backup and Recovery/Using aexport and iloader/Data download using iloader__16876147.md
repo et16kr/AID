@@ -22,19 +22,19 @@ Updated: 2021-04-05T09:39:28.000+0900
 
 Before executing the iloader, be sure to check the following environment variables before proceeding.
 
-ALTIBASE_NLS_USE is required to prevent the breakdown of Korean data, and ILO_DATEFORM should be set to prevent duplication when a date type column has a unique value.
+`ALTIBASE_NLS_USE` is required to prevent Korean character data from being corrupted, and `ILO_DATEFORM` should be set to prevent duplicate values when a date-type column has unique values.
 
 - ALTIBASE_NLS_USE
 - ILO_DATEFORM
 
-In the session of executing the iloader, it is applied by setting it with the export command as shown below or adding it to the user environment configuration file (.bash_profile or .profile) and logging out and logging in.
+In the session where `iloader` is executed, set these variables with the `export` command as shown below. Alternatively, add them to the user environment file (`.bash_profile` or `.profile`) so they remain applied after logout and login.
 
 **How to set environment variables**
 
 **How to set environment variables**
 
 ```
-$ export ALTIBASE_NLS_USE= Database server character set
+$ export ALTIBASE_NLS_USE=database_server_character_set
 $ export ILO_DATEFORM='YYYY/MM/DD HH:MI:SS.SSSSSS'
 ```
 
@@ -45,9 +45,7 @@ $ echo $ALTIBASE_NLS_USE
 $ echo $ILO_DATEFORM
 ```
 
-The ALTIBASE HDB server character set can be checked with the following sentence: NLS_CHARACTERSET is the ALTIBASE server's character set and NLS_USE is the client's character set. Hangul data is not broken only when these two are set identically.
-
-Error rendering macro 'code': Invalid value specified for parameter 'firstline'
+The ALTIBASE HDB server character set can be checked with the following statement. `NLS_CHARACTERSET` is the Altibase server character set, and `NLS_USE` is the client character set. Korean data is not corrupted only when these two values are set identically.
 
 ```
 iSQL> set linesize 1024;
@@ -164,9 +162,9 @@ DATA_NLS_USE: MS949
      DOWNLOAD : 2.3150 msec
 ```
 
-If there are many tables or a lot of data, monitor download.out to see if it is shutting down.
+If there are many tables or a large amount of data, monitor `download.out` to check whether the download has finished.
 
-**Data download performance log monitoring**
+**Data download execution log monitoring**
 
 ```
 $ tail -f download.d.out
@@ -185,7 +183,7 @@ $ sh run_il_out.sh | tee download.out
 Check whether an error has occurred in the specified file as follows.
 
 ```
-$ grep –i err- download.out
+$ grep -i err- download.out
 [ERR-311F4 : Invalid column name                  # If something starts with ERR- like this, it means that an error has occurred.
                                                   # Actions are required according to the situation, so if it is difficult to take action directly after checking the error, contact us.
 ```
@@ -218,9 +216,9 @@ The backup file created by running run_il_out.sh is created in USERNAME_TABLENAM
 $ ls -l *.dat
 -rw-rw-rw- 1 heejung.lee heejung.lee 12457 2014-11-19 15:03 ALTITEST_ORDERS.dat
 
-$ ls -l *.dat | wc -l                                                             # Tthe backup result can be checked once again by comparing the number of backup files with the number of tables.
+$ ls -l *.dat | wc -l                                                             # The backup result can be checked once again by comparing the number of backup files with the number of tables.
 
-$ ls -l ALTITEST_ORDERS*                                                          # .Dat, .fmt, .log files are created for each table.
+$ ls -l ALTITEST_ORDERS*                                                          # .dat, .fmt, and .log files are created for each table.
 -rw-rw-rw- 1 heejung.lee heejung.lee   0 2014-11-19 15:03 ALTITEST_ORDERS.dat
 -rw-rw-rw- 1 heejung.lee heejung.lee 210 2014-11-19 15:03 ALTITEST_ORDERS.fmt
 -rw-rw-rw- 1 heejung.lee heejung.lee 169 2014-11-19 15:03 ALTITEST_ORDERS.log

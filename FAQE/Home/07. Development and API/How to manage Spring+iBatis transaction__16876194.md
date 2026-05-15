@@ -73,7 +73,7 @@ This document describes how to manage Spring+iBatis transactions.
 - Configuration file: There is no additional configuration.
 - Commit and rollback are processed directly on the source.
   SetAutoCommit(false) must be called in order to process as a transaction.
-  Note that setAutoCommit(false) must be called when selecting blobs.
+  Note that `setAutoCommit(false)` must be called when selecting BLOB data.
 
 ## 1-2. When to use TransactionTemplate
 
@@ -91,7 +91,7 @@ This document describes how to manage Spring+iBatis transactions.
     </bean>
   ```
 - The user must use functions such as transactionTemplate.execute() and doInTransaction() on the source.
-- Note that when selecting blobs, Oracle did not process transactions, but when using Altibase, the user must use functions such as transactionTemplate.execute() and doInTransaction() on the source to process transactions.
+- Note that when selecting BLOB data, existing Oracle code may not have handled transactions explicitly. When using Altibase, use functions such as `transactionTemplate.execute()` and `doInTransaction()` in the source to handle transactions.
 
 ## 2-1. Method using <tx:advice> tag
 
@@ -116,7 +116,7 @@ This document describes how to manage Spring+iBatis transactions.
         <!-- all methods starting with 'get' are read-only -->
         <tx:method name="get*" read-only="true" rollback-for="Exception"/>
         <!-- other methods use the default transaction settings (see below) -->
-        <tx:method name="*" propagation=”REQUIRED”/>
+        <tx:method name="*" propagation="REQUIRED"/>
       </tx:attributes>
   </tx:advice>
   ```
@@ -177,14 +177,14 @@ This document describes how to manage Spring+iBatis transactions.
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
   ```
-- Classes that require transactions on the source require @Transactional(propagation=Propagation.REQUIRED) notation.
+- Classes that require transactions in the source require the `@Transactional(propagation=Propagation.REQUIRED)` annotation.
 
 # Reference
 
 ---
 
-- If AltibaseClobStringTypeHandler is applied guided by the standard framework, an error may occur when CLOB is 0 byte.
-  In this case, the user can check that it is normally searched by adding annotations without using TypeHandler.
+- If `AltibaseClobStringTypeHandler` recommended by the standard framework is applied, an error may occur when `CLOB` is 0 bytes.
+  In this case, normal query results can be obtained by adding the annotation without using `TypeHandler`.
 
 # Sample code
 

@@ -38,15 +38,15 @@ The following four options are described.
 |  |  |
 | --- | --- |
 | SQL_CLOSE | Close the cursor associated with stmt and discard all pending results. The application can reopen this cursor later by executing the SELECT statement again using the same or different variables. If no cursor is open, this option has no effect on the application. |
-| SQL_DROP | The resources associated with the input statement handle are dropped and the handle is invalidated. If there is an open cursor, it is closed and all pending results are discarded. |
-| SQL_UNBIND | All rows bound by the previous SQLBindCol() call on this statement handle are dropped. |
-| SQL_RESET_PARAMS | All parameters set by the previous SQLBindParameter() call on this statement handle are dropped. The association between the application variable or file reference and the SQL statement parameter marker in the statement handle is broken. |
+| SQL_DROP | The resources associated with the input statement handle are released and the handle is invalidated. If there is an open cursor, it is closed and all pending results are discarded. |
+| SQL_UNBIND | All columns bound by previous `SQLBindCol()` calls on this statement handle are released. |
+| SQL_RESET_PARAMS | All parameters set by previous `SQLBindParameter()` calls on this statement handle are released. The association between the application variable or file reference and the SQL statement parameter marker in the statement handle is broken. |
 
 Among these, SQL_CLOSE and SQL_DROP are mainly used.
 
 1. SQLFreeStmt(stmt, SQL_DROP):
-  This means that the resources for the prepared stmt (statement handle) are completely freed.
-  That is, it only calls when that stmt is not being reused.
+  This means that the resources for the prepared `stmt` (statement handle) are completely freed.
+  Call this only when that `stmt` will not be reused.
 2. SQLFreeStmt(stmt, SQL_CLOSE):
   If all the retrieved data have not been fetched, an error will occur if you execute SQLExecute again without SQLFreeStmt(SQL_CLOSE).
-  If SQLFreeStmt(stmt, SQL_CLOSE) is used, the existing stmt can be used without doing SQLAllocStmt().
+  If `SQLFreeStmt(stmt, SQL_CLOSE)` is used, the existing `stmt` can be reused without calling `SQLAllocStmt()`.

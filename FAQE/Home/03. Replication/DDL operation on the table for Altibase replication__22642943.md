@@ -20,7 +20,7 @@ Updated: 2025-10-20T15:23:29.000+0900
 
 ---
 
-In general, DDL operations on the DB require an exclusive lock on the table. ALTIBASE HDB uses a network-based redundancy technique in which data is matched by transmitting the transaction log generated in the local server to the other server.
+In general, DDL operations on the DB require an exclusive lock on the table. ALTIBASE HDB uses network-based replication in which data is kept consistent by transmitting transaction logs generated on the local server to the peer server.
 
 DDL-like operations are not sent to the log, so DDL operations are not replicated. Therefore, different from the disk sharing method, a different method of performing DDL operations on each node (Server) is required.
 
@@ -36,15 +36,13 @@ For detailed information, please refer to the manual for your specific version a
 
 ---
 
-If there is a possibility that a large amount of data change may occur due to the DDL statement, other safer operation procedures should be used, and please refer to the DDL Guide of ALTIBASE Replication Environment.
-
 ## Operation under service outages
 
-In an environment where all services accessing the database can be stopped for a certain period of time, it can be completed with a relatively simple procedure.
+In an environment where all services accessing the database can be stopped for a certain period of time, the operation can be completed with a relatively simple procedure.
 
 | Step | A node | B node |
 | --- | --- | --- |
-| STEP 1 | - **Stop the serve (take action to prevent transactions from occurring)**<br>- In order to stop the service, the service port is changed after the DB is stopped, and the service is started.<br>- Check the session connected to the database or checking the statement being executed<br>          - iSQL> select count(*) from v$session;<br>- iSQL> select count(*) from v$statement where execute_flag =1 ; |  |
+| STEP 1 | - **Stop the service (take action to prevent transactions from occurring)**<br>- To block the service reliably, the DB may be stopped, the service port may be changed, and then the DB may be started again before performing the operation.<br>- Check sessions connected to the database or statements currently being executed.<br>- iSQL> select count(*) from v$session;<br>- iSQL> select count(*) from v$statement where execute_flag =1 ; |  |
 | STEP 2 | - **Check that the replication gaps of the target nodes are all "0" (this means the DB where the replication sender is driven)**<br>- Check the replication object to which the target table for DDL execution belongs<br>          - iSQL> select REPLICATION_NAME,LOCAL_USER_NAME, LOCAL_TABLE_NAME from SYSTEM_.SYS_REPL_ITEMS_;<br>- Check the replication gap<br>- iSQL> SELECT rep_name, rep_gap FROM v$repgap; # Check that rep_gap is all 0. |  |
 | STEP 3 | - **Stop the replication of target node**<br>    - iSQL> ALTER REPLICATION *rep_name* STOP; # The replication object (REP_NAME) is checked in STEP 2. |  |
 | STEP 4 | - **Remove the target table to execute DDL from the replication object**<br>    - iSQL> ALTER REPLICATION *rep_name* DROP TABLE FROM *user_name.table_name* TO *user_name.table_name*; |  |
@@ -59,7 +57,7 @@ In an environment where all services accessing the database can be stopped for a
 
 In an environment that requires uninterrupted service, there may be a limitation that one node must alternately work one node at a time while operating the database.
 
-Under these conditions, compared to the environment in which service disruption described above is possible, several steps are required and caution may be required.
+Under these conditions, more steps are required than in an environment where service interruption is allowed, and extra caution may be required.
 
-- Please refer to the DDL guide document of the ALTIBASE replication environment.
-- Get technical support from ALTIBASE Technical Support Division (Service Portal:[http://support.altibase.com](http://support.altibase.com)[/en/](http://support.altibase.com/en/), TEL +82-2-2082-1114)
+- For details, refer to the manual for your Altibase version at [http://support.altibase.com/kr/manual](http://support.altibase.com/kr/manual).
+- Get technical support from the ALTIBASE Technical Support Division. Service portal: [http://support.altibase.com](http://support.altibase.com), TEL +82-2-2082-1114.

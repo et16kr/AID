@@ -24,7 +24,7 @@ The jdbc.trc file is a log file created for JDBC-related traces, and is automati
 
 If fail-over is specified in the connection URL, it is also used for event trace when fail-over occurs.
 
-If fail-over is not specified in the connection url, or fail-over does not occur, it is 0 byte to the default value.
+If fail-over is not specified in the connection URL, or fail-over does not occur, the file remains 0 bytes or at its initial size.
 
 File size varies slightly from platform to platform.
 
@@ -48,7 +48,9 @@ If the ALTIBASE_HOME environment variable is set in the client environment, it i
 
 Sometimes, if the user does not have write permission in the directory where the jdbc.trc file is created, the following error may occur in the application due to file creation failure.
 
-[java.io](http://java.io).IOException: Couldn't get lock for /opt/altibase-HDB-server-6.1.1/trc/jdbc.trc
+```
+java.io.IOException: Couldn't get lock for /opt/altibase-HDB-server-6.1.1/trc/jdbc.trc
+```
 
 If the above error occurs, give permission to the directory or set the ALTIBASE_HOME environment variable to an appropriate location.
 
@@ -59,5 +61,5 @@ If the above error occurs, give permission to the directory or set the ALTIBASE_
 | ALTIBASE HDB Version | How to change the jdbc.trc log creation location |
 | --- | --- |
 | version 6.1.1.1.3 or earlier | Not available |
-| version 6.1.1.1.4 ~ 6.1.1.1.7 | Can be set as an option when running java<br>java -D**ALTIBASE_JDBC_TRCLOG_DISABLE=true** |
-| version 6.1.1.1.8 or later | Set option when running java<br>java -D**ALTIBASE_JDBC_TRCLOG_DISABLE=true**<br>Or<br>Set as an environment variable of the java execution user<br>export **ALTIBASE_JDBC_TRCLOG_DISABLE=true** |
+| version 6.1.1.1.4 ~ 6.1.1.1.7 | Can be set as an option when running Java.<br>`java -DALTIBASE_JDBC_TRCLOG_DISABLE=true` |
+| version 6.1.1.1.8 or later | Set an option when running Java.<br>`java -DALTIBASE_JDBC_TRCLOG_DISABLE=true`<br>Or set it as an environment variable for the Java execution user.<br>`export ALTIBASE_JDBC_TRCLOG_DISABLE=true` |

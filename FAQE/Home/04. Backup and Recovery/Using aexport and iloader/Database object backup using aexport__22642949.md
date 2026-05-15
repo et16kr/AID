@@ -20,7 +20,7 @@ Updated: 2025-10-20T15:26:59.000+0900
 
 Change the values of the following settings in the aexport.properties file.
 
-- ILOADER_FILED_TERM
+- ILOADER_FIELD_TERM
 - ILOADER_ROW_TERM
 
 ILOADER_FIELD_TERM stands for field separator, and ILOADER_ROW_TERM stands for record separator.
@@ -35,7 +35,7 @@ $ grep TERM aexport.properties
 #ILOADER_ROW_TERM = %n
 ```
 
-If it is set as the default as above, it's a bit complicated, but change it as follows.
+If the default values above are used, change them to more distinctive separator values as follows.
 
 **Change separator property setting value**
 
@@ -64,7 +64,7 @@ The data download/upload script using iloader contains iloader commands. iloader
 
 The above setting means field separator and row separator, respectively, and the default values are simply set. If this setting value is included in the character data type column, data may not be uploaded normally when uploading data.
 
-Therefore, it is recommended to set this setting value rather complicated.
+Therefore, it is recommended to use distinctive separator values that are unlikely to appear in character data.
 
 ## Executing aexport
 
@@ -174,7 +174,7 @@ When aexport is executed, .sh (.bat for Windows system) files and .sql files are
 
 The .sql files contain the syntax for creating database objects and are scripts that execute .sh files to .sql files at once.
 
-(**Note:** The number of `.sh` files may vary depending on the supported objects for each Altibase version.
+(**Note:** The number of `.sh` files may vary depending on the supported objects for each Altibase version.)
 
 ```
 -------------------------------------------------------

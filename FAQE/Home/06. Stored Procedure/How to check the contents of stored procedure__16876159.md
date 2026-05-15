@@ -20,7 +20,7 @@ Updated: 2021-04-05T09:48:26.000+0900
 
 ---
 
-This document describes how to check the contents of the stored procedure.
+This document describes how to check the contents of stored procedures.
 
 # Version
 
@@ -41,11 +41,11 @@ There are two ways to check the contents of the stored procedure.
 
 ---
 
-After creating a user-defined procedure using the meta tables SYSTEM_.SYS_PROCEDURES_, SYSTEM_.SYS_PROC_PARSE_, use this to check the contents of the stored procedure.
+After creating user-defined helper procedures that use the `SYSTEM_.SYS_PROCEDURES_` and `SYSTEM_.SYS_PROC_PARSE_` meta tables, use them to check stored procedure contents.
 
 ### How to create a custom procedure
 
-- **Stored Procedure for User-Defined Function Output**
+- **Stored procedure for listing stored procedures and user-defined functions**
 
   ```
   -- Output stored procedure and user-defined function names to the screen.
@@ -82,7 +82,7 @@ After creating a user-defined procedure using the meta tables SYSTEM_.SYS_PROCED
 - **Stored procedure to check the contents of the stored procedure**
 
   ```
-   -- Output the contents of the specified stored procedure on the screen.
+  -- Output the contents of the specified stored procedure on the screen.
   -- EXEC showProcBody('USER_NAME', 'PROCEDURE_NAME');
   CREATE OR REPLACE PROCEDURE showProcBody(p1 IN VARCHAR(40), p2 IN VARCHAR(40))
   AS
@@ -125,7 +125,9 @@ After creating a user-defined procedure using the meta tables SYSTEM_.SYS_PROCED
   ```
 - **Check the contents of the stored procedure**
 
+  ```
   iSQL> exec showProcBody('*USER_NAME*', '*PROC_NAME*');
+  ```
 
 ## Using the aexport utility
 
@@ -153,10 +155,10 @@ aexport is a utility that saves database object creation statements to a file. A
   -----------------------------------------------------------------
   Write Server Name (default:127.0.0.1) :                    # Enter the Altibase server IP
   Write UserID : sys                                                         # Enter sys
-  Write Password :                                                          # Enter Altibase server IP sys user password
+  Write Password :                                                          # Enter the sys user's password
   ##### TBS #####
   ##### User #####
-  ** input user USER1's password (default - same with USER_NAME):     # 사용자 패스워드 입력.
+  ** input user USER1's password (default - same with USER_NAME):     # Enter the user password.
   ** input user EHEE's password (default - same with USER_NAME):
   ** input user ALTITEST's password (default - same with USER_NAME):
   ##### Synonym #####
@@ -188,13 +190,13 @@ aexport is a utility that saves database object creation statements to a file. A
 ### Execute aexport for each user
 
 - If the user executes aexport after entering the database user name in the -u option of aexport and the password of the user in the -p option, only the object schema owned by the user is extracted.
-- For the stored procedure information, refer to the ALL_CRT_PROC.sql file.
+- For stored procedure contents, refer to the `ALL_CRT_PROC.sql` file.
 - How to execute
 
   ```
   $ aexport -u user_name -p user_password -s Altibase_Server_IP
 
-  Or,
+  Or
 
   $ aexport
   Write Server Name (default:127.0.0.1) :     # Enter the Altibase server IP
@@ -204,15 +206,15 @@ aexport is a utility that saves database object creation statements to a file. A
 
 ### Execute aexport for each object
 
-- The object option allows extracting only specific object schemas. **This option is available as of ALTIBASE HDB version 5.5.1 or later.**
-- For stored procedures, values can be given in the format -object user name.procedure name.
-- As a result, a file with a name in the form of user name_procedure name_CRT.sql is created.
+- The `object` option allows extracting only specific object schemas. **This option is available starting from ALTIBASE HDB version 5.5.1.**
+- For stored procedures, specify the value in the format `-object user_name.procedure_name`.
+- As a result, a file with a name in the form `user_name_procedure_name_CRT.sql` is created.
 - How to execute
 
   ```
   $ aexport -s Altibase_Server_IP  -u user_name -p user_password -object user_name.procedure_name
 
-  또는
+  Or
 
   $ aexport -object user_name.procedure_name
   Write Server Name (default:127.0.0.1) :       # Enter the Altibase server IP

@@ -23,7 +23,7 @@ Updated: 2021-04-05T09:35:15.000+0900
 For users who are new to replication, this document explains how to create and delete replication objects.
 
 - This document is written assuming that the user has completed the preliminary operation for replication structure or configuration.
-- This document is written assuming that the data is consistent between the target servers for replication. Either all of the data exist the same, or both are zero.
+- This document is written assuming that the data is consistent between the target servers for replication. Either all data is identical on both servers, or both servers have zero rows.
 
 # Version
 
@@ -36,7 +36,7 @@ Altibase version 4.3.9 or later
 ---
 
 - Dedicated IP for replication
-  It is recommended to use a dedicated line separate from the service network for the IP to be used for replication.
+  It is recommended to use a dedicated network separate from the service network for the IP address used for replication.
 - Replication service port
   Set the service port number for replication. It can be arbitrarily set by the user, and 30300 is generally used.
 - Select the target table for replication
@@ -64,9 +64,11 @@ Altibase version 4.3.9 or later
 
 - Replication is enabled by changing the value of the Altibase server property REPLICATION_PORT_NO.
 - The REPLICATION_PORT_NO property also means the port number to be used between replication threads.
-- The port number is not used by the server and is arbitrarily assigned by the user, and 30300 is also used in general.
+- The port number must not already be used by the server. The user can assign it arbitrarily, and `30300` is commonly used.
 
 1. Check if the replication port specified by the user is in use on the replication target server.
+
+  If `LISTEN` is shown, the port is already used by another process and cannot be used as the replication port.
 
   ```
   # Example of execution when the replication port, REPLICATION_PORT_NO is set to 30300
@@ -87,7 +89,7 @@ Altibase version 4.3.9 or later
   $ server restart
   ```
 
-  ![grey_arrow_down.png](https://docs.altibase.com/images/icons/grey_arrow_down.png)Click here to expand...
+  ![grey_arrow_down.png](https://docs.altibase.com/images/icons/grey_arrow_down.png)If you need to block application access during replication object creation
 
   In order to block access to the application during the process of creating a replication object, change the Altibase server service port and restart it.
 
@@ -121,19 +123,19 @@ Altibase version 4.3.9 or later
 - Two servers to be replicated are paired.
 - Replication objects must each be created with the same object name on the paired replication server.
 
-  **For creating replicaiton object**
+  **Syntax for creating replication objects**
 
   ```
   CREATE REPLICATION replication_name                   -- Define the name of the replication object.
   WITH remote_host_ip, remote_replication_port_no       -- In the WITH clause, specify the IP and PORT of the remote server to be paired with.
-  FROM user_name.table_name TO user_name.table_name,    -- List the tables to be duplicated in the FROM ~ TO clause.
+  FROM user_name.table_name TO user_name.table_name,    -- List the tables to be replicated in the FROM ~ TO clause.
   FROM ...
   ;
   ```
 - Refer to Replication Manual -> 3. Using Replication -> Create Replication (CREATE REPLICATION) for additional options of the replication object creation syntax.
 - Manual page: [http://support.altibase.com/en/manual](http://support.altibase.com/en/manual)
 
-![grey_arrow_down.png](https://docs.altibase.com/images/icons/grey_arrow_down.png)Procedure for creating replication objects-Example 1 (when there are 2 replication target servers)
+![grey_arrow_down.png](https://docs.altibase.com/images/icons/grey_arrow_down.png)Procedure for creating replication objects - Example 1 (when there are 2 replication target servers)
 
 This is an example of creating a replication object when the conditions for creating a replication object are as follows.
 
@@ -200,14 +202,12 @@ This is an example of creating a replication object when the conditions for crea
 
 ![grey_arrow_down.png](https://docs.altibase.com/images/icons/grey_arrow_down.png)Procedure for creating replication objects-Example 2 (when there are 3 replication target servers)
 
-This is an example of creating a replication object when the conditions for creating a redundant replication are as follows.
+This is an example of creating replication objects when the replication target servers are as follows.
 
-- The target servers for replication are A, B, and C
-  A is B, C and
-  B is A, C and
-  C synchronizes with A and B with each other.
-- The name of the replication object is determined as follows. -REP_A_B for servers A and B -REP_B_C for servers B and C -REP_C_A for A and C servers
-- The IP address and replication port number of each server are as follows. -Server A: 192.168.1.112, 30300 -Server B: 192.168.1.113, 30300 -Server C: 192.168.1.114, 30300
+- The replication target servers are A, B, and C.
+  A synchronizes with B and C, B synchronizes with A and C, and C synchronizes with A and B.
+- The replication object names are determined as follows: `REP_A_B` for servers A and B, `REP_B_C` for servers B and C, and `REP_C_A` for servers A and C.
+- The IP address and replication port number of each server are as follows: server A is `192.168.1.112:30300`, server B is `192.168.1.113:30300`, and server C is `192.168.1.114:30300`.
 
 ![%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-03-17%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2011.26.07.png](https://docs.altibase.com/download/attachments/embedded-page/FAQE/How%20to%20create/delete%20replication%20objects/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-03-17%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2011.26.07.png?api=v2)
 
@@ -301,13 +301,13 @@ This is an example of creating a replication object when the conditions for crea
 - The server that started the replication starts the replication sender thread, and the remote server paired with the server starts the receive thread.
 
 1. **Selecting the replication start server (active server)**
-  The server that starts the replication and the server that runs the replication sender refers to the server where the change transaction occurs and is also called the active server.
+  The server that starts replication and runs the replication sender is the server where change transactions occur, and is also called the active server.
   Among the replication target servers in a pair, the place where data change occurs is the active server, and the other server becomes the standby server.
   If a change transaction occurs on both servers and synchronizes in both directions, both servers become active servers.
 2. **Start of replication** The active server starts replication with the ALTER REPLICATION statement. replication_name is the name of the object created in the replication object creation step.
 
   ```
-  - The replication sender thread runs on the server that executes this command, and the receiver thread is runs on the remote server paired with the server.
+  -- The replication sender thread runs on the server that executes this command, and the receiver thread runs on the remote server paired with that server.
   iSQL> ALTER REPLICATION replication_name START;
   ```
 3. **Check the status of starting/running replication** This is a statement to check whether the replication sending thread (Sender) and receiving thread (Receiver) are running.
@@ -345,7 +345,7 @@ This is an example of creating a replication object when the conditions for crea
 This section describes how to delete replication objects.
 
 ```
-- Stop the replicaiton first.
+-- Stop replication first.
 iSQL> ALTER REPLICATION replication_name STOP;
 
 - Delete the replication object.
@@ -367,12 +367,12 @@ Here are some of the error messages that may occur during the process of creatin
 
 - This is an error message that may occur when executing the CREATE REPLICATION statement.
 - This occurs when there is no primary key in the replication target table specified in the FROM clause.
-- At the end of the error message, a primary key needs to be created in the table inside () and perform a duplicate object creation statement.
+- Create a primary key on the table shown in parentheses at the end of the error message, and then execute the replication object creation statement again.
 
 ### [ERR-6100D : [Sender] Failed to handshake with the peer server (Handshake Process Error)]
 
 - This is an error message that may occur when ALTER REPLICATION replication_name START is executed.
-- Check if the remote server's IP and redundancy port number entered in the WITH clause are correct, and that access to the corresponding IP and port is possible.
+- Check whether the remote server IP and replication port number entered in the `WITH` clause are correct, and whether the corresponding IP and port are reachable.
 
 # Reference Documents
 

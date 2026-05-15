@@ -20,7 +20,7 @@ Updated: 2021-04-05T09:30:16.000+0900
 
 ---
 
-Altibase replication had a limitation that the same IP address could not be used when creating multiple redundant objects.
+Altibase replication had a limitation that the same IP address could not be used when creating multiple replication objects.
 
 **Example of creating multiple replication objects whose IP and PORT of the remote server are 192.168.1.145, 30300**
 
@@ -32,7 +32,7 @@ iSQL> CREATE REPLICATION REP2 WITH '192.168.1.145', 30300 FROM ALTITEST.REP_TEST
 [ERR-6110C : Replication hosts already exist.]
 ```
 
-As a property added to Altibase version 6.5.1 or later, it is possible to create different redundant objects with the same host information without such restrictions.
+Starting from Altibase version 6.5.1, the `REPLICATION_ALLOW_DUPLICATE_HOSTS` property makes it possible to create different replication objects with the same host information.
 
 # Version
 
@@ -50,7 +50,7 @@ Altibase version 6.5.1 or later
 
 Check the value of the Altibase server property REPLICATION_ALLOW_DUPLICATE_HOSTS.
 
-The default value of this property is 0, which does not allow different objects to have the same host information.
+The default value of this property is `0`, which does not allow different replication objects to have the same host information.
 
 ```
 set linesize 1024
@@ -80,7 +80,7 @@ REPLICATION_ALLOW_DUPLICATE_HOSTS     = 1
 
 ---
 
-Create more than one duplicate object with the same host information.
+Create one or more replication objects with the same host information.
 
 **Example of creating multiple replication objects whose IP and PORT of the remote server are 192.168.1.145, 30300**
 

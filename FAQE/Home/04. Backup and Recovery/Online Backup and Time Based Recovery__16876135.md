@@ -20,9 +20,9 @@ Updated: 2021-04-05T09:43:08.000+0900
 
 ---
 
-This section explains how to perform Online Backup and Time Based Recovery, which can be performed when the Altibase server is operated in archive log mode.
+This document explains how to perform Online Backup and Time Based Recovery when the Altibase server is operated in archive log mode.
 
-Online Backup is not possible except in Archivelog Mode.
+Online Backup is not possible unless the database is running in Archivelog Mode.
 
 # Version
 
@@ -88,14 +88,14 @@ loganchor1
 2) In case of online backup for a specific tablespace unit
 
 ```
-iSQL(sysdba)> alter database backup tablespace SYS_TBS_MEM_DIC to ‘/backup_dir’;  // A stable version of the SYS_TBS_MEM_DIC data files is backed up online to the /backup_dir directory.
+iSQL(sysdba)> alter database backup tablespace SYS_TBS_MEM_DIC to '/backup_dir';  // A stable version of the SYS_TBS_MEM_DIC data files is backed up online to the /backup_dir directory.
 $ ls /backup_dirSYS_TBS_MEM_DIC-0-0
 ```
 
 3) Log anchor online backup
 
 ```
-iSQL(sysdba)> alter database backup loganchor to ‘/backup_dir’;  // All log anchor files are backed up online to the /backup_dir directory.
+iSQL(sysdba)> alter database backup loganchor to '/backup_dir';  // All log anchor files are backed up online to the /backup_dir directory.
 $ ls /backup_dir
 loganchor0 loganchor1 loganchor2
 ```
@@ -153,7 +153,7 @@ Database recovery procedure to the state of 10 minutes before the tablespace exi
 At the last backup, the entire DB was backed up as follows.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
 ```
 
 A. Copy the data files of all disk tablespaces of the backed up database to the original location of the data files.
@@ -189,7 +189,7 @@ $ cp /backup_dir/loganchor* /ALTIBASE_HOME/logs;
 3) Because the SYS_TBS_DISK_TEMP tablespace is not backed up, create a new one.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ‘temp001.dbf’
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf'
 ```
 
 4) Perform incomplete media recovery.
@@ -198,17 +198,17 @@ iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ‘temp001.dbf’
 iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE  UNTIL TIME '2015-07-23:14:01:00';
 ```
 
-Since the incomplete media recovery has performed, the resetlogs option must be used while going to the meta startup stage.
+Since incomplete media recovery has been performed, the `RESETLOGS` option must be used while moving to the `META` startup stage.
 
 ```
 iSQL(sysdba)> ALTER DATABASE mydb META RESETLOGS;
 ```
 
-5) Since the server was started and the log was reset, the entire database was backed up.
+5) Since the server has been started and the logs have been reset, back up the entire database.
 
 ```
 iSQL(sysdba)> ALTER DATABASE mydb SERVICE;
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
 ```
 
 # Reference

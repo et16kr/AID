@@ -20,7 +20,7 @@ Updated: 2021-04-05T09:42:18.000+0900
 
 ---
 
-This document describes how to recover by changing the directory path of major database files such as each data file inevitably after Cold Backup.
+This document describes how to recover a cold backup when the directory paths of major database files, such as data files, must be changed.
 
 # Version
 
@@ -32,9 +32,9 @@ ALTIBASE HDB version 4 or later
 
 ---
 
-When restoring using Cold Backup database files, if there is no change in the directory path, copy (cp) mydb* (memory db), *.dbf (disk db), logs, and loganchor to the corresponding directory, and then when starting B, DB can be restored to the point of backup.
+When restoring using cold-backup database files, if there is no directory path change, copy (`cp`) `mydb*` (memory DB), `*.dbf` (disk DB), `logs`, and `loganchor` to the corresponding directories. Starting the DB then restores it to the backup point.
 
-However, if the directory must be renamed inevitably, it is resolved by changing the directory path of each database file (memoryDB, logs, loganchor) and copying the file to the changed directory, but the disk DB must perform the renaming of the data file at the control stage.
+However, if the directory names must be changed, change the directory paths for the memory DB, logs, and loganchor files and copy the files to the changed directories. For disk DB data files, the data files must also be renamed in the `CONTROL` stage.
 
 # Directory path change procedure
 
@@ -52,7 +52,7 @@ MEM_DB_DIR          = /home/cheol2/altibase_home/dbs # Memory DB Directory
 
 DEFAULT_DISK_DB_DIR =/home/cheol2/altibase_home/dbs # Disk   DB Directory
 
-LOGANCHOR_DIR       =/home/cheol2/altibase_home/logs # LOGANCHOR_DIR1  // 로그앵커
+LOGANCHOR_DIR       =/home/cheol2/altibase_home/logs # LOGANCHOR_DIR1  // Log anchor
 LOGANCHOR_DIR       = /home/cheol2/altibase_home/logs # LOGANCHOR_DIR2
 LOGANCHOR_DIR       = /home/cheol2/altibase_home/logs # LOGANCHOR_DIR3
 

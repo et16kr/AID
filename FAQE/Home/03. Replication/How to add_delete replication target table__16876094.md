@@ -34,7 +34,9 @@ Altibase version 4.3.9 or later
 
 - This is the procedure for adding tables to be replicated in the replication object.
 
-1. **Stop the replication** Execute in the server where the replication sending thread is running. With the statement below, the replication sender of the local server and the receive thread of the remote server are stopped.
+1. **Stop the replication**
+
+  Execute this on the server where the replication sender thread is running. With the statement below, the local server's replication sender thread and the remote server's receiver thread are stopped.
 
   ```
   iSQL> ALTER REPLICATION replication_name STOP;
@@ -44,20 +46,32 @@ Altibase version 4.3.9 or later
   ```
 2. **Add the replication target table**
 
+  This statement adds a replication target table to the replication object. Execute it on each replication target server.
+
+  ```
+  iSQL> ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;
+  ```
+
+  Check whether the table was added to the replication object.
+
   ```
   iSQL> SELECT REPLICATION_NAME, LOCAL_USER_NAME, LOCAL_TABLE_NAME FROM SYSTEM_.SYS_REPL_ITEMS_;
   ```
-3. **SYNC the replication** If the data on both servers do not match, TRUNCATE one server table and then perform a SYNC statement on the server where the data exists to match the data. If the data matches on both servers 4, start the replication.
+3. **SYNC the replication**
+
+  If the data on both servers does not match, truncate the table on one server and then execute the `SYNC` statement on the server that has the data to make the data consistent. If the data already matches on both servers, proceed to step 4 and start replication.
 
   ```
   iSQL> ALTER REPLICATION replication_name SYNC ONLY TABLE user_name.table_name;
   ```
-4. **Start the replication** If the data on both servers match each other, execute the replication start statement.
+4. **Start the replication**
+
+  If the data on both servers matches, execute the replication start statement.
 
   ```
   iSQL> ALTER REPLICATION replication_name START;
 
-  -- Chcek the replication running status.
+  -- Check the replication running status.
   iSQL> SELECT REPLICATION_NAME, DECODE(IS_STARTED, 0, 'STOPPED', 1, 'STARTED') IS_STARTED FROM SYSTEM_.SYS_REPLICATIONS_;
   ```
 
@@ -67,25 +81,27 @@ Altibase version 4.3.9 or later
 
 - This is the procedure for deleting tables to be replicated in the replication object.
 
-1. **Stop the replication** Execute in the server where the replication sending thread is running. With the statement below, the replication sender of the local server and the receive thread of the remote server are stopped.
+1. **Stop the replication**
+
+  Execute this on the server where the replication sender thread is running. With the statement below, the local server's replication sender thread and the remote server's receiver thread are stopped.
 
   ```
   iSQL> ALTER REPLICATION replication_name STOP;
 
-  -- Chcek the replication running status.
+  -- Check the replication running status.
   iSQL> SELECT REPLICATION_NAME, DECODE(IS_STARTED, 0, 'STOPPED', 1, 'STARTED') IS_STARTED FROM SYSTEM_.SYS_REPLICATIONS_;
   ```
-2. Delete the replication target table
+2. **Delete the replication target table**
 
-  This is the statement for deleting the replication target table in the replication object in each of the replication target servers.
+  This statement deletes the replication target table from the replication object. Execute it on each replication target server.
 
   ```
-  iSQL> ALTER REPLICATION replication_name DROP TABLE user_name.table_name TO user_name.table_name;
+  iSQL> ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;
 
   -- Statement for checking the replication target table.
   iSQL> SELECT REPLICATION_NAME, LOCAL_USER_NAME, LOCAL_TABLE_NAME FROM SYSTEM_.SYS_REPL_ITEMS_;
   ```
-3. Start the replication
+3. **Start the replication**
 
   ```
   iSQL> ALTER REPLICATION replication_name START;

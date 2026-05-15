@@ -193,6 +193,31 @@ J007에서는 한국어 `faq`의 `01. 설치, 패치, 업그레이드` 4개 문�
 - 보안 점검, 컬럼 변경, SYS 패스워드 변경, OS/DB 시간 불일치, 클라이언트 설치 FAQ의 한국어 잔여 문구, 오탈자, 잘못된 링크를 영어 기술 문서 표현으로 정리했습니다.
 - J007 한국어 원문 범위의 URL-backed 문서형 첨부 URL은 0개였고, 대응 영어 문서에서 문서형 첨부 누락은 없었습니다.
 
+## J008 FAQ 이중화, 백업, SQL, Stored Procedures 및 개발/API 문서 추가 검토
+
+J008에서는 한국어 `faq`의 `03. 이중화` 8개 문서, `04. 백업 및 복구` 7개 문서, `05. SQL` 2개 문서, `06. Stored Procedures` 2개 문서, `07. 개발 및 API` 9개 문서를 영어 `FAQE`의 대응 핵심 카테고리 문서와 재비교했습니다. 한국어 원문을 기준으로 본문 절, 명령어, SQL, 설정값, 에러 코드, JDBC/ODBC/PHP 예제, 주의사항, 문서형 첨부 링크를 확인했습니다.
+
+비교 및 갱신 범위는 다음과 같습니다.
+
+| 한국어 기준 | 영어 갱신 문서 |
+| --- | --- |
+| `faq/Home/03. 이중화/*` | `FAQE/Home/03. Replication/*` |
+| `faq/Home/04. 백업 및 복구/*` | `FAQE/Home/04. Backup and Recovery/*` |
+| `faq/Home/05. SQL/*` | `FAQE/Home/05. SQL/*` |
+| `faq/Home/06. Stored Procedures/*` | `FAQE/Home/06. Stored Procedure/*` |
+| `faq/Home/07. 개발 및 API/*` | `FAQE/Home/07. Development and API/*` |
+
+주요 반영 내용은 다음과 같습니다.
+
+- 이중화 대상 테이블 추가/삭제 FAQ에서 누락되어 있던 `ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;` 구문을 복원하고, 삭제 구문의 `DROP TABLE FROM ... TO ...` 형식을 한국어 원문 기준으로 수정했습니다.
+- 이중화 모니터링 FAQ의 `NET_ERROR_FLAG`, `XSN`, Altibase 7 미만 `REP_GAP` 설명과 Altibase 7 이상 `rep_name` 설명에 남아 있던 한국어 문장을 영어로 정리했습니다.
+- 이중화 GIVE-UP FAQ의 `REPLICATION_MAX_LOGFILE` 설명, `GIVE_UP_TIME` 확인 표, 이중화 객체 생성/삭제 FAQ의 포트 `LISTEN` 확인 주의사항과 에러 메시지 조치 설명을 한국어 원문 의미에 맞게 보정했습니다.
+- `aexport`/`iloader`, Cold Backup, Online Backup, Time Based Recovery FAQ의 환경변수, 로그 확인 명령, `run_il_in.sh`, `RESETLOGS`, `LOGANCHOR_DIR`, 작은따옴표 등 명령/예제 표기를 검색 가능한 영어 문장과 코드로 정리했습니다.
+- Stored Procedure FAQ의 `SP_DML_RECORD_COUNT.txt` 첨부 링크를 보존하고, `SYSTEM_.SYS_PROCEDURES_`, `SYSTEM_.SYS_PROC_PARSE_`, `aexport -object user_name.procedure_name` 관련 설명의 한국어 잔여 문구를 제거했습니다.
+- JDBC Fail-Over FAQ에서 한국어 원문에 있는 CTF/STF 성공 여부 확인 기준(`08F01`, `ES_08FO01`)을 복원하고, 한 줄로 뭉개진 Java 샘플을 코드 블록으로 정리했습니다.
+- ODBC/PHP 개발 FAQ에서 `SELECT DB_NAME FROM V$DATABASE`, `SELECT NLS_CHARACTERSET FROM V$NLS_PARAMETERS`, `SQLFreeStmt`, `ALTIBASE_JDBC_TRCLOG_DISABLE`, unixODBC 라이브러리 경로, PHP `odbc.ini` 예제를 한국어 원문 의미에 맞게 보정했습니다.
+- J008 한국어 원문 범위의 URL-backed 문서형 첨부 3개(PDF 2개, ZIP 1개)가 대응 영어 문서에 보존되어 있음을 확인했고, Stored Procedure 예제 텍스트 첨부 1개도 영어 문서에 링크로 보존했습니다.
+
 ## 검토 범위
 
 | 구분 | 한국어 기준 문서 | 영어 대상 문서 | 결과 |
@@ -286,6 +311,11 @@ J007에서는 한국어 `faq`의 `01. 설치, 패치, 업그레이드` 4개 문�
 | J007 핵심 항목 grep | `altibased`, `MEM_MAX_DB_SIZE`, `SYS_TBS_MEM_DATA`, `V$MEMSTAT`, `LOG_DIR`, `ARCHIVE_DIR`, `Restart Altibase` 확인 |
 | J007 갱신 문서 stale-string grep | 한국어 잔여 문구, `Unknown macro`, 깨진 `PATH` 링크, 알려진 오탈자 패턴 재검출 0건 |
 | J007 manifest 메타데이터 대조 | 갱신된 `FAQE` 문서 16개 확인, 불일치 0건 |
+| J008 FAQ 대응 문서 대조 | 이중화 8개, 백업/복구 7개, SQL 2개, Stored Procedures 2개, 개발/API 9개 대응 확인, 누락 0개 |
+| J008 문서형 첨부 URL 대조 | 범위 내 URL-backed 문서형 첨부 3개 및 텍스트 샘플 첨부 1개 확인, 누락 0개 |
+| J008 핵심 항목 grep | `ALTER REPLICATION replication_name ADD TABLE`, `DROP TABLE FROM`, `REPLICATION_MAX_LOGFILE`, `SP_DML_RECORD_COUNT.txt`, `08F01`, `ES_08FO01`, `SELECT DB_NAME FROM V$DATABASE`, `SQLLEN Size` 확인 |
+| J008 갱신 문서 stale-string grep | 한국어 잔여 문구, 깨진 `libaltibase_odbc` 링크, `SELECT_DB_NAME`, `run_il_int.sh`, `Error rendering macro`, `thㅅ`, 비ASCII 인용부호 패턴 재검출 0건 |
+| J008 manifest 메타데이터 대조 | 갱신된 `FAQE` 문서 확인, 불일치 0건 |
 
 ## 결론
 

@@ -38,4 +38,4 @@ Execute success.
 
 IE users
 
-Copying the procedure creation statement in IE may create a blank space, so please use the attached file if necessary. SP_DML_RECORD_COUNT.txt
+Copying the procedure creation statement in IE may insert blank spaces. Use the attached file if necessary: [SP_DML_RECORD_COUNT.txt](https://docs.altibase.com/download/attachments/8454526/SP_DML_RECORD_COUNT.txt?version=1&modificationDate=1421821636000&api=v2)
