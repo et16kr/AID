@@ -171,6 +171,28 @@ J006에서는 한국어 `DOCK`의 Altibase 개발가이드, SQL 튜닝, Oracle/M
 - GeoServer 문서의 레이어 미리보기 절, SQuirrel 문서의 JDBC driver registration 제목 및 tab 설명, Development Guide trace/error 절의 한국어 잔여 문구를 영어로 정리했습니다.
 - J006 한국어 원문 문서의 URL-backed 문서형 첨부 URL 6개가 대응 영어 문서에 보존되어 있는지 확인했고 누락은 없었습니다.
 
+## J007 FAQ 설치, 운영 및 관리 문서 추가 검토
+
+J007에서는 한국어 `faq`의 `01. 설치, 패치, 업그레이드` 4개 문서와 `02. 운영 및 관리` 28개 문서를 영어 `FAQE`의 대응 핵심 카테고리 문서와 재비교했습니다. 한국어 원문을 기준으로 본문 절, 명령어, SQL, 설정값, 운영 절차, 주의사항, 문서형 첨부 링크를 확인했습니다.
+
+비교 및 갱신 범위는 다음과 같습니다.
+
+| 한국어 기준 | 영어 갱신 문서 |
+| --- | --- |
+| `faq/Home/01. 설치, 패치, 업그레이드/*` | `FAQE/Home/01. Installation, Patch, Upgrade/*` |
+| `faq/Home/02. 운영 및 관리/*` | `FAQE/Home/02. Operation and Management/*` |
+
+주요 반영 내용은 다음과 같습니다.
+
+- Linux 자동 시작 FAQ에서 Red Hat 계열 v6 이하용 `altibased` 스크립트 본문과 `chkconfig` 등록 절차를 한국어 원문 기준으로 영어 문서에 복원했습니다.
+- Solaris/HP-UX 자동 시작 FAQ의 깨진 표 내보내기 형태, `Unknown macro`, 잘못된 `PATH` 링크를 검색 가능한 쉘 코드 블록으로 정리했습니다.
+- `MEM_MAX_DB_SIZE` FAQ에 대상 버전, 재구동 필요 조건, 체크포인트 이미지 파일 크기 관련 startup 오류와 조치, 관련 링크를 한국어 원문 기준으로 추가했습니다.
+- `TRANSACTION_TABLE_SIZE` FAQ에 오프라인 변경 가능 버전의 의미, `V$MEMSTAT` 메모리 사용량 상세 표, `BUG-31862` 참고 링크를 반영했습니다.
+- IPC 설정, 로그앵커/온라인 로그/아카이브 로그/Double Write 파일 경로 변경, 테이블스페이스 데이터 파일 경로 변경 문서의 SQL, 프로퍼티명, 주석, 표 헤더, 운영 절차 설명을 한국어 원문 의미에 맞게 보정했습니다.
+- `JOB` 객체 생성 FAQ에 JOB interval이 프로시저 수행 시간보다 길어야 한다는 주의사항을 복원하고, 깨진 매뉴얼 링크를 정리했습니다.
+- 보안 점검, 컬럼 변경, SYS 패스워드 변경, OS/DB 시간 불일치, 클라이언트 설치 FAQ의 한국어 잔여 문구, 오탈자, 잘못된 링크를 영어 기술 문서 표현으로 정리했습니다.
+- J007 한국어 원문 범위의 URL-backed 문서형 첨부 URL은 0개였고, 대응 영어 문서에서 문서형 첨부 누락은 없었습니다.
+
 ## 검토 범위
 
 | 구분 | 한국어 기준 문서 | 영어 대상 문서 | 결과 |
@@ -259,6 +281,11 @@ J006에서는 한국어 `DOCK`의 Altibase 개발가이드, SQL 튜닝, Oracle/M
 | J006 핵심 항목 grep | `MigrationCenter can be downloaded`, `PSM_PARAM_AND_RETURN_WITHOUT_PRECISION_ENABLE`, `docker build [OPTIONS]`, `docker run [OPTIONS]`, `Altibase JDBC Driver Registration`, `Layer Preview` 확인 |
 | J006 갱신 문서 stale-string grep | 한국어 잔여 문구, Docker 명령/출력 결합 패턴 재검출 0건 (`Registeration`은 원본 source URL과 이미지 경로에만 보존) |
 | J006 manifest 메타데이터 대조 | 갱신된 `arch` 문서 11개 확인, 불일치 0건 |
+| J007 FAQ 대응 문서 대조 | 설치/패치/업그레이드 4개, 운영/관리 28개 대응 확인, 누락 0개 |
+| J007 문서형 첨부 URL 대조 | 설치/운영 FAQ 범위 URL-backed 문서형 첨부 0개 확인, 누락 0개 |
+| J007 핵심 항목 grep | `altibased`, `MEM_MAX_DB_SIZE`, `SYS_TBS_MEM_DATA`, `V$MEMSTAT`, `LOG_DIR`, `ARCHIVE_DIR`, `Restart Altibase` 확인 |
+| J007 갱신 문서 stale-string grep | 한국어 잔여 문구, `Unknown macro`, 깨진 `PATH` 링크, 알려진 오탈자 패턴 재검출 0건 |
+| J007 manifest 메타데이터 대조 | 갱신된 `FAQE` 문서 16개 확인, 불일치 0건 |
 
 ## 결론
 

@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/How+to+change+sys+user+password
 Updated: 2023-05-25T21:42:54.000+0900
 
-- [Overview](#Howtochangesysuserpassword-Overview) - [Version](#Howtochangesysuserpassword-Version) - [Procedure](#Howtochangesysuserpassword-Procedure) - [1. Execute the alter user command](#Howtochangesysuserpassword-1.Executethealterusercommand) - [2. Execute altipasswrd](#Howtochangesysuserpassword-2.Executealtipasswrd) - [3. Modify the script containing the sys password](#Howtochangesysuserpassword-3.Modifythescriptcontainingthesyspassword) - [Solution](#Howtochangesysuserpassword-Solution) - [What to do if an "Invalid password" error occurs when starting the server](#Howtochangesysuserpassword-Whattodoifan"Invalidpassword"erroroccurswhenstartingtheserver)
+- [Overview](#Howtochangesysuserpassword-Overview) - [Version](#Howtochangesysuserpassword-Version) - [Procedure](#Howtochangesysuserpassword-Procedure) - [1. Execute the alter user command](#Howtochangesysuserpassword-1.Executethealterusercommand) - [2. Execute altipasswd](#Howtochangesysuserpassword-2.Executealtipasswd) - [3. Modify the script containing the sys password](#Howtochangesysuserpassword-3.Modifythescriptcontainingthesyspassword) - [Solution](#Howtochangesysuserpassword-Solution) - [What to do if an "Invalid password" error occurs when starting the server](#Howtochangesysuserpassword-Whattodoifan"Invalidpassword"erroroccurswhenstartingtheserver)
 
 # Overview
 
@@ -44,7 +44,7 @@ Connect to the Altibase server as the sys user and change the password with the 
 ALTER USER sys IDENTIFIED BY "new_password";
 ```
 
-## 2. Execute altipasswrd
+## 2. Execute altipasswd
 
 ---
 

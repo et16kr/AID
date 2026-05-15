@@ -20,7 +20,7 @@ Updated: 2021-03-03T14:38:03.000+0900
 
 ---
 
-Starting from Altibase HDB version 5.3.3 or later, the column type and length of a table can be modified by using the ALTER TALBE ~ MODIFY COLUMN ~ statements.
+Starting from Altibase HDB version 5.3.3 or later, the column type and length of a table can be modified by using the ALTER TABLE ~ MODIFY COLUMN ~ statements.
 
 # Statement
 
@@ -50,12 +50,12 @@ If used incorrectly, the column modify command may cause a load on the DB depend
 
 1. **Cannot reduce the column size below the original size**
 2. **If the data type of a column is changed, data loss may occur depending on the data type. If the user wants to change the data type at the expense of this data loss, the TOLERATE DATA LOSS option can be used.**
-3. **When operating with the target table for replication, it must follow the DDL operation procedure in a replication environment. Please refer to the DDL procedure for the Altibase replication target table.**
+3. **When operating on a replication target table, follow the DDL operation procedure for a replication environment. Refer to [DDL operation on the table for Altibase replication](https://docs.altibase.com/display/FAQE/DDL+operation+on+the+table+for+Altibase+replication).**
 4. **If there are many rows in the target table, there may be a delay in operating time and an increase in usage of the logs area.**
 
 When modifying columns, if the table to be changed is a memory table and the current ALTIBASE version is 5.3.3, it is created in the memory table as a copy table for restoration.
 
-In order words, there must be room for memory tablespaces. (For reference, in version 6.1.1, the copy table is saved as a disk tablespace, so if there are only a tablespace and a disk space, it is operatable.)
+In other words, there must be room in the memory tablespace. For reference, in version 6.1.1, the copy table is saved in a disk tablespace, so the operation is possible as long as the required tablespace and disk space are available.
 
 As recommended by ALTIBASE, if the target table is a memory table, backup is performed with an iloader operation, then a new target table is created and data is imported.
 

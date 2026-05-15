@@ -46,7 +46,12 @@ In HP-UX, script files that are executed during system boot/shutdown are managed
 
   The contents of this file are shown below.
 
-  ALTIBASE_HOME=/altibase/altibase_home; export ALTIBASE_HOME PATH=$ALTIBASE_HOME/[bin:/usr/bin:/sbin](http://bin/usr/bin:/sbin); export PATH ALTIBASE_OWNER=altibase START_ALTIBASE=1
+  ```
+  ALTIBASE_HOME=/altibase/altibase_home; export ALTIBASE_HOME
+  PATH=$ALTIBASE_HOME/bin:/usr/bin:/sbin; export PATH
+  ALTIBASE_OWNER=altibase
+  START_ALTIBASE=1
+  ```
 
   If the user does not want to automatically start Altibase when booting HP-UX, set the value of START_ALTIBASE to 0. And if ALTIBASE_OWNER or ALTIBASE_HOME is changed, modify the altibase_conf file must be also modified.
 - ## STEP 2

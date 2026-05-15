@@ -98,7 +98,9 @@ The reason for checking whether the procedure is normally executed is to exclude
 
 Create a JOB object.
 
-The stored procedure to be executed, execution time, and execution cycle can be set in the JOB object. For the statement of creating a JOB object, refer to the SQL Reference manual. (Manual download page: [http://support.altibase.com/en/manual](http://support.altibase.com/en/manual) or [https://github.com/ALTIBASE/Documents/tree/master/Manuals/](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Altibase_7.1/eng))
+The stored procedure to be executed, execution time, and execution cycle can be set in the JOB object. It is recommended to set the JOB interval longer than the execution time of the procedure executed by the JOB. Otherwise, JOB execution can be delayed.
+
+For the statement of creating a JOB object, refer to the SQL Reference manual. (Manual download page: [http://support.altibase.com/en/manual](http://support.altibase.com/en/manual) or [https://github.com/ALTIBASE/Documents/tree/master/Manuals/](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Altibase_7.1/eng))
 
 ```
 CREATE JOB job1
@@ -285,4 +287,4 @@ The following are manuals for the description of the task scheduler.
 - General Reference> 2. ALTIBASE HDB Properties> Other Properties
 - General Reference> 3. Data Dictionary> SYS_JOBS_
 
-- Manual Download Page: [http://support.altibase](http://support.altibase)[.com/en/manual](http://support.altibase.com/en/manual) or [https://github.com/ALTIBASE/Documents/tree/master/Manuals/](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Altibase_7.1/eng)
+- Manual Download Page: [http://support.altibase.com/en/manual](http://support.altibase.com/en/manual) or [https://github.com/ALTIBASE/Documents/tree/master/Manuals/](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Altibase_7.1/eng)

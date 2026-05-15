@@ -83,20 +83,20 @@ Copy the file which path you want to change to the new path and change the prope
   Find the LOGANCHOR_DIR property in the $ALTIBASE_HOME/conf/altibase.properties file and change it to a new path.
 - ### Online log file
 
-  The online log file name format is logfile#.Copy all files starting with logfile from the path located in the LOG_DIR property to the new path.
+  The online log file name format is `logfile#`. Copy all files starting with `logfile` from the path located in the `LOG_DIR` property to the new path.
 
-  Find the LOGANCHOR_DIR property in the $ALTIBASE_HOME/conf/altibase.properties file and change it to a new path.
+  Find the `LOG_DIR` property in the `$ALTIBASE_HOME/conf/altibase.properties` file and change it to a new path.
 - ### Archive log file
 
-  The Archive log file name format is logfile#.Copy all files starting with logfile from the path located in the ARCHIVE_DIR property to the new path.
-  Find the LOGANCHOR_DIR property in the $ALTIBASE_HOME/conf/altibase.properties file and change it to a new path.
+  The archive log file name format is `logfile#`. Copy all files starting with `logfile` from the path located in the `ARCHIVE_DIR` property to the new path.
+  Find the `ARCHIVE_DIR` property in the `$ALTIBASE_HOME/conf/altibase.properties` file and change it to a new path.
 - ### Double Write file
 
-  The Double Lite file name format is *.dwf.Copy all files ending in *.dwf from the path located in the DOUBLE_WRITE_DIRECTORY property to the new path.
-  Find the DOUBLE_WRITE_DIRECTORY property in the $ALTIBASE_HOME/conf/altibase.properties file and change it to a new path.
+  The Double Write file name format is `*.dwf`. Copy all files ending in `*.dwf` from the path located in the `DOUBLE_WRITE_DIRECTORY` property to the new path.
+  Find the `DOUBLE_WRITE_DIRECTORY` property in the `$ALTIBASE_HOME/conf/altibase.properties` file and change it to a new path.
 - ### File type properties and file name format table
 
-  | 파일 종류 | Property | File name format |
+  | File type | Property | File name format |
   | --- | --- | --- |
   | Log anchor | LOGANCHOR_DIR | loganchor0<br>loganchor1<br>loganchor2 |
   | Online log file | LOG_DIR | logfile*#* |

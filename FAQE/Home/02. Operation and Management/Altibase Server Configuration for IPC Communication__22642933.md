@@ -20,7 +20,7 @@ Updated: 2025-10-20T15:16:57.068+0900
 
 ---
 
-There are four communication methods between the database server and client provided by ALTIBASE HDB. Among these, this document describes the ALTIBASE HDB and OS configurations required for IPC communication.
+ALTIBASE HDB provides the following communication methods between the database server and clients. Among these, this document describes the ALTIBASE HDB and OS configurations required for IPC communication.
 
 - TCP/IP
 - Unix Domain Socket
@@ -77,7 +77,7 @@ ALTIBASE HDB server versions prior to 5.5.1.4.2 cannot change the default path a
 
 - The default setting of ALTIBASE HDB server version 4.3.9
   The location and name of the Unix domain socket file is $ALTIBASE_HOME/trc/alti-ipc.
-- The default setting of ALTIBASE HDB server version 4.3.9 or later and earlier than 5.5.1.4.2
+- The default setting of ALTIBASE HDB server versions later than 4.3.9 and earlier than 5.5.1.4.2
   The location and name of the Unix domain socket file is $ALTIBASE_HOME/trc/cm-ipc.
 
 ### How to change properties
@@ -97,7 +97,7 @@ ALTIBASE HDB server versions prior to 5.5.1.4.2 cannot change the default path a
 
   ```
   $ is
-  iSQL> SELECT NAME, MEMORY_VALUE1 FROM X$PROPERTY WHERE NAME IN ('IPC_FILEPATH', 'IPC_CHANNEL_COUNT', 'IPC_FILEPATH');
+  iSQL> SELECT NAME, MEMORY_VALUE1 FROM X$PROPERTY WHERE NAME IN ('IPC_FILEPATH', 'IPC_CHANNEL_COUNT');
   ```
 4. Testing IPC connection Try to test the iSQL connection with the IPC type.
 
@@ -110,7 +110,7 @@ ALTIBASE HDB server versions prior to 5.5.1.4.2 cannot change the default path a
        Copyright 2000, ALTIBASE Corporation or its subsidiaries.
        All Rights Reserved.
   -----------------------------------------------------------------
-  ISQL_CONNECTION = IPC, SERVER = localhost                                  # ISQL_CONNECTION = IPC 으로 나오고 iSQL 프롬프트가 떠야 IPC 접속 성공
+  ISQL_CONNECTION = IPC, SERVER = localhost                                  # IPC connection succeeds when ISQL_CONNECTION = IPC appears and the iSQL prompt is displayed.
   iSQL>
   ```
 
@@ -122,9 +122,9 @@ Shared memory and semaphore resources are used for IPC communication. Therefore,
 
 Please refer to the documents below depending on the OS. There is no recommended configurations for AIX and Windows.
 
-- Linux: [Linux Setup Guide for Altibase](https://aid.altibase.com/display/arch/Linux+Setup+Guide+for+Altibase)
-- SunOS: [HPUX Setup Guide for Altibase](https://docs.altibase.com/display/arch/HPUX+Setup+Guide+for+Altibase)
-- HP-UX: [Solaris Setup Guide for Altibase](https://aid.altibase.com/display/arch/Solaris+Setup+Guide+for+Altibase)
+- Linux: [Linux Setup Guide for Altibase](https://docs.altibase.com/display/arch/Linux+Setup+Guide+for+Altibase)
+- SunOS: [Solaris Setup Guide for Altibase](https://docs.altibase.com/display/arch/Solaris+Setup+Guide+for+Altibase)
+- HP-UX: [HPUX Setup Guide for Altibase](https://docs.altibase.com/display/arch/HPUX+Setup+Guide+for+Altibase)
 
 # How the application communicates
 

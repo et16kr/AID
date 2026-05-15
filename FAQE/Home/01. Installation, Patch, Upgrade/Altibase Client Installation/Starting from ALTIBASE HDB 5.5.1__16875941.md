@@ -30,7 +30,7 @@ Updated: 2021-04-02T10:43:41.000+0900
 ---
 
 - Download the client installation file from [http://support.altibase.com/en/product](http://support.altibase.com/en/product)
-- If you do not have the version of the client you want to install, please request it through the Customer Service -> Request Technical Support menu at +82-2-2082-1114 or [http://support.altibase.com/en/](http://support.altibase.com/kr/).
+- If you do not have the version of the client you want to install, please request it through the Customer Service -> Request Technical Support menu at +82-2-2082-1114 or [http://support.altibase.com/en/](http://support.altibase.com/en/).
 
 # Upload Altibase Client Installation File
 

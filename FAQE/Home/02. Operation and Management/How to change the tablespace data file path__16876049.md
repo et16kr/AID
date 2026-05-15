@@ -117,17 +117,17 @@ The verification method differs depending on the disk tablespace and the memory 
 
 - Copy all data files and memory checkpoint image files located in the path identified in "1. Check the current path of the data file" to the path the user wants to change.
 
-  **cp 수행 예**
+  **cp example**
 
   ```
-     # 시스템 디스크 테이블스페이스의 데이터 파일은 *.dbf 형식으로 생성되고
-     # 사용자 디스크 테이블스페이스의 데이터 파일은 테이블스페이스 생성 시 사용자 지정대로 생성됩니다.
+     # System disk tablespace data files are created in *.dbf format.
+     # User disk tablespace data files are created with the name specified by the user when the tablespace is created.
   $ cp -p /home/altibase_home/dbs_old_path/*.dbf /home/altibase_home/dbs_new_path/*.dbf
 
-     # 메모리 체크포인트 이미지 파일 이름 형식은 메모리테이블스페이스이름_#_# 입니다.
+     # Memory checkpoint image file names use the format memory_tablespace_name_#_#.
   $ cp -p /home/altibase_home/dbs_old_path/SYS_MEM* /home/altibase_home/dbs_new_path/SYS_MEM*
   ```
-- 파일 수 및 파일 크기를 비교하여 정상적으로 복사되었는지 확인합니다.
+- Compare the number and size of files to verify that they were copied correctly.
 
   ```
      # Compare the number of files
@@ -215,11 +215,11 @@ The disk data file and memory checkpoint image file path information are stored 
   Alter success.
   ```
 
-  **Altibase 4 버전**
+  **Altibase version 4**
 
   ```
-  # Altibase 4 버전의 경우 DDL 작업이 필요하지 않습니다.
-  # altibase.properties 파일에서 MEM_DB_DIR 프로퍼티 값을 변경 후 저장합니다.
+  # In Altibase version 4, no DDL operation is required.
+  # Change the MEM_DB_DIR property value in the altibase.properties file, then save the file.
 
   $ cd $ALTIBASE_HOME/conf/
   $ vi altibase.properties

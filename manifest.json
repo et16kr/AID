@@ -485,8 +485,8 @@
       "title": "Starting from ALTIBASE HDB 5.5.1",
       "source_url": "https://docs.altibase.com/display/FAQE/Starting+from+ALTIBASE+HDB+5.5.1",
       "path": "altibase_docs_md/FAQE/Home/01. Installation, Patch, Upgrade/Altibase Client Installation/Starting from ALTIBASE HDB 5.5.1__16875941.md",
-      "body_chars": 5380,
-      "word_count": 527
+      "body_chars": 6930,
+      "word_count": 696
     },
     {
       "space_key": "FAQE",
@@ -521,8 +521,8 @@
       "title": "Altibase Server Configuration for IPC Communication",
       "source_url": "https://docs.altibase.com/display/FAQE/Altibase+Server+Configuration+for+IPC+Communication",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Altibase Server Configuration for IPC Communication__22642933.md",
-      "body_chars": 5064,
-      "word_count": 645
+      "body_chars": 6219,
+      "word_count": 753
     },
     {
       "space_key": "FAQE",
@@ -530,8 +530,8 @@
       "title": "Automatic altibase startup during OS booting in Solaris",
       "source_url": "https://docs.altibase.com/display/FAQE/Automatic+altibase+startup+during+OS+booting+in+Solaris",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Automatic altibase startup during OS booting in Solaris__16875996.md",
-      "body_chars": 3974,
-      "word_count": 588
+      "body_chars": 5060,
+      "word_count": 630
     },
     {
       "space_key": "FAQE",
@@ -557,8 +557,8 @@
       "title": "Database Security Checklist",
       "source_url": "https://docs.altibase.com/display/FAQE/Database+Security+Checklist",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Database Security Checklist__22642935.md",
-      "body_chars": 24374,
-      "word_count": 3050
+      "body_chars": 24448,
+      "word_count": 3062
     },
     {
       "space_key": "FAQE",
@@ -575,8 +575,8 @@
       "title": "How to change sys user password",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+change+sys+user+password",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to change sys user password__16876004.md",
-      "body_chars": 2500,
-      "word_count": 367
+      "body_chars": 3683,
+      "word_count": 470
     },
     {
       "space_key": "FAQE",
@@ -584,8 +584,8 @@
       "title": "How to change the database's db name",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+change+the+database%27s+db+name",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to change the database's db name__16875966.md",
-      "body_chars": 4584,
-      "word_count": 507
+      "body_chars": 6102,
+      "word_count": 686
     },
     {
       "space_key": "FAQE",
@@ -593,8 +593,8 @@
       "title": "How to change the path of log anchor, online log file, archive log file, and double write file",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+change+the+path+of+log+anchor%2C+online+log+file%2C+archive+log+file%2C+and+double+write+file",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to change the path of log anchor, online log file, archive log file, and double write file__16876052.md",
-      "body_chars": 3851,
-      "word_count": 499
+      "body_chars": 6500,
+      "word_count": 671
     },
     {
       "space_key": "FAQE",
@@ -602,8 +602,8 @@
       "title": "How to change the tablespace data file path",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+change+the+tablespace+data+file+path",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to change the tablespace data file path__16876049.md",
-      "body_chars": 10046,
-      "word_count": 1473
+      "body_chars": 12646,
+      "word_count": 1678
     },
     {
       "space_key": "FAQE",
@@ -629,8 +629,8 @@
       "title": "How to create and execute Job objects",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+create+and+execute+Job+objects",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to create and execute Job objects__16876042.md",
-      "body_chars": 11275,
-      "word_count": 1418
+      "body_chars": 11962,
+      "word_count": 1556
     },
     {
       "space_key": "FAQE",
@@ -647,8 +647,8 @@
       "title": "How to modify column",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+modify+column",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to modify column__16875952.md",
-      "body_chars": 3530,
-      "word_count": 510
+      "body_chars": 4459,
+      "word_count": 613
     },
     {
       "space_key": "FAQE",
@@ -674,8 +674,8 @@
       "title": "How to startup Altibase automatically when booting from HP-UX",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+startup+Altibase+automatically+when+booting+from+HP-UX",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/How to startup Altibase automatically when booting from HP-UX__16875976.md",
-      "body_chars": 5711,
-      "word_count": 776
+      "body_chars": 7277,
+      "word_count": 923
     },
     {
       "space_key": "FAQE",
@@ -701,8 +701,8 @@
       "title": "Notes/Considerations when changing TRANSACTION_TABLE_SIZE",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876013",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Notes_Considerations when changing TRANSACTION_TABLE_SIZE__16876013.md",
-      "body_chars": 8100,
-      "word_count": 1040
+      "body_chars": 10977,
+      "word_count": 1571
     },
     {
       "space_key": "FAQE",
@@ -710,8 +710,8 @@
       "title": "Notes/Considerations when increasing the number of concurrent connection sessions (MAX_CLIENT)",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16876028",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/Notes_Considerations when increasing the number of concurrent connection sessions (MAX_CLIENT)__16876028.md",
-      "body_chars": 5114,
-      "word_count": 720
+      "body_chars": 7594,
+      "word_count": 865
     },
     {
       "space_key": "FAQE",
@@ -719,8 +719,8 @@
       "title": "The OS time and the DB time do not match",
       "source_url": "https://docs.altibase.com/display/FAQE/The+OS+time+and+the+DB+time+do+not+match",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/The OS time and the DB time do not match__22642939.md",
-      "body_chars": 4499,
-      "word_count": 572
+      "body_chars": 5473,
+      "word_count": 574
     },
     {
       "space_key": "FAQE",
@@ -737,8 +737,8 @@
       "title": "What is MEM_MAX_DB_SIZE?",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=16875991",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/What is MEM_MAX_DB_SIZE__16875991.md",
-      "body_chars": 6505,
-      "word_count": 919
+      "body_chars": 9509,
+      "word_count": 1194
     },
     {
       "space_key": "FAQE",
@@ -764,8 +764,8 @@
       "title": "[Linux] How to register Altibase server process auto start script",
       "source_url": "https://docs.altibase.com/display/FAQE/%5BLinux%5D+How+to+register+Altibase+server+process+auto+start+script",
       "path": "altibase_docs_md/FAQE/Home/02. Operation and Management/[Linux] How to register Altibase server process auto start script__16875947.md",
-      "body_chars": 8309,
-      "word_count": 1055
+      "body_chars": 9120,
+      "word_count": 1165
     },
     {
       "space_key": "FAQE",

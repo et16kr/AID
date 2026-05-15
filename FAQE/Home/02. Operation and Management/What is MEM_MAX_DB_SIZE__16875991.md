@@ -14,9 +14,21 @@ labels: []
 Source: https://docs.altibase.com/pages/viewpage.action?pageId=16875991
 Updated: 2021-04-02T11:29:11.000+0900
 
-- [Definition](#WhatisMEM_MAX_DB_SIZE?-Definition) - [Maximum Value](#WhatisMEM_MAX_DB_SIZE?-MaximumValue) - [How to Change](#WhatisMEM_MAX_DB_SIZE?-HowtoChange) - [When to set it larger than the current value](#WhatisMEM_MAX_DB_SIZE?-Whentosetitlargerthanthecurrentvalue) - [When to set it less than the current value](#WhatisMEM_MAX_DB_SIZE?-Whentosetitlessthanthecurrentvalue) - [How to change](#WhatisMEM_MAX_DB_SIZE?-Howtochange) - [Check the setting value](#WhatisMEM_MAX_DB_SIZE?-Checkthesettingvalue)
+- [Overview](#WhatisMEM_MAX_DB_SIZE?-Overview) - [Target versions](#WhatisMEM_MAX_DB_SIZE?-Targetversions) - [Description](#WhatisMEM_MAX_DB_SIZE?-Description) - [Maximum Value](#WhatisMEM_MAX_DB_SIZE?-MaximumValue) - [How to Change](#WhatisMEM_MAX_DB_SIZE?-HowtoChange) - [When to set it larger than the current value](#WhatisMEM_MAX_DB_SIZE?-Whentosetitlargerthanthecurrentvalue) - [When to set it less than the current value](#WhatisMEM_MAX_DB_SIZE?-Whentosetitlessthanthecurrentvalue) - [DB restart](#WhatisMEM_MAX_DB_SIZE?-DBrestart) - [How to change](#WhatisMEM_MAX_DB_SIZE?-Howtochange) - [Possible error messages](#WhatisMEM_MAX_DB_SIZE?-Possibleerrormessages) - [Check the setting value](#WhatisMEM_MAX_DB_SIZE?-Checkthesettingvalue) - [Reference](#WhatisMEM_MAX_DB_SIZE?-Reference)
 
-# Definition
+# Overview
+
+---
+
+This page explains what `MEM_MAX_DB_SIZE` means and how to change it.
+
+# Target versions
+
+---
+
+- All Altibase versions
+
+# Description
 
 ---
 
@@ -96,7 +108,7 @@ SELECT TO_CHAR(MEM_MAX_DB_SIZE/1024/1024, '999,999,999') '       MAX(M)',       
   FROM V$DATABASE ;
        MAX(M)         TOTAL(M)         ALLOC(M)         USED(M)     USAGE(%)
 -------------------------------------------------------------------------------------------
-       5,120              920              621              142      12.13
+       5,120            2,920              621              142      12.13
 1 row selected.
 ```
 
@@ -127,6 +139,13 @@ iSQL> ! ls -l $ALTIBASE_HOME/dbs/*MEM* | sort -n | awk '{sum += $5} END{print (s
 4108.17 MB                                                                                                    -- When a checkpoint is performed, it becomes equal to TOTAL.
 ```
 
+## DB restart
+
+---
+
+- The Altibase server must be restarted to change the `MEM_MAX_DB_SIZE` value.
+- This property cannot be changed dynamically while the server is running, so service downtime is required.
+
 ## How to change
 
 1. **Stop the Altibase Server**
@@ -150,6 +169,42 @@ MEM_MAX_DB_SIZE        = 2G # MEM_MAX_DB_SIZE
 $ server start
 ```
 
+## Possible error messages
+
+---
+
+#### [FAILURE] The size of the DB file(SYS_TBS_MEM_DATA-number-number) exceeds the size specified in the MEM_MAX_DB_SIZE property.
+
+- Cause
+
+  This startup error can occur if `MEM_MAX_DB_SIZE` is set smaller than the increased checkpoint image file size.
+
+- Resolution
+
+  Set `MEM_MAX_DB_SIZE` larger than the increased checkpoint image file size.
+
+  Full error example:
+
+  ```
+  $ server start
+  -----------------------------------------------------------------
+       Altibase Client Query utility.
+       Release Version 7.1.0.5.9
+       Copyright 2000, ALTIBASE Corporation or its subsidiaries.
+       All Rights Reserved.
+  -----------------------------------------------------------------
+  ISQL_CONNECTION = UNIX, SERVER = localhost
+  [ERR-910FB : Connected to idle instance]
+  Connecting to the DB server.... Connected.
+
+  TRANSITION TO PHASE : PROCESS
+
+  TRANSITION TO PHASE : CONTROL
+  [FAILURE] The size of the DB file(SYS_TBS_MEM_DATA-0-2) exceeds the size specified in the MEM_MAX_DB_SIZE property.
+  Startup Failed....
+  [ERR-91015 : Communication failure.]
+  ```
+
 ## Check the setting value
 
 ---
@@ -167,3 +222,10 @@ Or,
 ```
 SELECT TO_CHAR(MEM_MAX_DB_SIZE/1024/1024, '999,999') AS 'MEM_MAX_DB_SIZE(MB)' FROM V$DATABASE;
 ```
+
+# Reference
+
+---
+
+- Related error: [ERR-11049 ( 69705) Too many pages are allocated ( Maximum Number of Pages= number).](https://aid.altibase.com/pages/viewpage.action?pageId=9110685)
+- Video: [http://youtube.com/watch?v=tWAC4ghMO3c](https://youtu.be/tWAC4ghMO3c)

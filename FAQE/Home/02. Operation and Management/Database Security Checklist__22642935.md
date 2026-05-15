@@ -144,7 +144,7 @@ SELECT DECODE(PRIV_TYPE, 1, 'OBJECT', 'SYSTEM') PRIV_TYPE, PRIV_NAME       -- If
 **Remove SYSTEM privilege**
 
 ```
-REVODE 'System privilege' FROM user_name(or role_name);
+REVOKE 'System privilege' FROM user_name(or role_name);
 
 -- Example of execution
 REVOKE CREATE TABLE FROM USER1;
@@ -157,12 +157,16 @@ REVOKE CREATE TABLE FROM ROLE1;
 
 With WITH GRANT OPTION, the user who has been granted object access privileges can grant the appropriate privileges to other users, so object access privileges can be abused without DBA management.
 
+#### How to check
+
+**Check users with the WITH GRANT OPTION option**
+
 ```
 SELECT DISTINCT(A.USER_NAME) GRANTEE,      -- Users with WITH GRANT OPTION
        C.USER_NAME GRANTOR,                -- User granted WITH GRANT OPTION
-       B.OBJ_TYPE,                         -- 객Object type (T: table, S: sequence, P: stored procedure or stored function, V: view)
+       B.OBJ_TYPE,                         -- Object type (T: table, S: sequence, P: stored procedure or stored function, V: view)
        B.OBJ_ID,                           -- Object ID (for tables, views, and sequences, maps to the TABLE_ID of SYS_TABLES_; for stored procedures and stored functions, maps to the PROC_OID of SYS_PROCEDURES_)
-       D.PRIV_NAME,                        -- Previlege name
+       D.PRIV_NAME,                        -- Privilege name
        B.WITH_GRANT_OPTION                 -- If the value is 1, it means that WITH GRANT OPTION has been granted.
   FROM SYSTEM_.SYS_USERS_ A,
        SYSTEM_.SYS_GRANT_OBJECT_ B,
@@ -289,7 +293,7 @@ File permissions can be set using the `chmod` command.
 **Example of File Permission Settings**
 
 ```
-예시)
+Example)
 $ chmod 640 altibase_boot.log
 $ chmod 640 altibase_sm.log
 ```

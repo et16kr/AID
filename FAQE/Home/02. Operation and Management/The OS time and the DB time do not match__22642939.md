@@ -51,7 +51,7 @@ After changing the time zone, a time discrepancy occurs when querying the time i
 | OS Check | Altibase Check |
 | --- | --- |
 | [root@master ~]# **timedatectl set-timezone Europe/Istanbul**<br>[root@master ~]# timedatectl<br>Local time: Wed **2025-08-20 06:01:44** +03<br>Universal time: Wed 2025-08-20 03:01:44 UTC<br>RTC time: Wed 2025-08-20 03:01:45<br>Time zone: Europe/Istanbul (+03, +0300)<br>NTP enabled: n/a<br>NTP synchronized: no<br>RTC in local TZ: no<br>DST active: n/a | iSQL> SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MI:SS.SSSSSS') FROM DUAL;<br>TO_CHAR(SYSDATE,'YYYY-MM-DDHH:MI:SS.SSSSSS<br>-----------------------------------------------------------------------------------<br>**2025-08-20 12:01:44**.679908<br>1 row selected. |
-|  | Altibase 재기동 |
+|  | Restart Altibase |
 | [root@master ~]# timedatectl<br>Local time: Wed **2025-08-20 06:03:30** +03<br>Universal time: Wed 2025-08-20 03:03:30 UTC<br>RTC time: Wed 2025-08-20 03:03:31<br>Time zone: Europe/Istanbul (+03, +0300)<br>NTP enabled: n/a<br>NTP synchronized: no<br>RTC in local TZ: no<br>DST active: n/a | iSQL> SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MI:SS.SSSSSS') FROM DUAL;<br>TO_CHAR(SYSDATE,'YYYY-MM-DDHH:MI:SS.SSSSSS<br>-----------------------------------------------------------------------------------<br>**2025-08-20 06:03:30**.983508<br>1 row selected. |
 
 ## DST (Daylight Saving Time) Application
@@ -61,7 +61,7 @@ After DST (Daylight Saving Time) changes, a time discrepancy occurs when queryin
 | OS Check | Altibase Check |
 | --- | --- |
 | [root@master ~]# timedatectl<br>Local time: Sun **2025-03-09 03:02:38** CDT<br>Universal time: Sun 2025-03-09 08:02:38 UTC<br>RTC time: Sun 2025-03-09 08:02:39<br>Time zone: CST6CDT (CDT, -0500)<br>NTP enabled: n/a<br>NTP synchronized: no<br>RTC in local TZ: no<br>DST active: yes<br>Last DST change: DST began at<br>Sun 2025-03-09 01:59:59 CST<br>Sun **2025-03-09 03:00:00** CDT<br>Next DST change: DST ends (the clock jumps one hour backwards) at<br>Sun 2025-11-02 01:59:59 CDT<br>Sun 2025-11-02 01:00:00 CST | iSQL> SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MI:SS.SSSSSS') FROM DUAL;<br>TO_CHAR(SYSDATE,'YYYY-MM-DDHH:MI:SS.SSSSSS<br>-----------------------------------------------------------------------------------<br>**2025-03-09 02:02:38**.568618<br>1 row selected. |
-|  | Altibase 재기동 |
+|  | Restart Altibase |
 | [root@master ~]# timedatectl<br>Local time: Sun **2025-03-09 03:03:54** CDT<br>Universal time: Sun 2025-03-09 08:03:54 UTC<br>RTC time: Sun 2025-03-09 08:03:55<br>Time zone: CST6CDT (CDT, -0500)<br>NTP enabled: n/a<br>NTP synchronized: no<br>RTC in local TZ: no<br>DST active: yes<br>Last DST change: DST began at<br>Sun 2025-03-09 01:59:59 CST<br>Sun 2025-03-09 03:00:00 CDT<br>Next DST change: DST ends (the clock jumps one hour backwards) at<br>Sun 2025-11-02 01:59:59 CDT<br>Sun 2025-11-02 01:00:00 CST | iSQL> SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MI:SS.SSSSSS') FROM DUAL;<br>TO_CHAR(SYSDATE,'YYYY-MM-DDHH:MI:SS.SSSSSS<br>-----------------------------------------------------------------------------------<br>**2025-03-09 03:03:54**.600136<br>1 row selected. |
 
 ※ When performing an incomplete recovery using the until time on a server with DST applied, the time difference must be taken into account.

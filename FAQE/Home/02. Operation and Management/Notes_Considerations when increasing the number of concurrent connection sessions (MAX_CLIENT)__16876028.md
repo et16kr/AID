@@ -88,7 +88,7 @@ Change the TRANSACTION_TABLE_SIZE value in the $ALTIBASE_HOME/conf/altibase.prop
 
 The TRANSACTION_TABLE_SIZE property setting value can be set to 2^n, which is larger than the current value, and cannot be changed from a large value to a small value.
 
-Since the change method differs depending on the ALTIBASE HDB server version, be sure to refer to this page (Considerations when changing TRANSACTION_TABLE_SIZE) to proceed.
+Since the change method differs depending on the ALTIBASE HDB server version, be sure to refer to [Notes/Considerations when changing TRANSACTION_TABLE_SIZE](https://docs.altibase.com/pages/viewpage.action?pageId=16876013) before proceeding.
 
 ## Changing OS user resource open files
 
@@ -167,5 +167,5 @@ set rlim_fd_max=unlimited
 ---
 
 - For information on ALTIBASE HDB server properties, refer to the General Reference manual at [https://github.com/ALTIBASE/Documents/tree/master/Manuals/](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Altibase_7.1/eng).
-- MAX_CLIENT and related settings are the maximum values, so large changes do no affect DB performance or system resources.
+- MAX_CLIENT and related settings are maximum values, so increasing them does not by itself affect DB performance or system resources.
 - System resources may increase if the number of concurrent connection sessions and concurrent transactions increases due to configuration changes. However, it is difficult to answer how much impact it will have as it depends on the operating environment.

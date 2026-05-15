@@ -102,7 +102,7 @@ Start the DB with the server start command.
 
 TRANSITION TO PHASE : PROCESS
 
-TRANSITION TO PHASE : CONTROL ........ 중량 .....................................
+TRANSITION TO PHASE : CONTROL .....................................
 
 [CM] Listener started : IPC [RP] Initialization : [PASS]
 

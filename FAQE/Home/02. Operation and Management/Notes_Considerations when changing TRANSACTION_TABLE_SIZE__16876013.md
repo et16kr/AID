@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/pages/viewpage.action?pageId=16876013
 Updated: 2021-04-02T16:08:24.000+0900
 
-- [Overview](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Overview) - [Restriction](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Restriction) - [How to change](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Howtochange) - [Change (offline)](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Change(offline)) - [Change (ALTER SYSTEM)](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Change(ALTERSYSTEM)) - [Change procedures](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Changeprocedures) - [When data migration is required](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Whendatamigrationisrequired) - [When it is possible to change to offline](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Whenitispossibletochangetooffline) - [Maximum value](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Maximumvalue) - [TRANSACTION_TABLE and Memory usage](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-TRANSACTION_TABLEandMemoryusage) - [When TRANSACTION_TABLE_SIZE is exceeded](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-WhenTRANSACTION_TABLE_SIZEisexceeded) - [Performance View](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-PerformanceView) - [Error Messages](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-ErrorMessages)
+- [Overview](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Overview) - [Restriction](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Restriction) - [How to change](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Howtochange) - [Change (offline)](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Change(offline)) - [Change (ALTER SYSTEM)](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Change(ALTERSYSTEM)) - [Change procedures](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Changeprocedures) - [When data migration is required](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Whendatamigrationisrequired) - [When it is possible to change to offline](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Whenitispossibletochangetooffline) - [Maximum value](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Maximumvalue) - [TRANSACTION_TABLE and Memory usage](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-TRANSACTION_TABLEandMemoryusage) - [When TRANSACTION_TABLE_SIZE is exceeded](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-WhenTRANSACTION_TABLE_SIZEisexceeded) - [Performance View](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-PerformanceView) - [Error Messages](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-ErrorMessages) - [Reference](#Notes/ConsiderationswhenchangingTRANSACTION_TABLE_SIZE-Reference)
 
 # Overview
 
@@ -57,7 +57,7 @@ From the version specified below, it can be changed to offline. (Except for ALTI
 
 | ALTIBASE HDB server version | 4.3.9 | From 5.1.5.93 | From 5.3.3.48 | From 5.3.5.17 | From 5.5.1.1.0 |
 | --- | --- | --- | --- | --- | --- |
-| Change (offline) | Cannot be changed. Data migration required. | Changeable 데이터 마이그레이션 필요. | Changeable 데이터 마이그레이션 필요. | Changeable 데이터 마이그레이션 필요. | Changeable 데이터 마이그레이션 필요. |
+| Change (offline) | Cannot be changed. Data migration required. | Changeable. Data migration is not required. | Changeable. Data migration is not required. | Changeable. Data migration is not required. | Changeable. Data migration is not required. |
 
 | ALTIBASE HDB server version | 4.3.9 | 5.1.5.0 ~ 5.1.5.92 | 5.3.3.0 ~ 5.3.3.47 | 5.3.5.0 ~ 5.3.5.16 | 5.5.1.0.0 ~ 5.5.1.0.9 |
 | --- | --- | --- | --- | --- | --- |
@@ -143,6 +143,17 @@ The test server environment is as follows:
 - Environment variable MALLOC_ARENA_MAX=4
 - ALTIBASE HDB 6.3.1.2.7
 
+The following `V$MEMSTAT` items show the largest difference. The unit is bytes.
+
+| V$MEMSTAT item | 1024 | 16384 | Difference |
+| --- | --- | --- | --- |
+| Storage_Memory_Locking | 7,276,872 | 1,618,233,672 | 1,610,956,800 |
+| Storage_Memory_Utility | 73,101,528 | 1,149,161,688 | 1,076,060,160 |
+| Storage_Memory_Transaction | 70,129,144 | 1,093,979,352 | 1,023,850,208 |
+| Transaction_Table | 5,852,872 | 89,657,032 | 83,804,160 |
+| Mutex_Manager | 71,388,392 | 136,578,888 | 65,190,496 |
+| Transaction_Table_Info | 1,662,976 | 26,607,616 | 24,944,640 |
+
 # When TRANSACTION_TABLE_SIZE is exceeded
 
 ---
@@ -191,3 +202,9 @@ This is an error message that occurs when the value of the TRANSACTION_TABLE_SIZ
 This is an error message that occurs in the version where the TRANSACTION_TABLE_SIZE set when creating the database cannot be changed.
 
 This can happen when changing from a large value to a small value.
+
+# Reference
+
+---
+
+[BUG-31862 TRANSACTION_TABLE_SIZE expansion](http://nok.altibase.com/pages/viewpage.action?pageId=6851652)

@@ -14,25 +14,21 @@ labels: []
 Source: https://docs.altibase.com/display/FAQE/%5BLinux%5D+How+to+register+Altibase+server+process+auto+start+script
 Updated: 2021-04-02T10:47:28.000+0900
 
-- [Overview](#overview) - [Version](#version) - [OS](#os) - [Red Hat family v7 or later](#red-hat-family-v7-or-later) - [Red Hat family v6 or earlier](#red-hat-family-v6-or-earlier) - [Sample of autostart script](#sample-of-autostart-script) - [Register the script in /etc/init.d](#register-the-script-in-etcinitd) - [Execute chkconfig](#execute-chkconfig) - [Log](#log)
+- [Overview](#overview) - [Red Hat family v7 or later](#red-hat-family-v7-or-later) - [Red Hat family v6 or earlier](#red-hat-family-v6-or-earlier) - [Create the auto start and stop script](#create-the-auto-start-and-stop-script) - [Change the altibased execution permission](#change-the-altibased-execution-permission) - [Register and check chkconfig](#register-and-check-chkconfig)
 
 # Overview
 
 ---
 
-This document describes how to automatically start and stop the Altibase database when a Red Hat family Linux server starts or stops. The procedure is divided into Red Hat family v7 or later and v6 or earlier.
+This document describes how to automatically start and stop the Altibase database when a Red Hat family Linux server starts or stops.
 
-# Version
+Use this procedure when running one Altibase server on one host. Register every item as the Linux `root` user.
 
----
+The procedure is divided into Red Hat family v7 or later and v6 or earlier.
 
-Altibase 4 or later
-
-# OS
-
----
-
-Linux
+- Altibase v4 or later
+- Red Hat Enterprise Linux 7 or later
+- Red Hat Enterprise Linux 6 or earlier
 
 # Red Hat family v7 or later
 
@@ -256,60 +252,88 @@ Max kernel policy version:      31
 
 On Red Hat family v6 or earlier, use the following procedure to automatically start and stop the Altibase process.
 
-## Sample of autostart script
+## Create the auto start and stop script
 
-- [altibased](https://docs.altibase.com/download/attachments/12517478/altibased?version=1&modificationDate=1536132439000&api=v2)
+---
 
-The automatic startup script was written to run in the following situations.
+Create the `altibased` auto start and stop script.
 
-- One Altibase server running on one server
-- Installing Altibase server in OS user altibase and have startup/shutdown privileges
-- Running in bash shell
-- Using the chkconfig utility
+- File name: `altibased`
+- File path: `/etc/init.d`
 
-This script is a sample file. Depending on the client's OS user's environment settings, it may operate differently than intended, so be sure to test it to check whether it is running properly.
-
-### Register the script in /etc/init.d
-
-Upload the autostart script altibased file to the /etc/init.d directory.
-
-### Change the script
-
-Change the user variable at the top of the script to suit the client's environment.
+Create the `altibased` script.
 
 ```
-$ vi /etc/init.d/altibased
+[root@localhost] # vi altibased
+```
+
+Change the `user` item to the OS account that starts and stops the Altibase server process.
+
+```
 #!/bin/bash
 #
 # altibase
 #
 # chkconfig: 2345 20 80
 # description: ALTIBASE process startup
-user=altibase                         #  Change to a user with privileges to start/stop Altibase server processes
+
+user=altibase
+
+start() {
+  echo -e "`date +"%Y-%m-%d %H:%M:%S"` : Altibase Server Startup \n" >> /var/log/${user}_altibased.log 2>&1
+
+  ALTIBASE_STATUS=`ps -ef | grep ${user} | grep 'altibase -p' | grep -v grep | wc -l`
+
+  if [ $ALTIBASE_STATUS -ne 1 ]; then
+    su - ${user} -c "server start" >> /var/log/${user}_altibased.log 2>&1
+  fi
+}
+
+stop() {
+  echo -e "`date +"%Y-%m-%d %H:%M:%S"` : Altibase Server Shutdown \n" >> /var/log/${user}_altibased.log 2>&1
+
+  ALTIBASE_STATUS=`ps -ef | grep ${user} | grep 'altibase -p'| grep -v grep | wc -l`
+
+  if [ $ALTIBASE_STATUS -eq 1 ]; then
+    su - ${user} -c "server stop" >> /var/log/${user}_altibased.log 2>&1
+  fi
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+esac
 ```
 
-### Change the script execution permission
+This script is a sample file. Depending on the customer OS user's environment settings, it may operate differently than intended, so be sure to test it. The log is written to `/var/log/${user}_altibased.log`.
+
+Existing downloadable sample: [altibased](https://docs.altibase.com/download/attachments/12517478/altibased?version=1&modificationDate=1536132439000&api=v2)
+
+## Change the altibased execution permission
+
+---
+
+Change the permission of the created `altibased` file.
 
 ```
-$ chmod +x altibased
-
-$ ls -l altibased
+[root@localhost] # chmod +x altibased
+[root@localhost] # ls -l altibased
 -rwxr-xr-x 1 root root 811 Sep  3 13:50 /etc/init.d/altibased
 ```
 
-### Execute chkconfig
+## Register and check chkconfig
+
+---
+
+Register the service by using the `chkconfig` utility.
 
 ```
-$ chkconfig --add altibased
+[root@localhost] # chkconfig --add altibased         # Register the service
+
+[root@localhost] # ls -l /etc/rc.d/rc*.d/K*alti*     # Check service registration
+[root@localhost] # ls -l /etc/rc.d/rc*.d/S*alti*     # Check service registration
 ```
-
-### Check the chkconfig registration
-
-```
-$ ls -l /etc/rc.d/rc*.d/K*alti*
-$ ls -l /etc/rc.d/rc*.d/S*alti*
-```
-
-### Log
-
-The log is set to remain in /var/log/${user}_altibased.log.
