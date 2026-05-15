@@ -110,7 +110,9 @@ Success close cursor
 
 Altibase complies with the ANSI standard and is configured not to support the fetch across commit method by default. Therefore, if COMMIT or ROLLBACK is performed after opening the cursor, the cursor is forcibly closed according to the ANSI standard.
 
-This is a method that performed COMMIT while fetching the unit record after opening the cursor, which is not recommended by the ANSI standard.
+Fetch across commit is a method that performs COMMIT while fetching unit records after opening a cursor, which is not recommended by the ANSI standard.
+
+For this reason, if an application performs COMMIT or ROLLBACK after opening the cursor, this error may occur.
 
 The reason an error occurs while performing FETCH to some extent is that the first large amount of records is stored in the communication buffer during FETCH. An error occurs when fetching all the records in the communication buffer and fetching the next certain amount of records into the communication buffer.
 
@@ -153,6 +155,10 @@ while(1)
 ---
 
 Here are three solutions to deal with this error.
+
+- Separate fetch and change DML operations using multiple connections.
+- Repeatedly open the cursor after declaring it to fetch only as many rows as fit in the communication buffer.
+- Use fetch across commit.
 
 ### 1. Separation of fetch session and change DML session
 

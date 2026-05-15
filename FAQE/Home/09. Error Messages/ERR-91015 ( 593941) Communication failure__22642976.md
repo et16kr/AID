@@ -26,7 +26,7 @@ This document describes ERR-91015 (593941) Communication failure.
 
 ---
 
-All the versions of Altibase HDB
+All versions of Altibase HDB
 
 # Symptom
 
@@ -49,7 +49,7 @@ ERR-91015 (593941) Communication failure errors can occur in various environment
   ISQL_CONNECTION = TCP, SERVER = localhost, PORT_NO = 20300
   [ERR-91015 : Communication failure.]
   ```
-- **When occurs while connected to the Altibase server**
+- **When the error occurs while connected to the Altibase server**
 
   ```
   iSQL> SELECT * FROM CUSTOMERS;
@@ -97,9 +97,9 @@ ERR-91015 (593941) Communication failure errors can occur in various environment
 
 ---
 
-**According to the ALTIBASE HDB compatibility policy, this error may occur when attempting to connect from a higher version of the Altibase client to a lower version of the Altibase server than the client.**
+**According to the ALTIBASE HDB compatibility policy, this error may occur when attempting to connect from a later Altibase client version to an Altibase server version earlier than the client.**
 
-In case of this reason, various types of messages are displayed in the altibase_boot.log on the Altibase server, depending on the version of the Altibase server. (However, certain versions may not leave a message at all.)
+When this is the cause, various types of messages are displayed in altibase_boot.log on the Altibase server, depending on the server version. (However, certain versions may not leave a message at all.)
 
 Therefore, if this error occurs when connecting to the Altibase server, first check the version of the Altibase server and client. **If the client version is later than the server version, you must match the client version to the server version or install and use an earlier version than the server version.**
 
@@ -127,7 +127,7 @@ Therefore, if this error occurs when connecting to the Altibase server, first ch
 
 ### When the session is terminated by an Altibase server property
 
-- If the session is terminated by the Altibase server properties FETCH_TIMEOUT, UTRANS_TIMEOUT, IDLE_TIMEOUT, a communication failure message may occur in the client.
+- If the session is terminated by the Altibase server properties FETCH_TIMEOUT, UTRANS_TIMEOUT, or IDLE_TIMEOUT, a communication failure message may occur in the client.
 - For this reason, if the session is terminated, an error message stating that the session was terminated due to the timeout setting remains in the altibase_boot.log on the Altibase server side as shown below. (altibase_boot.log is located under the $ALTIBASE_HOME/trc directory. $ALTIBASE_HOME is the installation location of the Altibase server.)
 
   **Ex) ALTIBASE HDB 6.3.1 - altibase_boot.log**
@@ -157,14 +157,14 @@ Therefore, if this error occurs when connecting to the Altibase server, first ch
 
 ### When the session is terminated by the sysdba user
 
-- sysdba ALTER DATABASE *database_name* SESSION CLOSE *session_id*; Communication failure error may occur even if the session is forcibly terminated with a sentence.
+- A Communication failure error may also occur if sysdba forcibly terminates a session with the `ALTER DATABASE *database_name* SESSION CLOSE *session_id*;` statement.
 - In this case, no additional error information is left on the Altibase server or client-side.
 
 ## When running the database server
 
 ---
 
-If the Altibase server properties are not set correctly, a communication failure error may occur when the Altibase server is started up. In some cases, it may be difficult to find the cause with the log displayed on the terminal, so find out which property is caused by the following information.
+If the Altibase server properties are not set correctly, a communication failure error may occur when the Altibase server starts up. In some cases, it may be difficult to find the cause from the log displayed on the terminal, so use the following information to identify which property caused the error.
 
 - Log output on terminal
 - altibase_boot.log file (located in $ALTIBASE_HOME/trc, $ALTIBASE_HOME is the installation location of the Altibase server.)

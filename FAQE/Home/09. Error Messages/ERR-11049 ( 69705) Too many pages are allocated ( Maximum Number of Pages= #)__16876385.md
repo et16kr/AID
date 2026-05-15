@@ -49,7 +49,7 @@ set linesize 1024
 set colsize 20
 SELECT TO_CHAR(MEM_MAX_DB_SIZE/1024/1024, '999,999,999') '       MAX(M)',                                       -- MAX(M)   : MEM_MAX_DB_SIZE setting value
        TO_CHAR(MEM_ALLOC_PAGE_COUNT*32/1024, '999,999,999') '     TOTAL(M)',                                    -- TOTAL(M) : Total page size allocated to the memory tablespace. Also refers to the size of the checkpoint image file.
-       TO_CHAR((MEM_ALLOC_PAGE_COUNT-MEM_FREE_PAGE_COUNT)*32/1024, '999,999,999') '     ALLOC(M)',              -- ALLOC(M) : Memory amount of memory used by the tablespace
+       TO_CHAR((MEM_ALLOC_PAGE_COUNT-MEM_FREE_PAGE_COUNT)*32/1024, '999,999,999') '     ALLOC(M)',              -- ALLOC(M) : Amount of memory used by the memory tablespace
        (SELECT TO_CHAR(SUM((FIXED_USED_MEM + VAR_USED_MEM))/1024/1024, '999,999,999')
           FROM V$MEMTBL_INFO) '      USED(M)',                                                                  -- USED(M)  : Memory size in which data is stored among ALLOCs
        TO_CHAR((((MEM_ALLOC_PAGE_COUNT-MEM_FREE_PAGE_COUNT)*32*1024)/MEM_MAX_DB_SIZE)*100, '99.99') 'USAGE(%)'  -- USAGE(%) : ALLOC utilization rate compared to MAX
@@ -61,7 +61,7 @@ SELECT TO_CHAR(MEM_MAX_DB_SIZE/1024/1024, '999,999,999') '       MAX(M)',       
 
 ```
 
-When ALLOC_SIZE reaches MEM_MAX_DB_SIZE as a result of the above inquiry, 'Too many pages are allocated' error occurs.
+When ALLOC_SIZE reaches MEM_MAX_DB_SIZE as a result of the above query, the `Too many pages are allocated` error occurs.
 
 # Solution
 
@@ -71,7 +71,7 @@ To prevent the following error from occurring, the MEM_MAX_DB_SIZE property valu
 
 If this value is increased, Altibase DB Size can be increased up to this size. After modifying the properties, you must restart Altibase to apply it.
 
-After taking the action, it is necessary to take action by checking for some reason the increase in memory tablespace usage and whether there has been a query or mass change of the usage of each table.
+After increasing the value, check why memory tablespace usage increased by querying usage for each table and checking whether bulk changes occurred.
 
 # How to change
 
@@ -84,9 +84,10 @@ After taking the action, it is necessary to take action by checking for some rea
 
   Save after changing MEM_MAX_DB_SIZE in the Altibase server properties file ($ALTIBASE_HOME/conf/altibase.properties).
 
-  |  |
-  | --- |
-  | `$``vi` `$ALTIBASE_HOME``/conf/altibase``.properties`<br>`MEM_MAX_DB_SIZE        = 2G``# MEM_MAX_DB_SIZE` |
+  ```
+  $ vi $ALTIBASE_HOME/conf/altibase.properties
+  MEM_MAX_DB_SIZE        = 2G # MEM_MAX_DB_SIZE
+  ```
 3. **Start the Altibase server**
 
   |  |

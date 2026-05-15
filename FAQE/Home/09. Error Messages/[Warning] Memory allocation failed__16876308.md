@@ -20,7 +20,7 @@ Updated: 2021-04-05T10:47:48.000+0900
 
 ---
 
-This document explains '[Warning] Memory allocation failed]. This message is created when memory allocation fails due to the OS environment.
+This document explains `[Warning] Memory allocation failed`. This message is created when memory allocation fails due to the OS environment.
 
 # Version
 
@@ -34,7 +34,7 @@ All the versions of ALTIBASE HDB
 
 - In $ALTIBASE_HOME/trc/altibase_boot.log, '[Warning] Memory allocation failed' error occurs.
 - There may be an error such as [ERR-01051: Memory allocation failed.].
-- This error can also occur during transaction execution or when STARTUP/SHUTDOWN on the Altibase server.
+- This error can also occur during transaction execution or during Altibase server STARTUP/SHUTDOWN.
 - When this error occurs, new connections may also fail.
 - It mainly occurs on HP-UX.
 

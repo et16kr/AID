@@ -151,11 +151,11 @@ This is how to estimate the amount of transaction log to be used by a particular
   **How to check the TRX_UPDATE_MAX_LOGSIZE setting value for each session**
 
   ```
-  - The TRX_UPDATE_MAX_LOGSIZE property can also be set on a per-session basis.
+  -- The TRX_UPDATE_MAX_LOGSIZE property can also be set on a per-session basis.
   -- To check the settings for each session
   iSQL> SELECT ID SESSION_ID, COMM_NAME, TRX_UPDATE_MAX_LOGSIZE FROM V$SESSION;
 
-  - To check the settings of my session. Only available for Altibase 5.3.3 or later
+  -- To check the settings of my session. Only available for Altibase 5.3.3 or later
   iSQL> SELECT ID SESSION_ID, COMM_NAME, TRX_UPDATE_MAX_LOGSIZE FROM V$SESSION WHERE ID = SESSION_ID();
   ```
 - **How to change session unit** This is applied to transactions performed after ALTER SESSION is executed.
@@ -163,7 +163,9 @@ This is how to estimate the amount of transaction log to be used by a particular
   ```
   iSQL> ALTER SESSION SET TRX_UPDATE_MAX_LOGSIZE = 52428800;        -- Value is in bytes
   ```
-- How to change the system level After ALTER SYSTEM is executed, it is affected by the transaction performed in the new session. The value changed to ALTER SYSTEM is applied only while the Altibase server is running, and it returns to the default value when the Altibase server is restarted.
+- **How to change at the system level**
+
+  After ALTER SYSTEM is executed, it affects transactions performed in new sessions. The value changed by ALTER SYSTEM is applied only while the Altibase server is running, and it returns to the default value when the Altibase server is restarted.
 
   ```
   iSQL> ALTER SYSTEM SET TRX_UPDATE_MAX_LOGSIZE = 52428800;
@@ -178,7 +180,7 @@ This is how to estimate the amount of transaction log to be used by a particular
   TRX_UPDATE_MAX_LOGSIZE = 52428800
   ```
 
-  If the above has done, the changed value can be kept even if the Altibase server is restarted.
+  After this is done, the changed value can be kept even if the Altibase server is restarted.
 
 # Reference
 

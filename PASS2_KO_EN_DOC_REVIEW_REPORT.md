@@ -1114,3 +1114,57 @@ P220 audited Korean FAQ category `08. 모니터링` against English `FAQE` monit
 
 - External HTTP availability was not tested; P220 used source-link preservation and grep-based checks.
 - The Korean FAQ source contains some terse or legacy phrasing in monitoring SQL comments. English was corrected only where the Korean-source meaning, identifier spelling, command, SQL, version condition, warning, attachment, or link was missing, outdated, incorrect, or unclear.
+
+## P221 FAQ Error Messages Audit
+
+### Scope
+
+P221 audited Korean FAQ category `09. 에러메시지` against the corresponding English `FAQE/Home/09. Error Messages` targets. Korean FAQ pages remained authoritative and were not edited.
+
+### Checked Documents
+
+The audit covered 29 Korean FAQ source documents and 29 English targets:
+
+| Korean source category | English target category |
+| --- | --- |
+| `faq/Home/09. 에러메시지/**` | `FAQE/Home/09. Error Messages/**` |
+
+### Findings And Updates
+
+- No English change was needed for `09-05`, `09-06`, `09-09`, `09-12`, `09-15`, `09-20`, `09-21`, `09-22`, or `09-23`; their error-code, command, SQL, version, and link semantics already matched the Korean sources.
+- Corrected fetch-timeout, cursor, and fetch-across-commit explanations, including `FETCH_TIMEOUT`, COMMIT/ROLLBACK-after-cursor-open causes, solution summaries, and the version-specific communication buffer wording.
+- Restored malformed V$MUTEX message and `desc v$mutex` examples into fenced code blocks and removed duplicated cause text.
+- Corrected invalid or unclear technical wording for memory allocation, 8-digit `altibase_qp.log` error codes, disk temporary tablespace record size, `AUTOEXTEND` data file max size, `MEM_MAX_DB_SIZE`, `DDL_LOCK_TIMEOUT = -1`, `TRX_UPDATE_MAX_LOGSIZE`, `TEMP_MAX_PAGE_COUNT`, and task-pool overflow causes.
+- Updated client/server compatibility and connection-failure wording, including `ERR-4109C`, `ERR-7101D`, `ERR-71018`, `ERR-71019`, and `ERR-91015`.
+- Added the Korean-source ODBC driver screenshot URL to the English `ERR-4109C Invalid session property` page.
+- Corrected replication terminology in `ERR-11075` and `ERR-71018`, preserving `altibase_rp.log`, Sender, Receiver, and `REPLICATION_LOCK_TIMEOUT` terms.
+- Corrected the `tablespace does not have enough free space` `ALTER TABLESPACE ... add datafile` example and version-specific lock/wait notes.
+- Updated `manifest.json` metadata for all 20 edited English Markdown pages.
+
+### Attachment And Link Evidence
+
+- The scoped Korean source set contains 1 URL-backed document-format attachment: `ALTIBASE_운영을_위한_HPUX_설정_가이드.pdf`.
+- The exact PDF URL is preserved in the scoped English target `[Warning] Memory allocation failed`.
+- The Korean-source ODBC screenshot image for `ERR-4109C Invalid session property` is now preserved in the English target.
+- Scoped Korean and English error-message pages contain no empty Markdown links, `Error rendering macro`, or `Unknown macro` markers.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p221-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK -type f -name '*.md' \| wc -l` | 51 |
+| `find faq -type f -name '*.md' \| wc -l` | 115 |
+| `find arch -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE -type f -name '*.md' \| wc -l` | 241 |
+| Edited-page manifest metadata comparison (`body_chars`, `word_count`) | Passed for all 20 edited English pages |
+| Scoped document-format attachment preservation script | Passed, 1 Korean source document link preserved |
+| Scoped stale-pattern grep | Passed, no matches |
+| Scoped Korean-residue grep in English targets | Passed, no matches |
+| Scoped code-fence balance check | Passed |
+
+### Remaining Risk
+
+- External HTTP availability was not tested; P221 used source-link preservation and grep-based checks.
+- The Korean source includes a duplicated `ALTER SESSION SET` phrase in one APRE example. Because the same command text already existed in English and was outside a Korean/English discrepancy, it was left unchanged and recorded as a source-review risk.

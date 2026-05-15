@@ -169,15 +169,15 @@ Refer to the following for the types of error messages for each client.
 
 ---
 
-This is a notification message left by the SessionManager as it cleans up the sessions stuck on FETCH_TMEOUT.
+This is a notification message left by the SessionManager as it cleans up sessions that exceed FETCH_TIMEOUT.
 
-FETCH_TMEOUT is an Altibase server property. this is a property provided to prevent an abnormal increase of DBMS resources as the time to execute the SELECT statement increases.
+FETCH_TIMEOUT is an Altibase server property provided to prevent DBMS resources from increasing abnormally when SELECT statement execution takes a long time.
 
 When the client requests fetch, the DBMS divides the fetch result by a certain amount (in the communication buffer) and sends it to the client. When the client reads all the result sets in the communication buffer, it requests the next result set to the DB server.
 
 If the time interval for requesting the next result set exceeds the value set for FETCH_TIMEOUT, the session is cleaned up and the transaction in progress is rolled back.
 
-If the old image created by the change transaction is viewed by the inquiry transaction, the old image is not cleaned up even when the change transaction ends.
+If an old image created by an update transaction is still being referenced by a query transaction, the old image is not cleaned up even after the update transaction ends.
 
 For this reason, if the SELECT statement is executed for a long time, the following symptoms may occur.
 
@@ -231,7 +231,7 @@ For this reason, if the SELECT statement is executed for a long time, the follow
 
 #### Changing session property
 
-- Session property is applied to the session that executed ALTER SESSIOn on a per session basis and applied to queries executed after ALTER SESSION was executed.
+- A session property is applied per session to the session that executed ALTER SESSION, and it applies to queries executed after ALTER SESSION.
 
   **iSQL-How to change session properties**
 
@@ -283,7 +283,7 @@ For this reason, if the SELECT statement is executed for a long time, the follow
   -- ALTIBASE HDB 4.3.9 (My session ID is unknown, so infer it with client IP, PID, etc.
   iSQL> SELECT ID SESSION_ID, DB_USERNAME, CLIENT_CONSTR, COMM_NAME, CLIENT_PID, FETCH_TIME_LIMIT FROM V$SESSION;
   ```
-- **Check system property value** It can be changed with ALTER SYSTEM or check the value set in altibase.properties in V$PROPERTY.
+- **Check system property value** Values changed with ALTER SYSTEM or set in altibase.properties can be checked in V$PROPERTY.
 
   **How to check the property value applied to the session**
 

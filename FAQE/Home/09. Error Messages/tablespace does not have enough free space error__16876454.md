@@ -49,15 +49,15 @@ https://docs.altibase.com/display/FAQE/08.+Monitoring
 2. After querying the tablespace usage, add space to the tablespace with USAGE(%) close to 100% in the query result.
 
 ```
-ALTER TABLESPACE tablespace name add datafile'/path/filename' size 2G autoextend off;
+ALTER TABLESPACE tablespace_name add datafile '/path/filename' size 2G autoextend off;
 ```
 
 # Reference
 
 ---
 
-When adding a data file, the tablespace is locked, so it is recommended to block the service and work.
+When adding a data file, the tablespace is locked, so it is recommended to block the service while performing the work.
 
-For HDB 5.3.3 and earlier, select and DML and queries will wait for the tablespace add operation to complete.
+For HDB 5.3.3 and earlier, SELECT and DML queries wait for the tablespace add operation to complete.
 
-From HDB 5.5.1 or later to the latest V6, DML waits until the tablespace addition operation is completed, but the select statement is executed normally.
+From HDB 5.5.1 or later through the latest V6, DML waits until the tablespace add operation is completed, but SELECT statements execute normally.

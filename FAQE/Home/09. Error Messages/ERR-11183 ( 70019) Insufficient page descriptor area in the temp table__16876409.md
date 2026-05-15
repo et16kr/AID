@@ -69,7 +69,7 @@ DISK_TEMP_TBS_MAX_SUM  2147475456
 1 row selected.
 
 -- The unit of the TEMP_MAX_PAGE_COUNT property value is the number of pages, and in terms of size, it is 256MB.
-- The result below means that the number of pages that can be used as a disk temporary tablespace is 256MB.
+-- The result below means that the number of pages that can be used as a disk temporary tablespace is 256MB.
 iSQL> SELECT NAME, VALUE1, VALUE1*8192 FROM V$PROPERTY WHERE NAME = 'TEMP_MAX_PAGE_COUNT';
 NAME                       VALUE1                     VALUE1*8192
 ---------------------------------------------------------------------------------
@@ -147,7 +147,7 @@ SELECT 'DISK_TEMP_TBS_MAX_SUM'
    AND TBS.TYPE IN (5, 6);
 ```
 
-**2. Calculate TEMP_MAX_PAGE property appropriate value** The unit of the TEMP_MAX_PAGE_COUNT property is the number of pages, and the value is calculated using the formula below.
+**2. Calculate the appropriate TEMP_MAX_PAGE_COUNT property value** The unit of the TEMP_MAX_PAGE_COUNT property is the number of pages, and the value is calculated using the formula below.
 
 TEMP_MAX_PAGE_COUNT = *Sum of maximum disk temporary tablespaces* / 8192
 
@@ -159,7 +159,7 @@ If the total sum of the maximum disk temporary tablespaces is 17179869184 bytes 
 
 TEMP_MAX_PAGE_COUNT = 1048576 for 8G
 
-TEMP_MAX_PAGE_COUNT = 2096128 for 16G
+TEMP_MAX_PAGE_COUNT = 2097152 for 16G
 
 TEMP_MAX_PAGE_COUNT = 4192256 for 32G
 
@@ -183,17 +183,27 @@ Altibase server configuration file is also changed so that the value changed to 
 
 ```
 shell> cd $ALTIBASE_HOME/conf
-shell> vi altibase.properties        # If TEMP_MAX_PAGE_COUNT does not exist in the altibase.properties file, if it is added, the existing value is changed.
+shell> vi altibase.properties        # If TEMP_MAX_PAGE_COUNT does not exist in altibase.properties, add it. If it already exists, change the existing value.
 TEMP_MAX_PAGE_COUNT = value;
 ```
 
-**4. Considerations when changing the TEMP_MAX_PAGE_COUNT property** The following three properties are affected by TEMP_MAX_PAGE_COUNT. TOTAL_WA_SIZE SORT_AREA_SIZE HASH_AREA_SIZE  So, if TEMP_MAX_PAGE_COUNT is changed, these properties must be changed as well.  The recommended values for each property are as follows. The recommended value is calculated according to the default ratio, and the appropriate value of the property may be changed during operation.
+**4. Considerations when changing the TEMP_MAX_PAGE_COUNT property** The following three properties are affected by TEMP_MAX_PAGE_COUNT.
 
-TOTAL_WA_SIZE: 256 times TEMP_MAX_PAGE_COUNT SORT_AREA_SIZE: 2 times TEMP_MAX_PAGE_COUNT HASH_AREA_SIZE: 8 times TEMP_MAX_PAGE_COUNT
+- TOTAL_WA_SIZE
+- SORT_AREA_SIZE
+- HASH_AREA_SIZE
+
+If TEMP_MAX_PAGE_COUNT is changed, these properties must be changed as well. The recommended values for each property are as follows. The recommended value is calculated according to the default ratio, and the appropriate value of the property may be changed during operation.
+
+- TOTAL_WA_SIZE: 256 times TEMP_MAX_PAGE_COUNT
+- SORT_AREA_SIZE: 2 times TEMP_MAX_PAGE_COUNT
+- HASH_AREA_SIZE: 8 times TEMP_MAX_PAGE_COUNT
 
 For example, when changing to TEMP_MAX_PAGE_COUNT = 1048576, the recommended value of each property is as follows.
 
-TOTAL_WA_SIZE = 1048576*256 = 268435456 (Unit is bytes) SORT_AREA_SIZE = 1048576*2 = 2097152 (unit is byte) HASH_AREA_SIZE = 1048576*8 = 8388608 (Unit is byte)
+- TOTAL_WA_SIZE = 1048576*256 = 268435456 (unit: bytes)
+- SORT_AREA_SIZE = 1048576*2 = 2097152 (unit: bytes)
+- HASH_AREA_SIZE = 1048576*8 = 8388608 (unit: bytes)
 
 Like TEMP_MAX_PAGE_COUNT, the following three properties can be changed at the system level during Altibase operation.
 

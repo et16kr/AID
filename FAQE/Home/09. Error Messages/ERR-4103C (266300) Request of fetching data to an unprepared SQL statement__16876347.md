@@ -39,7 +39,7 @@ To process a query statement that returns multiple records, a CURSOR must be use
 3. FETCH CURSOR
 4. CLOSE/RELEASE CURSOR
 
-Although the cursor is used as above, the 3. FETCH process proceeds to some extent in the CURSOR FETCH stage, and the 'ERR-4103C (266300)' error Request of fetching data to an unprepared SQL statement.' occurs even though there are still records to be fetched at some point.
+Although the cursor is used as above, the 3. FETCH process proceeds to some extent in the CURSOR FETCH stage, and the `ERR-4103C (266300) Request of fetching data to an unprepared SQL statement.` error occurs even though there are still records to be fetched at some point.
 
 Below is an example where an error occurs when using the cursor and the result of the error.
 
@@ -110,7 +110,9 @@ Success close cursor
 
 Altibase complies with the ANSI standard and is configured not to support the fetch across commit method by default. Therefore, if COMMIT or ROLLBACK is performed after opening the cursor, the cursor is forcibly closed according to the ANSI standard.
 
-This is a method that performed COMMIT while fetching the unit record after opening the cursor, which is not recommended by the ANSI standard.
+Fetch across commit is a method that performs COMMIT while fetching unit records after opening a cursor, which is not recommended by the ANSI standard.
+
+For this reason, if an application performs COMMIT or ROLLBACK after opening the cursor, this error may occur.
 
 The reason an error occurs while performing FETCH to some extent is that the first large amount of records is stored in the communication buffer during FETCH. An error occurs when fetching all the records in the communication buffer and fetching the next certain amount of records into the communication buffer.
 
@@ -223,7 +225,7 @@ while (1)
 
 After calculating the number of records enough to put in the communication buffer with one FETCH, declare the cursor using the LIMIT clause.
 
-The communication buffer size of Altibase version 4.3.9 and above is 64K. Since the number of records in the communication buffer depends on the record size, the last value of the LIMIT clause varies depending on the operating environment.
+The communication buffer size of Altibase version 4.3.9 is 64K. Since the number of records in the communication buffer depends on the record size, the last value of the LIMIT clause varies depending on the operating environment.
 
 Specify the number of records to be stored in the communication buffer in the LIMIT clause, and open the cursor again and use it while changing the start value of the LIMIT clause before opening the cursor.
 

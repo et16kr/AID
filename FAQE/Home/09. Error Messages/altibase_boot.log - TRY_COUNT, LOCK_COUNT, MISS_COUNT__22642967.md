@@ -30,13 +30,19 @@ The following message may be repeatedly recorded in altibase_boot.log.
 
 **Message format**
 
---- reset Mutex Statistics --- TRY_COUNT: 2102048999 LOCK_COUNT: 2147483647 MISS_COUNT: 59144056 ------------------------------
+```
+--- reset Mutex Statistics ---
+TRY_COUNT: 2102048999
+LOCK_COUNT: 2147483647
+MISS_COUNT: 59144056
+------------------------------
+```
 
 # Cause
 
 ---
 
-This message is output when the values of the try_count, lock_count, and miss_count columns of the v$mutex performance view table exceed the maximum value and the values are initialized.This message appears when the values of the `try_count`, `lock_count`, and `miss_count` columns in the performance view table `v$mutex` exceed their maximum limit and are reset.
+This message appears when the values of the `try_count`, `lock_count`, and `miss_count` columns in the `v$mutex` performance view table exceed their maximum value and are reset.
 
 `v$mutex` records mutex-related information for concurrency control within the database. When the values of these columns continuously increase and exceed the maximum limit, a value overflow occurs. At that point, the values are logged in `altibase_boot.log` and then reset to zero.
 
@@ -50,65 +56,59 @@ Column description
 
 **V$MUTEX table structure**
 
-iSQL> desc v$mutex; [ ATTRIBUTE ] ----------------------------------------------------- NAME TYPE ----------------------------------------------------- NAME VARCHAR(64) **TRY_COUNT INTEGER** // If the integer maximum value (2147483647) is exceeded, it will be logged. LOCK_COUNT INTEGER MISS_COUNT INTEGER SPIN_VALUE INTEGER TOTAL_LOCK_TIME_US BIGINT MAX_LOCK_TIME_US BIGINT
+```
+iSQL> desc v$mutex
+[ ATTRIBUTE ]
+------------------------------------------------------------------------------
+NAME                                     TYPE
+------------------------------------------------------------------------------
+NAME                                     VARCHAR(64)
+TRY_COUNT                                INTEGER       // When the integer maximum value (2147483647) is exceeded, the event is logged.
+LOCK_COUNT                               INTEGER
+MISS_COUNT                               INTEGER
+SPIN_VALUE                               INTEGER
+TOTAL_LOCK_TIME_US                       BIGINT
+MAX_LOCK_TIME_US                         BIGINT
+```
 
 ### 6.5.1
 
 **V$MUTEX table structure**
 
-`iSQL> desc v$mutex`
+```
+iSQL> desc v$mutex
+[ ATTRIBUTE ]
+------------------------------------------------------------------------------
+NAME                                     TYPE
+------------------------------------------------------------------------------
+NAME                                     VARCHAR(64)
+TRY_COUNT                                BIGINT        // When the BIGINT maximum value (9223372036854775807) is exceeded, the event is logged.
+LOCK_COUNT                               BIGINT
+MISS_COUNT                               BIGINT
+SPIN_VALUE                               INTEGER
+TOTAL_LOCK_TIME_US                       BIGINT
+MAX_LOCK_TIME_US                         BIGINT
+```
 
-`[ ATTRIBUTE ]`
-
-`------------------------------------------------------------------------------`
-
-`NAME                                     TYPE`
-
-`------------------------------------------------------------------------------`
-
-`NAME                                     VARCHAR(``64``)`
-
-`TRY_COUNT                                BIGINT``// When the BIGINT maximum value (9223372036854775807) is exceeded, the event is logged.`
-
-`LOCK_COUNT                               BIGINT`
-
-`MISS_COUNT                               BIGINT`
-
-`SPIN_VALUE                               INTEGER`
-
-`TOTAL_LOCK_TIME_US                       BIGINT`
-
-`MAX_LOCK_TIME_US                         BIGINT`
-
-### 7.1 or later
+### 7.1.0 or later
 
 **V$MUTEX table structure**
 
-`iSQL> desc v$mutex`
-
-`[ ATTRIBUTE ]`
-
-`------------------------------------------------------------------------------`
-
-`NAME                                     TYPE`
-
-`------------------------------------------------------------------------------`
-
-`NAME                                     VARCHAR(``64``)`
-
-`TRY_COUNT                                BIGINT``// When the BIGINT maximum value (9223372036854775807) is exceeded, the event is logged.`
-
-`LOCK_COUNT                               BIGINT`
-
-`MISS_COUNT                               BIGINT`
-
-`SPIN_VALUE                               INTEGER`
-
-`TOTAL_LOCK_TIME_US                       BIGINT`
-
-`MAX_LOCK_TIME_US                         BIGINT`
-
-`THREAD_ID                                VARCHAR(``64``)``// The ID of the thread that currently holds the lock`
+```
+iSQL> desc v$mutex
+[ ATTRIBUTE ]
+------------------------------------------------------------------------------
+NAME                                     TYPE
+------------------------------------------------------------------------------
+NAME                                     VARCHAR(64)
+TRY_COUNT                                BIGINT        // When the BIGINT maximum value (9223372036854775807) is exceeded, the event is logged.
+LOCK_COUNT                               BIGINT
+MISS_COUNT                               BIGINT
+SPIN_VALUE                               INTEGER
+TOTAL_LOCK_TIME_US                       BIGINT
+MAX_LOCK_TIME_US                         BIGINT
+THREAD_ID                                VARCHAR(64)   // The ID of the thread that currently holds the lock
+```
 
 # Solution
 

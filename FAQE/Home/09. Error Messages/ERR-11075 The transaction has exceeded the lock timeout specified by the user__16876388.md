@@ -92,20 +92,9 @@ When executing DDL statements, if the target table is already locked by another 
 
 This may behave differently depending on the DDL_LOCK_TIMEOUT setting of the Altibase server property.
 
-- - DDL_LOCK_TIMEOUT = 0 (default) If the LOCK is not acquired, it is immediately failed.
-    - DDL_LOCK_TIMEOUT = 1
-      If it cannot acquire LOCK, it waits indefinitely
-    - ```
-      DDL_LOCK_TIMEOUT = seconds
-      ```
-
-      ```
-      If LOCK is not acquired during DDL execution, wait for the specified time and try again.
-      ```
-
-      ```
-      If the LOCK is not acquired even when trying again, it will fail.
-      ```
+- DDL_LOCK_TIMEOUT = 0 (default): if the LOCK is not acquired, DDL fails immediately.
+- DDL_LOCK_TIMEOUT = -1: if the LOCK cannot be acquired, wait indefinitely.
+- DDL_LOCK_TIMEOUT = seconds: if the LOCK is not acquired during DDL execution, wait for the specified time and try again. If the LOCK is still not acquired, DDL fails.
 
 ### 2. Occur when a change transaction is performed on the memory table
 
@@ -131,7 +120,7 @@ The insert statement of the active server should be reflected in the standby ser
 
 This symptom is affected by the value of the REPLICATION_LOCK_TIMEOUT property.
 
-If the server reflecting the redundancy log (standby server in the example above) does not acquire LOCK within the REPLICATION_LOCK_TIMEOUT (seconds) time, the above error occurs and the redundant transaction attempted to reflect fails.
+If the server reflecting the replication log (standby server in the example above) does not acquire LOCK within the REPLICATION_LOCK_TIMEOUT (seconds) time, the above error occurs and the replication transaction attempted to reflect fails.
 
 # Solution
 
@@ -146,7 +135,8 @@ If the server reflecting the redundancy log (standby server in the example above
   Repeat the SELECT FOR UPDATE statement until it succeeds.
   Find uncommitted transactions and commit or rollback.
   Increase the time of the WAIT option.
-- **Occur in a replication environment** When designing for replication, consideration should be given to avoiding simultaneous changes on both servers for the same record. When this error occurs, it may cause a problem with the data integrity of both servers, so the data must be checked.
+- **Occur in a replication environment**
+  When designing for replication, consideration should be given to avoiding simultaneous changes on both servers for the same record. When this error occurs, it may cause a problem with the data integrity of both servers, so the data must be checked.
 
 # Reference
 

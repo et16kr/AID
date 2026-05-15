@@ -14,7 +14,7 @@ labels: []
 Source: https://docs.altibase.com/pages/viewpage.action?pageId=16876378
 Updated: 2021-03-29T10:25:49.000+0900
 
-**- [Overview](#ERR-11030(69680)Thedatafilecannotbeextendedbecausetherequestedsizeisbiggerthanthemaximumsize(FID:<0%d>).-Overview) - [Version](#ERR-11030(69680)Thedatafilecannotbeextendedbecausetherequestedsizeisbiggerthanthemaximumsize(FID:<0%d>).-Version) - [Solution](#ERR-11030(69680)Thedatafilecannotbeextendedbecausetherequestedsizeisbiggerthanthemaximumsize(FID:<0%d>).-Solution) - [Reference](#ERR-11030(69680)Thedatafilecannotbeextendedbecausetherequestedsizeisbiggerthanthemaximumsize(FID:<0%d>).-Reference)**
+**- [Overview](#ERR-11030(69680)Thedatafilecannotbeextendedbecausetherequestedsizeisbiggerthanthemaximumsize(FID:<0%d>).-Overview) - [Version](#ERR-11030(69680)Thedatafilecannotbeextendedbecausetherequestedsizeisbiggerthanthemaximumsize(FID:<0%d>).-Version) - [Cause](#ERR-11030(69680)Thedatafilecannotbeextendedbecausetherequestedsizeisbiggerthanthemaximumsize(FID:<0%d>).-Cause) - [Solution](#ERR-11030(69680)Thedatafilecannotbeextendedbecausetherequestedsizeisbiggerthanthemaximumsize(FID:<0%d>).-Solution) - [Reference](#ERR-11030(69680)Thedatafilecannotbeextendedbecausetherequestedsizeisbiggerthanthemaximumsize(FID:<0%d>).-Reference)**
 
 # Overview
 
@@ -33,13 +33,13 @@ iSQL> alter tablespace DISK_USER_TBS alter datafile '/home/altibase_home/dbs/use
 
 ALTIBASE HDB 4
 
-Cause
+# Cause
 
 ---
 
 The above error message occurs when the size of the data file with the AUTOEXTEND OFF attribute is changed larger than maxsize.
 
-The autoextend attribute and set the size of the data file can be checked with the following statement (on if autoextend is 1, off if 0).
+The autoextend attribute and configured size of each data file can be checked with the following statement (on if autoextend is 1, off if 0).
 
 ```
 iSQL> select name, AUTOEXTEND , INITSIZE, MAXSIZE from v$datafiles;

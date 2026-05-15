@@ -20,7 +20,7 @@ Updated: 2025-10-20T15:51:21.000+0900
 
 ---
 
-Connection from ALTIBASE HDB client to Altibase server fails.
+Connection from an ALTIBASE HDB client to an Altibase server fails.
 
 An error may occur in the following two cases. In the version, the first three digits are the major version, and the back digits are the patch version.
 
@@ -30,7 +30,7 @@ An error may occur in the following two cases. In the version, the first three d
 **Ex) When the major version of the server and the client are the same, but the patch version of the client is later than that of the server.**
 
 ```
-# Client server
+# Client version
 $ apre -v
 Altibase Precompiler2(APRE) Ver.1 6.1.1.1.10 XEON_LINUX_redhat_Enterprise_ES4-64bit-6.1.1.1.10-release-GCC3.4.6 (xeon-redhat-linux-gnu) Mar  4 2013 09:43:18
 
@@ -53,7 +53,7 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 26110
 **Ex) When the client's major version is later than the server's major version.**
 
 ```
-# Client server
+# Client version
 $ apre -v
 Altibase Precompiler2(APRE) Ver.1 6.1.1.3.2 XEON_LINUX_redhat_Enterprise_ES4-64bit-6.1.1.3.2-release-GCC3.4.6 (xeon-redhat-linux-gnu) Aug 28 2013 17:54:46
 
@@ -87,7 +87,7 @@ When connecting to a server with a version earlier than 5.5.1.3.7 from a later v
 
 ### CLI Client
 
-When connecting to a server with a version earlier than 6.1.1.1.10 from a later version client including 6.1.1.1.10, the connection fails. (Example, iSQL version 6.1.1.1.10 -> ALTIBASE HDB server 6.1.1.1.9)
+When connecting to a server with a version earlier than 5.5.1.4.6 from a client version including 5.5.1.4.6 or later, the connection fails. (Example, iSQL version 5.5.1.4.6 -> ALTIBASE HDB server 5.5.1.4.4)
 
 ## ALTIBASE HDB 6.1.1
 
@@ -152,6 +152,8 @@ $ apre -v
 #### In the case of the ODBC driver
 
 Check in the properties of the altiodbc.dll file in Windows Explorer.
+
+![altiodbc.dll file properties](https://docs.altibase.com/download/attachments/embedded-page/KNFAQ/09-11.%20ERR-4109C%20Invalid%20session%20property/image2025-7-11%2011:16:19.png?api=v2)
 
 #### In the case of the JDBC driver
 

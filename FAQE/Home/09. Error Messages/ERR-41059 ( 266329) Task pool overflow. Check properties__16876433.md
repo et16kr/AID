@@ -207,7 +207,10 @@ Task pool overflow occurs when the number of tasks exceeds the value of the MAX_
   iSQL> SELECT NAME, VALUE FROM V$SYSSTAT WHERE NAME = 'logon current';
   ```
 
-  If the number of sessions is less than MAX_CLIENT and the value of logon current is equal to or greater than MAX_CLIENT, there are two possible causes: -When all service threads are in EXECUTE state and a new connection occurs and the task increases -When a new connection occurs while the number of transactions reaches TRANSACTION_TABLE_SIZE and the task increases
+  If the number of sessions is less than MAX_CLIENT and the value of logon current is equal to or greater than MAX_CLIENT, there are two possible causes:
+  - All service threads are in EXECUTE state and new connections increase the task count.
+  - TRANSACTION_TABLE_SIZE has been reached and new connections increase the task count.
+
 - **When iSQL connection is not possible**
 
   The number of created tasks can be checked by the logon current value of v$sysstat. However, if a task pool overflow occurs, you may not be able to execute the above statement because a new connection cannot be established. In this case, the number of tasks must be checked with the number of open files in the Altibase server process with the lsof command.
@@ -265,5 +268,5 @@ If the application has the following characteristics, it is necessary to check a
 
 Unless the above processing is inevitable due to the nature of the service, consider changing the session to end immediately after the transaction is completed.
 
-- If keep making new connections
+- Continuously opening new connections
 - Maintaining unnecessarily connected sessions even though they no longer need to be connected

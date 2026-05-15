@@ -41,7 +41,7 @@ The description of the error can be checked using the altierr utility as follows
 
 $ altierr 0x7101D 0x7101D ( 462877) cmERR_ABORT_PROTOCOL_HEADER_ERROR Protocol header error.(<0%s>) # *Cause: Protocol header error # *Action: Please send a bug report to the vendor.
 
-This error is a message recorded in the server's altibase_boot.log when an incompatible version of the Altibase server attempts to connect to the server.
+This error is recorded in the server's altibase_boot.log when an Altibase client version that is incompatible with the Altibase server attempts to connect.
 
 This message leaves history and does not affect the operation of the Altibase server.
 
@@ -76,7 +76,7 @@ If this error message continues to be logged, find the client trying to connect 
    version **5.1.5.68** XEON_LINUX_redhat_Enterprise_AS4-64bit-5.1.5.68-release-GCC3.4.6 (xeon-redhat-linux-gnu) Jan 5 2010 21:17:22, binary db version 5.1.2, meta version 5.3.3, **cm protocol version 5.4.5**, replication protocol version 5.2.1
 - How to check the client version
 
-  # 5.3.3 or earlier $ ***sesc -v*** SES C/C++ Precompiler 3 Ver **5.1.5.68** XEON_LINUX_redhat_Enterprise_AS4-64bit-5.1.5.68-release-GCC3.4.6 (xeon-redhat-linux-gnu) Jan 5 2010 21:17:22  # 5.3.3 or later $ ***apre -v*** Altibase Precompiler2(APRE) Ver.1 **6.3.1.0.9** X86_64_LINUX_redhat_Enterprise_ES4-64bit-6.3.1.0.9-release-GCC3.4.6 (x86_64-unknown-linux-gnu) Mar 20 2014 18:19:25
+  # Earlier than 5.3.3 $ ***sesc -v*** SES C/C++ Precompiler 3 Ver **5.1.5.68** XEON_LINUX_redhat_Enterprise_AS4-64bit-5.1.5.68-release-GCC3.4.6 (xeon-redhat-linux-gnu) Jan 5 2010 21:17:22  # 5.3.3 or later $ ***apre -v*** Altibase Precompiler2(APRE) Ver.1 **6.3.1.0.9** X86_64_LINUX_redhat_Enterprise_ES4-64bit-6.3.1.0.9-release-GCC3.4.6 (x86_64-unknown-linux-gnu) Mar 20 2014 18:19:25
 - How to check the version using JDBC Driver
 
   $ ***java -jar $ALTIBASE_HOME/lib/Altibase.jar*** JDBC Driver Info : Altibase Ver = **6.3.1.0.9** for JavaVM v1.4, **CMP:7.1.1**, Mar 20 2014 17:07:25

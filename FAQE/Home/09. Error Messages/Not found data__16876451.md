@@ -41,7 +41,7 @@ To process a query statement that returns multiple records, a cursor (CURSOR) mu
 3. FETCH CURSOR
 4. CLOSE/RELEASE CURSOR
 
-The cursor was used as above, but not found data error occurs at some point, even though the record to FETCH is still remaining during the "3. Cursor FETCH" state.
+The cursor was used as above, but a `Not found data` error occurs during the "3. Cursor FETCH" step after FETCH has progressed for some time, even though records remain to be fetched.
 
 Below is an example where an error occurs when using the cursor and the result of the error.
 
@@ -114,11 +114,11 @@ Success close cursor
 
 Altibase follows the ANSI standard and does not support the fetch across commit method. Therefore, if COMMIT or ROLLBACK is executed after opening the cursor, the cursor is forcibly closed according to the ANSI standard.
 
-This is a method that performs COMMIT while fetching the unit record after opening the cursor, which is not recommended by the ANSI standard.
+Fetch across commit is a method that performs COMMIT while fetching unit records after opening a cursor, which is not recommended by the ANSI standard.
 
 For this reason, if an application executes COMMIT or ROLLBACK after opening the cursor, an error may occur.
 
-The reason an error occurs while performing FETCH to some extent is that the first large amount of records is stored in the communication buffer during FETCH. An error occurs when fetching all the records in the communication buffer and fetching the next certain amount of records into the communication buffer.
+The reason an error occurs while performing FETCH to some extent is that a certain amount of records is stored in the communication buffer during the first FETCH. An error occurs after fetching all records in the communication buffer and then fetching the next certain amount of records into the communication buffer.
 
 The following is an example of creating an application that performed COMMIT or ROLLBACK in the cursor OPEN state.
 

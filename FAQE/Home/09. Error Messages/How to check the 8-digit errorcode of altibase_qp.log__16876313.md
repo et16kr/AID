@@ -48,7 +48,7 @@ Depending on the version of Altibase, the expression method of the error code in
                 ^       ^
 ```
 
-In version 6.3.1 and later, error codes and messages that can be checked directly from altierr are displayed, so there is no difficulty in checking errors, but in versions below 6.1.1, there are no unknown error codes and error messages, making it difficult to check the contents of errors.
+In version 6.3.1 and later, error codes and messages that can be checked directly from altierr are displayed, so there is no difficulty in checking errors. In version 6.1.1 and earlier, however, only an unknown decimal error code is displayed and no error message is shown, making it difficult to identify the error contents.
 
 ## How to check the 8-digit error code
 

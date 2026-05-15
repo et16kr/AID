@@ -42,9 +42,9 @@ $ altierr 0x311E0 0x311E0 ( 201184) qpERR_ABORT_QDX_MAXIMUM_KEY_SIZE_EXCEED The 
 
 When performing joins or order by / group by on a **disk table**, Altibase uses Temp Tablespace internally.
 
-Temp Tablespace is a Disk Tablespace and has a fixed page size of 8K. When using Temp Tablespace, the above error may occur if there is a need to create more than 8K records.
+Temp Tablespace is a Disk Tablespace and has a fixed page size of 8K. When using Temp Tablespace, the above error may occur if a record larger than 8K must be created.
 
-For reference, if the size of the disk tablespace exceeds 1Page(8K), the data length is approximately 3000Bytes or more.
+For reference, a record can exceed a Disk Tablespace page (8K) when the data length is approximately 3000 bytes or more.
 
 # Example
 
@@ -87,7 +87,7 @@ I1
 
 1. The TEMP_TBS_MEMORY hint can be used to avoid the 1 Page (8K) size limitation of the disk temp tablespace.
 
-In addition, this hint is effective in improving query performance because the memory area is used instead the disk as the temp area.
+In addition, this hint is effective in improving query performance because the memory area is used instead of disk as the temp area.
 
 ```
 iSQL> SELECT  /*+ TEMP_TBS_MEMORY */ * FROM T1 ORDER BY I1;
