@@ -1324,3 +1324,51 @@ These pages may be useful for later LLM packaging, but they should be marked as 
 - External HTTP availability was not tested; P224 used source-link preservation and grep-based validation.
 - English-only `FAQE` pages remain outside Korean-source semantic verification unless a later job explicitly audits them.
 - Replaced Gliffy placeholders identify missing diagrams but do not recreate diagram content.
+
+## P225 LLM Readiness and Multilingual Terminology Review
+
+### Scope
+
+P225 reviewed `LLM_REFERENCE_REVIEW_PLAN.md` and the J013 handoff section to confirm that the proposed LLM package structure can use the pass2-reviewed English source set. This job did not create final consolidated LLM reference documents and did not edit product documentation under `DOCK/`, `faq/`, `arch/`, or `FAQE/`.
+
+### Findings And Updates
+
+- Confirmed that the J013 package structure remains a planning artifact for later `llm-reference/` creation and does not require source document moves, deletes, or consolidation during pass2.
+- Confirmed that P202-P214 provide Korean-source semantic review evidence for the planned technical `arch/Home` sources, while P215-P222 provide Korean-source semantic review evidence for Korean-core `FAQE/Home` sources.
+- Folded P223/P224 link and attachment revalidation evidence into the LLM readiness gate.
+- Added source classification rules to `LLM_REFERENCE_REVIEW_PLAN.md`:
+  - `Korean-source-verified`
+  - `Link-validated Korean-source-verified`
+  - `English-only source`
+  - `Legacy attachment label only`
+  - `Diagram unavailable`
+- Tightened duplicate-handling rules so version, OS, license, restart, backup/recovery mode, output, failure-condition, and validation differences are preserved instead of collapsed.
+- Expanded multilingual terminology rules to preserve Altibase roles, internal terms, Java/.NET/C/C++ identifiers, exact punctuation, Korean attachment filenames, and source-preserved SQL aliases or output strings.
+- Marked P225 as `Done` in pass2 workflow control files.
+
+### Readiness Evidence
+
+- The J013 package table source paths still resolve to existing files or Markdown-bearing directories: 102 patterns checked, 0 missing.
+- P224 classifies 126 `FAQE/Home` pages as English-only candidates. P225 keeps those pages usable only as labeled auxiliary sources, not as Korean-source-verified material.
+- The planned `llm-reference/` output directory was not created by this job.
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `python3 -m json.tool manifest.json >/tmp/p225-manifest.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK/Home -type f -name '*.md' \| wc -l` | 51 |
+| `find faq/Home -type f -name '*.md' \| wc -l` | 115 |
+| `find arch/Home -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE/Home -type f -name '*.md' \| wc -l` | 241 |
+| J013 source path pattern validation from `LLM_REFERENCE_REVIEW_PLAN.md` | Passed, 102 patterns checked and 0 missing |
+| P225-scoped empty Markdown link and macro-placeholder scan | Passed, no matches |
+| `test ! -e llm-reference` | Passed |
+| `bash -n .codex-jobs/ko-en-doc-coverage-pass2/run_all.sh` and `bash -n .codex-jobs/ko-en-doc-coverage-pass2/run-all.sh` | Passed |
+
+### Remaining Risk
+
+- P225 is a planning/readiness review only; final LLM consolidation still waits for P226 final pass2 validation.
+- External HTTP availability was not tested in P225.
+- English-only `FAQE` material remains outside Korean-source semantic verification unless later explicitly audited and labeled.

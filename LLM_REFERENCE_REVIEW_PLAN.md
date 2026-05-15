@@ -225,6 +225,30 @@ find FAQE/Home -type f -name '*.md' | wc -l
 
 `FAQE/Home/ALTIBASE HDB*`와 `FAQE/Home/Altibase Error Messages/**` 경로는 영어-only 보조 후보로 취급한다. 이 경로를 실제 취합 문서에 포함할 때는 한국어 기준 핵심 FAQ 검증 범위 밖이라는 점을 `Source paths` 절이나 해당 섹션에 명시한다.
 
+### P225 pass2 LLM readiness gate
+
+작성일: 2026-05-16
+
+P225는 J013 인계 계획을 pass2 결과 기준으로 다시 확인한 준비성 검토이다. 이 절은 실제 통합 문서를 만들지 않고, 이후 `llm-reference/` 작성자가 지켜야 할 입력 소스 등급, 중복 처리 기준, 다국어 용어 보존 기준을 명확히 한다.
+
+#### 입력 소스 등급
+
+| 등급 | 대상 | 사용 규칙 |
+| --- | --- | --- |
+| Korean-source-verified | P202-P214에서 검토한 `arch/Home` 기술 문서와 P215-P222에서 검토한 한국어 기준 핵심 `FAQE/Home` 문서 | 기본 입력으로 사용한다. 각 절의 `Source paths`에 실제 경로를 남긴다. |
+| Link-validated Korean-source-verified | P223, P224에서 첨부, 외부 링크, export artifact를 재검증한 `arch/Home` 및 한국어 기준 핵심 `FAQE/Home` 문서 | 기본 입력으로 사용할 수 있다. 문서형 첨부 URL과 외부 URL을 변경하지 않는다. |
+| English-only source | `FAQE/Home/ALTIBASE HDB*`, `FAQE/Home/Altibase Error Messages/**`, `FAQE/Home/Altibase Error Messages__6979655.md` | 보조 정보로만 사용한다. 해당 절이나 `Source paths`에 `English-only source`라고 표시하고 한국어 기준 검증 완료로 설명하지 않는다. |
+| Legacy attachment label only | 한국어 원문에 `#` 링크로만 남은 첨부 라벨 | 다운로드 가능한 URL처럼 만들지 않는다. 원문 라벨을 남기고 "no downloadable URL in source"로 기록한다. |
+| Diagram unavailable | P224에서 Gliffy export placeholder를 대체한 영어-only 다이어그램 자리 | 다이어그램 내용을 추론하지 않는다. 필요한 경우 다이어그램 미제공 상태를 리스크로 남긴다. |
+
+#### 통합 전 준비성 조건
+
+- P226 최종 pass2 검증이 끝나기 전에는 최종 통합 문서를 만들지 않는다.
+- J013 표의 `arch/Home` 및 `FAQE/Home` source path 패턴은 실제 파일 또는 Markdown 파일을 가진 디렉터리로 해소되어야 한다.
+- 통합 중 한국어 원문과 영어 문서의 의미 차이가 새로 발견되면 통합 문서에서 임의로 해결하지 않고, 원본 영어 문서 보정 작업으로 되돌린다.
+- 각 통합 문서는 `Source paths`와 `Terminology` 절을 반드시 유지한다.
+- 통합 문서는 새 출력 디렉터리에 생성하며 원본 한국어 문서, 원본 영어 문서, `manifest.json`의 기존 문서 메타데이터를 삭제, 이동, 또는 임의 변경하지 않는다.
+
 ### 취합 문서 작성 템플릿
 
 각 취합 문서는 다음 순서를 기본값으로 사용한다. 주제 특성상 불필요한 절은 생략할 수 있지만, `Source paths`와 `Terminology` 절은 생략하지 않는다.
@@ -265,6 +289,10 @@ find FAQE/Home -type f -name '*.md' | wc -l
 - 에러 메시지는 `07-error-message-reference.md`에 모으고, 다른 문서에서는 관련 에러 코드와 원인 요약만 링크한다.
 - `Altibase Development Guide`처럼 여러 주제에 걸치는 문서는 하나의 주 문서에 canonical 내용을 두고 다른 취합 문서에서는 관련 절로 상호 참조한다.
 - 한국어 원문과 영어 문서가 다시 달라진 것을 발견하면 취합하지 말고 한국어 기준 영어 문서 보정 작업으로 되돌린다.
+- canonical 우선순위는 pass2에서 한국어 기준으로 검토한 기술 가이드, 한국어 기준 핵심 FAQ, 영어-only 보조 문서 순서로 둔다. 단, FAQ가 절차, 예외, 에러 대응을 더 구체적으로 설명하면 해당 내용을 절차 또는 troubleshooting 절에 병합한다.
+- 버전 조건, OS 조건, 라이선스 조건, 재시작 필요 여부, 백업/복구 모드가 다른 중복 예제는 하나로 합치지 않는다. 조건을 제목 또는 문장 앞부분에 표시한 별도 예제로 둔다.
+- 같은 명령어라도 출력 예제, 실패 조건, 검증 SQL이 다르면 canonical 절 아래에 "variants" 또는 "version-specific notes"로 남긴다.
+- 두 영어 소스가 충돌하고 한국어 기준 판단이 필요하면 둘 중 하나를 삭제하지 말고 리스크로 기록한 뒤 원본 영어 문서 보정 작업으로 되돌린다.
 
 ### 다국어 용어 보존 규칙
 
@@ -280,6 +308,8 @@ LLM이 터키어, 아랍어, 독일어, 프랑스어, 태국어, 중국어, 일�
 | 에러 코드 | `ERR-0109D`, `ERR-11075`, `ERR-4103C`, `ERR-61035`, `ERR-91015` | 에러 코드는 제목과 본문 양쪽에서 원문을 유지한다. |
 | 버전과 조건 | `Altibase 7.1.0 or later`, `6.5.1~7.1.0`, `7.3.0 or later` | 버전 조건은 문장 앞부분에 명확히 두고 임의로 단순화하지 않는다. |
 | 첨부와 URL | `docs.altibase.com` URL, `.pdf`, `.pptx`, `.zip` 링크 | URL과 파일명은 바꾸지 않는다. 링크 라벨만 필요한 경우 자연스러운 영어로 정리한다. |
+| 역할과 내부 용어 | `Sender`, `Receiver`, `Off-Line Replicator`, `Hybrid Partitioned Table (HPT)`, `MVCC Garbage Data` | Altibase 문서에서 특정 의미를 갖는 역할명과 기능명은 대소문자와 약어를 보존한다. |
+| 패키지와 클래스명 | `Altibase.jdbc.driver.cm`, `java.io`, `java.net`, `sun.nio.ch`, `AltibaseDataAdapter` | Java, .NET, C/C++ 식별자는 링크나 일반 문장으로 바꾸지 않고 코드 표기로 유지한다. |
 
 다국어 답변을 염두에 둔 문장 작성 규칙은 다음과 같다.
 
@@ -288,6 +318,9 @@ LLM이 터키어, 아랍어, 독일어, 프랑스어, 태국어, 중국어, 일�
 - 수치, 단위, 기본값, 재시작 필요 여부를 한 문장 안에서 분리하지 않는다.
 - 코드 블록 안의 주석은 영어 기준으로 유지하고, 사용자가 다른 언어로 질문하더라도 코드 자체는 번역하지 않도록 한다.
 - 운영 절차는 prerequisites, steps, validation, notes 순서로 작성해 언어가 바뀌어도 단계가 흐려지지 않게 한다.
+- 대소문자, 밑줄, 하이픈, 달러 기호, 슬래시, 따옴표, 괄호가 의미를 갖는 식별자는 문장 안에서도 정확히 보존한다.
+- 한국어가 포함된 첨부 파일명은 파일명 자체가 식별자이므로 번역하지 않는다. 설명 문장만 영어로 작성한다.
+- 출처 문서의 오탈자처럼 보이는 SQL alias 또는 출력 문자열이라도 한국어 기준으로 보존된 값이면 임의 교정하지 않고, 필요한 경우 주석이나 리스크로 기록한다.
 
 ### 다음 단계 실행 순서
 
