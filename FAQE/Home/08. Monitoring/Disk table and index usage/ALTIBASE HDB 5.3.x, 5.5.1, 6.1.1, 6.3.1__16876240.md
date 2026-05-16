@@ -34,7 +34,7 @@ The monitoring query introduced on this page can be used from the version that r
 
 In [BUG-31372](https://altra.altibase.com/altimis-2.0/app_bug_new/bug_view.jsp?pk=31372), the TOTAL_USED_SIZE column of X$SEGMENT has been added so that the actual usage of the disk table can be queried.
 
-In ALTIBASE HDB version 5.3.3, 5.3.5, 5.5.1 without BUG-31372 being modified, an error may occur when using the following query.
+In ALTIBASE HDB 5.3.3, 5.3.5, and 5.5.1 versions where BUG-31372 has not been applied, an error may occur when using the following query.
 
 # To check the usage of disk tables and indexes
 
@@ -50,7 +50,7 @@ In ALTIBASE HDB version 5.3.3, 5.3.5, 5.5.1 without BUG-31372 being modified, an
 
 ---
 
-- Even if the table data is deleted with DELETE and USED, it does not decrease.
+- Even if table data is deleted with DELETE, USED does not decrease.
 - To check the actual USED excluding FREE PAGE after DELETE, execute ALTER TABLE table_name AGING;.
 - While ALTER TABLE ~ AGING; is executing, it holds an X lock on the table, so other requests for the table wait. Be careful when executing it.
 

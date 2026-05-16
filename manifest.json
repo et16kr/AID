@@ -1034,8 +1034,8 @@
       "title": "ALTIBASE HDB 5.1.5.x",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+5.1.5.x",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk table and index usage/ALTIBASE HDB 5.1.5.x__16876234.md",
-      "body_chars": 14374,
-      "word_count": 1096
+      "body_chars": 14364,
+      "word_count": 1094
     },
     {
       "space_key": "FAQE",
@@ -1043,7 +1043,7 @@
       "title": "ALTIBASE HDB 5.3.x, 5.5.1, 6.1.1, 6.3.1",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+5.3.x%2C+5.5.1%2C+6.1.1%2C+6.3.1",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk table and index usage/ALTIBASE HDB 5.3.x, 5.5.1, 6.1.1, 6.3.1__16876240.md",
-      "body_chars": 16580,
+      "body_chars": 16578,
       "word_count": 1400
     },
     {
@@ -1079,8 +1079,8 @@
       "title": "ALTIBASE HDB 5.3.3, 5.3.5",
       "source_url": "https://docs.altibase.com/display/FAQE/ALTIBASE+HDB+5.3.3%2C+5.3.5",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/Disk tablespace usage/ALTIBASE HDB 5.3.3, 5.3.5__16876253.md",
-      "body_chars": 5621,
-      "word_count": 474
+      "body_chars": 5629,
+      "word_count": 477
     },
     {
       "space_key": "FAQE",
@@ -1097,7 +1097,7 @@
       "title": "How to determine which queries are being rolled back",
       "source_url": "https://docs.altibase.com/display/FAQE/How+to+determine+which+queries+are+being+rolled+back",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/How to determine which queries are being rolled back__16876296.md",
-      "body_chars": 2390,
+      "body_chars": 2389,
       "word_count": 364
     },
     {
@@ -1160,7 +1160,7 @@
       "title": "System information by OS",
       "source_url": "https://docs.altibase.com/display/FAQE/System+information+by+OS",
       "path": "altibase_docs_md/FAQE/Home/08. Monitoring/System information by OS__16876206.md",
-      "body_chars": 34192,
+      "body_chars": 34191,
       "word_count": 3063
     },
     {

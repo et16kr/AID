@@ -72,7 +72,7 @@ The status column of v$transaction is a value that indicates the transaction sta
 
 - 0: BEGIN: transaction started
 - 1: PRECOMMIT: do not use
-- 2: COMMIT_IN_MEMORY: don not use
+- 2: COMMIT_IN_MEMORY: do not use
 - 3: COMMIT: Transaction is committed
 - 4: ABORT: Rolled back and aborted
 - 5: BLOCKED: Wait for lock or other transaction

@@ -22,7 +22,7 @@ Updated: 2021-04-05T10:21:25.000+0900
 
 - This is a disk table and index usage query for ALTIBASE HDB version 5.1.5.
 - In ALTIBASE HDB 5, due to a change in the structure of the disk table, only the size allocated to the table can be known and the actual usage cannot be checked.
-- This means that data cannot be calculated except for the free space that occurred after DELETE.
+- This means that the size excluding free space left after DELETE cannot be calculated.
 - From ALTIBASE HDB 5.3.3.33, 5.3.5.15, 5.5.1.0.3, it has been improved so that the usage can be checked.
 
 # Disk table

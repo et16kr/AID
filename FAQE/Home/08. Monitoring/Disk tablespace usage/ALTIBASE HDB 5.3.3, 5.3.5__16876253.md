@@ -26,7 +26,7 @@ Updated: 2021-03-24T08:49:49.000+0900
     - ALTIBASE HDB 5.3.3.33
     - ALTIBASE HDB 5.3.5.15
     - ALTIBASE HDB 5.5.1.0.3
-- Therefore, in ALTIBASE HDB 5.3.3, 5.3.5, 5.5.1 versions without BUG-31372 being modified, an error may occur when using the following query.
+- Therefore, in ALTIBASE HDB 5.3.3, 5.3.5, and 5.5.1 versions where BUG-31372 has not been applied, an error may occur when using the following query.
 - The actual usage of undo tablespaces and temporary tablespaces is not available in this version.
 
 # Disk tablespace usage query

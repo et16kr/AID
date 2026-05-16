@@ -131,7 +131,7 @@ $> rpm -qa | grep -i kernel
 
 kernel-2.6.9-89.EL kernel-largesmp-devel-2.6.9-89.EL kernel-utils-2.4-18.el4 kernel-smp-devel-2.6.9-89.EL kernel-smp-2.6.9-89.EL kernel-devel-2.6.9-89.EL
 
-4. DISK : iogstat 3 1
+4. DISK : iostat 3 1
 
 ```
 $> iostat 3 1
@@ -165,7 +165,7 @@ Blk_wrtn
        The total number of blocks written.
 ```
 
-5. NETWORK : netstat, inconfig
+5. NETWORK : netstat, ifconfig
 
 ```
 $> netstat
