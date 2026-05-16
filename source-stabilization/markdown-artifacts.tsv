@@ -1,1 +1,2 @@
 path	line	pattern_class	excerpt	action	evidence	risk	notes
+arch/Home; FAQE/Home; semantic-coverage; source-stabilization	0	clean_no_match	no scoped Markdown artifact matches	no source edit required; evidence row records passing scan	required E003 scan returned no matches with rg exit code 1	none	exit code 1 is expected for a no-match rg source-stability scan
