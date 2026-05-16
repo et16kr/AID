@@ -3572,8 +3572,8 @@
       "title": "1. JBoss Installation",
       "source_url": "https://docs.altibase.com/display/arch/1.+JBoss+Installation",
       "path": "altibase_docs_md/arch/Home/JBOSS Integration Guide for Altibase/1. JBoss Installation__14647370.md",
-      "body_chars": 8449,
-      "word_count": 953
+      "body_chars": 8427,
+      "word_count": 952
     },
     {
       "space_key": "arch",
@@ -3590,8 +3590,8 @@
       "title": "3. Examples",
       "source_url": "https://docs.altibase.com/display/arch/3.+Examples",
       "path": "altibase_docs_md/arch/Home/JBOSS Integration Guide for Altibase/3. Examples__14647382.md",
-      "body_chars": 4777,
-      "word_count": 527
+      "body_chars": 4472,
+      "word_count": 495
     },
     {
       "space_key": "arch",
@@ -3608,8 +3608,8 @@
       "title": "1. JEUS Installation",
       "source_url": "https://docs.altibase.com/display/arch/1.+JEUS+Installation",
       "path": "altibase_docs_md/arch/Home/JEUS Integration Guide for Altibase/1. JEUS Installation__14058463.md",
-      "body_chars": 13694,
-      "word_count": 1469
+      "body_chars": 13785,
+      "word_count": 1485
     },
     {
       "space_key": "arch",
@@ -3617,7 +3617,7 @@
       "title": "2. Integrating ALTIBASE and JEUS",
       "source_url": "https://docs.altibase.com/display/arch/2.+Integrating+ALTIBASE+and+JEUS",
       "path": "altibase_docs_md/arch/Home/JEUS Integration Guide for Altibase/2. Integrating ALTIBASE and JEUS__14058474.md",
-      "body_chars": 22844,
+      "body_chars": 22843,
       "word_count": 2733
     },
     {
@@ -3995,8 +3995,8 @@
       "title": "1. TOMCAT Installation",
       "source_url": "https://docs.altibase.com/display/arch/1.+TOMCAT+Installation",
       "path": "altibase_docs_md/arch/Home/TOMCAT Integration Guide for Altibase/1. TOMCAT Installation__14058491.md",
-      "body_chars": 3157,
-      "word_count": 331
+      "body_chars": 3642,
+      "word_count": 306
     },
     {
       "space_key": "arch",
@@ -4013,8 +4013,8 @@
       "title": "3. Integrating ALTIBASE and TOMCAT",
       "source_url": "https://docs.altibase.com/display/arch/3.+Integrating+ALTIBASE+and+TOMCAT",
       "path": "altibase_docs_md/arch/Home/TOMCAT Integration Guide for Altibase/3. Integrating ALTIBASE and TOMCAT__14058506.md",
-      "body_chars": 5610,
-      "word_count": 663
+      "body_chars": 5618,
+      "word_count": 660
     },
     {
       "space_key": "arch",

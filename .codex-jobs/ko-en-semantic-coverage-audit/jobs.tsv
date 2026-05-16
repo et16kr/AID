@@ -10,7 +10,7 @@ S008	Done	docs	Tech replication	Semantic-unit audit replication configuration an
 S009	Done	docs	Tech backup recovery	Semantic-unit audit backup policy, recovery, archive/noarchive, failure response, and startup recovery technical documents.
 S010	Done	docs	Tech C C++ APRE precompiler	Semantic-unit audit developer training, Precompiler, APRE Makefile, and APRE C/C++ upgrade documents.
 S011	Done	docs	Tech client APIs	Semantic-unit audit Java, unixODBC, Windows ODBC, ADO.NET, and PHP client API documents.
-S012	ToDo	docs	Tech WAS integration Tomcat JEUS JBoss	Semantic-unit audit Tomcat, JEUS, and JBoss integration documents.
+S012	Done	docs	Tech WAS integration Tomcat JEUS JBoss	Semantic-unit audit Tomcat, JEUS, and JBoss integration documents.
 S013	ToDo	docs	Tech WAS integration WebLogic WebSphere	Semantic-unit audit WebLogic and WebSphere integration documents.
 S014	ToDo	docs	Tech framework integration Spring iBATIS	Semantic-unit audit Spring and iBATIS integration documents.
 S015	ToDo	docs	Tech framework integration MyBatis Hibernate	Semantic-unit audit MyBatis and Hibernate integration documents.
