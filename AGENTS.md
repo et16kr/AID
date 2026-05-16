@@ -29,6 +29,30 @@
 - 이유: 취합 문서를 먼저 만들면 이후 영문 source 문서 보강 사항을 `llm-reference/`에 다시 반영해야 하므로 재작업과 추적성 저하가 발생한다.
 - 따라서 현재 우선순위는 `KO -> EN source 문서 완성`이고, `llm-reference/` 생성은 그 다음 단계이다.
 
+## 단계별 완료 판단 기준
+
+1. `KO -> EN 완전성 보강` 완료 기준
+   - `DOCK/Home` 51개 기술 문서와 `faq/Home` 115개 FAQ가 대응 영문 문서와 다시 연결되어 있다.
+   - 절차, SQL, 명령어, 설정값, 경고, 버전 조건, 첨부 링크를 확인했다는 문서별 기록이 있다.
+   - 한국어 원문에만 있고 영어에 없는 항목은 `arch/` 또는 `FAQE/`에 반영되어 있다.
+   - 반영하지 않은 항목은 반영 불가 사유와 남은 리스크로 기록되어 있다.
+   - URL-backed 문서형 첨부 누락은 0개이고, unresolved KO/EN 의미 차이는 0개이다.
+
+2. `영문 source 문서 안정화` 완료 기준
+   - 잔여 한글은 첨부 파일명, URL, 한글 데이터 예제처럼 의도된 항목으로만 분류되어 있다.
+   - 빈 Markdown 링크, `Error rendering macro`, `Unknown macro`, `unknown-macro` 잔여 패턴이 없다.
+   - legacy `#` 첨부 라벨은 모두 목록화되어 있고 `no downloadable URL in source`로 처리되어 있다.
+   - 영어-only `FAQE` 문서는 Korean-source-verified로 오인되지 않게 분류되어 있다.
+   - 수정된 문서는 `manifest.json` 메타데이터가 갱신되어 있고, 기본 검증 명령이 통과한다.
+
+3. `LLM 취합 스크립트 실행` 완료 기준
+   - `.codex-jobs/llm-reference-consolidation/jobs.tsv`의 모든 job이 `Done`이다.
+   - `llm-reference/` 아래 예상 Markdown 산출물이 모두 존재한다.
+   - 각 취합 문서에 `Source paths`와 `Terminology` 절이 있다.
+   - 사용한 source path는 실제 파일 또는 디렉터리로 존재한다.
+   - 영어-only source, legacy attachment, diagram unavailable 같은 리스크 라벨이 필요한 곳에 표시되어 있다.
+   - 최종 build report와 handoff 문서가 있고, 검증 명령이 통과하며 작업 트리가 clean 상태이다.
+
 ## 현재까지 진행된 작업
 
 - 한국어 기술 문서 `DOCK`와 영문 기술 문서 `arch`의 대응 관계를 점검했다.
