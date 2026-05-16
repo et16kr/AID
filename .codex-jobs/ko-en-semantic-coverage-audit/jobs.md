@@ -22,7 +22,7 @@
 | `S004` | `ToDo` | Tech platform disk IO | Semantic-unit audit disk I/O, Solaris, HPUX, AIX, and Linux platform setup technical documents. |
 | `S005` | `Done` | Tech operations startup resources | Semantic-unit audit failure response, startup shutdown, resource sizing, OS utility, UNIX memory, and operation configuration documents. |
 | `S006` | `Done` | Tech monitoring queries | Semantic-unit audit the monitoring queries guide, including SQL IDs, system views, examples, and warnings. |
-| `S007` | `ToDo` | Tech CPU memory diagnostics | Semantic-unit audit CPU overload and memory usage increase analysis guides. |
+| `S007` | `Done` | Tech CPU memory diagnostics | Semantic-unit audit CPU overload and memory usage increase analysis guides. |
 | `S008` | `ToDo` | Tech replication | Semantic-unit audit replication configuration and replication constraints technical documents. |
 | `S009` | `ToDo` | Tech backup recovery | Semantic-unit audit backup policy, recovery, archive/noarchive, failure response, and startup recovery technical documents. |
 | `S010` | `ToDo` | Tech C C++ APRE precompiler | Semantic-unit audit developer training, Precompiler, APRE Makefile, and APRE C/C++ upgrade documents. |
