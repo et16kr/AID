@@ -21,7 +21,7 @@ S019	Done	docs	Technical attachments and source links	Verify technical document 
 S020	Done	docs	FAQ installation patch upgrade	Semantic-unit audit FAQ category 01 against English core FAQ targets.
 S021	Done	docs	FAQ operation core	Semantic-unit audit FAQ category 02 operation core topics such as security, users, sessions, clients, startup, and configuration.
 S022	Done	docs	FAQ operation storage resources	Semantic-unit audit remaining FAQ category 02 topics such as logs, tablespaces, files, JOBs, resources, charset, and operational changes.
-S023	ToDo	docs	FAQ replication	Semantic-unit audit FAQ category 03 replication against English core FAQ targets.
+S023	Done	docs	FAQ replication	Semantic-unit audit FAQ category 03 replication against English core FAQ targets.
 S024	ToDo	docs	FAQ backup SQL stored procedures	Semantic-unit audit FAQ categories 04, 05, and 06 against English core FAQ targets.
 S025	ToDo	docs	FAQ development API	Semantic-unit audit FAQ category 07 development and API against English core FAQ targets.
 S026	ToDo	docs	FAQ monitoring	Semantic-unit audit FAQ category 08 monitoring against English core FAQ targets.
