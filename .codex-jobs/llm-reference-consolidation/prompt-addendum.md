@@ -20,6 +20,8 @@ Every job in this workflow must follow `.codex-jobs/llm-reference-consolidation/
 - Korean source documents under `DOCK/` and `faq/` remain authoritative. Do not delete, move, or rewrite them.
 - Original English source documents under `arch/` and `FAQE/` are not deleted, moved, or renamed.
 - Consolidated LLM output goes under `llm-reference/`.
+- Use `git status --porcelain --untracked-files=all -- . ":(exclude).codex-jobs" ":(exclude).codex-jobs/**"` for the blocking preflight check.
+- Do not treat `.codex-jobs/llm-reference-consolidation/jobs.tsv`, `logs/`, `rollbacks/`, or `.runtime/` as blocking project changes.
 - This is an exhaustive reference package. Do not produce only FAQ-style summaries or representative examples.
 - Keep source traceability. Each consolidated document must include a `Source paths` section with actual source paths.
 - Every source file and semantic unit owned by the job must be represented in the coverage TSVs.

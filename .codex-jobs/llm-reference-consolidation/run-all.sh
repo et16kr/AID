@@ -206,6 +206,9 @@ ensure_clean_before_job() {
   if [[ "$REQUIRE_COMMIT_AFTER_JOB" == "1" ]] && ! inside_git_repo; then
     die "Job $id cannot start because this is not a git repository and successful jobs must commit."
   fi
+  if [[ "$REQUIRE_WORKFLOW_DEFINITION_COMMITTED" == "1" ]] && workflow_definition_dirty_blocking; then
+    die "Uncommitted workflow definition files exist before starting $id. Commit them before continuing."
+  fi
   if [[ "$REQUIRE_CLEAN_START" == "1" ]] && git_dirty_blocking; then
     die "Uncommitted project files exist before starting $id. Commit or stash them before running jobs."
   fi
@@ -295,7 +298,9 @@ build_runtime_prompt() {
     printf -- '- This job goal is: %s\n' "$goal"
     printf -- '- The repository root is `%s`; read and edit files relative to that root.\n' "$REPO_ROOT"
     printf -- '- Complete only this job and preserve unrelated user changes.\n'
-    printf -- '- Before editing, stop if uncommitted project files exist outside the workflow runtime directories.\n'
+    printf -- '- Before editing, stop only if uncommitted project files exist outside `.codex-jobs` workflow runtime and status files.\n'
+    printf -- '- Use `git status --porcelain --untracked-files=all -- . ":(exclude).codex-jobs" ":(exclude).codex-jobs/**"` for the blocking preflight check.\n'
+    printf -- '- Do not treat `.codex-jobs/llm-reference-consolidation/jobs.tsv`, logs, rollbacks, or `.runtime` prompt files as blocking project changes.\n'
     printf -- '- If the job cannot be completed safely, stop with a clear failure.\n'
     printf -- '- After review and verification pass, create a focused git commit for this job.\n'
     printf -- '- A successful job must leave project files clean and must advance HEAD with a commit.\n'
