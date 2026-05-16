@@ -1,0 +1,31 @@
+id	status	kind	title	goal
+S001	ToDo	docs	Audit method and baseline	Define semantic-unit coverage method, confirm current repository state, create evidence structure, and record the audit decision criteria.
+S002	ToDo	docs	Mapping inventory and unit matrix scaffold	Validate KO to EN document mappings, create the coverage matrix schema, and prepare per-job evidence files.
+S003	ToDo	docs	Tech installation configuration database	Semantic-unit audit configuration, database creation, installation, quick start, and installation troubleshooting technical documents.
+S004	ToDo	docs	Tech platform disk IO	Semantic-unit audit disk I/O, Solaris, HPUX, AIX, and Linux platform setup technical documents.
+S005	ToDo	docs	Tech operations startup resources	Semantic-unit audit failure response, startup shutdown, resource sizing, OS utility, UNIX memory, and operation configuration documents.
+S006	ToDo	docs	Tech monitoring queries	Semantic-unit audit the monitoring queries guide, including SQL IDs, system views, examples, and warnings.
+S007	ToDo	docs	Tech CPU memory diagnostics	Semantic-unit audit CPU overload and memory usage increase analysis guides.
+S008	ToDo	docs	Tech replication	Semantic-unit audit replication configuration and replication constraints technical documents.
+S009	ToDo	docs	Tech backup recovery	Semantic-unit audit backup policy, recovery, archive/noarchive, failure response, and startup recovery technical documents.
+S010	ToDo	docs	Tech C C++ APRE precompiler	Semantic-unit audit developer training, Precompiler, APRE Makefile, and APRE C/C++ upgrade documents.
+S011	ToDo	docs	Tech client APIs	Semantic-unit audit Java, unixODBC, Windows ODBC, ADO.NET, and PHP client API documents.
+S012	ToDo	docs	Tech WAS framework integration	Semantic-unit audit Tomcat, JEUS, JBoss, WebLogic, WebSphere, Spring, iBATIS, MyBatis, and Hibernate documents.
+S013	ToDo	docs	Tech development SQL tuning comparison	Semantic-unit audit Altibase Development Guide, SQL Tuning Guide, and Altibase/Oracle comparison documents.
+S014	ToDo	docs	Tech migration conversion VC	Semantic-unit audit Oracle conversion, MSSQL conversion, version migration, Migration Center, VC 2008, and VC 2010 documents.
+S015	ToDo	docs	Tech Docker GeoServer SQuirrel	Semantic-unit audit Docker, GeoServer, and SQuirrel SQL Client technical documents.
+S016	ToDo	docs	Technical attachments and source links	Verify technical document attachments, legacy labels, source links, and external references across all audited technical mappings.
+S017	ToDo	docs	FAQ installation patch upgrade	Semantic-unit audit FAQ category 01 against English core FAQ targets.
+S018	ToDo	docs	FAQ operation core	Semantic-unit audit FAQ category 02 operation core topics such as security, users, sessions, clients, startup, and configuration.
+S019	ToDo	docs	FAQ operation storage resources	Semantic-unit audit remaining FAQ category 02 topics such as logs, tablespaces, files, JOBs, resources, charset, and operational changes.
+S020	ToDo	docs	FAQ replication	Semantic-unit audit FAQ category 03 replication against English core FAQ targets.
+S021	ToDo	docs	FAQ backup SQL stored procedures	Semantic-unit audit FAQ categories 04, 05, and 06 against English core FAQ targets.
+S022	ToDo	docs	FAQ development API	Semantic-unit audit FAQ category 07 development and API against English core FAQ targets.
+S023	ToDo	docs	FAQ monitoring	Semantic-unit audit FAQ category 08 monitoring against English core FAQ targets.
+S024	ToDo	docs	FAQ error messages	Semantic-unit audit FAQ category 09 error messages against English core FAQ targets.
+S025	ToDo	docs	FAQ utilities others general	Semantic-unit audit FAQ categories 11, 12, and 13 against English core FAQ targets.
+S026	ToDo	docs	FAQ attachments English-only classification	Verify FAQ attachments, legacy labels, source links, export artifacts, and English-only FAQE classification boundaries.
+S027	ToDo	docs	Unresolved coverage closure	Merge all coverage matrices, fix remaining missing source coverage, and drive unresolved semantic differences to zero or explicit recheck risks.
+S028	ToDo	docs	Source stabilization after coverage fixes	Run source stability checks after all coverage fixes: manifest, counts, residual Korean classification, links, macro artifacts, and metadata.
+S029	ToDo	docs	Independent matrix challenge review	Challenge the coverage matrix by sampling and inverse-searching KO units marked covered to find false positives or weak evidence.
+S030	ToDo	docs	Final semantic coverage decision	Create the final semantic coverage report and decide exactly one outcome: COMPLETE or RECHECK_REQUIRED.

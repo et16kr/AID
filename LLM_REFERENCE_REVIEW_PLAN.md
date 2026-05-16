@@ -256,7 +256,7 @@ P225는 J013 인계 계획을 pass2 결과 기준으로 다시 확인한 준비�
 
 | 단계 | 완료 판단 기준 |
 | --- | --- |
-| `KO -> EN 완전성 보강` | `DOCK/Home` 51개와 `faq/Home` 115개가 대응 영문 문서에 연결되어 있고, 절차, SQL, 명령어, 설정값, 경고, 버전 조건, 첨부 링크 확인 기록이 있다. 한국어에만 있던 항목은 `arch/` 또는 `FAQE/`에 반영되어 있거나 반영 불가 사유가 리스크로 기록되어 있다. URL-backed 첨부 누락은 0개이고 unresolved KO/EN 의미 차이는 0개이다. |
+| `KO -> EN 완전성 보강` | `.codex-jobs/ko-en-semantic-coverage-audit/` workflow로 semantic-unit coverage audit를 수행한다. `DOCK/Home` 51개와 `faq/Home` 115개가 대응 영문 문서에 연결되어 있고, 절차, SQL, 명령어, 설정값, 경고, 버전 조건, 첨부 링크 확인 기록이 있다. 한국어에만 있던 항목은 `arch/` 또는 `FAQE/`에 반영되어 있거나 반영 불가 사유가 리스크로 기록되어 있다. URL-backed 첨부 누락은 0개이고 unresolved KO/EN 의미 차이는 0개이다. 최종 결론은 `COMPLETE` 또는 `RECHECK_REQUIRED` 중 하나여야 한다. |
 | `영문 source 문서 안정화` | 잔여 한글은 의도된 첨부 파일명, URL, 한글 데이터 예제로만 분류되어 있다. 빈 Markdown 링크, `Error rendering macro`, `Unknown macro`, `unknown-macro` 패턴이 없고, legacy `#` 첨부 라벨은 `no downloadable URL in source`로 목록화되어 있다. 영어-only `FAQE` 문서는 Korean-source-verified로 오인되지 않게 분류되어 있고 `manifest.json` 및 기본 검증 명령이 통과한다. |
 | `LLM 취합 스크립트 실행` | `.codex-jobs/llm-reference-consolidation/jobs.tsv`의 모든 job이 `Done`이고, `llm-reference/` 예상 Markdown 산출물이 모두 존재한다. 각 취합 문서에는 `Source paths`와 `Terminology` 절이 있으며 source path가 실제 파일 또는 디렉터리로 해소된다. 영어-only source, legacy attachment, diagram unavailable 라벨이 필요한 곳에 표시되고 최종 build report, handoff 문서, clean git 상태가 확인된다. |
 

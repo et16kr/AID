@@ -32,6 +32,8 @@
 ## 단계별 완료 판단 기준
 
 1. `KO -> EN 완전성 보강` 완료 기준
+   - 이 단계의 전용 workflow는 `.codex-jobs/ko-en-semantic-coverage-audit/`이다.
+   - 이 workflow는 한국어 원문을 semantic unit 단위로 점검하고, 최종 결론을 `COMPLETE` 또는 `RECHECK_REQUIRED` 중 하나로 남겨야 한다.
    - `DOCK/Home` 51개 기술 문서와 `faq/Home` 115개 FAQ가 대응 영문 문서와 다시 연결되어 있다.
    - 절차, SQL, 명령어, 설정값, 경고, 버전 조건, 첨부 링크를 확인했다는 문서별 기록이 있다.
    - 한국어 원문에만 있고 영어에 없는 항목은 `arch/` 또는 `FAQE/`에 반영되어 있다.
