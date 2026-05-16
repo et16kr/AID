@@ -12,7 +12,7 @@ S010	Done	docs	Tech C C++ APRE precompiler	Semantic-unit audit developer trainin
 S011	Done	docs	Tech client APIs	Semantic-unit audit Java, unixODBC, Windows ODBC, ADO.NET, and PHP client API documents.
 S012	Done	docs	Tech WAS integration Tomcat JEUS JBoss	Semantic-unit audit Tomcat, JEUS, and JBoss integration documents.
 S013	Done	docs	Tech WAS integration WebLogic WebSphere	Semantic-unit audit WebLogic and WebSphere integration documents.
-S014	ToDo	docs	Tech framework integration Spring iBATIS	Semantic-unit audit Spring and iBATIS integration documents.
+S014	Done	docs	Tech framework integration Spring iBATIS	Semantic-unit audit Spring and iBATIS integration documents.
 S015	ToDo	docs	Tech framework integration MyBatis Hibernate	Semantic-unit audit MyBatis and Hibernate integration documents.
 S016	ToDo	docs	Tech development SQL tuning comparison	Semantic-unit audit Altibase Development Guide, SQL Tuning Guide, and Altibase/Oracle comparison documents.
 S017	ToDo	docs	Tech migration conversion VC	Semantic-unit audit Oracle conversion, MSSQL conversion, version migration, Migration Center, VC 2008, and VC 2010 documents.
