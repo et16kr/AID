@@ -116,7 +116,7 @@ The installation contents are as follows.
 
 ### WebSphere Directory Structure
 
-After installing WebSphere, the user will able to see the following directories:
+After installing WebSphere, the user can see the following directories:
 
 ![image2019-7-1%208_6_8.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-7-1%208_6_8.png?api=v2)
 
@@ -146,7 +146,7 @@ If the user looks at one of the profiles created in the Profiles directory, it i
 | installableApps | Applications that can be usefully installed and provided |
 | logs | Provides each log for each server such as SystemOut.log and SystemErr.log |
 | properties | Provides each property used in WAS |
-| tranlog | Provides transition log for transaction recovery due to failure. |
+| tranlog | Provides transaction logs for transaction recovery after a failure. |
 
 If the user changes the environment settings using the web management console while using WebSphere, it is actually written and modified in the Resource.xml file in the Config directory.
 
@@ -248,7 +248,7 @@ After creating a new JDBC provider, specify the database classpath, which is whe
 
 As described in the previous chapter, the Altibase.jar file is located in the ${WAS_INSTALL_ROOT}\universalDriver\lib directory of the server, so specify the location as the classpath.
 
-Setting up the classpath also completes the JDBC job setting. Check the summary of the JDBC provided that the user set up, and if there is any content to modify, complete it if not.
+After the classpath is set, the JDBC provider setup is complete. Check the summary of the JDBC provider that was configured, modify it if needed, and finish if there is nothing to change.
 
 ![image2019-7-1%208_28_59.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-7-1%208_28_59.png?api=v2)
 
@@ -319,9 +319,7 @@ Register to WebSphere by specifying the path of the created WAR module.
 
 Specify the path, in the next step, [Preparing to install the application], select "Fast path" and proceed to the next step.
 
-```
 In the [Select Installation Options] menu, the user can change the application name or other items, but it is skipped for testing in this document.
-```
 
 ![image2019-7-3%208_12_17.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-7-3%208_12_17.png?api=v2)
 
@@ -333,7 +331,7 @@ In [Map Module to Server], only one module is currently created, so let's skip i
 
 Select "default_host" for the virtual host mapping and proceed to the next step.
 
-The context root mapping is a step of specifying the root of the WAR module currently being set. If the user specifies the desired context root, the application can be executed with "Context Root Name/jsp File Name" regardless of the WARD module name.
+The context root mapping is the step for specifying the root of the WAR module currently being configured. If the user specifies the desired context root, the application can be executed with "Context Root Name/jsp File Name" regardless of the WAR module name.
 
 ![image2019-8-21%2015_28_0.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-8-21%2015_28_0.png?api=v2)
 
@@ -343,9 +341,7 @@ After mapping the context root and completing it, WebSphere automatically sets a
 
 When stored in the master, the setting and installation of the application to be used are completed. However, since the application is currently installed only, the user needs to change the application status to "start" directly.
 
-```
 If the user selects [Application]> [Application Type]> [WebSphere Enterprise Application] on the left of the WebSphere Web Management Console menu, the user can check the application installed by WebSphere.
-```
 
 ![image2019-7-3%208_18_9.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebSphere%20Integration%20Guide%20for%20Altibase/image2019-7-3%208_18_9.png?api=v2)
 
@@ -419,7 +415,7 @@ After the installation of the WAR module is completed, change the status to Star
 http://serverIP:applicationserviceport/contextrootname/JSPfilename
 ```
 
-The server IP is the IP address of the server where WebSphere is installed, the application service port is the application service port checked when setting the JDBC provider (by default, port 9080). The context root name is the context root name specified when registering the application and enters the JSP file name included in the War module.
+The server IP is the IP address of the server where WebSphere is installed, the application service port is the application service port checked when setting the JDBC provider (port 9080 by default), the context root name is the context root name specified when registering the application, and the JSP file name is the JSP file included in the WAR module.
 
 The execution statement in the test is as follows.
 
@@ -435,12 +431,12 @@ This chapter describes how to integrate with WebSphere by using the FailOver fun
 
 ### FailOver
 
-WebSphere does not provide FailOver functionality. However, since FailOver function is provided starting from Altibase Version 5.3.3, so FailOver can be implemented using Altibase's FailOver function.
+WebSphere does not provide FailOver functionality. However, because Altibase provides FailOver starting from Altibase version 5.3.3, FailOver can be implemented by using the Altibase FailOver function.
 
 The syntax is as follows.
 
 ```
-jdbc:Altibase://ServerIP:DBportnumber/DBname?AlternateServers=(ServerIP:DBportnumber)&ConnectionRetryCount=3& ConnectionRetryDelay=3&SessionFailOver=off
+jdbc:Altibase://ServerIP:DBportnumber/DBname?AlternateServers=(ServerIP:DBportnumber)&ConnectionRetryCount=3&ConnectionRetryDelay=3&SessionFailOver=off
 ```
 
 ### FailOver Related Properties
@@ -452,7 +448,7 @@ FailOver related properties are as follows.
 |  | **Property** |
 | AlternateServer | Indicates the available servers to be connected when a failure occurs (IP Address1: Port1, IP Address2: Port2, ...) and describes them. |
 | ConnectionRetryCount | If there is a failure to connect to the available server, the number of attempts to connect is repeated. |
-| ConnectionRetryDelay | Time to wait before attempting to connect again when the available server connection fails. |
+| ConnectionRetryDelay | Time to wait in seconds before attempting to connect again when the available server connection fails. |
 | SessionFailOver | Indicates whether to perform STF (Service Time Fail-Over) on : STF, off : CTF CTF (Connection Time FailOver) recognizes a failure at the time of DBMS connection and connects to the DBMS of another available node instead of the DBMS where the failure occurred and proceeds with the service.<br>STF(Service Time FailOver) is a failure during service because the DBMS is successfully connected, and accessing the DBMS of another available node to restore the properties of the session and then performing the business logic of the user application again. That is, it is necessary to perform the operation performed in the DBMS where the failure occurred once again. |
 
 For more information about how to implement CTF and STF, please refer to the Altibase FailOver technical document.

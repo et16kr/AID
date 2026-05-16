@@ -16,13 +16,13 @@ Updated: 2025-09-24T09:11:50.000+0900
 
 - [Domain](#WebLogicGlossary-Domain) - [WebLogic Server Instance (Administration Server, Managed Server)](#WebLogicGlossary-WebLogicServerInstance(AdministrationServer,ManagedServer)) - [JDBC Data Source](#WebLogicGlossary-JDBCDataSource) - [Connection Pool](#WebLogicGlossary-ConnectionPool) - [Deployment & Distribution](#WebLogicGlossary-Deployment&Distribution)
 
-Before integrating Altibase and Weblogic, this chapter briefly explains WebLogic and related terms.
+Before integrating Altibase and WebLogic, this chapter briefly explains WebLogic and related terms.
 
 ### Domain
 
 A domain is a logical grouping of WebLogic server instances. A domain consists of one or more WebLogic Server instances.
 
-The user can configure multiple domains by installing one WebLogic (WebLogic Server/WLS) or multiple domains by installing multiple WebLogic.
+The user can configure multiple domains with one WebLogic (WebLogic Server/WLS) installation, or configure one domain from multiple WebLogic installations.
 
 ![weblogic_domain.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebLogic%20Glossary/weblogic_domain.png?api=v2)
 
@@ -30,7 +30,7 @@ The user can configure multiple domains by installing one WebLogic (WebLogic Ser
 
 WebLogic server instance is a process that can deploy web application, web service, EJB, etc.
 
-It is divided into "Administration Server" and "Manager Server".
+It is divided into "Administration Server" and "Managed Server".
 
 ![Weblogic_managed_server.png](https://docs.altibase.com/download/attachments/embedded-page/arch/WebLogic%20Glossary/Weblogic_managed_server.png?api=v2)
 
@@ -41,7 +41,7 @@ It is divided into "Administration Server" and "Manager Server".
 
   All WebLogic Server instances except the administration server can be added separately or clustered between instances.
 
-  That is, one domain consists of one management server and zero or more managed servers.
+  That is, one domain consists of one Administration Server and zero or more Managed Servers.
 
 ### JDBC Data Source
 
