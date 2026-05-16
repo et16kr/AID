@@ -15,7 +15,7 @@ S013	Done	docs	Tech WAS integration WebLogic WebSphere	Semantic-unit audit WebLo
 S014	Done	docs	Tech framework integration Spring iBATIS	Semantic-unit audit Spring and iBATIS integration documents.
 S015	Done	docs	Tech framework integration MyBatis Hibernate	Semantic-unit audit MyBatis and Hibernate integration documents.
 S016	Done	docs	Tech development SQL tuning comparison	Semantic-unit audit Altibase Development Guide, SQL Tuning Guide, and Altibase/Oracle comparison documents.
-S017	ToDo	docs	Tech migration conversion VC	Semantic-unit audit Oracle conversion, MSSQL conversion, version migration, Migration Center, VC 2008, and VC 2010 documents.
+S017	Done	docs	Tech migration conversion VC	Semantic-unit audit Oracle conversion, MSSQL conversion, version migration, Migration Center, VC 2008, and VC 2010 documents.
 S018	ToDo	docs	Tech Docker GeoServer SQuirrel	Semantic-unit audit Docker, GeoServer, and SQuirrel SQL Client technical documents.
 S019	ToDo	docs	Technical attachments and source links	Verify technical document attachments, legacy labels, source links, and external references across all audited technical mappings.
 S020	ToDo	docs	FAQ installation patch upgrade	Semantic-unit audit FAQ category 01 against English core FAQ targets.
