@@ -54,7 +54,7 @@ Updated: 2021-04-02T10:43:41.000+0900
   ```
 - After changing the permission, check that the rwxrwx-rx execution permission has been added as shown below.
 
-  **How to change execution permission**
+  **How to check file permission**
 
   ```
   $ ls -l altibase-HDB-client-6.3.1.3.1-LINUX-X86-64bit-release.run
