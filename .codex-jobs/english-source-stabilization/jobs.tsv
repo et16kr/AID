@@ -5,6 +5,6 @@ E003	Done	docs	Markdown artifact cleanup	Verify empty Markdown links, macro rend
 E004	Done	docs	Legacy attachment inventory	Build a complete inventory of legacy attachment labels with no downloadable source URL and record them as no downloadable URL in source.
 E005	Done	docs	Technical URL-backed attachment verification	Recheck technical document-format attachment links and confirm URL-backed technical attachment omissions remain zero.
 E006	Done	docs	FAQ URL-backed attachment verification	Recheck FAQ document-format attachment links and confirm URL-backed FAQ attachment omissions remain zero.
-E007	ToDo	docs	English-only FAQE classification	Classify English-only FAQE material separately from Korean-source-verified content for later consolidation.
+E007	Done	docs	English-only FAQE classification	Classify English-only FAQE material separately from Korean-source-verified content for later consolidation.
 E008	ToDo	docs	Manifest and source metadata check	Validate manifest.json, update metadata only if source files changed, and verify source counts remain stable.
 E009	ToDo	docs	Final stabilization report	Create the final Phase 2 stabilization report with READY_FOR_LLM_CONSOLIDATION or RECHECK_REQUIRED and verification evidence.
