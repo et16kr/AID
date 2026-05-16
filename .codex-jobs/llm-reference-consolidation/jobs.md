@@ -7,6 +7,8 @@
 - Optional single-job mode: `RUN_ONE=1 ./run-all.sh`
 - Handoff gate: uncommitted project files outside `.codex-jobs/` stop the workflow before the next job starts
 - Commit gate: each successful job must pass review and create a focused commit
+- Status gate: each successful job's `jobs.tsv` status is amended into that job commit so the final handoff can be clean
+- Definition gate: workflow definition files must be committed before execution starts; runtime status-only changes in `jobs.tsv` are allowed
 - Detailed source boundaries and output file names: `workflow-requirements.md`
 - Shared prompt instructions appended at runtime: `prompt-addendum.md`
 
@@ -60,6 +62,8 @@ The final `llm-reference/` package must let an LLM answer questions grounded in 
 ## Acceptance Checklist
 
 - `run-all.sh` launches `codex exec` from the repository root, even when the user starts it from `.codex-jobs/llm-reference-consolidation/`.
+- `run-all.sh` refuses uncommitted workflow definition changes while allowing runtime `jobs.tsv` status changes.
+- `run-all.sh` records each `Done` status by amending the successful job commit.
 - `workflow-requirements.md` defines exhaustive source coverage, semantic-unit evidence, answerability backtesting, output files, and final decision rules.
 - Every job in `jobs.tsv` is covered by the shared prompt and by job-specific requirements in `workflow-requirements.md`.
 - Phase 3 does not complete unless coverage evidence includes every `arch/Home` and `FAQE/Home` Markdown source.

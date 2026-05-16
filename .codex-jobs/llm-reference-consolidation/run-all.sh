@@ -26,6 +26,7 @@ FAIL_ON_NONZERO="${FAIL_ON_NONZERO:-0}"
 REQUIRE_CLEAN_START="${REQUIRE_CLEAN_START:-1}"
 REQUIRE_CLEAN_AFTER_JOB="${REQUIRE_CLEAN_AFTER_JOB:-1}"
 REQUIRE_COMMIT_AFTER_JOB="${REQUIRE_COMMIT_AFTER_JOB:-1}"
+REQUIRE_WORKFLOW_DEFINITION_COMMITTED="${REQUIRE_WORKFLOW_DEFINITION_COMMITTED:-1}"
 
 mkdir -p "$LOG_DIR" "$ROLLBACK_DIR" "$RUNTIME_DIR"
 
@@ -68,11 +69,11 @@ job_ids() {
 }
 
 inside_git_repo() {
-  git rev-parse --is-inside-work-tree >/dev/null 2>&1
+  git -C "$REPO_ROOT" rev-parse --is-inside-work-tree >/dev/null 2>&1
 }
 
 git_repo_root() {
-  git rev-parse --show-toplevel
+  git -C "$REPO_ROOT" rev-parse --show-toplevel
 }
 
 workflow_rel_path() {
@@ -84,7 +85,7 @@ workflow_rel_path() {
 }
 
 git_head() {
-  git rev-parse --verify HEAD 2>/dev/null || printf '%s\n' "__NO_HEAD__"
+  git -C "$REPO_ROOT" rev-parse --verify HEAD 2>/dev/null || printf '%s\n' "__NO_HEAD__"
 }
 
 git_dirty_blocking() {
@@ -104,6 +105,70 @@ git_dirty_blocking() {
   fi
 
   [[ -n "$status" ]]
+}
+
+workflow_definition_dirty_blocking() {
+  inside_git_repo || return 1
+
+  local root rel status
+  root="$(git_repo_root)"
+  rel="$(workflow_rel_path "$root" || true)"
+  [[ -n "$rel" ]] || return 1
+
+  status="$(git -C "$root" status --porcelain --untracked-files=all -- \
+    "$rel" \
+    ":(exclude)$rel/jobs.tsv" \
+    ":(exclude)$rel/logs" \
+    ":(exclude)$rel/logs/**" \
+    ":(exclude)$rel/rollbacks" \
+    ":(exclude)$rel/rollbacks/**" \
+    ":(exclude)$rel/.runtime" \
+    ":(exclude)$rel/.runtime/**")"
+
+  [[ -n "$status" ]]
+}
+
+jobs_file_definition_dirty_blocking() {
+  inside_git_repo || return 1
+
+  local root rel tmp_head tmp_work
+  root="$(git_repo_root)"
+  case "$JOBS_FILE" in
+    "$root"/*) rel="${JOBS_FILE#$root/}" ;;
+    *) return 1 ;;
+  esac
+
+  if ! git -C "$root" cat-file -e "HEAD:$rel" 2>/dev/null; then
+    return 0
+  fi
+
+  tmp_head="$(mktemp)"
+  tmp_work="$(mktemp)"
+
+  git -C "$root" show "HEAD:$rel" | awk -F '\t' -v OFS='\t' 'NR > 1 { $2 = "" } { print }' > "$tmp_head"
+  awk -F '\t' -v OFS='\t' 'NR > 1 { $2 = "" } { print }' "$JOBS_FILE" > "$tmp_work"
+
+  if cmp -s "$tmp_head" "$tmp_work"; then
+    rm -f "$tmp_head" "$tmp_work"
+    return 1
+  fi
+
+  rm -f "$tmp_head" "$tmp_work"
+  return 0
+}
+
+ensure_workflow_definition_committed() {
+  if [[ "$REQUIRE_WORKFLOW_DEFINITION_COMMITTED" != "1" ]]; then
+    return 0
+  fi
+
+  if jobs_file_definition_dirty_blocking; then
+    die "jobs.tsv is uncommitted or its job definitions changed. Commit definition changes before running jobs. Runtime status-only changes are allowed."
+  fi
+
+  if workflow_definition_dirty_blocking; then
+    die "Workflow definition files are uncommitted. Commit .codex-jobs/llm-reference-consolidation before running jobs, or set REQUIRE_WORKFLOW_DEFINITION_COMMITTED=0 to bypass intentionally."
+  fi
 }
 
 preserve_and_clear_progress() {
@@ -172,6 +237,31 @@ ensure_commit_after_job() {
   if [[ "$after_head" == "$before_head" ]]; then
     set_status "$id" "Fail"
     die "Job $id finished without creating a commit. A successful reviewed job must commit its result."
+  fi
+}
+
+commit_workflow_status_after_job() {
+  local id="$1"
+
+  if [[ "$REQUIRE_COMMIT_AFTER_JOB" != "1" ]]; then
+    return 0
+  fi
+
+  if ! inside_git_repo; then
+    return 0
+  fi
+
+  local root rel
+  root="$(git_repo_root)"
+  case "$JOBS_FILE" in
+    "$root"/*) rel="${JOBS_FILE#$root/}" ;;
+    *) return 0 ;;
+  esac
+
+  git -C "$root" add -- "$rel"
+  if ! git -C "$root" diff --cached --quiet -- "$rel"; then
+    git -C "$root" commit --amend --no-edit
+    printf 'Recorded workflow status for %s in the job commit.\n' "$id"
   fi
 }
 
@@ -249,10 +339,13 @@ run_job() {
   ensure_clean_after_job "$id"
   ensure_commit_after_job "$id" "$before_head"
   set_status "$id" "Done"
+  commit_workflow_status_after_job "$id"
   printf 'Done: %s\n' "$id"
 }
 
 [[ -f "$JOBS_FILE" ]] || die "Missing jobs file: $JOBS_FILE"
+
+ensure_workflow_definition_committed
 
 failed_job="$(first_job_with_status Fail || true)"
 if [[ -n "$failed_job" ]]; then
