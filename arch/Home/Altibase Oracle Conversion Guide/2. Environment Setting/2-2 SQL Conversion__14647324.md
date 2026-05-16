@@ -110,7 +110,7 @@ Updated: 2021-02-18T17:47:43.000+0900
 | TO_DATE | TO_DATE | Convert to the specified date format |
 | TO_DSINTERVAL | Replaceable with DATEDIFF | Convert to interval year to month format |
 | SYSDATE | SYSDATE | Return the date and time of the OS with the database |
-| N/A | DATENAME | 입력 date에서 date_field_name에 해당하는 값만 반환 |
+| N/A | DATENAME | Return the month or weekday name from the specified date according to `date_field_name` |
 | N/A | DATEDIFF | Return enddate minus startdate (ie enddate-startdate) in the unit specified in date_field_name |
 | N/A | DATEPART | Return only the value corresponding to date_field_name in the input date |
 | N/A | DATEADD | Increment data_filed_name part of date by number and return the result |

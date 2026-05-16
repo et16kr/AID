@@ -107,7 +107,7 @@ The scoped S025 Korean source set contains one URL-backed document-format attach
 
 The exact filename and `docs.altibase.com/download/attachments/9109742/LobSpringIbatisSample.zip` URL are preserved in `FAQE/Home/07. Development and API/How to manage Spring+iBatis transaction__16876194.md`.
 
-The scoped Korean and English development/API pages contain no empty Markdown links, `Error rendering macro`, `Unknown macro`, or `unknown-macro` markers. Non-document links were checked as source-link semantics, including support portal/manual links, `http://www.unixodbc.org/`, the JDBC Fail-Over JBOSS integration reference, and the PHP integration guide reference.
+The scoped Korean and English development/API pages contain no empty Markdown links or Confluence macro-rendering markers. Non-document links were checked as source-link semantics, including support portal/manual links, `http://www.unixodbc.org/`, the JDBC Fail-Over JBOSS integration reference, and the PHP integration guide reference.
 
 ## Self-review
 

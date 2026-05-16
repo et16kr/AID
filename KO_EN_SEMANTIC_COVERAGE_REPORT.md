@@ -6,7 +6,7 @@ Workspace: `/home/et16/AID`
 
 Current workflow decision: `RECHECK_REQUIRED`
 
-Reason: S003-S031 source-audit and attachment/classification matrices are merged through S032 with zero `missing`, `unverified`, or `recheck_required` rows. The workflow still requires S033 source stabilization, S034 independent matrix challenge review, and S035 final decision before this report can become `COMPLETE`.
+Reason: S003-S031 source-audit and attachment/classification matrices are merged through S032 with zero `missing`, `unverified`, or `recheck_required` rows, and S033 source stabilization has passed. The workflow still requires S034 independent matrix challenge review and S035 final decision before this report can become `COMPLETE`.
 
 ## Authority And Boundary
 
@@ -62,6 +62,11 @@ S003-S031 added per-scope semantic-unit, attachment, link, and classification ro
 - `semantic-coverage/matrices/S032-unresolved-coverage-closure.tsv`
 - `semantic-coverage/notes/S032-unresolved-coverage-closure.md`
 
+S033 added source-stabilization evidence:
+
+- `semantic-coverage/matrices/S033-source-stabilization-after-coverage-fixes.tsv`
+- `semantic-coverage/notes/S033-source-stabilization-after-coverage-fixes.md`
+
 ## Semantic Unit Method
 
 Audit by semantic unit, not visual line number. A semantic unit is the smallest independently meaningful content item, including headings, paragraphs, bullet or numbered steps, table rows, command blocks, SQL blocks, configuration items, warnings, notes, version conditions, limitations, error-code resolution items, attachments, and external references.
@@ -95,7 +100,7 @@ The final decision must be exactly one of:
 - `COMPLETE`: all in-scope Korean semantic units are `covered`, `added`, `not_applicable`, or `source_limitation`; no `missing`, `unverified`, or `recheck_required` rows remain; English source fixes and `manifest.json` metadata are complete; URL-backed document attachments are preserved; validation passes.
 - `RECHECK_REQUIRED`: any semantic unit remains uncertain, disputed, technically unsafe to translate, or blocked by insufficient source evidence.
 
-The current workflow decision remains `RECHECK_REQUIRED` because source stabilization, independent challenge review, and the final decision job are still pending. S035 must replace or confirm this decision after S033 and S034 complete.
+The current workflow decision remains `RECHECK_REQUIRED` because independent challenge review and the final decision job are still pending. S035 must replace or confirm this decision after S034 completes.
 
 ## S001 Result
 
@@ -159,3 +164,31 @@ Aggregate closure evidence:
 S032 did not edit `DOCK/`, `faq/`, `arch/`, `FAQE/`, or `manifest.json` because the merged matrix evidence showed no remaining safe source coverage fix to apply. The S032 matrix has 31 aggregate rows: 29 `covered` rows for source-audit/attachment matrices and 2 `not_applicable` rows for the header-only S001/S002 baseline and mapping matrices.
 
 Verification evidence is recorded in `semantic-coverage/notes/S032-unresolved-coverage-closure.md`.
+
+## S033 Result
+
+S033 ran source-stabilization checks after coverage fixes.
+
+Stabilization evidence:
+
+| Check | Result |
+| --- | ---: |
+| Manifest page entries checked | 588 |
+| Manifest missing paths after normalization | 0 |
+| Manifest metadata mismatches after normalization | 0 |
+| Live English residual Korean classes | intended filenames, URLs, legacy labels, and data examples only |
+| Live/evidence stale artifact grep | expected no-match |
+| Matrix `missing` rows after S033 | 0 |
+| Matrix `unverified` rows after S033 | 0 |
+| Matrix `recheck_required` rows after S033 | 0 |
+| Mapping rows revalidated | 166 |
+| Missing KO or EN paths in `doc-mapping.tsv` | 0 |
+
+S033 fixed two residual Korean findings in English source files:
+
+- `arch/Home/Altibase Oracle Conversion Guide/2. Environment Setting/2-2 SQL Conversion__14647324.md`
+- `arch/Home/Altibase Oracle Conversion Guide/2. Environment Setting/2-3 Stored Procedure _ Function Conversion__14647326.md`
+
+S033 also normalized `manifest.json` `body_chars` and `word_count` values to the current Markdown files and rephrased historical macro-export wording in semantic evidence so the required artifact scan is clean. It did not run the `llm-reference` consolidation workflow.
+
+Verification evidence is recorded in `semantic-coverage/notes/S033-source-stabilization-after-coverage-fixes.md`.

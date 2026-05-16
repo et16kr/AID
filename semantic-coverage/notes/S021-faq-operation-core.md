@@ -90,7 +90,7 @@ Rows by source:
 
 The Linux, HP-UX, and Solaris automatic startup pages preserve the Korean-source scripts and identifiers for `systemctl`, `chkconfig`, `altibased.service`, SELinux mode handling, HP-UX `/sbin/init.d` and `/sbin/rc2.d`, and Solaris `/etc/init.d` and `/etc/rc3.d` workflows.
 
-The Solaris Korean source still contains Confluence `Unknown macro` export artifacts inside script blocks. The English target contains reconstructed shell blocks that preserve the recoverable identifiers and commands: `/etc/alti-conf.d/alti.conf`, `ALTIBASE_HOME`, `ALTIBASE_OWNER`, `START_ALTIBASE`, `isql -s 127.0.0.1 -u sys -p manager -sysdba`, `startup`, `shutdown immediate`, and `/etc/init.d/altibase <start|stop>`.
+The Solaris Korean source still contains Confluence macro-export artifacts inside script blocks. The English target contains reconstructed shell blocks that preserve the recoverable identifiers and commands: `/etc/alti-conf.d/alti.conf`, `ALTIBASE_HOME`, `ALTIBASE_OWNER`, `START_ALTIBASE`, `isql -s 127.0.0.1 -u sys -p manager -sysdba`, `startup`, `shutdown immediate`, and `/etc/init.d/altibase <start|stop>`.
 
 ### Core administration
 

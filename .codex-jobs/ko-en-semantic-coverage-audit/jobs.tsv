@@ -31,6 +31,6 @@ S029	Done	docs	FAQ error messages 09-21 to 09-29	Semantic-unit audit FAQ error m
 S030	Done	docs	FAQ utilities others general	Semantic-unit audit FAQ categories 11, 12, and 13 against English core FAQ targets.
 S031	Done	docs	FAQ attachments English-only classification	Verify FAQ attachments, legacy labels, source links, export artifacts, and English-only FAQE classification boundaries.
 S032	Done	docs	Unresolved coverage closure	Merge all coverage matrices, fix remaining missing source coverage, and drive unresolved semantic differences to zero or explicit recheck risks.
-S033	ToDo	docs	Source stabilization after coverage fixes	Run source stability checks after all coverage fixes: manifest, counts, residual Korean classification, links, macro artifacts, and metadata.
+S033	Done	docs	Source stabilization after coverage fixes	Run source stability checks after all coverage fixes: manifest, counts, residual Korean classification, links, macro artifacts, and metadata.
 S034	ToDo	docs	Independent matrix challenge review	Challenge the coverage matrix by sampling and inverse-searching KO units marked covered to find false positives or weak evidence.
 S035	ToDo	docs	Final semantic coverage decision	Create the final semantic coverage report and decide exactly one outcome: COMPLETE or RECHECK_REQUIRED.

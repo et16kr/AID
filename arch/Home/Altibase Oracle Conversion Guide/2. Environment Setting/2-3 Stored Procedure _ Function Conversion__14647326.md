@@ -162,7 +162,7 @@ BEGIN
     OPEN cur1;
     LOOP FETCH cur1 INTO v_empno, v_empjob;
     EXIT WHEN cur1%NOTFOUND;
-    UPDATE employee SET empjob = 'SALESMAN’ WHERE emp_no = v_empno; //emp_no가 PK이어야 한다.
+    UPDATE employee SET empjob = 'SALESMAN' WHERE emp_no = v_empno; // emp_no must be a primary key.
 END LOOP;
 CLOSE cur1;
 END;
