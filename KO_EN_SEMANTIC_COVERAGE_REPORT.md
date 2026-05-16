@@ -6,7 +6,7 @@ Workspace: `/home/et16/AID`
 
 Current workflow decision: `RECHECK_REQUIRED`
 
-Reason: S003-S031 source-audit and attachment/classification matrices are merged through S032 with zero `missing`, `unverified`, or `recheck_required` rows, and S033 source stabilization has passed. The workflow still requires S034 independent matrix challenge review and S035 final decision before this report can become `COMPLETE`.
+Reason: S003-S031 source-audit and attachment/classification matrices are merged through S032 with zero `missing`, `unverified`, or `recheck_required` rows, S033 source stabilization has passed, and S034 independent matrix challenge review found no sampled false-positive coverage row. The workflow still requires S035 final decision before this report can become `COMPLETE`.
 
 ## Authority And Boundary
 
@@ -67,6 +67,11 @@ S033 added source-stabilization evidence:
 - `semantic-coverage/matrices/S033-source-stabilization-after-coverage-fixes.tsv`
 - `semantic-coverage/notes/S033-source-stabilization-after-coverage-fixes.md`
 
+S034 added independent challenge evidence:
+
+- `semantic-coverage/matrices/S034-independent-matrix-challenge-review.tsv`
+- `semantic-coverage/notes/S034-independent-matrix-challenge-review.md`
+
 ## Semantic Unit Method
 
 Audit by semantic unit, not visual line number. A semantic unit is the smallest independently meaningful content item, including headings, paragraphs, bullet or numbered steps, table rows, command blocks, SQL blocks, configuration items, warnings, notes, version conditions, limitations, error-code resolution items, attachments, and external references.
@@ -100,7 +105,7 @@ The final decision must be exactly one of:
 - `COMPLETE`: all in-scope Korean semantic units are `covered`, `added`, `not_applicable`, or `source_limitation`; no `missing`, `unverified`, or `recheck_required` rows remain; English source fixes and `manifest.json` metadata are complete; URL-backed document attachments are preserved; validation passes.
 - `RECHECK_REQUIRED`: any semantic unit remains uncertain, disputed, technically unsafe to translate, or blocked by insufficient source evidence.
 
-The current workflow decision remains `RECHECK_REQUIRED` because independent challenge review and the final decision job are still pending. S035 must replace or confirm this decision after S034 completes.
+The current workflow decision remains `RECHECK_REQUIRED` because the final decision job is still pending. S035 must replace or confirm this decision after S034 completes.
 
 ## S001 Result
 
@@ -192,3 +197,25 @@ S033 fixed two residual Korean findings in English source files:
 S033 also normalized `manifest.json` `body_chars` and `word_count` values to the current Markdown files and rephrased historical macro-export wording in semantic evidence so the required artifact scan is clean. It did not run the `llm-reference` consolidation workflow.
 
 Verification evidence is recorded in `semantic-coverage/notes/S033-source-stabilization-after-coverage-fixes.md`.
+
+## S034 Result
+
+S034 independently challenged sampled `covered` matrix rows by inverse-searching required identifiers in English target files and re-reading the scoped Korean and English context directly.
+
+Challenge evidence:
+
+| Check | Result |
+| --- | ---: |
+| Covered rows with required identifiers scanned for weak exact-hit evidence | 4,665 S003-S031 covered rows considered; 170 weak exact-hit candidates surfaced |
+| Manual challenge sample rows | 24 |
+| S034 matrix rows | 25 |
+| Sampled false-positive covered rows | 0 |
+| English source files changed by S034 | 0 |
+| `manifest.json` changes required by S034 | 0 |
+| S034 `missing`, `unverified`, or `recheck_required` rows | 0 |
+
+The manual sample covered installation/license tables, platform Direct I/O tables, monitoring SQL, replication conflicts, backup/recovery policy, APRE errors, client API configuration, conversion tables, Migration Center GUI semantics, Docker command output, FAQ platform support, operation properties, replication DDL steps, backup SQL, ODBC INI samples, monitoring SQL, error-message resolutions, utility command output, and attachment preservation.
+
+S034 found weak exact-search cases caused by whitespace around configuration assignments, Markdown emphasis around placeholders, comma-formatted numeric limits, translated prose, and Migration Center screenshot condensation. Direct context review confirmed those sampled rows still preserve the Korean-source semantics in English. No source edit was required.
+
+Verification evidence is recorded in `semantic-coverage/notes/S034-independent-matrix-challenge-review.md`.
