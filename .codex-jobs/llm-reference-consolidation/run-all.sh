@@ -186,10 +186,12 @@ preserve_and_clear_progress() {
     die "Job $id is Progress, but this is not a git repository. Rollback manually, then set status to ToDo."
   fi
 
-  git status --porcelain > "$dir/status.txt" || true
-  git diff > "$dir/unstaged.diff" || true
-  git diff --staged > "$dir/staged.diff" || true
-  git ls-files -o --exclude-standard > "$dir/untracked.txt" || true
+  local root
+  root="$(git_repo_root)"
+  git -C "$root" status --porcelain > "$dir/status.txt" || true
+  git -C "$root" diff > "$dir/unstaged.diff" || true
+  git -C "$root" diff --staged > "$dir/staged.diff" || true
+  git -C "$root" ls-files -o --exclude-standard > "$dir/untracked.txt" || true
 
   if git_dirty_blocking; then
     die "Job $id is Progress and uncommitted project files exist. Commit, stash, or inspect them manually before retrying."
@@ -216,6 +218,10 @@ ensure_clean_before_job() {
 
 ensure_clean_after_job() {
   local id="$1"
+  if [[ "$REQUIRE_WORKFLOW_DEFINITION_COMMITTED" == "1" ]] && workflow_definition_dirty_blocking; then
+    set_status "$id" "Fail"
+    die "Job $id finished but left uncommitted workflow definition files. Commit or clean them, then rerun."
+  fi
   if [[ "$REQUIRE_CLEAN_AFTER_JOB" == "1" ]] && git_dirty_blocking; then
     set_status "$id" "Fail"
     die "Job $id finished but left uncommitted project files. Commit or clean them, then rerun."
