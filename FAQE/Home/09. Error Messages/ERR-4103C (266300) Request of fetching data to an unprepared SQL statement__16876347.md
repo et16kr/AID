@@ -114,7 +114,7 @@ Fetch across commit is a method that performs COMMIT while fetching unit records
 
 For this reason, if an application performs COMMIT or ROLLBACK after opening the cursor, this error may occur.
 
-The reason an error occurs while performing FETCH to some extent is that the first large amount of records is stored in the communication buffer during FETCH. An error occurs when fetching all the records in the communication buffer and fetching the next certain amount of records into the communication buffer.
+The reason an error occurs while performing FETCH to some extent is that a certain amount of records is stored in the communication buffer during the first FETCH. An error occurs when fetching all the records in the communication buffer and fetching the next certain amount of records into the communication buffer.
 
 The following is an example of creating an application that may cause an error by performing COMMIT or ROLLBACK in the cursor OPEN state.
 
