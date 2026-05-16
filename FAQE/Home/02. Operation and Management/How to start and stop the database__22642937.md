@@ -124,7 +124,7 @@ The DB status can be checked by executing a simple SQL statement on is or isql, 
 
 **DB status check with isql connection**
 
-$ is ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20370 iSQL> select sysdate from dual; SYSDATE --------------- 14-JUL-2025 1 row selected. iSQL>
+$ is ----------------------------------------------------------------- Altibase Client Query utility. Release Version 7.1.0.9.9 Copyright 2000, ALTIBASE Corporation or its subsidiaries. All Rights Reserved. ----------------------------------------------------------------- ISQL_CONNECTION = TCP, SERVER = localhost, PORT_NO = 20370 iSQL> select sysdate from dual; SYSDATE --------------- 14-JUL-2025 1 row selected. iSQL>
 
 ## (3) Simply checking query
 
