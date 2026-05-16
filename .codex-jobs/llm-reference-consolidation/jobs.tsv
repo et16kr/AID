@@ -1,5 +1,5 @@
 id	status	kind	title	goal
-R001	ToDo	docs	Interrupted run summary and phase gates	Preserve the interrupted L001 state, confirm Phase 2 readiness, and start the exhaustive Phase 3 evidence trail.
+R001	Done	docs	Interrupted run summary and phase gates	Preserve the interrupted L001 state, confirm Phase 2 readiness, and start the exhaustive Phase 3 evidence trail.
 R002	ToDo	docs	Package scaffold and exhaustive coverage ledgers	Create the llm-reference scaffold and initialize source inventory, coverage, attachment, answerability, and risk ledgers.
 R003	ToDo	docs	Full source inventory and source-to-topic map	Inventory every arch/Home and FAQE/Home Markdown source and map each source to a topic document and owner job.
 R004	ToDo	docs	Installation patch upgrade database creation	Build exhaustive installation, patch, upgrade, database creation, startup validation, and installation FAQ coverage.
