@@ -15,6 +15,16 @@ Every job in this workflow must follow `.codex-jobs/ko-en-semantic-coverage-audi
 
 Previous J/P workflow reports are useful orientation, but they are not sufficient proof for this workflow. Each audit job must inspect the scoped Korean source and English target files directly and create semantic-unit matrix evidence.
 
+## Worktree Handoff Check
+
+Before editing, check for uncommitted project files while excluding workflow runtime and status files. Use this exact command from the repository root:
+
+```bash
+git status --porcelain --untracked-files=all -- . ":(exclude).codex-jobs" ":(exclude).codex-jobs/**"
+```
+
+Stop only if that command prints output. Do not stop merely because `.codex-jobs/ko-en-semantic-coverage-audit/jobs.tsv`, logs, rollbacks, or `.runtime` prompt files are modified by the orchestrator.
+
 ## Semantic Unit Requirement
 
 Audit by semantic unit, not by visual line number. A semantic unit is the smallest independently meaningful content item, including:

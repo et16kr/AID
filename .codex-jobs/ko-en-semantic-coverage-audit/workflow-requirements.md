@@ -68,6 +68,18 @@ The matrix header must be exactly:
 job_id	ko_path	ko_start_line	ko_end_line	ko_unit_id	unit_type	ko_excerpt	required_identifiers	en_target_paths	en_start_line	coverage_status	action	evidence_excerpt	risk	notes
 ```
 
+## Worktree Handoff Check
+
+The orchestrator updates workflow state while a job is running. Audit jobs must not treat those runtime/status files as project handoff changes.
+
+Use this command from the repository root when checking for blocking uncommitted files:
+
+```bash
+git status --porcelain --untracked-files=all -- . ":(exclude).codex-jobs" ":(exclude).codex-jobs/**"
+```
+
+Stop only if that command prints output. Changes under `.codex-jobs/ko-en-semantic-coverage-audit/`, including `jobs.tsv`, logs, rollbacks, and `.runtime`, are expected workflow runtime state.
+
 Allowed `coverage_status` values:
 
 - `covered`

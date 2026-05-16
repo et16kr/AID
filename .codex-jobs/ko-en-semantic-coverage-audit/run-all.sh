@@ -208,7 +208,9 @@ build_runtime_prompt() {
     printf '\n## Orchestrator Contract\n\n'
     printf -- '- This job id is `%s`.\n' "$id"
     printf -- '- Complete only this job and preserve unrelated user changes.\n'
-    printf -- '- Before editing, stop if uncommitted project files exist outside the workflow runtime directories.\n'
+    printf -- '- Before editing, stop only if uncommitted project files exist outside `.codex-jobs` workflow runtime and status files.\n'
+    printf -- '- Use `git status --porcelain --untracked-files=all -- . ":(exclude).codex-jobs" ":(exclude).codex-jobs/**"` for the blocking preflight check.\n'
+    printf -- '- Do not treat `.codex-jobs/ko-en-semantic-coverage-audit/jobs.tsv`, logs, rollbacks, or `.runtime` prompt files as blocking project changes.\n'
     printf -- '- If the job cannot be completed safely, stop with a clear failure.\n'
     printf -- '- After review and verification pass, create a focused git commit for this job.\n'
     printf -- '- A successful job must leave project files clean and must advance HEAD with a commit.\n'

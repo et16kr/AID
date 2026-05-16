@@ -59,6 +59,7 @@
 - `Progress`: preserve interruption evidence, set the job back to `ToDo`, then rerun only when project files are clean.
 - `Done`: skip.
 - Nonzero `codex exec` exits leave the job as `Progress` by default; the next manual run stops if project files are dirty, or resets runtime state and retries when clean.
+- Workflow files under `.codex-jobs/ko-en-semantic-coverage-audit/`, including `jobs.tsv`, logs, rollbacks, and `.runtime`, are status/runtime files and are not blocking project handoff changes.
 
 ## Acceptance Checklist
 
@@ -66,6 +67,7 @@
 - Each job has concrete acceptance criteria.
 - Each prompt receives `prompt-addendum.md` at runtime.
 - `jobs.tsv` status changes for successful jobs are recorded by amending the same job commit.
+- Sub-job preflight checks must exclude `.codex-jobs/**` from dirty project file detection.
 - Each audit job writes a semantic coverage matrix under `semantic-coverage/matrices/`.
 - Each audit job writes a note under `semantic-coverage/notes/`.
 - The final report is `KO_EN_SEMANTIC_COVERAGE_REPORT.md`.
