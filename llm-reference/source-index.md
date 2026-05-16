@@ -18,7 +18,7 @@ The source corpus to be indexed by R003 is:
 
 ## Source coverage notes
 
-R002 creates this index scaffold but does not claim per-source coverage. R003 must add exactly one `source-inventory.tsv` row and exactly one `source-to-topic-map.tsv` row for every Markdown source under `arch/Home` and `FAQE/Home`.
+R002 created this index scaffold but did not claim per-source coverage. R003 populated exactly one `source-inventory.tsv` row and exactly one `source-to-topic-map.tsv` row for every Markdown source under `arch/Home` and `FAQE/Home`.
 
 The Phase 2 validation report recorded these source counts:
 
@@ -26,6 +26,15 @@ The Phase 2 validation report recorded these source counts:
 | --- | ---: |
 | `arch/Home` | 181 |
 | `FAQE/Home` | 241 |
+
+R003 inventory result:
+
+| Ledger | Data rows | Expected source count | Status |
+| --- | ---: | ---: | --- |
+| `llm-reference/coverage/source-inventory.tsv` | 422 | 422 | Complete |
+| `llm-reference/coverage/source-to-topic-map.tsv` | 422 | 422 | Complete |
+
+R003 mapped all source files to a primary topic and owner job. Detailed answer-affecting semantic-unit extraction remains with the owning topic jobs listed below.
 
 ## Scope and audience
 
