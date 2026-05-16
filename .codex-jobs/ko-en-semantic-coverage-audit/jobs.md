@@ -25,7 +25,7 @@
 | `S007` | `Done` | Tech CPU memory diagnostics | Semantic-unit audit CPU overload and memory usage increase analysis guides. |
 | `S008` | `ToDo` | Tech replication | Semantic-unit audit replication configuration and replication constraints technical documents. |
 | `S009` | `ToDo` | Tech backup recovery | Semantic-unit audit backup policy, recovery, archive/noarchive, failure response, and startup recovery technical documents. |
-| `S010` | `ToDo` | Tech C C++ APRE precompiler | Semantic-unit audit developer training, Precompiler, APRE Makefile, and APRE C/C++ upgrade documents. |
+| `S010` | `Done` | Tech C C++ APRE precompiler | Semantic-unit audit developer training, Precompiler, APRE Makefile, and APRE C/C++ upgrade documents. |
 | `S011` | `ToDo` | Tech client APIs | Semantic-unit audit Java, unixODBC, Windows ODBC, ADO.NET, and PHP client API documents. |
 | `S012` | `ToDo` | Tech WAS integration Tomcat JEUS JBoss | Semantic-unit audit Tomcat, JEUS, and JBoss integration documents. |
 | `S013` | `ToDo` | Tech WAS integration WebLogic WebSphere | Semantic-unit audit WebLogic and WebSphere integration documents. |
