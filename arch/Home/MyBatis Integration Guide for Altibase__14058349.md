@@ -32,6 +32,7 @@ In addition to this document, the documents to be referenced during the developm
 - WEBLOGIC Integration Guide for Altibase
 - Spring Integration Guide for Altibase
 - HIBERNATE Integration Guide for Altibase
+- iBatis Integration Guide for Altibase
 
 For errors and improvements related to this document, please contact the technical support portal or technical support center.
 

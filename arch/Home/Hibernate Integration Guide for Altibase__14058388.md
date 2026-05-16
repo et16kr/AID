@@ -68,7 +68,7 @@ The hibernate-mapping XML file is a configuration file containing between DBMS t
 
 The following is an example of creating a hibernate-mapping XML file that defines the mapping between person table and Person class.
 
-**Person.hdm.xml**
+**Person.hbm.xml**
 
 ```
 <?xml version="1.0" encoding="euc-kr" ?>
@@ -132,7 +132,7 @@ The following is an example of a hibernate-configuration file.
 ```
 
 - **<session-factory> tag**
-  This sets the DBMS connection information and specifies the dialect class name appropriate for the DBMS to connect tot he dialect property
+  This sets the DBMS connection information and specifies the dialect class name appropriate for the DBMS in the dialect property.
 - **<mapping resource> tag**
   This specifies hibernate-mapping files.
 
@@ -150,7 +150,7 @@ If the Session object is used in the application, DML can be executed on the DBM
 
 The following is an application to insert, select, update, get, and delete the person table of the DBMS.
 
-**Hibernate.cfg.xml**
+**AltibaseConnection's PersonApp.java**
 
 ```
 ……
@@ -189,7 +189,7 @@ tx.commit();
 ```
 
 - First, read the hibernate-configuration file to retrieve the SessionFactory object.
-  SessionFactory sessionFactory = new Configuration().configure("Hibernate.cfg.xml").buildSessionFactory()
+  SessionFactory sessionFactory = new Configuration().configure("Hibernate.cfg.xml").buildSessionFactory();
 - Then, retrieve Session object with the SessionFactory object.
   Session session = sessionFactory.openSession();
 - Then, each method of the Session class corresponding to each DML is called.
@@ -213,7 +213,7 @@ This chapter describes how to include the AltibaseDialect class specific to Alti
 
 ---
 
-DBMS vendors can provide non-standard SQL to its characteristics.
+DBMS vendors can provide non-standard SQL according to their product characteristics.
 
 Hibernate provides a dialect class to execute non-standard SQL statements, but a dialect class for Altibase is not provided by default.
 
@@ -424,7 +424,7 @@ Session session2 = sessionFactory2.openSession();
 …
 ```
 
-In the example of PersonApp.java above, you can see that Altibase5.jdbc.driver.AltibaseDriver is used as connection.driver_driver_class to load Altibase5.jdbc.driver.AltibaseDriver before Altibase.jdbc.driver.AltibaseDriver.
+In the PersonApp.java example above, the application reads the Hibernate.Altibase5.cfg.xml file first. That file uses Altibase5.jdbc.driver.AltibaseDriver in the connection.driver_class property, so Altibase5.jdbc.driver.AltibaseDriver is loaded before Altibase.jdbc.driver.AltibaseDriver.
 
 Please note that the driver for Altibase 5 must be loaded first.
 
@@ -444,8 +444,8 @@ This chapter describes how to integrate with the Altibase server using these two
 
 The following process is required to use Hibernate and Spring together.
 
-1. Create dataSource for DBMS integration in Spring's applicationContext.xml file. For more detailed information on setting the dataSource, please refer to the "ALTIBASE_Spring_Linking Guide" document.
-2. Specify Hibernate's sessionFactory bean in applicationContext.xml file. At this time, specify the dataSource set in No. 1 in <property name="dataSource">, hibernate-mapping files in <property name-"mapping-resource>, and <property name="hibernate Properties"> defines properties related to Hibernate.
+1. Create dataSource for DBMS integration in Spring's applicationContext.xml file. For more detailed information on setting the dataSource, refer to the "ALTIBASE Spring Integration Guide" document.
+2. Specify Hibernate's sessionFactory bean in applicationContext.xml file. At this time, specify the dataSource set in No. 1 in <property name="dataSource">, specify the hibernate-mapping files in <property name="mappingResources">, and define Hibernate properties in <property name="hibernateProperties">.
 3. In the applicationContext.xml file, set each DAO bean to refer to the SessionFactory bean.
 4. The session object is obtained with the SessionFactory object set in the DAO class, and methods corresponding to each DML are called.
 
@@ -502,7 +502,7 @@ For the detailed directory location of the jar file, refer to 『ALTIBASE_Spring
 When connecting by specifying connection properties to Hibernate in the Hibernate+Spring environment, the following process is required.
 
 1. Assign Hibernate's SessionFactory bean in applicationContext.xml file.
-  Then, specify hibernate-mapping files in <property name='mapping-resource"> and connection related information and dialect class in <property name="hibernate Properties" tag.
+  Then, specify hibernate-mapping files in <property name="mappingResources"> and define connection-related information and the dialect class in <property name="hibernateProperties">.
 2. Set each DAO bean to refer to the sessionFactory bean.
 3. The Session object is obtained with the SessionFactory object set in the DAO class, and methods corresponding to each DML are called.
 
@@ -550,9 +550,9 @@ In order to execute the SpringAltibaseConnection2 example, jar files from 'When 
 
 ---
 
-Altibase's ConnectionPool can be used by using the ABConnectionPoolDataSource class provided by Altibase.
+Altibase's ConnectionPool can be used by using the AltibaseConnectionPoolDataSource class provided by Altibase.
 
-If it is a Hibernate + Spring integration environment, define dataSource bean by using ABConnectionPoolDataSource class in Spring applicationContext.xml file. However, Altibase's ConnectionPool cannot be used if only Hibernate is used without interworking with Spring.
+If it is a Hibernate + Spring integration environment, define the dataSource bean by using the AltibaseConnectionPoolDataSource class in Spring applicationContext.xml file. However, Altibase's ConnectionPool cannot be used if only Hibernate is used without interworking with Spring.
 
 For details on using Altibase's ConnectionPool, refer to the document 『ALTIBASE_Spring_Integration Guide』.
 
@@ -622,7 +622,7 @@ tx.commit();
 
 ---
 
-In order to process LOB in Hibernate, in case of CLOB in <property> tag which defines mapping of column and variable in hibernate-mapping file, define as type=“org.hibernate.type.StringClobType”, sql-type=”clob”, and , in the case of BLOB, type= “org.hibernate.type. PrimitiveByteArrayBlobType”, sql-type=”blob” must be defined.
+To process LOB data in Hibernate, define the column and variable mapping in the <property> tag of the hibernate-mapping file. For CLOB data, use type="org.hibernate.type.StringClobType" and sql-type="clob". For BLOB data, use type="org.hibernate.type.PrimitiveByteArrayBlobType" and sql-type="blob".
 
 If this is failed to comply, incorrect data may be inserted or incorrect data may be queried due to the length limitation. Or, an error such as invalid length may occur.
 
@@ -654,14 +654,14 @@ When handling LOBs, please consider that Altibase must manage the transaction af
 
 When calling the beginTransaction() method of Session during Hibernate integrating, setAutoCommit(false) is automatically performed, so the beginTransaction() methods must be called before processing the LOB.
 
-In the case of integrating Hibernate and Spring together, it is recommended to call beginTransaction() method in Java application because false may not be applied to aucocommit even if the transaction is managed in Spring.
+When integrating Hibernate and Spring together, it is recommended to call the beginTransaction() method in the Java application because autocommit=false may not be applied even if Spring manages the transaction.
 
 If the beginTransaction() method is not called, the following errors can occur.
 
 1. **When querying LOB data**
   null value is returned, or errors such as “java.sql.SQLException: [0]:LobLocator can not span the transaction 101858625.” occurs.
 2. **When inserting LOB data**
-  “Java.sql.SQLException: [0]: Connection is in autocommit mode. One can not operate on LOB datas with autocommit mode on.” error occurs.
+  “java.sql.SQLException: [0]: Connection is in autocommit mode. One can not operate on LOB datas with autocommit mode on.” error occurs.
 
 The following is an example of processing LOB in Hibernate.
 
@@ -699,7 +699,7 @@ The following is an example of processing LOB in Hibernate.
 
 #### Required jar files
 
-In order to execute the above LobSample project, jar files such from "Setting dialect in hibernate-mapping file to integrate with Altibase" are required.
+In order to execute the above LobSample project, the same jar files as the "Setting dialect in hibernate-configuration file to integrate with Altibase" section are required.
 
 ### Calling Procedure/Function
 
@@ -769,7 +769,7 @@ END;
 
 **Required jar files**
 
-In order to execute the ProcedureSample, jar files such from "Setting dialect in hibernate-mapping file to integrate with Altibase" are required.
+In order to execute the ProcedureSample, the same jar files as the "Setting dialect in hibernate-configuration file to integrate with Altibase" section are required.
 
 ### Executing NativeSQL
 
@@ -797,7 +797,7 @@ The following is an example of executing the MOVE statement.
 </hibernate-mapping>
 ```
 
-**Ex) NativeSQLApp.jave of NativeSQL**
+**Ex) NativeSQLApp.java of NativeSQL**
 
 ```
 …SessionFactory sessionFactory
@@ -813,7 +813,7 @@ System.out.println(rows+" data moved");
 
 **Required jar files**
 
-In order to execute the NativeSQL example, jar files such from "Setting dialect in hibername-mapping file and integrate with Altibase" are required.
+In order to execute the NativeSQL example, the same jar files as the "Setting dialect in hibernate-configuration file to integrate with Altibase" section are required.
 
 ## Appendix
 
@@ -932,13 +932,13 @@ Create a hibernate-configuration file that defines the dialect to access the Alt
 
 1. Create a Person class that is a DO object for the person table.
     1. Right-click on the src directory of the AltibaseConnection project and click New-Class.
-    2. Enter examples.doman in Package: and Person in Name:.
+    2. Enter examples.domain in Package: and Person in Name:.
 
 ![image2019-12-9%2013_14_37.png](https://docs.altibase.com/download/attachments/embedded-page/arch/Hibernate%20Integration%20Guide%20for%20Altibase/image2019-12-9%2013_14_37.png?api=v2)
 
 Create the following in the Person.java file.
 
-**PersonApp.java**
+**Person.java**
 
 ```
 package examples.domain;

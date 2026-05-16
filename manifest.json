@@ -3536,8 +3536,8 @@
       "title": "Hibernate Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/Hibernate+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/Hibernate Integration Guide for Altibase__14058388.md",
-      "body_chars": 45702,
-      "word_count": 4654
+      "body_chars": 45520,
+      "word_count": 4634
     },
     {
       "space_key": "arch",
@@ -3662,8 +3662,8 @@
       "title": "1. MyBatis Overview",
       "source_url": "https://docs.altibase.com/display/arch/1.+MyBatis+Overview",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/1. MyBatis Overview__14058351.md",
-      "body_chars": 3111,
-      "word_count": 379
+      "body_chars": 2950,
+      "word_count": 363
     },
     {
       "space_key": "arch",
@@ -3680,8 +3680,8 @@
       "title": "3. Sample Preparation using MyBatis",
       "source_url": "https://docs.altibase.com/display/arch/3.+Sample+Preparation+using+MyBatis",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/3. Sample Preparation using MyBatis__14058356.md",
-      "body_chars": 7850,
-      "word_count": 800
+      "body_chars": 7518,
+      "word_count": 772
     },
     {
       "space_key": "arch",
@@ -3689,8 +3689,8 @@
       "title": "4. Altibase Integration",
       "source_url": "https://docs.altibase.com/display/arch/4.+Altibase+Integration",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/4. Altibase Integration__22643026.md",
-      "body_chars": 17270,
-      "word_count": 2065
+      "body_chars": 17300,
+      "word_count": 2072
     },
     {
       "space_key": "arch",
@@ -3716,8 +3716,8 @@
       "title": "7. Considerations for MyBatis Integration",
       "source_url": "https://docs.altibase.com/display/arch/7.+Considerations+for+MyBatis+Integration",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/7. Considerations for MyBatis Integration__22643032.md",
-      "body_chars": 5286,
-      "word_count": 596
+      "body_chars": 5332,
+      "word_count": 600
     },
     {
       "space_key": "arch",
@@ -3734,8 +3734,8 @@
       "title": "9. Appendix 2(Spring-MyBatis-Altibase Integration)",
       "source_url": "https://docs.altibase.com/pages/viewpage.action?pageId=22643036",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase/9. Appendix 2(Spring-MyBatis-Altibase Integration)__22643036.md",
-      "body_chars": 22004,
-      "word_count": 2078
+      "body_chars": 21658,
+      "word_count": 2041
     },
     {
       "space_key": "arch",
@@ -3743,8 +3743,8 @@
       "title": "MyBatis Integration Guide for Altibase",
       "source_url": "https://docs.altibase.com/display/arch/MyBatis+Integration+Guide+for+Altibase",
       "path": "altibase_docs_md/arch/Home/MyBatis Integration Guide for Altibase__14058349.md",
-      "body_chars": 1525,
-      "word_count": 177
+      "body_chars": 1565,
+      "word_count": 183
     },
     {
       "space_key": "arch",
