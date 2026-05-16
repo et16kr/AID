@@ -32,6 +32,14 @@ Audit by semantic unit, not by visual line number. A semantic unit is the smalle
 
 Do not collapse content-bearing units merely to reduce matrix size. If a Korean unit is nontechnical boilerplate or a source limitation, record it explicitly with a reason.
 
+## Duplicate Source Ownership
+
+If the same Korean source is referenced by more than one job, follow `.codex-jobs/ko-en-semantic-coverage-audit/workflow-requirements.md` as the source of truth for ownership.
+
+- The primary owner job must audit the whole Korean source document.
+- Later jobs must add only topic-specific cross-reference rows and name the primary owner job in `notes`.
+- Known duplicate sources: `DOCK/Home/20. Altibase 설정 파일 가이드__13437165.md` is primarily owned by S003; `DOCK/Home/26. Altibase 기본적인 장애대응 절차__13435879.md` and `DOCK/Home/43. Altibase STARTUP _ STOP 과정의 이해__13434993.md` are primarily owned by S005.
+
 ## Coverage Status Values
 
 Use only these status values in matrix rows:
@@ -55,6 +63,14 @@ job_id	ko_path	ko_start_line	ko_end_line	ko_unit_id	unit_type	ko_excerpt	require
 ```
 
 Keep excerpts short enough to review, but include exact identifiers, commands, SQL, version numbers, paths, property names, error codes, and attachment filenames.
+
+TSV row rules:
+
+- Use one physical line per semantic unit.
+- Replace tabs inside field values with `\t`.
+- Replace newlines inside field values with `\n`.
+- Keep long command, SQL, or table excerpts in the per-job Markdown note, then reference that note from the matrix row.
+- Do not use Markdown tables for matrices.
 
 ## Required Outputs
 
@@ -81,8 +97,10 @@ For final or stabilization jobs, also check:
 
 ```bash
 rg -n "\[\]\(|Error rendering macro|Unknown macro|unknown-macro|\]\(#\)" arch/Home FAQE/Home semantic-coverage
-rg -n $'\t(missing|unverified)\t' semantic-coverage/matrices
+rg -n $'\t(missing|unverified|recheck_required)\t' semantic-coverage/matrices
 ```
+
+For expected-no-match checks, record exit code 1 from `rg` as a passing result because it means no matching defect was found. Treat exit code 2 or higher as a command error.
 
 The final decision must be exactly one of:
 

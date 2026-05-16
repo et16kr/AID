@@ -167,6 +167,31 @@ ensure_commit_after_job() {
   fi
 }
 
+commit_workflow_status_after_job() {
+  local id="$1"
+
+  if [[ "$REQUIRE_COMMIT_AFTER_JOB" != "1" ]]; then
+    return 0
+  fi
+
+  if ! inside_git_repo; then
+    return 0
+  fi
+
+  local root rel
+  root="$(git_repo_root)"
+  case "$JOBS_FILE" in
+    "$root"/*) rel="${JOBS_FILE#$root/}" ;;
+    *) return 0 ;;
+  esac
+
+  git -C "$root" add -- "$rel"
+  if ! git -C "$root" diff --cached --quiet -- "$rel"; then
+    git -C "$root" commit --amend --no-edit
+    printf 'Recorded workflow status for %s in the job commit.\n' "$id"
+  fi
+}
+
 build_runtime_prompt() {
   local id="$1"
   local prompt_file="$PROMPT_DIR/$id.md"
@@ -224,6 +249,7 @@ run_job() {
   ensure_clean_after_job "$id"
   ensure_commit_after_job "$id" "$before_head"
   set_status "$id" "Done"
+  commit_workflow_status_after_job "$id"
   printf 'Done: %s\n' "$id"
 }
 

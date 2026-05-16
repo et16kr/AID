@@ -45,6 +45,16 @@ Audit by semantic unit rather than visual line number. A semantic unit is the sm
 
 If a table row has multiple independent facts, split it into multiple units when needed. If a command block contains multiple commands with different meanings, split those commands when needed.
 
+## Duplicate Source Ownership
+
+Some Korean sources appear in more than one topical area. To prevent duplicate or conflicting matrix rows:
+
+- The first listed job for a Korean source is the primary owner and must cover the whole source document.
+- Later jobs that mention the same Korean source must add only topic-specific cross-reference rows, with `notes` naming the primary owner job.
+- `DOCK/Home/20. Altibase 설정 파일 가이드__13437165.md` primary owner: S003. S005 may add operation-specific cross-reference rows only.
+- `DOCK/Home/26. Altibase 기본적인 장애대응 절차__13435879.md` primary owner: S005. S009 may add backup/recovery-specific cross-reference rows only.
+- `DOCK/Home/43. Altibase STARTUP _ STOP 과정의 이해__13434993.md` primary owner: S005. S009 may add recovery-specific cross-reference rows only.
+
 ## Required Evidence
 
 Each scoped audit job must produce:
@@ -69,6 +79,14 @@ Allowed `coverage_status` values:
 - `recheck_required`
 
 Successful audit jobs must not leave `missing` or `unverified` rows. If a unit cannot be safely resolved, record `recheck_required` with a concrete reason.
+
+TSV escaping rules:
+
+- Matrix rows must be one physical line per semantic unit.
+- Replace tabs inside field values with `\t`.
+- Replace newlines inside field values with `\n`.
+- Keep code and SQL excerpts short in the matrix; put longer excerpts in the per-job Markdown note and reference that note in `notes`.
+- Do not use Markdown tables for matrices because command, SQL, and path values often contain pipe characters.
 
 ## Final Decision Rule
 
@@ -109,6 +127,8 @@ Stabilization and final jobs also run:
 rg -n "\[\]\(|Error rendering macro|Unknown macro|unknown-macro|\]\(#\)" arch/Home FAQE/Home semantic-coverage
 rg -n $'\t(missing|unverified|recheck_required)\t' semantic-coverage/matrices
 ```
+
+For expected-no-match checks, exit code 1 from `rg` is a passing result because no defect rows were found. Exit code 2 or higher is a command error.
 
 Attachment jobs must check URL-backed document-format links for:
 
@@ -214,21 +234,36 @@ Audit:
 - `DOCK/Home/56. JAVA 개발 가이드__14057500.md`
 - `DOCK/Home/66. Altibase PHP 연동가이드__7341461.md`
 
-### S012 - Tech WAS framework integration
+### S012 - Tech WAS integration Tomcat JEUS JBoss
 
 Audit:
 
 - `DOCK/Home/28. Altibase TOMCAT 연동가이드__7341030.md`
 - `DOCK/Home/29. Altibase JEUS 연동가이드__7341028.md`
 - `DOCK/Home/30. Altibase JBoss 연동가이드__13437492.md`
+
+### S013 - Tech WAS integration WebLogic WebSphere
+
+Audit:
+
 - `DOCK/Home/52. Altibase WebSphere 연동 가이드__13435602.md`
+- `DOCK/Home/60. Altibase WebLogic 연동가이드__7340101.md`
+
+### S014 - Tech framework integration Spring iBATIS
+
+Audit:
+
 - `DOCK/Home/54. Altibase Spring 연동 가이드__7340945.md`
 - `DOCK/Home/55. Altibase iBATIS 연동가이드__7340053.md`
+
+### S015 - Tech framework integration MyBatis Hibernate
+
+Audit:
+
 - `DOCK/Home/58. Altibase Hibernate 연동가이드__14057878.md`
-- `DOCK/Home/60. Altibase WebLogic 연동가이드__7340101.md`
 - `DOCK/Home/64. Altibase MyBatis 연동 가이드__7340818.md`
 
-### S013 - Tech development SQL tuning comparison
+### S016 - Tech development SQL tuning comparison
 
 Audit:
 
@@ -236,7 +271,7 @@ Audit:
 - `DOCK/Home/37. Altibase SQL 튜닝 가이드__19333563.md`
 - `DOCK/Home/39. Altibase, Oracle 비교 자료__14058137.md`
 
-### S014 - Tech migration conversion VC
+### S017 - Tech migration conversion VC
 
 Audit:
 
@@ -247,7 +282,7 @@ Audit:
 - `DOCK/Home/65. MSSQL to Altibase 변환가이드__7341431.md`
 - `DOCK/Home/70. Migration Center 사용자 가이드__19955861.md`
 
-### S015 - Tech Docker GeoServer SQuirrel
+### S018 - Tech Docker GeoServer SQuirrel
 
 Audit:
 
@@ -255,27 +290,27 @@ Audit:
 - `DOCK/Home/68. Altibase GeoServer 연동가이드__14058194.md`
 - `DOCK/Home/69. Altibase를 위한 SQuirrel SQL Client Quick 가이드__12255259.md`
 
-### S016 - Technical attachments and source links
+### S019 - Technical attachments and source links
 
 Revalidate all technical document-format attachments and important external links from Korean technical sources against English targets. Legacy `#` labels must be recorded as `source_limitation`, not invented URLs.
 
-### S017 - FAQ installation patch upgrade
+### S020 - FAQ installation patch upgrade
 
 Audit `faq/Home/01. 설치, 패치, 업그레이드/**` against `FAQE/Home/01. Installation, Patch, Upgrade/**`.
 
-### S018 - FAQ operation core
+### S021 - FAQ operation core
 
 Audit FAQ category `02. 운영 및 관리` operation core topics, including security, users, sessions, clients, startup, configuration, and administrative procedures.
 
-### S019 - FAQ operation storage resources
+### S022 - FAQ operation storage resources
 
 Audit remaining FAQ category `02. 운영 및 관리` topics, including logs, tablespaces, file changes, JOBs, memory/resource limits, charset, and operational changes.
 
-### S020 - FAQ replication
+### S023 - FAQ replication
 
 Audit `faq/Home/03. 이중화/**` against `FAQE/Home/03. Replication/**`.
 
-### S021 - FAQ backup SQL stored procedures
+### S024 - FAQ backup SQL stored procedures
 
 Audit:
 
@@ -283,19 +318,27 @@ Audit:
 - `faq/Home/05. SQL/**`
 - `faq/Home/06. Stored Procedures/**`
 
-### S022 - FAQ development API
+### S025 - FAQ development API
 
 Audit `faq/Home/07. 개발 및 API/**` against `FAQE/Home/07. Development and API/**`.
 
-### S023 - FAQ monitoring
+### S026 - FAQ monitoring
 
 Audit `faq/Home/08. 모니터링/**` against `FAQE/Home/08. Monitoring/**`.
 
-### S024 - FAQ error messages
+### S027 - FAQ error messages 09-01 to 09-10
 
-Audit `faq/Home/09. 에러메시지/**` against `FAQE/Home/09. Error Messages/**`.
+Audit Korean FAQ error message documents whose filename begins with `09-01.` through `09-10.` against `FAQE/Home/09. Error Messages/**`.
 
-### S025 - FAQ utilities others general
+### S028 - FAQ error messages 09-11 to 09-20
+
+Audit Korean FAQ error message documents whose filename begins with `09-11.` through `09-20.` against `FAQE/Home/09. Error Messages/**`.
+
+### S029 - FAQ error messages 09-21 to 09-29
+
+Audit Korean FAQ error message documents whose filename begins with `09-21.` through `09-29.`, including nested export paths such as `faq/Home/09. 에러메시지/Home/09. 에러메시지/**`, against `FAQE/Home/09. Error Messages/**`.
+
+### S030 - FAQ utilities others general
 
 Audit:
 
@@ -303,23 +346,23 @@ Audit:
 - `faq/Home/12. 기타/**`
 - `faq/Home/13. 일반/**`
 
-### S026 - FAQ attachments English-only classification
+### S031 - FAQ attachments English-only classification
 
 Revalidate FAQ attachments, legacy labels, source links, export artifacts, and English-only `FAQE` classification boundaries. English-only pages do not prove Korean-source coverage.
 
-### S027 - Unresolved coverage closure
+### S032 - Unresolved coverage closure
 
 Merge matrix results. Fix remaining source coverage issues in English targets where safe. There must be zero `missing` and zero `unverified` rows after this job. Any `recheck_required` row must have an explicit blocker and owner note.
 
-### S028 - Source stabilization after coverage fixes
+### S033 - Source stabilization after coverage fixes
 
 Run source-stability checks after all coverage fixes. Verify manifest metadata, counts, residual Korean classification, links, macro artifacts, and known stale export patterns.
 
-### S029 - Independent matrix challenge review
+### S034 - Independent matrix challenge review
 
 Challenge the matrix. Sample and inverse-search units marked `covered`, including high-risk documents and table/code-heavy pages. If false positives are found, fix the matrix and English source documents, then rerun relevant checks.
 
-### S030 - Final semantic coverage decision
+### S035 - Final semantic coverage decision
 
 Create or finalize `KO_EN_SEMANTIC_COVERAGE_REPORT.md`. The final decision must be exactly `COMPLETE` or `RECHECK_REQUIRED`. Do not use softer wording such as "mostly complete".
 
