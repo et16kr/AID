@@ -1,6 +1,6 @@
 id	status	kind	title	goal
 E001	Done	docs	Phase 1 completion gate and baseline	Confirm the semantic coverage workflow ended COMPLETE, record baseline counts and clean-state evidence, and create the Phase 2 evidence structure.
-E002	ToDo	docs	Residual Korean classification	Scan English source files for Hangul, classify every hit, and fix only real untranslated English-source residue.
+E002	Done	docs	Residual Korean classification	Scan English source files for Hangul, classify every hit, and fix only real untranslated English-source residue.
 E003	ToDo	docs	Markdown artifact cleanup	Verify empty Markdown links, macro rendering artifacts, unknown macro strings, and hash-only Markdown attachment links are absent or explicitly classified.
 E004	ToDo	docs	Legacy attachment inventory	Build a complete inventory of legacy attachment labels with no downloadable source URL and record them as no downloadable URL in source.
 E005	ToDo	docs	Technical URL-backed attachment verification	Recheck technical document-format attachment links and confirm URL-backed technical attachment omissions remain zero.
