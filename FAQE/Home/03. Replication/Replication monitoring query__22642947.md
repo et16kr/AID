@@ -172,7 +172,7 @@ REP             0                    0
 | Column name | Description |
 | --- | --- |
 | rep_name | Name of replication |
-| rep_gap | The size of the replication gap log files is displayed in the unit set by the property `REPLICATION_GAP_UNIT`. (Unit: `REPLICATION_GAP_UNIT`, default value is 1 MB)<br>- REP_GAP = CEIL(REP_GAP_SIZE / REPLICATION_GAP_UNIT) |
+| rep_gap | The size of the replication gap log files is displayed in the unit set by the property [`REPLICATION_GAP_UNIT`](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8). (Unit: `REPLICATION_GAP_UNIT`, default value is 1 MB)<br>- REP_GAP = CEIL(REP_GAP_SIZE / REPLICATION_GAP_UNIT) |
 | rep_gap_size | It represents the size of the replication gap log files and is displayed in bytes. |
 
 *When the replication gap increases significantly, the following items should be checked:*
