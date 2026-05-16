@@ -6,7 +6,7 @@ Workspace: `/home/et16/AID`
 
 Current workflow decision: `RECHECK_REQUIRED`
 
-Reason: S001 establishes the audit method and baseline only. The Korean source semantic-unit audits, closure, stabilization, independent challenge review, and final decision jobs are still pending.
+Reason: S003-S031 source-audit and attachment/classification matrices are merged through S032 with zero `missing`, `unverified`, or `recheck_required` rows. The workflow still requires S033 source stabilization, S034 independent matrix challenge review, and S035 final decision before this report can become `COMPLETE`.
 
 ## Authority And Boundary
 
@@ -57,7 +57,10 @@ S002 created the mapping inventory and matrix scaffold:
 - `semantic-coverage/matrices/S002-mapping-inventory-and-unit-matrix-scaffold.tsv`
 - `semantic-coverage/notes/S002-mapping-inventory-and-unit-matrix-scaffold.md`
 
-Later jobs will add per-scope semantic-unit rows and notes under `semantic-coverage/matrices/` and `semantic-coverage/notes/`.
+S003-S031 added per-scope semantic-unit, attachment, link, and classification rows and notes under `semantic-coverage/matrices/` and `semantic-coverage/notes/`. S032 added aggregate closure evidence:
+
+- `semantic-coverage/matrices/S032-unresolved-coverage-closure.tsv`
+- `semantic-coverage/notes/S032-unresolved-coverage-closure.md`
 
 ## Semantic Unit Method
 
@@ -92,7 +95,7 @@ The final decision must be exactly one of:
 - `COMPLETE`: all in-scope Korean semantic units are `covered`, `added`, `not_applicable`, or `source_limitation`; no `missing`, `unverified`, or `recheck_required` rows remain; English source fixes and `manifest.json` metadata are complete; URL-backed document attachments are preserved; validation passes.
 - `RECHECK_REQUIRED`: any semantic unit remains uncertain, disputed, technically unsafe to translate, or blocked by insufficient source evidence.
 
-S001 sets the current workflow decision to `RECHECK_REQUIRED` because source semantic-unit coverage has not yet been established. S035 must replace or confirm this decision after all scoped audit, closure, stabilization, and challenge-review jobs are complete.
+The current workflow decision remains `RECHECK_REQUIRED` because source stabilization, independent challenge review, and the final decision job are still pending. S035 must replace or confirm this decision after S033 and S034 complete.
 
 ## S001 Result
 
@@ -114,3 +117,45 @@ The mapping inventory contains 166 Korean source rows:
 S002 validated that every Korean source path in `semantic-coverage/doc-mapping.tsv` exists and that every listed English target path exists. The S002 matrix is header-only because this job has no product-document semantic-unit audit scope.
 
 Verification evidence is recorded in `semantic-coverage/notes/S002-mapping-inventory-and-unit-matrix-scaffold.md`.
+
+## S003-S031 Source Audit Results
+
+S003-S018 audited Korean technical documents under `DOCK/Home` against their mapped English `arch/Home` targets. S020-S030 audited Korean FAQ documents under `faq/Home` against the Korean-core English `FAQE/Home` targets. S019 and S031 closed attachment, source-link, legacy-label, export-artifact, and English-only classification evidence for the technical and FAQ sets.
+
+Each source-audit job created a TSV matrix and Markdown note under `semantic-coverage/matrices/` and `semantic-coverage/notes/`. The direct Korean-source and English-target inspection evidence stays in those per-job files.
+
+Status before S032 closure:
+
+| Status | Rows |
+| --- | ---: |
+| `covered` | 4,665 |
+| `added` | 70 |
+| `not_applicable` | 290 |
+| `source_limitation` | 78 |
+| `missing` | 0 |
+| `unverified` | 0 |
+| `recheck_required` | 0 |
+
+The 78 `source_limitation` rows are recorded limitations such as legacy non-downloadable `#` attachment labels, broken source export artifacts, or source links where no safe English content can be inferred.
+
+## S032 Result
+
+S032 merged and validated the existing coverage matrices.
+
+Aggregate closure evidence:
+
+| Check | Result |
+| --- | --- |
+| Prior matrix files checked | 31 |
+| Prior matrix rows checked | 5,103 |
+| Header or row-shape errors | 0 |
+| `semantic-coverage/doc-mapping.tsv` rows | 166 |
+| Mapped Korean sources without any matrix row | 0 |
+| Missing KO or EN paths in `doc-mapping.tsv` | 0 |
+| `missing` rows after S032 | 0 |
+| `unverified` rows after S032 | 0 |
+| `recheck_required` rows after S032 | 0 |
+
+S032 did not edit `DOCK/`, `faq/`, `arch/`, `FAQE/`, or `manifest.json` because the merged matrix evidence showed no remaining safe source coverage fix to apply. The S032 matrix has 31 aggregate rows: 29 `covered` rows for source-audit/attachment matrices and 2 `not_applicable` rows for the header-only S001/S002 baseline and mapping matrices.
+
+Verification evidence is recorded in `semantic-coverage/notes/S032-unresolved-coverage-closure.md`.
