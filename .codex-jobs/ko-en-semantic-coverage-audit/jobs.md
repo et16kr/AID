@@ -20,7 +20,7 @@
 | `S002` | `Done` | Mapping inventory and unit matrix scaffold | Validate KO to EN document mappings, create the coverage matrix schema, and prepare per-job evidence files. |
 | `S003` | `ToDo` | Tech installation configuration database | Semantic-unit audit configuration, database creation, installation, quick start, and installation troubleshooting technical documents. |
 | `S004` | `ToDo` | Tech platform disk IO | Semantic-unit audit disk I/O, Solaris, HPUX, AIX, and Linux platform setup technical documents. |
-| `S005` | `ToDo` | Tech operations startup resources | Semantic-unit audit failure response, startup shutdown, resource sizing, OS utility, UNIX memory, and operation configuration documents. |
+| `S005` | `Done` | Tech operations startup resources | Semantic-unit audit failure response, startup shutdown, resource sizing, OS utility, UNIX memory, and operation configuration documents. |
 | `S006` | `ToDo` | Tech monitoring queries | Semantic-unit audit the monitoring queries guide, including SQL IDs, system views, examples, and warnings. |
 | `S007` | `ToDo` | Tech CPU memory diagnostics | Semantic-unit audit CPU overload and memory usage increase analysis guides. |
 | `S008` | `ToDo` | Tech replication | Semantic-unit audit replication configuration and replication constraints technical documents. |
