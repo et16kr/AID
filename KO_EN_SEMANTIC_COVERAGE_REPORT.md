@@ -51,7 +51,13 @@ S001 created the baseline evidence structure:
 - `semantic-coverage/matrices/S001-audit-method-and-baseline.tsv`
 - `semantic-coverage/notes/S001-audit-method-and-baseline.md`
 
-S002 will create or update `semantic-coverage/doc-mapping.tsv`. Later jobs will add per-scope matrices and notes under `semantic-coverage/matrices/` and `semantic-coverage/notes/`.
+S002 created the mapping inventory and matrix scaffold:
+
+- `semantic-coverage/doc-mapping.tsv`
+- `semantic-coverage/matrices/S002-mapping-inventory-and-unit-matrix-scaffold.tsv`
+- `semantic-coverage/notes/S002-mapping-inventory-and-unit-matrix-scaffold.md`
+
+Later jobs will add per-scope semantic-unit rows and notes under `semantic-coverage/matrices/` and `semantic-coverage/notes/`.
 
 ## Semantic Unit Method
 
@@ -93,3 +99,18 @@ S001 sets the current workflow decision to `RECHECK_REQUIRED` because source sem
 S001 completed the baseline method and evidence setup. The S001 matrix is header-only because this job has no product-document source scope.
 
 Verification evidence is recorded in `semantic-coverage/notes/S001-audit-method-and-baseline.md`.
+
+## S002 Result
+
+S002 completed the KO-to-EN mapping inventory and evidence scaffold.
+
+The mapping inventory contains 166 Korean source rows:
+
+| Area | Source rows |
+| --- | ---: |
+| `DOCK/Home` technical documents | 51 |
+| `faq/Home` Korean FAQ documents | 115 |
+
+S002 validated that every Korean source path in `semantic-coverage/doc-mapping.tsv` exists and that every listed English target path exists. The S002 matrix is header-only because this job has no product-document semantic-unit audit scope.
+
+Verification evidence is recorded in `semantic-coverage/notes/S002-mapping-inventory-and-unit-matrix-scaffold.md`.

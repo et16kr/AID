@@ -17,7 +17,7 @@
 | ID | Status | Title | Goal |
 | --- | --- | --- | --- |
 | `S001` | `Done` | Audit method and baseline | Define semantic-unit coverage method, confirm current repository state, create evidence structure, and record the audit decision criteria. |
-| `S002` | `ToDo` | Mapping inventory and unit matrix scaffold | Validate KO to EN document mappings, create the coverage matrix schema, and prepare per-job evidence files. |
+| `S002` | `Done` | Mapping inventory and unit matrix scaffold | Validate KO to EN document mappings, create the coverage matrix schema, and prepare per-job evidence files. |
 | `S003` | `ToDo` | Tech installation configuration database | Semantic-unit audit configuration, database creation, installation, quick start, and installation troubleshooting technical documents. |
 | `S004` | `ToDo` | Tech platform disk IO | Semantic-unit audit disk I/O, Solaris, HPUX, AIX, and Linux platform setup technical documents. |
 | `S005` | `ToDo` | Tech operations startup resources | Semantic-unit audit failure response, startup shutdown, resource sizing, OS utility, UNIX memory, and operation configuration documents. |

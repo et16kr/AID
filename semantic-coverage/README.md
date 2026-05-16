@@ -19,6 +19,27 @@ This directory stores the semantic-unit evidence for the strict Korean-to-Englis
 - `semantic-coverage/notes/<job-id>-<slug>.md`: per-job audit note, decisions, verification, and review evidence.
 - `KO_EN_SEMANTIC_COVERAGE_REPORT.md`: workflow-level report and final decision record.
 
+## Mapping Inventory Schema
+
+`semantic-coverage/doc-mapping.tsv` records one row per Korean source Markdown file under `DOCK/Home` and `faq/Home`.
+
+The mapping TSV uses this header:
+
+```text
+mapping_id	ko_path	source_type	en_target_paths	assigned_audit_job	primary_owner_job	supporting_jobs	previous_evidence_refs	path_validation	notes
+```
+
+Rules:
+
+- `mapping_id` is stable and can be used in later notes or matrix evidence.
+- `source_type` is `technical_doc` for `DOCK/Home` rows and `faq` for Korean-core `faq/Home` rows.
+- `en_target_paths` uses `; ` to separate multiple English target files when the English guide is split across pages.
+- `assigned_audit_job` is the semantic-unit audit owner for the Korean source.
+- `primary_owner_job` records duplicate-source ownership; later duplicate-scope jobs add only cross-reference rows.
+- `supporting_jobs` records attachment, link, or classification jobs that need the mapping but do not own the full semantic-unit audit.
+- `previous_evidence_refs` points to prior J/P reports for orientation only. It is not proof that a semantic unit is covered.
+- `path_validation` is `exists` only when S002 or a later validation confirms the Korean source path and all listed English target paths exist.
+
 ## Semantic Unit Method
 
 Audit by semantic unit, not visual line number. A semantic unit is the smallest independently meaningful item that must be represented, rejected with a reason, or recorded as a source limitation.
