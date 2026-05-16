@@ -138,7 +138,7 @@ This is how to estimate the amount of transaction log to be used by a particular
 
 ### How to change
 
-- **How to change property setting value** TRX_UPDATE_MAX_LOGSIZE should be set smaller than LOCK_ESCALATION_MEMORY_SIZE, so check both properties together.
+- **How to check property setting values** TRX_UPDATE_MAX_LOGSIZE should be set smaller than LOCK_ESCALATION_MEMORY_SIZE, so check both properties together.
 
   **How to check the TRX_UPDATE_MAX_LOGSIZE and LOCK_ESCALATION_MEMORY_SIZE settings**
 
