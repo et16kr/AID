@@ -7,7 +7,7 @@ S005	Done	docs	Tech operations startup resources	Semantic-unit audit failure res
 S006	Done	docs	Tech monitoring queries	Semantic-unit audit the monitoring queries guide, including SQL IDs, system views, examples, and warnings.
 S007	Done	docs	Tech CPU memory diagnostics	Semantic-unit audit CPU overload and memory usage increase analysis guides.
 S008	Done	docs	Tech replication	Semantic-unit audit replication configuration and replication constraints technical documents.
-S009	ToDo	docs	Tech backup recovery	Semantic-unit audit backup policy, recovery, archive/noarchive, failure response, and startup recovery technical documents.
+S009	Done	docs	Tech backup recovery	Semantic-unit audit backup policy, recovery, archive/noarchive, failure response, and startup recovery technical documents.
 S010	ToDo	docs	Tech C C++ APRE precompiler	Semantic-unit audit developer training, Precompiler, APRE Makefile, and APRE C/C++ upgrade documents.
 S011	ToDo	docs	Tech client APIs	Semantic-unit audit Java, unixODBC, Windows ODBC, ADO.NET, and PHP client API documents.
 S012	ToDo	docs	Tech WAS integration Tomcat JEUS JBoss	Semantic-unit audit Tomcat, JEUS, and JBoss integration documents.
