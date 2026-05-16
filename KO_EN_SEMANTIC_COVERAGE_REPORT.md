@@ -4,9 +4,9 @@ Report date: 2026-05-16
 
 Workspace: `/home/et16/AID`
 
-Current workflow decision: `RECHECK_REQUIRED`
+Current workflow decision: `COMPLETE`
 
-Reason: S003-S031 source-audit and attachment/classification matrices are merged through S032 with zero `missing`, `unverified`, or `recheck_required` rows, S033 source stabilization has passed, and S034 independent matrix challenge review found no sampled false-positive coverage row. The workflow still requires S035 final decision before this report can become `COMPLETE`.
+Reason: S003-S031 source-audit and attachment/classification matrices are merged through S032 with zero unresolved coverage rows, S033 source stabilization has passed, S034 independent matrix challenge review found no sampled false-positive coverage row, and S035 final validation passed.
 
 ## Authority And Boundary
 
@@ -72,6 +72,11 @@ S034 added independent challenge evidence:
 - `semantic-coverage/matrices/S034-independent-matrix-challenge-review.tsv`
 - `semantic-coverage/notes/S034-independent-matrix-challenge-review.md`
 
+S035 added final decision evidence:
+
+- `semantic-coverage/matrices/S035-final-semantic-coverage-decision.tsv`
+- `semantic-coverage/notes/S035-final-semantic-coverage-decision.md`
+
 ## Semantic Unit Method
 
 Audit by semantic unit, not visual line number. A semantic unit is the smallest independently meaningful content item, including headings, paragraphs, bullet or numbered steps, table rows, command blocks, SQL blocks, configuration items, warnings, notes, version conditions, limitations, error-code resolution items, attachments, and external references.
@@ -105,7 +110,7 @@ The final decision must be exactly one of:
 - `COMPLETE`: all in-scope Korean semantic units are `covered`, `added`, `not_applicable`, or `source_limitation`; no `missing`, `unverified`, or `recheck_required` rows remain; English source fixes and `manifest.json` metadata are complete; URL-backed document attachments are preserved; validation passes.
 - `RECHECK_REQUIRED`: any semantic unit remains uncertain, disputed, technically unsafe to translate, or blocked by insufficient source evidence.
 
-The current workflow decision remains `RECHECK_REQUIRED` because the final decision job is still pending. S035 must replace or confirm this decision after S034 completes.
+This report records the final workflow decision as `COMPLETE` because the S035 final decision job has passed after S032 closure, S033 stabilization, and S034 challenge review.
 
 ## S001 Result
 
@@ -219,3 +224,38 @@ The manual sample covered installation/license tables, platform Direct I/O table
 S034 found weak exact-search cases caused by whitespace around configuration assignments, Markdown emphasis around placeholders, comma-formatted numeric limits, translated prose, and Migration Center screenshot condensation. Direct context review confirmed those sampled rows still preserve the Korean-source semantics in English. No source edit was required.
 
 Verification evidence is recorded in `semantic-coverage/notes/S034-independent-matrix-challenge-review.md`.
+
+## S035 Result
+
+S035 finalized this report and made the workflow decision `COMPLETE`.
+
+Final validation evidence:
+
+| Check | Result |
+| --- | ---: |
+| Matrix files checked | 35 |
+| Matrix rows checked | 5,175 |
+| Header or row-shape errors | 0 |
+| `semantic-coverage/doc-mapping.tsv` rows | 166 |
+| Mapped Korean sources without assigned or primary matrix evidence | 0 |
+| Missing Korean or English target paths in mapping | 0 |
+| `missing` rows after S035 | 0 |
+| `unverified` rows after S035 | 0 |
+| `recheck_required` rows after S035 | 0 |
+
+Final status distribution:
+
+| Status | Rows |
+| --- | ---: |
+| `covered` | 4,732 |
+| `added` | 73 |
+| `not_applicable` | 292 |
+| `source_limitation` | 78 |
+
+S035 did not edit product source documents under `DOCK/`, `faq/`, `arch/`, or `FAQE/`, and did not run the `llm-reference` consolidation workflow. No `manifest.json` update was required because no English Markdown source page changed.
+
+Verification evidence is recorded in `semantic-coverage/notes/S035-final-semantic-coverage-decision.md`.
+
+## Final Decision
+
+`COMPLETE`: all in-scope Korean semantic units are represented by `covered`, `added`, `not_applicable`, or `source_limitation` evidence; no `missing`, `unverified`, or `recheck_required` rows remain; English source fixes and manifest metadata are complete; URL-backed document attachments are preserved; S033 source stabilization, S034 independent challenge review, and S035 final validation passed.
