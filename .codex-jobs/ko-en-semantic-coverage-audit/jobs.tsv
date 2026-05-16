@@ -27,7 +27,7 @@ S025	Done	docs	FAQ development API	Semantic-unit audit FAQ category 07 developme
 S026	Done	docs	FAQ monitoring	Semantic-unit audit FAQ category 08 monitoring against English core FAQ targets.
 S027	Done	docs	FAQ error messages 09-01 to 09-10	Semantic-unit audit FAQ error message documents 09-01 through 09-10.
 S028	Done	docs	FAQ error messages 09-11 to 09-20	Semantic-unit audit FAQ error message documents 09-11 through 09-20.
-S029	ToDo	docs	FAQ error messages 09-21 to 09-29	Semantic-unit audit FAQ error message documents 09-21 through 09-29, including nested export paths.
+S029	Done	docs	FAQ error messages 09-21 to 09-29	Semantic-unit audit FAQ error message documents 09-21 through 09-29, including nested export paths.
 S030	ToDo	docs	FAQ utilities others general	Semantic-unit audit FAQ categories 11, 12, and 13 against English core FAQ targets.
 S031	ToDo	docs	FAQ attachments English-only classification	Verify FAQ attachments, legacy labels, source links, export artifacts, and English-only FAQE classification boundaries.
 S032	ToDo	docs	Unresolved coverage closure	Merge all coverage matrices, fix remaining missing source coverage, and drive unresolved semantic differences to zero or explicit recheck risks.
