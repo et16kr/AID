@@ -20,6 +20,15 @@
 - 영문 문서를 수정할 때는 한국어 문서의 의미를 보존하되, 자연스러운 기술 영어로 작성한다.
 - 검증 결과와 판단 근거는 리뷰 보고서로 남긴다.
 
+## 현재 판단: LLM 취합 스크립트 실행 시점
+
+- `.codex-jobs/llm-reference-consolidation/` workflow는 필요하므로 보존한다.
+- 이 workflow는 최종 LLM 참고 문서 취합용이며, 영문 source 문서 완성 전에 먼저 실행하지 않는다.
+- 먼저 한국어 원문 기준으로 `arch/`와 `FAQE/` 영문 source 문서의 누락, 미번역, 잘못된 절차, 오래된 버전 정보, 첨부 링크 누락을 충분히 보강한다.
+- 영문 source 문서가 안정화된 뒤에 `llm-reference/` 취합 workflow를 실행한다.
+- 이유: 취합 문서를 먼저 만들면 이후 영문 source 문서 보강 사항을 `llm-reference/`에 다시 반영해야 하므로 재작업과 추적성 저하가 발생한다.
+- 따라서 현재 우선순위는 `KO -> EN source 문서 완성`이고, `llm-reference/` 생성은 그 다음 단계이다.
+
 ## 현재까지 진행된 작업
 
 - 한국어 기술 문서 `DOCK`와 영문 기술 문서 `arch`의 대응 관계를 점검했다.
@@ -51,6 +60,8 @@
    - 남은 리스크나 수동 검토가 필요한 부분이 있으면 명확히 적는다.
 
 4. 영문 문서 취합
+   - 이 단계는 영문 source 문서가 한국어 원문 기준으로 충분히 보강된 뒤에 진행한다.
+   - `.codex-jobs/llm-reference-consolidation/` workflow는 이 단계에서 실행한다.
    - 정비가 끝난 영문 문서를 GPTs/Codex용으로 읽기 쉬운 몇 개의 문서로 묶는다.
    - 예시 주제:
      - Installation and Upgrade
