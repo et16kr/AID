@@ -4,7 +4,7 @@ S002	Done	docs	Mapping inventory and unit matrix scaffold	Validate KO to EN docu
 S003	Done	docs	Tech installation configuration database	Semantic-unit audit configuration, database creation, installation, quick start, and installation troubleshooting technical documents.
 S004	Done	docs	Tech platform disk IO	Semantic-unit audit disk I/O, Solaris, HPUX, AIX, and Linux platform setup technical documents.
 S005	Done	docs	Tech operations startup resources	Semantic-unit audit failure response, startup shutdown, resource sizing, OS utility, UNIX memory, and operation configuration documents.
-S006	ToDo	docs	Tech monitoring queries	Semantic-unit audit the monitoring queries guide, including SQL IDs, system views, examples, and warnings.
+S006	Done	docs	Tech monitoring queries	Semantic-unit audit the monitoring queries guide, including SQL IDs, system views, examples, and warnings.
 S007	ToDo	docs	Tech CPU memory diagnostics	Semantic-unit audit CPU overload and memory usage increase analysis guides.
 S008	ToDo	docs	Tech replication	Semantic-unit audit replication configuration and replication constraints technical documents.
 S009	ToDo	docs	Tech backup recovery	Semantic-unit audit backup policy, recovery, archive/noarchive, failure response, and startup recovery technical documents.
