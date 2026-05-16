@@ -1429,3 +1429,59 @@ The pass2-reviewed English source set is ready for the next LLM reference consol
 - Six Korean technical legacy attachment labels and one Korean FAQ legacy attachment label still have no downloadable source URL.
 - English-only `FAQE` pages remain outside Korean-source semantic verification unless later explicitly audited and labeled.
 - P224 replaced unavailable Gliffy exports with diagram-unavailable notes, but diagram content was not reconstructed.
+
+## L001 Source Readiness Cleanup Before Consolidation
+
+### Scope
+
+L001 rechecked residual source-readiness issues before starting `llm-reference/` consolidation. The job focused on real untranslated Korean residue in these English auxiliary Oracle conversion pages:
+
+- `arch/Home/Altibase Oracle Conversion Guide/2. Environment Setting/2-2 SQL Conversion__14647324.md`
+- `arch/Home/Altibase Oracle Conversion Guide/2. Environment Setting/2-3 Stored Procedure _ Function Conversion__14647326.md`
+
+### Findings And Updates
+
+- The two scoped Oracle conversion auxiliary pages contain no Hangul text, so no product source edit was needed.
+- The repository-wide English source scan for `arch/Home` and `FAQE/Home` found only intentional Korean attachment filenames, Korean text embedded in attachment URLs, or Korean sample data used to demonstrate character-set behavior.
+- `manifest.json` was not changed because no source-document body length or word count changed.
+- No consolidated `llm-reference/` files were created in this cleanup job; package scaffolding remains assigned to L002.
+
+### Readiness Evidence
+
+Intentional Korean residue classification after L001:
+
+| Path | Lines | Classification |
+| --- | ---: | --- |
+| `arch/Home/APRE_C_C++ New Features & Upgrade Guide__22643052.md` | 458 | Legacy Korean attachment filename with `#` source label. |
+| `FAQE/Home/03. Replication/How to create_delete replication objects__16876082.md` | 30-31 | Korean attachment filenames and URL-encoded attachment paths. |
+| `arch/Home/Altibase_Oracle Comparison__16875638.md` | 609 | Korean attachment filename and URL-encoded attachment path. |
+| `arch/Home/Altibase VC 2008 Development Guide__19333567.md` | 43 | Korean attachment filename and URL-encoded attachment path. |
+| `arch/Home/Altibase Quick Install & Start for UNIX__16875604.md` | 801, 830, 862 | Korean sample data for character-set behavior. |
+| `arch/Home/Migration Center User Guide__19955861.md` | 641 | Korean attachment filename and URL-encoded attachment path. |
+| `FAQE/Home/02. Operation and Management/Detailed procedure for changing character set__16876045.md` | 97, 101, 129, 219 | Korean sample data for character-set behavior. |
+| `arch/Home/ORACLE to ALTIBASE Conversion Guide__22643038.md` | 1175-1176 | Legacy Korean attachment filenames with no downloadable URL in source. |
+| `arch/Home/Configuration Guide For Minimizing Disk I_O Contention__22643018.md` | 353-355 | Korean attachment filenames and URL-encoded attachment paths. |
+| `arch/Home/MSSQL to ALTIBASE Conversion Guide__22643024.md` | 579 | Legacy Korean attachment filename with no downloadable URL in source. |
+| `arch/Home/Linux Setup Guide for Altibase__22643022.md` | 1342-1343 | Korean attachment filenames and URL-encoded attachment paths. |
+| `arch/Home/Altibase Development Guide/4. CLIENT APPLICATION Error Messages__14058547.md` | 213-214 | Legacy Korean attachment filenames with no downloadable URL in source. |
+| `arch/Home/Altibase VC 2010 Development Guide__19334121.md` | 43 | Korean attachment filename and URL-encoded attachment path. |
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| Scoped Hangul scan of the two L001 Oracle conversion pages | Passed, no matches |
+| Full English source Hangul scan: `rg -n "[가-힣]" arch/Home FAQE/Home` | Passed after classification: 24 intentional matches, all attachment filenames/URLs or Korean sample data |
+| Source stale-link and macro scan over `arch/Home` and `FAQE/Home` | Passed, no matches |
+| `python3 -m json.tool manifest.json >/tmp/aid-manifest-check.json` | Passed |
+| `git diff --check` | Passed |
+| `find DOCK/Home -type f -name '*.md' \| wc -l` | 51 |
+| `find faq/Home -type f -name '*.md' \| wc -l` | 115 |
+| `find arch/Home -type f -name '*.md' \| wc -l` | 181 |
+| `find FAQE/Home -type f -name '*.md' \| wc -l` | 241 |
+
+### Remaining Risk
+
+- L001 was a source-readiness cleanup and grep-based validation job, not a new sentence-level Korean-to-English semantic audit.
+- External HTTP availability was not tested.
+- Legacy non-downloadable attachment labels and English-only `FAQE` classification risks remain as recorded in P223-P226.

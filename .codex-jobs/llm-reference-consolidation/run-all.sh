@@ -7,6 +7,10 @@ set -Eeuo pipefail
 #   FAIL_ON_NONZERO=1 ./run-all.sh  # mark nonzero codex exits as terminal Fail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="${REPO_ROOT:-$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null || true)}"
+if [[ -z "$REPO_ROOT" ]]; then
+  REPO_ROOT="$SCRIPT_DIR"
+fi
 JOBS_FILE="${JOBS_FILE:-$SCRIPT_DIR/jobs.tsv}"
 PROMPT_DIR="${PROMPT_DIR:-$SCRIPT_DIR/prompts}"
 LOG_DIR="${LOG_DIR:-$SCRIPT_DIR/logs}"
@@ -36,6 +40,10 @@ status_of() {
 
 title_of() {
   awk -F '\t' -v id="$1" 'NR > 1 && $1 == id { print $4; found = 1; exit } END { if (!found) exit 1 }' "$JOBS_FILE"
+}
+
+goal_of() {
+  awk -F '\t' -v id="$1" 'NR > 1 && $1 == id { print $5; found = 1; exit } END { if (!found) exit 1 }' "$JOBS_FILE"
 }
 
 set_status() {
@@ -170,18 +178,32 @@ ensure_commit_after_job() {
 build_runtime_prompt() {
   local id="$1"
   local prompt_file="$PROMPT_DIR/$id.md"
+  local default_prompt_file="$PROMPT_DIR/_default.md"
   local runtime_prompt="$RUNTIME_DIR/$id.prompt.md"
+  local title
+  local goal
+  title="$(title_of "$id")"
+  goal="$(goal_of "$id")"
 
-  [[ -f "$prompt_file" ]] || die "Missing prompt file: $prompt_file"
+  if [[ ! -f "$prompt_file" && ! -f "$default_prompt_file" ]]; then
+    die "Missing prompt file: $prompt_file and default prompt: $default_prompt_file"
+  fi
 
   {
-    cat "$prompt_file"
+    if [[ -f "$prompt_file" ]]; then
+      cat "$prompt_file"
+    else
+      cat "$default_prompt_file"
+    fi
     if [[ -f "$PROMPT_ADDENDUM" ]]; then
       printf '\n'
       cat "$PROMPT_ADDENDUM"
     fi
     printf '\n## Orchestrator Contract\n\n'
     printf -- '- This job id is `%s`.\n' "$id"
+    printf -- '- This job title is `%s`.\n' "$title"
+    printf -- '- This job goal is: %s\n' "$goal"
+    printf -- '- The repository root is `%s`; read and edit files relative to that root.\n' "$REPO_ROOT"
     printf -- '- Complete only this job and preserve unrelated user changes.\n'
     printf -- '- Before editing, stop if uncommitted project files exist outside the workflow runtime directories.\n'
     printf -- '- If the job cannot be completed safely, stop with a clear failure.\n'
@@ -207,7 +229,10 @@ run_job() {
   set_status "$id" "Progress"
 
   set +e
-  "$CODEX_BIN" "$CODEX_SUBCOMMAND" "$(cat "$runtime_prompt")" > "$log_file" 2>&1
+  (
+    cd "$REPO_ROOT"
+    "$CODEX_BIN" "$CODEX_SUBCOMMAND" "$(cat "$runtime_prompt")"
+  ) > "$log_file" 2>&1
   local rc=$?
   set -e
 

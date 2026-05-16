@@ -1,19 +1,29 @@
 id	status	kind	title	goal
-L001	ToDo	docs	Source readiness cleanup	Clean residual source issues before consolidation, especially real untranslated Korean in English auxiliary sources, and verify baseline counts.
-L002	ToDo	docs	Package scaffold and source index	Create the llm-reference package scaffold, source classification policy, and source index used by later jobs.
-L003	ToDo	docs	Installation upgrade platform reference	Build the installation, upgrade, database creation, platform setup, and Docker reference document.
-L004	ToDo	docs	Architecture storage concepts reference	Build the architecture, memory and disk DBMS concepts, storage, WAL, and disk I/O reference document.
-L005	ToDo	docs	Operation administration security reference	Build the operation, administration, startup shutdown, configuration, user, security, password, charset, and resource reference document.
-L006	ToDo	docs	Backup recovery reference	Build the backup policy, online cold logical incremental backup, recovery, log, and validation reference document.
-L007	ToDo	docs	Replication HA reference	Build the replication, HA, conflict, gap monitoring, constraints, and operational caution reference document.
-L008	ToDo	docs	Monitoring diagnostics reference	Build the monitoring queries, system views, OS utility, CPU overload, memory growth, and diagnostic collection reference document.
-L009	ToDo	docs	Troubleshooting error messages reference	Build the failure response, troubleshooting patterns, and error message reference document.
-L010	ToDo	docs	SQL performance tuning reference	Build the SQL tuning, optimizer, index, partition, query, and performance reference document.
-L011	ToDo	docs	Development client API reference	Build the development, precompiler, APRE, C/C++, Java, JDBC, ODBC, ADO.NET, PHP, and client API reference document.
-L012	ToDo	docs	Application framework integration reference	Build the Tomcat, JEUS, JBoss, WebLogic, WebSphere, Spring, iBATIS, MyBatis, and Hibernate integration reference document.
-L013	ToDo	docs	Migration conversion tools reference	Build the Oracle/MSSQL conversion, Altibase migration, Migration Center, GeoServer, SQuirrel, VC guides, and tool reference document.
-L014	ToDo	docs	FAQ integration and dedupe pass	Integrate Korean-source verified FAQ knowledge into the topic documents, reduce duplication, and keep source notes.
-L015	ToDo	docs	Terminology and multilingual preservation guide	Create the glossary and multilingual answer-stability rules for product names, commands, SQL, parameters, paths, and error codes.
-L016	ToDo	docs	Cross-reference consistency pass	Review all llm-reference documents for consistent headings, source classifications, links, attachment labels, and no unsupported claims.
-L017	ToDo	docs	Final validation and report	Run final validation checks and create a concise build report with coverage, risks, and verification evidence.
-L018	ToDo	docs	Final packaging review	Perform final diff review, check commits and clean handoff state, and ensure the package is ready for user review.
+R001	ToDo	docs	Interrupted run summary and phase gates	Preserve the interrupted L001 state, confirm Phase 2 readiness, and start the exhaustive Phase 3 evidence trail.
+R002	ToDo	docs	Package scaffold and exhaustive coverage ledgers	Create the llm-reference scaffold and initialize source inventory, coverage, attachment, answerability, and risk ledgers.
+R003	ToDo	docs	Full source inventory and source-to-topic map	Inventory every arch/Home and FAQE/Home Markdown source and map each source to a topic document and owner job.
+R004	ToDo	docs	Installation patch upgrade database creation	Build exhaustive installation, patch, upgrade, database creation, startup validation, and installation FAQ coverage.
+R005	ToDo	docs	Platform setup OS prerequisites Docker	Build exhaustive Linux, Solaris, HPUX, AIX, platform prerequisite, and Docker coverage.
+R006	ToDo	docs	Architecture storage disk concepts	Build exhaustive architecture, storage, WAL, checkpoint, disk configuration, and general concept coverage.
+R007	ToDo	docs	Configuration startup capacity OS utilities	Build exhaustive configuration, startup, shutdown, capacity sizing, OS utility, and memory management coverage.
+R008	ToDo	docs	Administration security sessions charset FAQ	Build exhaustive administration, security, session, client, charset, JOB, and operational FAQ coverage.
+R009	ToDo	docs	Backup recovery failure response	Build exhaustive backup, recovery, failure response, aexport, iloader, and validation coverage.
+R010	ToDo	docs	Replication and HA	Build exhaustive replication setup, constraints, HA, conflict, gap, GIVE-UP, and replication FAQ coverage.
+R011	ToDo	docs	Monitoring queries diagnostics	Build exhaustive monitoring SQL, system view, performance view, tablespace, session, lock, and monitoring FAQ coverage.
+R012	ToDo	docs	CPU memory OS evidence diagnostics	Build exhaustive CPU overload, memory growth, OS evidence, dump, log, and diagnostic decision coverage.
+R013	ToDo	docs	Troubleshooting Korean-source errors	Build exhaustive Korean-source-verified troubleshooting and error-message coverage.
+R014	ToDo	docs	English-only error troubleshooting catalog	Integrate or index English-only error and troubleshooting sources with explicit source labels.
+R015	ToDo	docs	SQL stored procedures query behavior	Build exhaustive SQL, stored procedure, query behavior, examples, limits, and FAQ coverage.
+R016	ToDo	docs	Performance tuning optimizer indexes	Build exhaustive tuning, optimizer, index, partitioning, HPT, and performance diagnostic coverage.
+R017	ToDo	docs	APRE precompiler C C++ development	Build exhaustive APRE, SES, precompiler, C/C++, Makefile, and sample-code coverage.
+R018	ToDo	docs	Java JDBC ODBC ADO.NET PHP API	Build exhaustive Java, JDBC, ODBC, unixODBC, ADO.NET, PHP, driver, connection, and API FAQ coverage.
+R019	ToDo	docs	WAS and framework integration	Build exhaustive Tomcat, JEUS, JBoss, WebLogic, WebSphere, Spring, iBATIS, MyBatis, and Hibernate coverage.
+R020	ToDo	docs	Migration conversion tools	Build exhaustive migration, Oracle/MSSQL conversion, Migration Center, VC, GeoServer, SQuirrel, and utility coverage.
+R021	ToDo	docs	English-only auxiliary corpus integration	Integrate or index English-only architecture, administration, performance, replication, and troubleshooting auxiliary sources.
+R022	ToDo	docs	FAQ exhaustive reconciliation	Reconcile every Korean-source-verified FAQE source against topic documents and coverage evidence.
+R023	ToDo	docs	Attachments diagrams external references	Register every attachment, legacy label, unavailable diagram, and external reference with preservation status.
+R024	ToDo	docs	Terminology multilingual preservation	Create the terminology and multilingual answer-stability guide for exact identifiers and translation boundaries.
+R025	ToDo	docs	Source semantic-unit coverage reconciliation	Reconcile source inventory, semantic-unit coverage, target sections, and accepted limitations.
+R026	ToDo	docs	Source-derived answerability backtest	Create source-derived answerability tests and fix or mark any not-answerable coverage.
+R027	ToDo	docs	Cross-reference unsupported-claim review	Normalize cross references, labels, links, terminology, and remove unsupported claims.
+R028	ToDo	docs	Final validation build report handoff	Run final validation, create the build report, and create the handoff document.

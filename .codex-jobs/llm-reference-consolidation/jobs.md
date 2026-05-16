@@ -1,38 +1,53 @@
-# LLM Reference Consolidation
+# Exhaustive LLM Reference Consolidation
 
 - Kind: `docs`
 - Status values: `ToDo`, `Progress`, `Done`, `Fail`
 - User-run command: `./run-all.sh` from this directory
 - Default behavior: continue through all jobs until completion or failure
 - Optional single-job mode: `RUN_ONE=1 ./run-all.sh`
-- Handoff gate: uncommitted project files stop the workflow before the next job starts
+- Handoff gate: uncommitted project files outside `.codex-jobs/` stop the workflow before the next job starts
 - Commit gate: each successful job must pass review and create a focused commit
 - Detailed source boundaries and output file names: `workflow-requirements.md`
 - Shared prompt instructions appended at runtime: `prompt-addendum.md`
-- Previous completed workflow scripts were intentionally removed from `.codex-jobs/` before creating this workflow.
 
-## Jobs
+## Completion Standard
+
+This workflow is designed around full source answerability, not a FAQ-only summary.
+
+The final `llm-reference/` package must let an LLM answer questions grounded in every original English source document under `arch/Home` and `FAQE/Home`. The package may deduplicate repeated material, but every unique technical semantic unit must be covered in a topic document or explicitly classified in coverage evidence.
+
+## Active Jobs
 
 | ID | Status | Title | Goal |
 | --- | --- | --- | --- |
-| `L001` | `ToDo` | Source readiness cleanup | Clean residual source issues before consolidation, especially real untranslated Korean in English auxiliary sources, and verify baseline counts. |
-| `L002` | `ToDo` | Package scaffold and source index | Create the llm-reference package scaffold, source classification policy, and source index used by later jobs. |
-| `L003` | `ToDo` | Installation upgrade platform reference | Build the installation, upgrade, database creation, platform setup, and Docker reference document. |
-| `L004` | `ToDo` | Architecture storage concepts reference | Build the architecture, memory and disk DBMS concepts, storage, WAL, and disk I/O reference document. |
-| `L005` | `ToDo` | Operation administration security reference | Build the operation, administration, startup shutdown, configuration, user, security, password, charset, and resource reference document. |
-| `L006` | `ToDo` | Backup recovery reference | Build the backup policy, online cold logical incremental backup, recovery, log, and validation reference document. |
-| `L007` | `ToDo` | Replication HA reference | Build the replication, HA, conflict, gap monitoring, constraints, and operational caution reference document. |
-| `L008` | `ToDo` | Monitoring diagnostics reference | Build the monitoring queries, system views, OS utility, CPU overload, memory growth, and diagnostic collection reference document. |
-| `L009` | `ToDo` | Troubleshooting error messages reference | Build the failure response, troubleshooting patterns, and error message reference document. |
-| `L010` | `ToDo` | SQL performance tuning reference | Build the SQL tuning, optimizer, index, partition, query, and performance reference document. |
-| `L011` | `ToDo` | Development client API reference | Build the development, precompiler, APRE, C/C++, Java, JDBC, ODBC, ADO.NET, PHP, and client API reference document. |
-| `L012` | `ToDo` | Application framework integration reference | Build the Tomcat, JEUS, JBoss, WebLogic, WebSphere, Spring, iBATIS, MyBatis, and Hibernate integration reference document. |
-| `L013` | `ToDo` | Migration conversion tools reference | Build the Oracle/MSSQL conversion, Altibase migration, Migration Center, GeoServer, SQuirrel, VC guides, and tool reference document. |
-| `L014` | `ToDo` | FAQ integration and dedupe pass | Integrate Korean-source verified FAQ knowledge into the topic documents, reduce duplication, and keep source notes. |
-| `L015` | `ToDo` | Terminology and multilingual preservation guide | Create the glossary and multilingual answer-stability rules for product names, commands, SQL, parameters, paths, and error codes. |
-| `L016` | `ToDo` | Cross-reference consistency pass | Review all llm-reference documents for consistent headings, source classifications, links, attachment labels, and no unsupported claims. |
-| `L017` | `ToDo` | Final validation and report | Run final validation checks and create a concise build report with coverage, risks, and verification evidence. |
-| `L018` | `ToDo` | Final packaging review | Perform final diff review, check commits and clean handoff state, and ensure the package is ready for user review. |
+| `R001` | `ToDo` | Interrupted run summary and phase gates | Preserve the interrupted L001 state, confirm Phase 2 readiness, and start the exhaustive Phase 3 evidence trail. |
+| `R002` | `ToDo` | Package scaffold and exhaustive coverage ledgers | Create the llm-reference scaffold and initialize source inventory, coverage, attachment, answerability, and risk ledgers. |
+| `R003` | `ToDo` | Full source inventory and source-to-topic map | Inventory every arch/Home and FAQE/Home Markdown source and map each source to a topic document and owner job. |
+| `R004` | `ToDo` | Installation patch upgrade database creation | Build exhaustive installation, patch, upgrade, database creation, startup validation, and installation FAQ coverage. |
+| `R005` | `ToDo` | Platform setup OS prerequisites Docker | Build exhaustive Linux, Solaris, HPUX, AIX, platform prerequisite, and Docker coverage. |
+| `R006` | `ToDo` | Architecture storage disk concepts | Build exhaustive architecture, storage, WAL, checkpoint, disk configuration, and general concept coverage. |
+| `R007` | `ToDo` | Configuration startup capacity OS utilities | Build exhaustive configuration, startup, shutdown, capacity sizing, OS utility, and memory management coverage. |
+| `R008` | `ToDo` | Administration security sessions charset FAQ | Build exhaustive administration, security, session, client, charset, JOB, and operational FAQ coverage. |
+| `R009` | `ToDo` | Backup recovery failure response | Build exhaustive backup, recovery, failure response, aexport, iloader, and validation coverage. |
+| `R010` | `ToDo` | Replication and HA | Build exhaustive replication setup, constraints, HA, conflict, gap, GIVE-UP, and replication FAQ coverage. |
+| `R011` | `ToDo` | Monitoring queries diagnostics | Build exhaustive monitoring SQL, system view, performance view, tablespace, session, lock, and monitoring FAQ coverage. |
+| `R012` | `ToDo` | CPU memory OS evidence diagnostics | Build exhaustive CPU overload, memory growth, OS evidence, dump, log, and diagnostic decision coverage. |
+| `R013` | `ToDo` | Troubleshooting Korean-source errors | Build exhaustive Korean-source-verified troubleshooting and error-message coverage. |
+| `R014` | `ToDo` | English-only error troubleshooting catalog | Integrate or index English-only error and troubleshooting sources with explicit source labels. |
+| `R015` | `ToDo` | SQL stored procedures query behavior | Build exhaustive SQL, stored procedure, query behavior, examples, limits, and FAQ coverage. |
+| `R016` | `ToDo` | Performance tuning optimizer indexes | Build exhaustive tuning, optimizer, index, partitioning, HPT, and performance diagnostic coverage. |
+| `R017` | `ToDo` | APRE precompiler C C++ development | Build exhaustive APRE, SES, precompiler, C/C++, Makefile, and sample-code coverage. |
+| `R018` | `ToDo` | Java JDBC ODBC ADO.NET PHP API | Build exhaustive Java, JDBC, ODBC, unixODBC, ADO.NET, PHP, driver, connection, and API FAQ coverage. |
+| `R019` | `ToDo` | WAS and framework integration | Build exhaustive Tomcat, JEUS, JBoss, WebLogic, WebSphere, Spring, iBATIS, MyBatis, and Hibernate coverage. |
+| `R020` | `ToDo` | Migration conversion tools | Build exhaustive migration, Oracle/MSSQL conversion, Migration Center, VC, GeoServer, SQuirrel, and utility coverage. |
+| `R021` | `ToDo` | English-only auxiliary corpus integration | Integrate or index English-only architecture, administration, performance, replication, and troubleshooting auxiliary sources. |
+| `R022` | `ToDo` | FAQ exhaustive reconciliation | Reconcile every Korean-source-verified FAQE source against topic documents and coverage evidence. |
+| `R023` | `ToDo` | Attachments diagrams external references | Register every attachment, legacy label, unavailable diagram, and external reference with preservation status. |
+| `R024` | `ToDo` | Terminology multilingual preservation | Create the terminology and multilingual answer-stability guide for exact identifiers and translation boundaries. |
+| `R025` | `ToDo` | Source semantic-unit coverage reconciliation | Reconcile source inventory, semantic-unit coverage, target sections, and accepted limitations. |
+| `R026` | `ToDo` | Source-derived answerability backtest | Create source-derived answerability tests and fix or mark any not-answerable coverage. |
+| `R027` | `ToDo` | Cross-reference unsupported-claim review | Normalize cross references, labels, links, terminology, and remove unsupported claims. |
+| `R028` | `ToDo` | Final validation build report handoff | Run final validation, create the build report, and create the handoff document. |
 
 ## Resume Rules
 
@@ -44,9 +59,10 @@
 
 ## Acceptance Checklist
 
-- Each job has a matching prompt in `prompts/`.
-- Each job has concrete acceptance criteria.
-- `workflow-requirements.md` defines the job-specific output file, source paths, and acceptance criteria.
-- `run-all.sh` appends `prompt-addendum.md` to each runtime prompt.
-- Each successful job leaves project files clean and advances HEAD with a commit.
+- `run-all.sh` launches `codex exec` from the repository root, even when the user starts it from `.codex-jobs/llm-reference-consolidation/`.
+- `workflow-requirements.md` defines exhaustive source coverage, semantic-unit evidence, answerability backtesting, output files, and final decision rules.
+- Every job in `jobs.tsv` is covered by the shared prompt and by job-specific requirements in `workflow-requirements.md`.
+- Phase 3 does not complete unless coverage evidence includes every `arch/Home` and `FAQE/Home` Markdown source.
+- Final validation has zero unresolved `recheck_required` coverage or answerability rows unless the final decision is `RECHECK_REQUIRED`.
 - `bash -n run-all.sh` passes.
+- `bash -n run_all.sh` passes.
