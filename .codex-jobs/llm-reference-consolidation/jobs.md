@@ -10,6 +10,7 @@
 - Status gate: each successful job's `jobs.tsv` status is amended into that job commit so the final handoff can be clean
 - Definition gate: workflow definition files must be committed before execution starts; runtime status-only changes in `jobs.tsv` are allowed
 - Detailed source boundaries and output file names: `workflow-requirements.md`
+- Job prompt template: `prompts/_default.md`
 - Shared prompt instructions appended at runtime: `prompt-addendum.md`
 
 ## Completion Standard
