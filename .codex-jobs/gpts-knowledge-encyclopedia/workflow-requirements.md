@@ -39,6 +39,7 @@ Required:
 - `llm-reference/gpts-upload/build-gpts-knowledge-bundles.py`
 - `llm-reference/gpts-upload/validate-gpts-knowledge.py`
 - `llm-reference/gpts-upload/VALIDATION_PROCESS.md`
+- `llm-reference/gpts-upload/HUMAN_REVIEW_CHECKLIST.html`
 - `llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md`
 - `llm-reference/gpts-upload/README.md`
 - `llm-reference/gpts-upload/GPTS_INSTRUCTIONS.txt`
@@ -161,6 +162,7 @@ Expected work:
 - Confirm generated files are below GPTs file limits based on current OpenAI Help Center guidance recorded in the packaging requirements.
 - Run `python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode full`.
 - Record that human review must not start until automated validation reports `GPTS_AUTOMATED_PASS`.
+- Reference `llm-reference/gpts-upload/HUMAN_REVIEW_CHECKLIST.html` as the manual review checklist.
 
 Acceptance:
 

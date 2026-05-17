@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Altibase GPTs Knowledge Human Review Checklist</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1f2933;
+      --muted: #586575;
+      --line: #d8dee8;
+      --soft: #f5f7fa;
+      --accent: #0f5e8c;
+      --warn: #8a4b08;
+      --fail: #8a1f1f;
+      --pass: #17633a;
+    }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px 56px;
+    }
+    h1, h2, h3 {
+      line-height: 1.25;
+      margin: 0;
+    }
+    h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+    h2 {
+      border-top: 1px solid var(--line);
+      font-size: 22px;
+      margin-top: 36px;
+      padding-top: 24px;
+    }
+    h3 {
+      font-size: 17px;
+      margin-top: 22px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    code {
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1px 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.95em;
+    }
+    .meta {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .notice {
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--accent);
+      background: var(--soft);
+      padding: 14px 16px;
+      margin: 18px 0;
+    }
+    .warning {
+      border-left-color: var(--warn);
+    }
+    .fail {
+      border-left-color: var(--fail);
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 14px 0 22px;
+      table-layout: fixed;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: top;
+      word-wrap: break-word;
+    }
+    th {
+      background: var(--soft);
+    }
+    .checklist {
+      padding-left: 0;
+      list-style: none;
+    }
+    .checklist li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      margin: 8px 0;
+    }
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+    }
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1.2fr repeat(4, 0.7fr) 1.6fr;
+      border: 1px solid var(--line);
+      border-bottom: 0;
+      margin: 14px 0 22px;
+    }
+    .score-grid div {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 10px;
+    }
+    .score-grid div:nth-child(6n) {
+      border-right: 0;
+    }
+    .score-grid .head {
+      background: var(--soft);
+      font-weight: 600;
+    }
+    textarea {
+      border: 1px solid var(--line);
+      box-sizing: border-box;
+      font: inherit;
+      min-height: 96px;
+      padding: 10px;
+      width: 100%;
+    }
+    .decision {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .decision label {
+      border: 1px solid var(--line);
+      display: block;
+      padding: 12px;
+    }
+    .pass-text {
+      color: var(--pass);
+      font-weight: 600;
+    }
+    .fail-text {
+      color: var(--fail);
+      font-weight: 600;
+    }
+    @media (max-width: 760px) {
+      .score-grid,
+      .decision {
+        display: block;
+      }
+      .score-grid div {
+        border-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Altibase GPTs Knowledge Human Review Checklist</h1>
+  <p class="meta">Date: 2026-05-17 · Scope: manual review after automated validation passes</p>
+
+  <section class="notice warning">
+    <p><strong>Start condition:</strong> do not begin this human review until the automated validation command reports <code>GPTS_AUTOMATED_PASS</code>.</p>
+    <p><code>python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode full</code></p>
+  </section>
+
+  <section>
+    <h2>Review Inputs</h2>
+    <ul class="checklist">
+      <li><input type="checkbox"><span><code>llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md</code> is the primary uploaded knowledge file.</span></li>
+      <li><input type="checkbox"><span><code>llm-reference/gpts-upload/GPTS_INSTRUCTIONS.txt</code> was copied into the GPT instructions field or reviewed against the active GPT instructions.</span></li>
+      <li><input type="checkbox"><span><code>llm-reference/gpts-upload/UPLOAD_MANIFEST.tsv</code> marks only the encyclopedia file as required for customer answers.</span></li>
+      <li><input type="checkbox"><span>The optional audit file, if uploaded, is treated as internal-review material and not as a customer-answer dependency.</span></li>
+      <li><input type="checkbox"><span>The GPT has no original <code>arch/</code>, <code>FAQE/</code>, <code>DOCK/</code>, or <code>faq/</code> files attached.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Manual Review Boundary</h2>
+    <p>The automated gate verifies structure, inclusion, known blocking statuses, and repeatable bundle integrity. This human review checks judgment areas that automation cannot safely decide.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Area</th>
+          <th>Human reviewer must decide</th>
+          <th>Pass condition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Customer clarity</td>
+          <td>Whether answers are clear to DBAs, support engineers, and customers.</td>
+          <td>Answer is direct, technically precise, and not overloaded with internal evidence labels.</td>
+        </tr>
+        <tr>
+          <td>Answer completeness</td>
+          <td>Whether representative answers include important conditions, commands, caveats, and version boundaries.</td>
+          <td>No important operational step or warning is missing from sampled answers.</td>
+        </tr>
+        <tr>
+          <td>Source-path behavior</td>
+          <td>Whether source paths are used as traceability labels without implying the GPT can open original files.</td>
+          <td>GPT does not tell users to inspect unavailable original source files.</td>
+        </tr>
+        <tr>
+          <td>Refusal and uncertainty</td>
+          <td>Whether the GPT says the knowledge file lacks detail instead of inventing unavailable content.</td>
+          <td>GPT qualifies or refuses unsupported questions appropriately.</td>
+        </tr>
+        <tr>
+          <td>Multilingual stability</td>
+          <td>Whether translated answers preserve exact identifiers.</td>
+          <td>SQL, commands, paths, error codes, class names, filenames, URLs, and version strings remain unchanged.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Representative Question Set</h2>
+    <p>Ask at least one question from each category. Use Korean and at least one non-Korean target language if the GPT will serve multilingual users.</p>
+
+    <h3>Installation, Patch, Upgrade, Database Creation</h3>
+    <ul class="checklist">
+      <li><input type="checkbox"><span>How do I install Altibase server on Linux and validate startup?</span></li>
+      <li><input type="checkbox"><span>What should I check before applying an Altibase patch?</span></li>
+      <li><input type="checkbox"><span>How do I create an Altibase database with UTF8 and UTF16?</span></li>
+    </ul>
+
+    <h3>Platform And Docker</h3>
+    <ul class="checklist">
+      <li><input type="checkbox"><span>What Linux kernel or resource settings should be checked before running Altibase?</span></li>
+      <li><input type="checkbox"><span>How should I use the Altibase Docker guide?</span></li>
+    </ul>
+
+    <h3>Architecture, Storage, Operation</h3>
+    <ul class="checklist">
+      <li><input type="checkbox"><span>Explain Altibase memory and disk storage concepts.</span></li>
+      <li><input type="checkbox"><span>What should I know about checkpoint, WAL, and log files?</span></li>
+      <li><input type="checkbox"><span>How do I manage sessions, users, charset, and startup/shutdown?</span></li>
+    </ul>
+
+    <h3>Backup, Recovery, Replication</h3>
+    <ul class="checklist">
+      <li><input type="checkbox"><span>How do I plan Altibase backup and recovery?</span></li>
+      <li><input type="checkbox"><span>What are the main replication setup and troubleshooting checks?</span></li>
+    </ul>
+
+    <h3>Monitoring, Diagnostics, Troubleshooting</h3>
+    <ul class="checklist">
+      <li><input type="checkbox"><span>Which system views or SQL queries should I use to monitor Altibase?</span></li>
+      <li><input type="checkbox"><span>How should I investigate high CPU or memory growth?</span></li>
+      <li><input type="checkbox"><span>What should I do for a specific Altibase error message?</span></li>
+    </ul>
+
+    <h3>SQL, Performance, Development, Integration</h3>
+    <ul class="checklist">
+      <li><input type="checkbox"><span>How do I tune queries, indexes, or optimizer behavior?</span></li>
+      <li><input type="checkbox"><span>How do I connect with JDBC, ODBC, APRE, or ADO.NET?</span></li>
+      <li><input type="checkbox"><span>How do I integrate Altibase with Tomcat, WebLogic, JBoss, Spring, MyBatis, or Hibernate?</span></li>
+    </ul>
+
+    <h3>Migration And Multilingual Answers</h3>
+    <ul class="checklist">
+      <li><input type="checkbox"><span>How do I approach Oracle or MSSQL migration to Altibase?</span></li>
+      <li><input type="checkbox"><span>Answer a technical question in Japanese, Chinese, Arabic, German, French, Thai, or Turkish while preserving exact identifiers.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Answer Quality Scorecard</h2>
+    <p>Score sampled answers. Any score of 1 in a required category should block approval.</p>
+    <div class="score-grid">
+      <div class="head">Criterion</div>
+      <div class="head">1 Fail</div>
+      <div class="head">2 Weak</div>
+      <div class="head">3 Pass</div>
+      <div class="head">4 Strong</div>
+      <div class="head">Notes</div>
+
+      <div>Technical correctness</div>
+      <div>Wrong or invented</div>
+      <div>Partially correct</div>
+      <div>Correct</div>
+      <div>Correct with key caveats</div>
+      <div><textarea aria-label="Technical correctness notes"></textarea></div>
+
+      <div>Completeness</div>
+      <div>Missing critical steps</div>
+      <div>Missing useful detail</div>
+      <div>Enough to act</div>
+      <div>Complete and concise</div>
+      <div><textarea aria-label="Completeness notes"></textarea></div>
+
+      <div>Identifier preservation</div>
+      <div>Changes exact identifiers</div>
+      <div>Minor drift</div>
+      <div>Preserved</div>
+      <div>Preserved and highlighted</div>
+      <div><textarea aria-label="Identifier preservation notes"></textarea></div>
+
+      <div>Customer clarity</div>
+      <div>Confusing</div>
+      <div>Too internal</div>
+      <div>Clear</div>
+      <div>Clear and well structured</div>
+      <div><textarea aria-label="Customer clarity notes"></textarea></div>
+
+      <div>Unsupported content handling</div>
+      <div>Invents content</div>
+      <div>Overconfident</div>
+      <div>Qualifies uncertainty</div>
+      <div>Clearly states limitation</div>
+      <div><textarea aria-label="Unsupported content handling notes"></textarea></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Blocking Issues</h2>
+    <ul class="checklist">
+      <li><input type="checkbox"><span>The GPT requires or claims access to original source files at answer time.</span></li>
+      <li><input type="checkbox"><span>The GPT invents details from unavailable diagrams, missing attachments, or unsupported sources.</span></li>
+      <li><input type="checkbox"><span>The GPT translates or mutates SQL, commands, properties, paths, error codes, filenames, URLs, class names, or version strings.</span></li>
+      <li><input type="checkbox"><span>The GPT gives customer-facing answers that are mostly internal ledger text.</span></li>
+      <li><input type="checkbox"><span>The GPT fails representative questions from a major required area.</span></li>
+    </ul>
+    <div class="notice fail">
+      <p>If any blocking issue is checked, the package must return to bundle or instruction fixes. Rerun automated validation before repeating human review.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Final Human Decision</h2>
+    <div class="decision">
+      <label><input type="radio" name="decision"> <span class="pass-text">HUMAN_REVIEW_PASS</span><br>Ready for GPTs upload after automated validation.</label>
+      <label><input type="radio" name="decision"> <span class="fail-text">HUMAN_REVIEW_RECHECK_REQUIRED</span><br>Fix bundle or instructions, rerun automation, review again.</label>
+      <label><input type="radio" name="decision"> <span>NOT_REVIEWED</span><br>Review not complete.</label>
+    </div>
+    <p>Reviewer:</p>
+    <textarea aria-label="Reviewer name and date"></textarea>
+    <p>Summary and required follow-up:</p>
+    <textarea aria-label="Review summary"></textarea>
+  </section>
+</main>
+</body>
+</html>

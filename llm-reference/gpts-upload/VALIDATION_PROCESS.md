@@ -88,6 +88,12 @@ Human review should check:
 - Whether multilingual answers preserve product names, SQL, commands, paths, properties, error codes, class names, filenames, URLs, and version strings.
 - Whether GPTs UI behavior with uploaded files matches the intended instructions.
 
+Use the HTML checklist for the manual pass:
+
+```text
+llm-reference/gpts-upload/HUMAN_REVIEW_CHECKLIST.html
+```
+
 ## Manual Review Sample Set
 
 After automated validation passes, test representative questions from these areas:
