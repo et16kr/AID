@@ -2,6 +2,12 @@
 
 This directory is for the Altibase GPTs Knowledge upload workflow. The target is a self-contained GPTs answer package, not another general handoff package and not a direct upload of the original documentation trees.
 
+## Final Readiness Status
+
+Final G005 readiness decision: `GPTS_UPLOAD_READY`.
+
+Read the final validation report at `llm-reference/gpts-upload/GPTS_READINESS_REPORT.md`. Human review starts only after automated validation passes with `GPTS_AUTOMATED_PASS`.
+
 ## Upload Target
 
 Customer-facing GPTs upload requires exactly one Knowledge file:
