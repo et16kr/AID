@@ -8,7 +8,7 @@ This document defines the requirements for creating GPTs Knowledge upload artifa
 
 The target is not a general documentation handoff. The target is a GPTs attachment package that lets a GPT answer customer and support questions without uploading the original source trees under `arch/`, `FAQE/`, `DOCK/`, or `faq/`.
 
-The final upload package must fit within 1 or 2 GPTs Knowledge files because other manual files may also need to use the GPTs file slots.
+The final customer-facing GPTs answer target is exactly 1 required Knowledge file plus at most 1 optional audit file. The optional audit file is for validation and support traceability only; it must not be required for customer answers. This limit is intentional because other manual files may also need to use the GPTs file slots.
 
 ## Current Assessment
 
@@ -17,6 +17,20 @@ The existing `llm-reference/` topic documents are suitable source material for a
 Uploading the individual `llm-reference/*.md` files would consume too many GPTs Knowledge slots. Uploading only a subset of the topic files would make the GPT incomplete. Uploading only `README.md`, `source-index.md`, or the build report would not provide enough answer content.
 
 Therefore, the correct next step is to create one or two generated bundle files that concatenate and normalize the answer corpus for GPTs retrieval.
+
+## Corpus Gate
+
+Use only generated `llm-reference/` content as the source boundary for GPTs upload files. The original source trees `arch/`, `FAQE/`, `DOCK/`, and `faq/` are not GPTs upload inputs and are not GPT answer-time dependencies.
+
+Source paths from those trees may remain in the generated upload files only as evidence labels and maintenance traceability. No generated upload file may imply that a GPT can open, inspect, or depend on those repository paths while answering a user.
+
+Reject any proposed GPTs attachment artifact as incomplete if it requires any of the following for normal customer-answer generation:
+
+- Direct upload of `arch/`, `FAQE/`, `DOCK/`, or `faq/`.
+- Direct upload of individual topic files instead of the encyclopedia bundle.
+- A subset of the 12 topic documents.
+- The optional audit bundle as a runtime answer dependency.
+- Full raw TSV ledgers in the customer-facing encyclopedia file.
 
 ## GPTs Knowledge Constraint
 
