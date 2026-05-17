@@ -1,39 +1,48 @@
-# SQL, Stored Procedures, and Query Behavior
+# SQL, Stored Procedures, Query Behavior, and Performance Tuning
 
 ## Source paths
 
-R015 Korean-source-verified source paths covered in this revision:
+Korean-source-verified and link-validated source paths covered by R015 and R016:
 
 - `arch/Home/Altibase Development Guide__14058519.md`
+- `arch/Home/Altibase Development Guide/1. Considerations when Designing__22642998.md`
 - `arch/Home/Altibase Development Guide/2. Considerations when Developing__14058531.md`
+- `arch/Home/Altibase SQL Tuning Guide__22643010.md`
 - `FAQE/Home/05. SQL/Comparison between VARCHAR and CHAR types__16876151.md`
 - `FAQE/Home/05. SQL/How to check the privileges granted to an object__16876153.md`
 - `FAQE/Home/06. Stored Procedure/How to check the contents of stored procedure__16876159.md`
 - `FAQE/Home/06. Stored Procedure/How to check the number of records affected by DML within the stored procedure__16876157.md`
+- `FAQE/Home/12. Others/Building a Large-Scale DRDB Index__22642978.md`
 
-Additional source paths read for the wider workflow boundary, but not re-owned by R015:
+English-only auxiliary source paths used by R016. These are useful performance diagnostics but are not Korean-source-verified:
 
-- `arch/Home/Altibase Development Guide/1. Considerations when Designing__22642998.md` - R016 owns the performance, design, partitioning, HPT, and index semantics.
-- `arch/Home/Altibase Development Guide/3. Altibase Trace Logs__22643000.md` - R012 owns trace-log diagnostics and R013 uses error-message cross-labels.
-- `arch/Home/Altibase Development Guide/4. CLIENT APPLICATION Error Messages__14058547.md` - R013 owns client application error-message coverage.
-- `FAQE/Home/12. Others/Building a Large-Scale DRDB Index__22642978.md` - R016 owns DRDB index build tuning coverage.
-- `FAQE/Home/12. Others/Thread process debugging method__16876474.md` - R012 owns thread debugging diagnostics.
+- `FAQE/Home/ALTIBASE HDB Performance Tuning/Performance diagnostics for ALTIBASE HDB__1802804.md`
+- `FAQE/Home/ALTIBASE HDB Performance Tuning/Performance diagnostics for ALTIBASE HDB/1. Application side diagnostics__1802808.md`
+- `FAQE/Home/ALTIBASE HDB Performance Tuning/Performance diagnostics for ALTIBASE HDB/2. Database side diagnostics__1802812.md`
+- `FAQE/Home/ALTIBASE HDB Performance Tuning/Performance diagnostics for ALTIBASE HDB/3. System side diagnostics__1802815.md`
+
+Additional Development Guide chapters read for the wildcard boundary, but canonically owned elsewhere:
+
+- `arch/Home/Altibase Development Guide/3. Altibase Trace Logs__22643000.md` - R012 owns trace-log diagnostics; R016 only cross-references DDL/index-build log evidence where relevant.
+- `arch/Home/Altibase Development Guide/4. CLIENT APPLICATION Error Messages__14058547.md` - R013 owns client application error-message coverage; R016 only cross-references performance-related errors where relevant.
 
 ## Source coverage notes
 
-This document covers R015: SQL behavior, stored procedure inspection, stored procedure row-count examples, connection/session query behavior, cursor behavior, LOB query restrictions, prepared statement usage, timeout behavior, exact SQL examples, object privilege queries, and development cautions that affect SQL answerability.
+This document covers R015 and R016. R015 covers SQL behavior, stored procedure inspection, stored procedure row-count examples, connection/session query behavior, cursor behavior, LOB query restrictions, prepared statement usage, timeout behavior, exact SQL examples, object privilege queries, and development cautions that affect SQL answerability.
 
 The R015 source set is Korean-source-verified. `FAQE/Home/06. Stored Procedure/How to check the number of records affected by DML within the stored procedure__16876157.md` is link-validated Korean-source-verified because Phase 2 verified the preserved support artifact URL for `SP_DML_RECORD_COUNT.txt`.
 
 `SP_DML_RECORD_COUNT.txt` is a downloadable `.txt` support artifact, not a document-format attachment under the `.pdf`, `.ppt`, `.pptx`, `.doc`, `.docx`, `.xls`, `.xlsx`, `.zip` preservation gate. The exact source URL is preserved in this topic and in `llm-reference/coverage/attachment-diagram-register.tsv`.
 
-The wider Altibase Development Guide source also contains two Korean legacy PDF labels, `ALTIBASE_개발가이드.pdf` and `ALTIBASE_개발가이드_5.3.pdf`, with no downloadable source URL. R013 already registers those labels for the client application error chapter; R015 does not invent URLs for them.
+R016 covers performance design, storage placement, HPT, partition-table caveats, native data type selection, join/index design, execution-plan reading, index scan failure patterns, join/LIMIT/subquery/DML tuning guidance, runtime diagnostic SQL, plan cache, log/checkpoint/GC tuning, system-side evidence capture, and large DRDB index build settings. The `arch/Home/Altibase SQL Tuning Guide__22643010.md` page is a link-validated Markdown wrapper for two preserved PDF URLs. The linked `D68_Altibase_SQL_Tuning_Guide.pdf` was read during R016 and its Korean slide content is represented below in English while exact SQL, properties, hints, object names, and paths are preserved.
 
-R016 will add optimizer, index, partitioning, HPT, SQL tuning guide, large DRDB index, and performance-specific coverage to this same topic file. Until R016 is complete, use only the R015 sections below for SQL and stored procedure answer generation.
+The `FAQE/Home/ALTIBASE HDB Performance Tuning/**` tree is `English-only source` material. It is integrated as auxiliary diagnostic guidance and must not be described as Korean-source-verified. Its semantic-unit rows use `english_only_auxiliary` status and retain the source-label risk.
+
+The wider Altibase Development Guide source also contains two Korean legacy PDF labels, `ALTIBASE_개발가이드.pdf` and `ALTIBASE_개발가이드_5.3.pdf`, with no downloadable source URL. R013 already registers those labels for the client application error chapter; this document does not invent URLs for them.
 
 ## Scope and audience
 
-Use this document to answer developer, DBA, support, and LLM questions about Altibase SQL behavior that affects applications: connection type selection, auto-commit, session timeout settings, cursor lifecycle, commit and rollback during fetch, error checking around `PREPARE` and `DECLARE CURSOR`, LOB query requirements, prepared statements, execution-plan checks, `CHAR` and `VARCHAR` comparison behavior, object privilege lookup SQL, stored procedure body extraction, and `SQL%ROWCOUNT`.
+Use this document to answer developer, DBA, support, and LLM questions about Altibase SQL behavior and performance: connection type selection, auto-commit, session timeout settings, cursor lifecycle, commit and rollback during fetch, error checking around `PREPARE` and `DECLARE CURSOR`, LOB query requirements, prepared statements, execution-plan checks, index and optimizer behavior, HPT and partition-table caveats, DRDB index build properties, diagnostic SQL, performance-view interpretation, `CHAR` and `VARCHAR` comparison behavior, object privilege lookup SQL, stored procedure body extraction, and `SQL%ROWCOUNT`.
 
 When answering in another language, keep SQL keywords, object names, meta table names, view names, properties, connection-string options, error messages, filenames, and URLs exactly as written.
 
@@ -180,6 +189,232 @@ Bulk changes can affect memory, redo logs, locks, and replication.
 | Redo log growth | A large transaction writes redo for each changed row. Altibase deletes transaction log files at checkpoint, but a log file cannot be deleted while information for an ongoing transaction remains in it. This can cause disk shortage. |
 | Replication deadlock or delay | In replication, all changed records in one transaction are sent to the peer. The peer Receiver holds locks on those records; if the peer changes the same range, a deadlock can occur between replicated changes and peer-local transactions. |
 
+### Performance design, HPT, and partitioning
+
+Choose the table storage location according to workload:
+
+| Storage choice | Use when | Performance caveat |
+| --- | --- | --- |
+| Memory tablespace | Very high processing performance is needed, transactions are frequent, and data validity is short, such as session information or same-day transaction data. | Memory capacity and MVCC garbage behavior still need operational monitoring. |
+| Disk tablespace | Long-term retention or large-volume historical querying is needed. | Queries that access large disk ranges remain subject to disk I/O performance. |
+| `Hybrid Partitioned Table (HPT)` | One logical table should combine memory partitions for recent data and disk partitions for older data. | Applications can query one table without separating tables, but queries that include disk partitions are still affected by disk I/O performance. |
+
+For ALTIBASE partition tables as of version `7.3.0`, partitioned local indexes and non-partitioned global indexes are supported, while partitioned global indexes are not supported. Partition tables are recommended for separating historical data by month or business purpose. A significant performance decrease can occur when a query scans the entire partition table without including the partition key in the condition clause.
+
+Column type selection can affect performance:
+
+- Prefer native numeric types when they can represent the value: `SMALLINT`, `INTEGER`, `BIGINT`, or `DOUBLE`.
+- Use `NUMERIC(p, s)` only when exact precision is required. It supports up to 38 digits, but storage and comparison require internal conversion.
+- For simple integer data, choose the smallest appropriate type among `SMALLINT`, `INTEGER`, and `BIGINT`.
+- Use `DOUBLE` for floating-point data when fixed precision is not mandatory.
+- For columns frequently used in `SUM` or `AVG`, prefer `DOUBLE` or `BIGINT` when the business semantics allow it.
+- Use `DATE` when date operations are important. Use `CHAR` or `VARCHAR` only when the value is limited to search or comparison operations.
+- Define join columns with the same data type. Comparisons between different data types trigger internal conversion and can prevent efficient index use.
+
+Avoid indiscriminate foreign-key use where transaction performance is critical. For replication target tables, maintain a primary key.
+
+### Index and optimizer fundamentals from the SQL Tuning Guide
+
+SQL tuning means changing or revising SQL so the required result is produced with minimum cost such as I/O, CPU usage, and elapsed time. The SQL Tuning Guide also treats index composition and placement as part of SQL tuning. It warns that tuning has limits if performance was not considered during modeling, when a very large result set is returned, or when the business process must handle a very large volume as a whole.
+
+Altibase indexes use a sorted B-tree structure and separate storage space. Memory-table indexes consist of sorted pointers to existing data and are about `16 bytes` per row. Disk-table indexes contain data values and the address of the row location.
+
+| Index type | Tuning meaning |
+| --- | --- |
+| Single-column index | Sorts by one column. Consider only ordering such as `ASC` or `DESC`. |
+| Composite index | Uses multiple columns. Column order and ordering per column are critical; create it after checking the conditions commonly used by the workload. |
+| Unique index | A primary key creates a unique index that disallows `NULL`; the optimizer can navigate from the root node to a table pointer and then read the row. |
+| Non-unique index | Multiple rows can match one key; the index still provides row pointers for matching table rows. |
+
+The source cautions:
+
+- For memory tables, index access is generally advantageous over full scan.
+- For disk tables, an index is not always faster than a full scan; selectivity matters.
+- Index benefit grows as the target range becomes smaller.
+- Not every SQL shape can use an index. SQL may need to be rewritten so the index is usable.
+- As the number of indexes increases, `INSERT`, `UPDATE`, and `DELETE` execution time increases. Create only necessary indexes.
+- When one table is accessed, Altibase uses only one index for that table access; the optimizer chooses which one.
+
+Index scan can fail or be rejected in these cases:
+
+| Pattern | Example or condition | Tuning action |
+| --- | --- | --- |
+| Function or operator applied to an indexed column | `SELECT * FROM T1 WHERE C1 + 1 > 0`; `SELECT * FROM T1 WHERE TO_CHAR(SOME_DATE) = '2007-01-01'`; `SELECT * FROM EMPLOYEE WHERE UPPER(DNO) = '1'` | Rewrite so the indexed column can be used directly. The source notes that Altibase does not currently support `FBI (Function Based Index)`. |
+| Data type mismatch | `SELECT * FROM T1 WHERE CHAR_COLUMN = 1` | Compare with the same data type. For `CHAR` or `VARCHAR` columns, numeric comparison can cause column conversion. |
+| Optimizer cost decision | Optimizer judges index scan cost as higher than the alternative. | Check plan, access count, and selectivity. |
+| Composite index order mismatch | Composite index is declared on `C1 + C2`, but the query uses only `C2 = :value`. | Include the leading column condition, for example `C1 = :value1 and C2 = :value2`, when semantically valid. |
+| `NOT IN` subquery | `SELECT * FROM EMPLOYEE WHERE DNO NOT IN (SELECT DNO FROM DEPARTMENT WHERE DNO > 4)` | Consider rewriting as an anti-join pattern when equivalent. |
+
+If an index scan occurs but `ACCESS` count is high, check index cardinality and which index is used. For an `A+B+C` composite index, a condition on `A` and `C` can still have high access count because only the leading `A` condition can be used efficiently. Use predicate output in the plan during analysis:
+
+```sql
+ALTER SYSTEM SET TRCLOG_PREDICATE=1;
+```
+
+The SQL Tuning Guide also describes `TRCLOG_DETAIL_PREDICATE=1` for more detailed execution-plan predicate information. Use these predicate settings only when diagnostic detail is required and follow operational logging policy.
+
+### Execution plans and optimizer validation
+
+Altibase processes SQL through parse/validation, optimize, and execute phases. SQL query tuning focuses on the optimize phase, where the plan is generated. A plan shows how Altibase will execute a query. The SQL Tuning Guide states that plans are generated for `SELECT`, `UPDATE`, and `DELETE` statements with `WHERE` clauses; `INSERT` has no execution plan in this sense.
+
+Use `ALTER SESSION` to control plan output:
+
+| Command | Meaning |
+| --- | --- |
+| `ALTER SESSION SET EXPLAIN PLAN = ON;` | Show the actual execution plan and query result. Access-count information is accurate because the query is executed. |
+| `ALTER SESSION SET EXPLAIN PLAN = ONLY;` | Show only the plan without executing the query. Use this for very large result sets or long-running queries. |
+| `ALTER SESSION SET EXPLAIN PLAN = OFF;` | Stop plan output and return only query results. |
+
+Read Altibase plans from the innermost node outward, top to bottom. Check `ACCESS` count carefully, identify whether the access path is `FULL SCAN` or `INDEX SCAN`, and try to drive `FULL SCAN` cases toward index access where the result semantics and selectivity justify it.
+
+Predicate classes in plan output:
+
+| Predicate class | Meaning | Tuning objective |
+| --- | --- | --- |
+| `KEY` condition | Uses indexing to find target data. | Use `KEY` predicates to filter as much data as possible. |
+| `FILTER` condition | Searches/filter rows after broader access. | Leave as little data as possible to `FILTER` predicates. |
+
+Store plan and execution-time setup SQL in `$ALTIBASE_HOME/conf/glogin.sql` when useful. `isql` executes `glogin.sql` before accepting user input, so developers can validate plans early and reduce later tuning burden.
+
+### Join, LIMIT, subquery, and DML tuning
+
+Join tuning is needed when:
+
+- A join condition causes full scan or high index access count.
+- An index is used inefficiently or cannot be used.
+- The optimizer chooses the wrong join method.
+- Too many joined tables make plan generation and validation expensive.
+- The query performs join before grouping even though grouping before join is semantically possible and cheaper.
+
+Keep join-condition data types the same. If internal conversion occurs, an index may not be usable. If a mismatch is unavoidable, check the plan before release and confirm whether the condition uses the intended index.
+
+Avoid reading the same table repeatedly when one access can produce the required data. Inline views and subqueries can make SQL easy to write, but repeated access to the same table can degrade performance. When possible, rewrite repeated scalar subqueries as joins.
+
+When joining a memory table and a disk table, disk temporary tablespace can be used, especially for `GROUP BY` or other sort work. The source recommends the hint below to place temporary work in memory when this is appropriate:
+
+```sql
+/*+ TEMP_TBS_MEMORY */
+```
+
+Use the hint carefully. If a very large result set is sorted in memory, the Altibase `VSZ` can grow.
+
+For outer joins, the base table condition becomes the key access path. If a condition exists only on the outer table side, an index on that outer-side table may not help because the outer-join semantics prevent accessing that table first. If the outer join is unnecessary and an inner join is semantically equivalent, rewriting it as an inner join can avoid full scan and improve performance.
+
+For `ORDER BY ... LIMIT n`, create an index that matches the ordering when the query is frequent and needs only the top rows. The source example uses `ORDER BY SALARY DESC LIMIT 2`; an index on salary descending lets Altibase read only two index entries and table rows, giving near-constant execution cost even as table size grows. Limit stop-key optimization is restricted when `GROUP BY` is used, when `ORDER BY` uses columns that cannot use an index, and when the table output must stream without intermediate changes. The source states that `LIMIT` is most favorable when the `WHERE` clause can be minimized.
+
+For `NOT IN`, an index cannot be used in the source's guidance. When equivalent, rewrite to a left outer join with `IS NULL`, for example:
+
+```sql
+SELECT X.*
+  FROM EMPLOYEE X LEFT OUTER JOIN DEPARTMENT_DELETED Y
+    ON X.DNO = Y.DNO
+ WHERE Y.DNO IS NULL
+ LIMIT 10;
+```
+
+DML tuning checks:
+
+| DML symptom | Check |
+| --- | --- |
+| `INSERT` is slow | Too many indexes, too-small `BUFFER_POOL_SIZE` for disk tables, table lock in `V$LOCK`, or I/O contention. |
+| `UPDATE` or `DELETE` is slow | Apply `SELECT` query tuning checks, `INSERT` slowdown checks, and check whether key columns are being updated unnecessarily. |
+
+### Performance diagnostics from English-only source
+
+The `ALTIBASE HDB Performance Tuning` FAQ tree applies to ALTIBASE HDB `4.3.9 or later`, assumes Altibase administrator privileges, and is English-only auxiliary material.
+
+Before running its diagnostic queries, enable `TIMED_STATISTICS`:
+
+```sql
+ALTER SYSTEM SET TIMED_STATISTICS = 1;
+```
+
+Application-side diagnostics focus on four frequent causes:
+
+| Cause | Evidence | Interpretation |
+| --- | --- | --- |
+| Preparing a statement for every execution or using dynamic SQL | `V$SYSSTAT` `SEQNUM IN (27, 29)` for prepare and execute counts. | Normally, execute success count should be much larger than prepare success count. If not, check whether the application prepares repeatedly. |
+| Bad SQL consuming many resources | Top running SQL from `V$STATEMENT`; full-scan plan nodes from `V$PLANTEXT`. | Find long-running queries and queries whose plan contains `FULL`. |
+| Connecting and disconnecting for every request | `V$SYSSTAT` `SEQNUM = 1` cumulative connection count sampled several times over short intervals. | A rapidly growing connection count can indicate per-request connection creation. |
+| Not using local IPC when possible | `V$SESSION.COMM_NAME` grouped by connection type. | Use `CONNTYPE=3`/IPC only when client and database are on the same machine and `IPC_CHANNEL_COUNT` is greater than `0`. Default `IPC_CHANNEL_COUNT` is `0`, so IPC is disabled unless configured. |
+
+Database-side diagnostics:
+
+| Area | Diagnostic or property | Action and caveat |
+| --- | --- | --- |
+| Log file I/O contention | `select LF_OPEN_COUNT, LF_PREPARE_COUNT, LF_PREPARE_WAIT_COUNT from v$lfg;` and `PREPARE_LOG_FILE_COUNT` default `5`. | If `LF_PREPARE_WAIT_COUNT > 1`, double `PREPARE_LOG_FILE_COUNT`, retest, and repeat up to `100`. If it remains over `1`, disk performance is slow and disk replacement or storage change should be considered. Larger values allocate more log-file memory. |
+| Checkpoint I/O | Log files and data files on the same file system, or OS buffered I/O flush behavior. | Separate physical log and data locations. Consider Direct I/O if buffered I/O causes fluctuation. Tuning writes can lengthen checkpoint duration and require more log disk. |
+| `MULTIPLEXING_THREAD_COUNT` | Compare `V$SERVICE_THREAD`, IPC sessions, and `V$PROPERTY` `MULTIPLEXING%_THREAD_COUNT`. | Start by testing values 2x to 4x CPU cores. `DEDICATED` greater than IPC count or `SOCKET` greater than `MULTIPLEXING_THREAD_COUNT` can indicate long-running queries. |
+| Memory Ager / GC | `V$MEMGC` `ADD_OID_CNT - GC_OID_CNT` and long-query query using `V$TRANSACTION`, `V$STATEMENT`, and `V$SESSION`. | Increasing `GCGAP` can mean long-running queries prevent GC. Lower `AGER_WAIT_MINIMUM` and `AGER_WAIT_MAXIMUM` only after checking symptoms; faster wake-up consumes more CPU and can slow transaction response. |
+| Buffer cache | `BUFFER_AREA_SIZE`, hot/cold LRU, `HOT_LIST_PCT` default `50`. | Analyze access pattern before changing `HOT_LIST_PCT`; example tuning uses `alter system set HOT_LIST_PCT = 60;`. |
+| SQL plan cache | `V$SQL_PLAN_CACHE`, `V$SQL_PLAN_CACHE_PCO`, `V$SQL_PLAN_CACHE_SQLTEXT`; properties `SQL_PLAN_CACHE_SIZE`, `SQL_PLAN_CACHE_BUCKET_CNT`, `SQL_PLAN_CACHE_HOT_REGION_LRU_RATIO`, `SQL_PLAN_CACHE_PREPARED_EXECUTION_CONTEXT_CNT`. | The source recommends `CACHE_MISS_COUNT / CACHE_HIT_COUNT` normally below `1/10000`, `SQL_PLAN_CACHE_BUCKET_CNT` about total statements divided by `4`, and `SQL_PLAN_CACHE_PREPARED_EXECUTION_CONTEXT_CNT` similar to CPU count to avoid contention. |
+
+When all earlier checks are applied and performance issues remain, collect:
+
+```sh
+pstack $ALTIBASE_PID
+```
+
+Gather `pstack` three consecutive times with a sleep interval such as `10` seconds. Also inspect mutex and wait views:
+
+```sql
+select * from v$mutex order by miss_count desc limit 10;
+select event, wait_time from v$statement where wait_time > 1;
+select event, TOTAL_WAITS, time_waited from v$system_event order by 2,3;
+```
+
+System-side diagnostics:
+
+- Confirm OS kernel and environment variables match the Installation manual and `pre_install.sh` guidance before deeper analysis.
+- Measure disk write performance with `time dd if=/dev/zero of=MyTestFile bs=1M count=1024`; this creates a 1 GB zero-filled file and displays copy time.
+- Check Direct I/O feasibility using `LOG_IO_TYPE`, `DATABASE_IO_TYPE`, and `DIRECT_IO_ENABLED`. If Direct I/O cannot be used on a system, Altibase uses Buffered I/O regardless of property settings.
+- Collect OS evidence with `vmstat` and `iostat`; the source examples are AIX shell loops and group disks into MEMORY, DISK, and LOGS storage devices.
+
+Direct I/O mount options from the source:
+
+| OS | File system | Mount option |
+| --- | --- | --- |
+| Solaris | UFS | none |
+| HP-UX | Veritas VxFS | `convosync=direct` |
+| Solaris | Veritas VxFS | `convosync=direct` |
+| AIX | Veritas VxFS | `convosync=direct` |
+| AIX | JFS | use `-o dio` |
+| Windows NT/2000 | All | none |
+| Tru64 Unix | AdvFS | none |
+| Linux 2.4 or later | All | none |
+
+### Large-scale DRDB index builds
+
+Index building reads, sorts, and stores data. Running index builds in parallel can degrade performance because of excessive disk I/O and buffer misses. Tune the properties below to reduce I/O and buffer misses, optimize sorting, and shorten build time for large disk-based indexes.
+
+For versions `6.5.1~7.1.0`:
+
+| Property | Unit | Recommended source value |
+| --- | --- | --- |
+| `BUFFER_AREA_SIZE` | bytes | Larger values are generally better. |
+| `SORT_AREA_SIZE` | bytes | Number of physical cores in the system multiplied by `20 MB`. |
+| `DISK_INDEX_BUILD_MERGE_PAGE_COUNT` | pages | `1%` of `BUFFER_AREA_SIZE`, but review the merge-page considerations. |
+| `INDEX_BUILD_THREAD_COUNT` | cores | Number of physical cores in the hardware. |
+
+For version `7.3.0 or later`:
+
+| Property | Unit | Recommended source value |
+| --- | --- | --- |
+| `BUFFER_AREA_SIZE` | bytes | Larger values are generally better. |
+| `DISK_INDEX_BUILD_SORT_AREA_SIZE` | bytes | Number of physical cores in the system multiplied by `20 MB`. |
+| `DISK_INDEX_BUILD_MERGE_PAGE_COUNT` | pages | `1%` of `BUFFER_AREA_SIZE`. |
+| `INDEX_BUILD_THREAD_COUNT` | cores | Number of physical cores in the hardware. |
+
+Considerations:
+
+- Larger `BUFFER_AREA_SIZE` increases startup time.
+- In `6.5.1~7.1.0`, one index build uses at least `SORT_AREA_SIZE` memory. Two parallel index builds use `SORT_AREA_SIZE * 2`. `SORT_AREA_SIZE` is also shared with disk temp tables, so changing it affects disk temp table operations.
+- In `7.3.0 or later`, one index build uses at least `DISK_INDEX_BUILD_SORT_AREA_SIZE`; two parallel index builds use `DISK_INDEX_BUILD_SORT_AREA_SIZE * 2`. `SORT_AREA_SIZE` is not used for this purpose.
+- `DISK_INDEX_BUILD_MERGE_PAGE_COUNT` is in pages, while `BUFFER_AREA_SIZE` is in bytes.
+- In `6.5.1~7.1.0`, if the merge page count is large but the index is small, performance can degrade.
+- In `6.5.1~7.1.0`, performance can degrade when `DISK_INDEX_BUILD_MERGE_PAGE_COUNT > (index key length * number of records) / SORT_AREA_SIZE`.
+- The source states that those merge-page degradation issues do not occur in version `7.3.0 or later`.
+
 ### `CHAR` and `VARCHAR` comparison behavior
 
 The SQL FAQ applies to all Altibase versions. When comparing `CHAR` values, `0x20` is added to the shorter value and comparison uses the longer length. When comparing `CHAR` and `VARCHAR`, comparison uses the valid data in the `VARCHAR` value up to the `0x00` position.
@@ -198,6 +433,53 @@ There are two source-supported ways to check stored procedure contents:
 Use `SQL%ROWCOUNT` in a stored procedure to read how many rows were affected by DML.
 
 ## Procedures
+
+### Tune SQL and index access paths
+
+1. Enable execution-plan output with `ALTER SESSION SET EXPLAIN PLAN = ON` for actual execution or `ONLY` when the query is too expensive to run.
+2. Read the plan from the innermost node outward, top to bottom.
+3. Check whether each important table access is `FULL SCAN` or `INDEX SCAN`, and check `ACCESS` count.
+4. If a full scan is unexpected, verify that the predicate can use an index: no function/operator wraps the indexed column, data types match, leading columns of composite indexes are present, and the SQL does not use an index-hostile pattern such as `NOT IN`.
+5. For high `ACCESS` count despite index use, check cardinality and whether a composite index is only using its leading column.
+6. Use predicate trace output such as `TRCLOG_PREDICATE=1` only when deeper plan predicate detail is needed.
+7. For frequent top-N queries, align the index order with `ORDER BY ... LIMIT n` so Altibase can stop after the required index entries.
+8. For repeated scalar subqueries or repeated access to the same table, rewrite to a join when the result is equivalent.
+9. For unnecessary outer joins, rewrite to an inner join only when it is semantically equivalent and enables the intended key access path.
+
+### Diagnose application-side performance
+
+1. Enable `TIMED_STATISTICS`.
+2. Compare prepare and execute counts from `V$SYSSTAT` `SEQNUM IN (27, 29)`. If prepares are too close to executes, inspect application code for repeated prepare or dynamic SQL.
+3. Query `V$STATEMENT` for the longest currently running statements.
+4. Join `V$STATEMENT` to `V$PLANTEXT` to identify statements whose plan text contains `FULL`.
+5. Sample cumulative connection count from `V$SYSSTAT` `SEQNUM = 1` several times in a short period. Rapid growth can indicate connect/disconnect per request.
+6. Group `V$SESSION.COMM_NAME` by connection type. If client and DB are on the same machine, consider IPC only after setting `IPC_CHANNEL_COUNT > 0`.
+
+### Diagnose and tune database-side performance
+
+1. Check log file I/O contention with `v$lfg`. If `LF_PREPARE_WAIT_COUNT > 1`, increase `PREPARE_LOG_FILE_COUNT` by doubling and retesting, up to `100`; if waits remain, treat storage performance as the bottleneck.
+2. Check whether log files and data files share the same physical file system. Separate them when checkpoint or log I/O contention is suspected.
+3. If OS buffered I/O causes performance fluctuation, consider Direct I/O settings and OS mount support.
+4. Check service-thread counts against IPC sessions and `MULTIPLEXING_THREAD_COUNT`. `DEDICATED` count greater than IPC sessions or `SOCKET` count greater than `MULTIPLEXING_THREAD_COUNT` can indicate long-running queries.
+5. Monitor `V$MEMGC`. If `GCGAP` increases, use the provided `V$TRANSACTION`, `V$STATEMENT`, and `V$SESSION` query to identify the long-running transaction or query.
+6. Tune `AGER_WAIT_MINIMUM` and `AGER_WAIT_MAXIMUM` only after symptom checks; lowering them can consume more CPU.
+7. Check plan-cache hit/miss counts, statement count, and plan-cache properties before changing `SQL_PLAN_CACHE_SIZE`, `SQL_PLAN_CACHE_BUCKET_CNT`, `SQL_PLAN_CACHE_HOT_REGION_LRU_RATIO`, or `SQL_PLAN_CACHE_PREPARED_EXECUTION_CONTEXT_CNT`.
+
+### Build a large DRDB index
+
+1. Avoid building many large disk indexes in parallel unless the storage and memory budget can absorb the I/O and sort load.
+2. For `6.5.1~7.1.0`, set `SORT_AREA_SIZE` to physical cores multiplied by `20 MB`, use `INDEX_BUILD_THREAD_COUNT` equal to physical cores, and review `DISK_INDEX_BUILD_MERGE_PAGE_COUNT` against index size.
+3. For `7.3.0 or later`, use `DISK_INDEX_BUILD_SORT_AREA_SIZE` instead of `SORT_AREA_SIZE`, set it to physical cores multiplied by `20 MB`, and use `INDEX_BUILD_THREAD_COUNT` equal to physical cores.
+4. Treat `BUFFER_AREA_SIZE` increases as a startup-time tradeoff.
+5. Remember that memory use doubles when two index builds run in parallel because each build needs its own sort area.
+
+### Capture system-side performance evidence
+
+1. Confirm OS kernel and environment variables match the Altibase installation guidance and `pre_install.sh`.
+2. Measure disk write speed with `time dd if=/dev/zero of=MyTestFile bs=1M count=1024` and remove the test file afterward according to local operational policy.
+3. Verify Direct I/O property settings and filesystem mount support.
+4. Collect `vmstat` and `iostat` evidence during the symptom window. Use the source AIX examples as patterns for repeated sampling and grouping memory, disk, and log devices.
+5. If database-side checks do not isolate the problem, collect `pstack $ALTIBASE_PID` three times with a sleep interval such as `10` seconds and correlate it with `V$MUTEX`, `V$STATEMENT`, and `V$SYSTEM_EVENT`.
 
 ### Configure session behavior for application SQL
 
@@ -439,6 +721,207 @@ The source outcomes are:
 
 ## SQL, commands, and configuration
 
+### Performance plan, predicate, and diagnostic controls
+
+```sql
+ALTER SESSION SET EXPLAIN PLAN = ON;
+ALTER SESSION SET EXPLAIN PLAN = ONLY;
+ALTER SESSION SET EXPLAIN PLAN = OFF;
+ALTER SYSTEM SET TRCLOG_PREDICATE = 1;
+ALTER SYSTEM SET TRCLOG_DETAIL_PREDICATE = 1;
+ALTER SYSTEM SET TIMED_STATISTICS = 1;
+```
+
+### Application-side performance diagnostic SQL
+
+Prepare and execute counts:
+
+```sql
+SELECT   TO_CHAR(SYSDATE, 'YYYYMMDD HH:MI:SS') CUR_TIME,
+         RPAD(NAME, 50) NAME,
+         VALUE
+  FROM   V$SYSSTAT
+ WHERE   SEQNUM IN (27, 29);
+```
+
+Top currently running statements:
+
+```sql
+SELECT EXECUTE_TIME / 1000000 EXEC_SECOND,
+       RPAD(QUERY, 500) QUERY
+  FROM V$STATEMENT
+ WHERE EXECUTE_FLAG = 1
+ ORDER BY 1 DESC
+ LIMIT 5;
+```
+
+Queries with a `FULL` plan node:
+
+```sql
+SELECT RPAD(QUERY, 200),
+       COUNT(*) CNT
+  FROM V$STATEMENT
+ WHERE (SESSION_ID, ID) IN
+       (SELECT SID,
+               STMT_ID
+          FROM V$PLANTEXT
+         WHERE TEXT LIKE '%FULL%')
+ GROUP BY QUERY;
+```
+
+Cumulative connection count:
+
+```sql
+SELECT TO_CHAR(SYSDATE, 'YYYYMMDD HH:MI:SS') CUR_TIME,
+       RPAD(NAME, 50) NAME,
+       VALUE
+  FROM V$SYSSTAT
+ WHERE SEQNUM = 1;
+```
+
+Connection type distribution:
+
+```sql
+SELECT SUBSTR(COMM_NAME, 1, 4) CON_TYPE,
+       COUNT(*) CNT
+  FROM V$SESSION
+ GROUP BY SUBSTR(COMM_NAME, 1, 4);
+```
+
+### Database-side performance diagnostic SQL
+
+Log file I/O contention:
+
+```sql
+select LF_OPEN_COUNT, LF_PREPARE_COUNT, LF_PREPARE_WAIT_COUNT from v$lfg;
+```
+
+Service thread and IPC session check:
+
+```sql
+select rpad(type, 30), count(*) from v$service_thread group by type
+union all
+select '# of IPC ', count(*) from v$session where comm_name like '%IPC%';
+```
+
+Multiplexing property check:
+
+```sql
+select rpad(type, 30), count(*) from v$service_thread group by type
+union all
+select rpad(name, 30), value1 from v$property where name like 'MULTIPLEXING%_THREAD_COUNT';
+```
+
+Memory GC gap:
+
+```sql
+select add_oid_cnt, gc_oid_cnt, add_oid_cnt - gc_oid_cnt GCGAP from v$memgc;
+```
+
+Long-running transaction or query blocking memory GC:
+
+```sql
+select c.session_id, comm_name, client_pid, execute_flag, total_time, execute_time, fetch_time, rpad(query, 500)
+  from (select * from v$memgc limit 1) a, v$transaction b, v$statement c, v$session d
+ where (a.MINMEMSCNINTXS = b.MEMORY_VIEW_SCN or a.MINMEMSCNINTXS = b.MIN_MEMORY_LOB_VIEW_SCN)
+   and b.id = c.tx_id
+   and c.session_id = d.id;
+```
+
+Memory GC holder query from the SQL Tuning Guide:
+
+```sql
+SELECT ID, SESSION_ID, QUERY
+  FROM V$STATEMENT
+ WHERE TX_ID = (SELECT ID
+                  FROM v$TRANSACTION
+                 WHERE MEMORY_VIEW_SCN = (SELECT MINMEMSCNINTX
+                                             FROM V$MEMGC
+                                            LIMIT 1));
+```
+
+Disk GC gap:
+
+```sql
+SELECT ADD_TSS_CNT - GC_TSS_CNT FROM v$DISKGC;
+```
+
+Lock holder query:
+
+```sql
+SELECT ID STMT_ID, SESSION_ID, QUERY
+  FROM V$STATEMENT
+ WHERE TX_ID = #Trans ID#;
+```
+
+SQL plan cache hit and miss counts:
+
+```sql
+select CACHE_HIT_COUNT, CACHE_MISS_COUNT from v$sql_plan_cache;
+```
+
+Total statement count for `SQL_PLAN_CACHE_BUCKET_CNT` sizing:
+
+```sql
+select count(*) as total_number_of_statement from v$statement;
+```
+
+Mutex and wait evidence:
+
+```sql
+select * from v$mutex order by miss_count desc limit 10;
+select event, wait_time from v$statement where wait_time > 1;
+select event, TOTAL_WAITS, time_waited from v$system_event order by 2,3;
+```
+
+### Performance properties and sizing formulas
+
+```text
+IPC_CHANNEL_COUNT > 0
+PREPARE_LOG_FILE_COUNT default 5, double and retest up to 100 when LF_PREPARE_WAIT_COUNT > 1
+CHECKPOINT_BULK_WRITE_PAGE_COUNT 0 => 100
+CHECKPOINT_BULK_WRITE_SLEEP_SEC 0 => 0
+CHECKPOINT_BULK_WRITE_SLEEP_USEC 0 => 5000
+CHECKPOINT_BULK_SYNC_PAGE_COUNT 3200 => 100
+MULTIPLEXING_THREAD_COUNT test at 2x to 4x CPU cores
+AGER_WAIT_MINIMUM = 200000 microseconds
+AGER_WAIT_MAXIMUM = 1000000 microseconds
+HOT_LIST_PCT default 50
+SQL_PLAN_CACHE_SIZE default example 67108864
+SQL_PLAN_CACHE_BUCKET_CNT default example 127; source sizing rule: total_number_of_statement / 4
+SQL_PLAN_CACHE_HOT_REGION_LRU_RATIO default example 50
+SQL_PLAN_CACHE_PREPARED_EXECUTION_CONTEXT_CNT default example 1; source recommendation: similar to CPU count
+```
+
+```sql
+alter system set HOT_LIST_PCT = 60;
+```
+
+DRDB index build properties:
+
+```text
+6.5.1~7.1.0:
+BUFFER_AREA_SIZE = larger values are generally better
+SORT_AREA_SIZE = physical core count * 20 MB
+DISK_INDEX_BUILD_MERGE_PAGE_COUNT = 1% of BUFFER_AREA_SIZE, subject to merge-page caveat
+INDEX_BUILD_THREAD_COUNT = physical core count
+
+7.3.0 or later:
+BUFFER_AREA_SIZE = larger values are generally better
+DISK_INDEX_BUILD_SORT_AREA_SIZE = physical core count * 20 MB
+DISK_INDEX_BUILD_MERGE_PAGE_COUNT = 1% of BUFFER_AREA_SIZE
+INDEX_BUILD_THREAD_COUNT = physical core count
+```
+
+### System-side commands
+
+```sh
+time dd if=/dev/zero of=MyTestFile bs=1M count=1024
+pstack $ALTIBASE_PID
+```
+
+Collect `pstack` three times with a sleep interval such as `10` seconds when deeper evidence is needed.
+
 ### Session and timeout SQL
 
 ```sql
@@ -508,7 +991,17 @@ For cursor problems, the main corrective actions are to check errors at `PREPARE
 
 For LOB query errors, switch to non-auto-commit mode before selecting LOB columns unless the environment is ALTIBASE HDB 6.3.1 or later JDBC with client-side commit control configured.
 
-For SQL performance validation, the Development Guide's R015 source only covers basic execution-plan checking with `ALTER SESSION SET EXPLAIN PLAN = ON`; deeper optimizer, index, partitioning, and SQL Tuning Guide content belongs to R016.
+For SQL performance validation, start with plan evidence and access counts. Use `EXPLAIN PLAN = ON` when actual access counts are needed and `EXPLAIN PLAN = ONLY` when executing the statement would be too expensive. If a plan shows unexpected `FULL SCAN`, verify predicate form, data type matching, composite-index leading columns, unsupported function-based-index expectations, and `NOT IN` subquery patterns.
+
+If `INDEX SCAN` appears but the query remains slow, inspect cardinality and `ACCESS` count. For composite indexes, verify that the predicate can use the leading column sequence. Enable predicate trace detail only for diagnostic sessions where the additional log volume is acceptable.
+
+For application-side symptoms, compare prepare and execute counts, long-running statements, full-scan plans, connection counts, and connection types before changing database properties. The English-only diagnostic source explicitly treats application logic as the most common cause of performance problems.
+
+For database-side symptoms, do not tune properties blindly. Each property has a source caveat: `PREPARE_LOG_FILE_COUNT` consumes memory, checkpoint write tuning can lengthen checkpoint duration and require more log disk, faster Ager wake-up consumes CPU, `HOT_LIST_PCT` depends on access patterns, and plan-cache execution contexts can enlarge plan memory without improving performance.
+
+For system-side symptoms, collect OS evidence during the same time window as DB evidence. Correlate `dd`, `vmstat`, `iostat`, `pstack`, `V$MUTEX`, `V$STATEMENT`, and `V$SYSTEM_EVENT` rather than interpreting one sample in isolation.
+
+For large DRDB index builds, check the Altibase version before choosing sort-area properties. `SORT_AREA_SIZE` applies to version `6.5.1~7.1.0`, while `DISK_INDEX_BUILD_SORT_AREA_SIZE` applies to version `7.3.0 or later`.
 
 For stored procedure body inspection, use the helper procedures when SQL access to meta tables is enough. Use `aexport` when file-based object DDL extraction is needed. For a single object, use the `-object` option only on ALTIBASE HDB 5.5.1 or later.
 
@@ -523,7 +1016,10 @@ For the `SQL%ROWCOUNT` procedure example, the source notes that copying a proced
 | Stored procedure content inspection FAQ | Applies to all versions of ALTIBASE HDB. |
 | `aexport -object user_name.procedure_name` | Available starting from ALTIBASE HDB 5.5.1. |
 | LOB query in auto-commit mode using JDBC client-side commit control | Available with ALTIBASE HDB 6.3.1 or later JDBC driver. |
-| R015 execution plan check | Development Guide source shows `ALTER SESSION SET EXPLAIN PLAN = ON`; deeper tuning version boundaries are R016-owned. |
+| Altibase SQL Tuning Guide PDF | Markdown page says the guide was written based on Altibase v5; the PDF content is preserved as source guidance with that legacy context. |
+| Partition table limitation in Development Guide | As of version `7.3.0`, partitioned local indexes and non-partitioned global indexes are supported; partitioned global indexes are not supported. |
+| English-only performance diagnostics FAQ | Applies to ALTIBASE HDB `4.3.9 or later`; classify as English-only auxiliary. |
+| DRDB index build settings | Use `SORT_AREA_SIZE` for `6.5.1~7.1.0`; use `DISK_INDEX_BUILD_SORT_AREA_SIZE` for `7.3.0 or later`. |
 
 ## Related errors
 
@@ -538,8 +1034,26 @@ For the `SQL%ROWCOUNT` procedure example, the source notes that copying a proced
 | `The session has been closed by the server` | Application message for `FETCH_TIMEOUT`, `IDLE_TIMEOUT`, or `UTRANS_TIMEOUT`. |
 | `ERR-91101` | LOB data cannot be operated on while the connection is in auto-commit mode. |
 | `Not defined (XX)` | Can be a misleading later error when `PREPARE` or `DECLARE CURSOR` errors were not checked. |
+| `TRX_UPDATE_MAX_LOGSIZE` error text | Bulk changes can exceed the configured redo-log limit; R013 keeps the exact error entry, while R016 covers the performance cause and large-change caveat. |
+| `Too many pages are allocated` | Memory tablespace exhaustion can follow growth or mass changes; check memory tablespace usage and `MEM_MAX_DB_SIZE` in the operations topic before increasing capacity. |
+| `The Tablespace does not have enough free space` | Disk tablespace free-space shortage can appear as a performance or DML failure symptom; add data files according to operations guidance. |
+| `ERR-311E0` | Disk-table sort/group index-key size issue is covered in the troubleshooting topic; R016 cross-references it when memory temporary tablespace or disk temp behavior affects performance. |
+| `ERR-31283` | Partitioned-table local non-prefixed primary/unique index restriction is covered in the troubleshooting topic; R016 preserves the partition/index design caveat. |
 
 ## Attachments and external references
+
+Preserved R016 SQL Tuning Guide document attachments:
+
+- English source attachment: `D68_Altibase_SQL_Tuning_Guide.pdf` - `https://docs.altibase.com/download/attachments/22643010/D68_Altibase_SQL_Tuning_Guide.pdf?version=1&modificationDate=1761005430000&api=v2`
+- Korean source attachment preserved in English target: `D68_Altibase_SQL_Tuning_Guide.pdf` - `https://docs.altibase.com/download/attachments/19333563/D68_Altibase_SQL_Tuning_Guide.pdf?version=1&modificationDate=1697696104000&api=v2`
+
+English-only performance diagnostic source links:
+
+- `https://docs.altibase.com/display/FAQE/Performance+diagnostics+for+ALTIBASE+HDB`
+- `https://docs.altibase.com/display/FAQE/1.+Application+side+diagnostics`
+- `https://docs.altibase.com/display/FAQE/2.+Database+side+diagnostics`
+- `https://docs.altibase.com/display/FAQE/3.+System+side+diagnostics`
+- `http://atc.altibase.com/sub09/551b/html/Admin/ch03s128.html` - `V$STATNAME` explanation linked by the English-only application diagnostics source.
 
 Preserved R015 support artifact:
 
@@ -581,3 +1095,15 @@ Development Guide legacy document labels from the wider guide source are source 
 | `showProcedures`, `showProcBody`, `SQL%ROWCOUNT` | Do not translate | Stored procedure helper names and row-count attribute. |
 | `aexport`, `ALL_CRT_PROC.sql`, `user_name_procedure_name_CRT.sql` | Do not translate | Utility and generated files for procedure DDL extraction. |
 | `SP_DML_RECORD_COUNT.txt` | Do not translate | Preserved support artifact filename for the `SQL%ROWCOUNT` example. |
+| `Hybrid Partitioned Table (HPT)` | Preserve full term and abbreviation | One logical table with memory and disk partitions. |
+| `EXPLAIN PLAN`, `FULL SCAN`, `INDEX SCAN`, `ACCESS`, `KEY`, `FILTER` | Do not translate | Execution-plan controls and plan evidence terms. |
+| `TRCLOG_PREDICATE`, `TRCLOG_DETAIL_PREDICATE`, `TIMED_STATISTICS` | Do not translate | Diagnostic properties used for performance evidence. |
+| `V$STATEMENT`, `V$PLANTEXT`, `V$SQLTEXT`, `V$SYSSTAT`, `V$SESSTAT`, `V$SESSION`, `V$SERVICE_THREAD`, `V$PROPERTY`, `V$LFG`, `V$MEMGC`, `V$DISKGC`, `V$TRANSACTION`, `V$MUTEX`, `V$SYSTEM_EVENT` | Do not translate | Performance views used by R016 diagnostics. |
+| `TEMP_TBS_MEMORY` | Do not translate | Hint used to place temporary work in memory for memory/disk table join cases. |
+| `IPC_CHANNEL_COUNT`, `PREPARE_LOG_FILE_COUNT`, `MULTIPLEXING_THREAD_COUNT`, `MULTIPLEXING_MAX_THREAD_COUNT` | Do not translate | Connection and service-thread performance properties. |
+| `CHECKPOINT_BULK_WRITE_PAGE_COUNT`, `CHECKPOINT_BULK_WRITE_SLEEP_SEC`, `CHECKPOINT_BULK_WRITE_SLEEP_USEC`, `CHECKPOINT_BULK_SYNC_PAGE_COUNT` | Do not translate | Checkpoint I/O tuning properties. |
+| `AGER_WAIT_MINIMUM`, `AGER_WAIT_MAXIMUM`, `BUFFER_AREA_SIZE`, `HOT_LIST_PCT`, `BUFFER_POOL_SIZE` | Do not translate | GC, buffer cache, and disk-table performance properties. |
+| `SQL_PLAN_CACHE_SIZE`, `SQL_PLAN_CACHE_BUCKET_CNT`, `SQL_PLAN_CACHE_HOT_REGION_LRU_RATIO`, `SQL_PLAN_CACHE_PREPARED_EXECUTION_CONTEXT_CNT` | Do not translate | SQL plan-cache tuning properties. |
+| `SORT_AREA_SIZE`, `DISK_INDEX_BUILD_SORT_AREA_SIZE`, `DISK_INDEX_BUILD_MERGE_PAGE_COUNT`, `INDEX_BUILD_THREAD_COUNT` | Do not translate | Large DRDB index build tuning properties. |
+| `LOG_IO_TYPE`, `DATABASE_IO_TYPE`, `DIRECT_IO_ENABLED` | Do not translate | Direct I/O related properties. |
+| `pstack`, `vmstat`, `iostat`, `dd`, `$ALTIBASE_PID`, `$ALTIBASE_HOME/conf/glogin.sql` | Do not translate | OS commands, environment variable, and startup SQL path used in diagnostics. |

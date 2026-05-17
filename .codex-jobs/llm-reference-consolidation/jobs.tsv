@@ -14,7 +14,7 @@ R012	Done	docs	CPU memory OS evidence diagnostics	Build exhaustive CPU overload,
 R013	Done	docs	Troubleshooting Korean-source errors	Build exhaustive Korean-source-verified troubleshooting and error-message coverage.
 R014	Done	docs	English-only error troubleshooting catalog	Integrate or index English-only error and troubleshooting sources with explicit source labels.
 R015	Done	docs	SQL stored procedures query behavior	Build exhaustive SQL, stored procedure, query behavior, examples, limits, and FAQ coverage.
-R016	ToDo	docs	Performance tuning optimizer indexes	Build exhaustive tuning, optimizer, index, partitioning, HPT, and performance diagnostic coverage.
+R016	Done	docs	Performance tuning optimizer indexes	Build exhaustive tuning, optimizer, index, partitioning, HPT, and performance diagnostic coverage.
 R017	ToDo	docs	APRE precompiler C C++ development	Build exhaustive APRE, SES, precompiler, C/C++, Makefile, and sample-code coverage.
 R018	ToDo	docs	Java JDBC ODBC ADO.NET PHP API	Build exhaustive Java, JDBC, ODBC, unixODBC, ADO.NET, PHP, driver, connection, and API FAQ coverage.
 R019	ToDo	docs	WAS and framework integration	Build exhaustive Tomcat, JEUS, JBoss, WebLogic, WebSphere, Spring, iBATIS, MyBatis, and Hibernate coverage.
