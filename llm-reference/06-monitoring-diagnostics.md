@@ -46,13 +46,37 @@ R011 source paths covered in this revision:
 - `FAQE/Home/08. Monitoring/Undo Tablespace/Monitoring method when undo tablespace usage increases__22642963.md`
 - `FAQE/Home/08. Monitoring/Undo Tablespace/Undo tablespace usage__22642965.md`
 
+R012 source paths covered in this revision:
+
+- `arch/Home/Altibase CPU Overload Analysis Guide__14647581.md`
+- `arch/Home/Altibase CPU Overload Analysis Guide/1. Routine Checklist__14647587.md`
+- `arch/Home/Altibase CPU Overload Analysis Guide/2. General Analysis Procedure__14647591.md`
+- `arch/Home/Altibase CPU Overload Analysis Guide/3. CPU Cost of Query Processing__14647598.md`
+- `arch/Home/Altibase CPU Overload Analysis Guide/4. CPU problems with other cases__14647606.md`
+- `arch/Home/Altibase CPU Overload Analysis Guide/5. Summary__14647615.md`
+- `arch/Home/Altibase Memory Usage Increase Analysis Guide__14647388.md`
+- `arch/Home/Altibase Memory Usage Increase Analysis Guide/1. Routine Check of Memory Usage__14647392.md`
+- `arch/Home/Altibase Memory Usage Increase Analysis Guide/2. Causes and resolution for increase of Altibase process memory usage__14647396.md`
+- `arch/Home/Altibase Development Guide/3. Altibase Trace Logs__22643000.md`
+- `FAQE/Home/12. Others/Thread process debugging method__16876474.md`
+- `arch/Home/Responding to Failures Guide for Altibase__15138818.md` (diagnostic evidence sections)
+- `arch/Home/Responding to Failures Guide for Altibase/1. Classification by type of failure__15138822.md` (diagnostic evidence sections)
+- `arch/Home/Responding to Failures Guide for Altibase/2. Procedure by type of failure__15138835.md` (diagnostic evidence sections)
+- `arch/Home/Responding to Failures Guide for Altibase/3. References__15138869.md` (diagnostic evidence sections)
+
 ## Source coverage notes
 
 This document covers R011: monitoring SQL, system and performance views, session and statement checks, lock and transaction checks, redo log checks, GC checks, memory and tablespace checks, object metadata, privileges, constraints, replication monitoring, `altimon`, `altiProfile`, OS-system evidence examples, and every Korean-source-verified monitoring FAQ variant under `FAQE/Home/08. Monitoring/**`.
 
+It also covers R012: CPU overload analysis, memory usage growth analysis, OS evidence collection, trace-log interpretation, dump and crash evidence, hang stack collection, and diagnostic decision points from the failure-response guide. The failure-response sources remain primarily owned by R009 for backup/recovery and service-failure response, but their diagnostic evidence units are cross-covered here because R012 owns monitoring and diagnostics answerability.
+
 The architecture monitoring-query guide sources are classified as `Link-validated Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv`. Most monitoring FAQ sources are `Korean-source-verified`; `FAQE/Home/08. Monitoring/Monitoring Tools for Windows__16876220.md` and `FAQE/Home/08. Monitoring/How to set up and execute altimon__16876266.md` are `Link-validated Korean-source-verified` because Phase 2 validated their links and attachments.
 
-No English-only auxiliary material is used in this R011 revision. The source set includes one preserved monitoring-guide PDF, `altimon_for_windows.zip`, `ALTIMON_USER_GUIDE.pdf`, several non-document-format `altimon` support archives/configuration files, Windows `.bat` and `.vbs` helper files, and embedded PNG/JPEG diagrams or screenshots. These are recorded in `llm-reference/coverage/attachment-diagram-register.tsv` without inventing missing URLs. The legacy `ALTIMON USER GUIDE` hash-only label is preserved as a source limitation with `no downloadable URL in source`.
+The R012 CPU, memory, and Altibase trace-log technical sources are `Link-validated Korean-source-verified`; the thread debugging FAQ and diagnostic failure-response sections are `Korean-source-verified`. No English-only auxiliary material is used in R012.
+
+No English-only auxiliary material is used in the R011/R012 source set covered by this document revision. The source set includes one preserved monitoring-guide PDF, `altimon_for_windows.zip`, `ALTIMON_USER_GUIDE.pdf`, several non-document-format `altimon` support archives/configuration files, Windows `.bat` and `.vbs` helper files, and embedded PNG/JPEG diagrams or screenshots. These are recorded in `llm-reference/coverage/attachment-diagram-register.tsv` without inventing missing URLs. The legacy `ALTIMON USER GUIDE` hash-only label is preserved as a source limitation with `no downloadable URL in source`.
+
+R012 attachments include the preserved Korean CPU and memory analysis PDFs and non-document-format AIX, HP-UX, and Linux memory command screenshots. The screenshots are registered as `not_document_format`; their answerable command and calculation semantics are represented in text without reconstructing image-only details.
 
 Because the source contains many exact SQL variants, this topic keeps a curated explanation first and then preserves every source code block in the `Exact SQL, Command, and Configuration Catalog` section. Use the catalog when an answer needs an exact statement, command, profile output format, or version-specific query variant.
 
@@ -4878,6 +4902,574 @@ SYS_TBS_DISK_UNDO               2047.99     302         122.25      84.25       
 1 row selected.
 ````
 
+## CPU, Memory, OS Evidence, Logs, and Dump Diagnostics
+
+### Diagnostic decision tree
+
+Use this sequence for R012-style investigations:
+
+1. Decide whether the symptom is CPU overload, memory growth, hang/no response, crash/abnormal termination, connection failure, disk/resource exhaustion, or replication evidence.
+2. Collect time-series OS and Altibase counters before interpreting a single high value. CPU, memory, session, service-thread, and execute/prepare counters must be compared with normal same-hour or same-day history.
+3. If CPU rose with transaction throughput, session count, service-thread count, and `V$SYSSTAT` execute/prepare counters, first treat it as increased workload and find the workload source.
+4. If CPU rose without a workload change, inspect long-running SQL, new application releases, data growth, optimizer-plan changes, character-set conversion, service-thread growth, OS thread settings, and frequent connect/disconnect patterns.
+5. If memory usage rose, separate OS memory shortage from Altibase process memory growth. Then use `V$MEMSTAT`, memory table usage, statement counts, MVCC copy behavior, and GC aging state to identify the module or table.
+6. If Altibase appears hung or new connections do not respond while the process exists, collect stack snapshots and logs before restarting or killing the process.
+7. For abnormal termination, send the complete `$ALTIBASE_HOME/trc` directory because `altibase_error.log`, `altibase_dump.log`, and module logs provide complementary evidence.
+
+### CPU overload analysis
+
+Altibase CPU usage can come from both user-space application processing and system/kernel activity. Query processing, client communication, replication, and disk I/O can all consume CPU. The CPU guide is based on `Altibase version 6 or later` on Linux `2.6.32-504.el6.x86_64`.
+
+Routine CPU history must include:
+
+| Evidence | How to collect | Interpretation |
+| --- | --- | --- |
+| Hourly/daily CPU utilization | OS process CPU command such as `ps -o pcpu -p $ALTIPID` | Altibase does not provide its own CPU utilization rate, so OS history is required. |
+| Transaction throughput by time/day | Application TPS history or `V$SYSSTAT` execute/prepare counters | `V$SYSSTAT` values are cumulative; compare recent minus previous over the interval. |
+| Service-thread and session count | `V$SERVICE_THREAD` and `V$SESSION` | More sessions or workload can create more service threads; this may be normal load-balancing or a symptom of long-running/locking work. |
+
+Core CPU routine SQL:
+
+```sql
+select name,value
+from V$SYSSTAT
+where name in ('execute success count',
+               'prepare success count',
+               'prepare failure count');
+```
+
+```sql
+SELECT COUNT(*) AS THREAD FROM V$SERVICE_THREAD;
+SELECT COUNT(*) AS SESSION FROM V$SESSION;
+```
+
+The CPU routine script records Altibase process CPU, session count, service-thread count, and cumulative execute/prepare counts every 30 seconds:
+
+```bash
+# gettps.sh
+ALTIPID=`ps -ef | grep $USER | grep  "bin/altibase -p boot"  | grep -v grep | awk '{print $2}'`
+MAXCOUNT=3
+COUNT=0
+INTERVAL=30
+LOGFILE=altitps.log
+
+do_getExecuteCount()
+{
+is -silent <<EOF
+set linesize 1024;
+set colsize 50;
+set feedback off;
+set heading off;
+select 'RESULT='||( select count(*) from v\$session )
+       ||'=' || ( select count(*) from v\$service_thread )
+       ||'=' || ( select sum(value) from v\$sysstat where name in ( 'execute success count','prepare success count','prepare failure count') )
+from dual;
+EOF
+}
+
+while [ $COUNT -lt $MAXCOUNT ]
+do
+ALTICPU=`ps -o pcpu -p $ALTIPID | grep -v CPU`
+EXECRESULT=`do_getExecuteCount`
+SESSIONCNT=`echo $EXECRESULT | grep "RESULT=" | cut -d'=' -f 2| tr -d ' '`
+THREADCNT=`echo $EXECRESULT | grep "RESULT=" | cut -d'=' -f 3 | tr -d ' '`
+EXECCNT=`echo $EXECRESULT | grep "RESULT=" | cut -d'=' -f 4 | tr -d ' '`
+echo  `date "+%Y%m%d %H%M%S: CPU USAGE="`$ALTICPU" SESSIONCNT=$SESSIONCNT THREADCNT=$THREADCNT EXECCNT=$EXECCNT"
+
+sleep  $INTERVAL
+COUNT=`expr $COUNT + 1`
+done
+```
+
+If CPU, `SESSIONCNT`, `THREADCNT`, and `EXECCNT` rise together, calculate per-interval `EXECCNT` delta and TPS, for example `(185834 - 181813) / 30 seconds = 134 TPS`. Then determine whether the overload is just normal transaction growth or whether an application/query pattern caused the growth.
+
+Long-running SQL is the first SQL-level evidence to collect when CPU rises:
+
+```sql
+-- Search for long-running queries whose execution time or result fetch time is 1 second or more
+SELECT A.SESSION_ID,
+       A.CLIENT_PID,
+       B.QUERY,
+       B.EXECUTE_TIME,
+       B.FETCH_TIME
+  FROM V$SESSION A,
+       V$STATEMENT B
+ WHERE A.ID = B.SESSION_ID
+   AND (B.EXECUTE_TIME > 1000000 OR B.FETCH_TIME > 1000000);
+```
+
+CPU diagnosis decision points:
+
+| Decision point | Evidence | Action |
+| --- | --- | --- |
+| More transaction processing than usual | `Session`, `Service Thread`, and `Prepare/Execute` counters all increase with CPU | Treat as a normal pattern only after identifying the service/query responsible for the new workload. |
+| Newly added service or application | Release time coincides with CPU increase | Analyze execution plans for new queries and tune high execution-time or high access-cost SQL. |
+| Data growth exposed an old query problem | No service/config/version change, but table size grew | Compare current plans and access cost with previous plans; an index that was efficient on small data can become inefficient. |
+| Optimizer-plan change | Statistics changed after data growth or DDL/index changes | Check execution plan output or `V$PLANTEXT`; monitor statement/query status with the monitoring-query guide. |
+| Repeated `PREPARE` | `prepare success count` or `prepare failure count` grows excessively | Change application structure to avoid repeated prepare, or use `PLAN-CACHE` from Altibase 5. |
+| Memory-table scan or index overuse | Full scan or high index access cost on memory tables | Monitor execution plans regularly; memory-table indexes store converted key/pointer values and still require physical data access. |
+| Disk-table I/O path | Buffered I/O or Direct I/O behavior affects apparent CPU | Buffered I/O consumes CPU for system calls and file-cache synchronization; Direct I/O can make CPU usage appear higher while improving throughput. |
+
+PVO is Prepare-Validation-Optimization, query-processing steps 1 through 3: grammar checking, table/column existence checking, and optimal execution-plan selection. EXECUTE is step 4: data access and data acquisition/change. The source states that PVO generally accounts for about `60%` to `70%` of total query-processing cost, so repeated `PREPARE-EXECUTE` can waste CPU.
+
+Repeated prepare evidence:
+
+```sql
+iSQL> SELECT * FROM V$SYSSTAT WHERE NAME LIKE '%prepare%count%';
+SEQNUM      NAME                            VALUE
+---------------------------------------------------------------------
+37          prepare success count           25522
+38          prepare failure count           56
+```
+
+To map repeated prepare activity to an application, combine `V$SESSTAT` with `V$SESSION`, because `V$SESSTAT` breaks `V$SYSSTAT`-style values down by session and `V$SESSION` shows process PID.
+
+Character-set mismatch can increase CPU because Altibase must internally convert encodings. Match `NLS_USE` between the DB server and the application:
+
+```sql
+-- Query to check client's NLS_USE
+iSQL> select id, comm_name, client_nls from v$session;
+
+-- Query to check DB charset
+iSQL> select * from v$nls_parameters;
+SESSION_ID : 1
+NLS_USE : US7ASCII <---- current client's character set
+NLS_CHARACTERSET : MS949 <--- DB server's character set
+NLS_NCHAR_CHARACTERSET : UTF8
+NLS_COMP : BINARY
+NLS_NCHAR_CONV_EXCP : FALSE
+NLS_NCHAR_LITERAL_REPLACE : FALSE
+1 row selected.
+```
+
+In the Altibase `4.3.x` range, CPU usage can increase because `Select-Poll` system calls increase as `Dedicated Thread` instances increase. Query the service-thread state:
+
+```sql
+iSQL> select type,state, run_mode, count(*)
+    2 from v$service_thread
+    3 group by type,state, run_mode;
+TYPE                  STATE       RUN_MODE   COUNT(*)
+-----------------------------------------------------------------------
+IPC                   POLL        DEDICATED  1
+SOCKET(MULTIPLEXING)  EXECUTE     SHARED     1
+SOCKET(MULTIPLEXING)  POLL        SHARED     31
+3 rows selected.
+```
+
+One mitigation is increasing `MULTIPLEXING_POLL_TIMEOUT` to reduce `Select-Poll` frequency, but the root causes are increased sessions, increased transaction load, long-running queries, or lock contention.
+
+Frequent connect/disconnect makes `V$STATEMENT` less useful because statements disappear with sessions. Check cumulative logon and prepare counters:
+
+```sql
+-- Identify whether frequent connect/disconnect is performed (frequent connect/disconnect causes performance reduction)
+SELECT NAME, VALUE FROM V$SYSSTAT WHERE NAME LIKE '%logon cum%';
+
+-- Determine if CPU is used inefficiently by performing repetitive PREPARE process
+SELECT NAME, VALUE FROM V$SYSSTAT WHERE NAME LIKE '%prepare%count%';
+```
+
+If frequent DB access cannot be redesigned away, use profiling carefully:
+
+```sql
+ALTER SYSTEM SET TIMED_STATISTICS=1;
+ALTER SYSTEM SET QUERY_PROF_FLAG=1;  -- Execute the function
+ALTER SYSTEM SET QUERY_PROF_FLAG=0;  -- Terminate the function
+```
+
+Profile files are binary `*.prof` files under `$ALTIBASE_HOME/trc/`. Convert them with:
+
+```bash
+shell>  altiProfile alti-13109987-0.prof > log1.txt
+```
+
+Use profiling for a bounded window only. It records all executed SQL and detailed execution-time information, can degrade DB performance, and can create disk pressure under `$ALTIBASE_HOME/trc/`.
+
+### Memory growth analysis
+
+The memory guide is based on `Altibase version 7 or later` on Linux `2.6.32-504.el6.x86_64`. It covers Altibase process memory growth, not memory growth caused by non-Altibase processes.
+
+OS memory checks:
+
+| OS | Command/evidence | Source interpretation |
+| --- | --- | --- |
+| AIX | `svmon` output | `size` is total physical pages, `inuse` is physical pages in use, `free` is unused physical pages, `pin` cannot be swapped out, `virtual` is VMM pages, and `pg space` is paging-space usage. A page is `4096` bytes. |
+| HP-UX | `glance`, then press `m` | Available memory is interpreted from physical memory, system, user, file cache, buffer cache, and free components. |
+| Linux | `top` and `free -m` | Available memory is calculated as `free + buffers + cached`; actual used memory is `used - cached - buffers`. |
+
+Linux example calculation from the source:
+
+| Item | Calculation |
+| --- | --- |
+| Total physical memory | `16630888k` |
+| Actual memory in use | `16559108k - 16034200k - 100516k = 424392k` |
+| Actual available memory | `71780k + 100516k + 16034200k = 16206496k` |
+| Total memory check | `424392k + 16206496k = 16630888k` |
+
+Routine memory history must include Altibase process memory utilization from OS commands, `V$MEMSTAT` detail, and service-thread/session counts:
+
+```sql
+select * from v$memstat order by alloc_size desc;
+```
+
+The memory routine script extends the CPU routine by adding process memory percentage:
+
+```bash
+# gettps.sh
+ALTIPID=`ps -ef | grep $USER | grep  "bin/altibase -p boot"  | grep -v grep | awk '{print $2}'`
+MAXCOUNT=3
+COUNT=0
+INTERVAL=30
+
+do_getExecuteCount()
+{
+  is -silent <<EOF
+  set linesize 1024;
+  set colsize 50;
+  set feedback off;
+  set heading off;
+  select 'RESULT='||( select count(*) from v\$session )
+       ||'=' || ( select count(*) from v\$service_thread )
+       ||'=' || ( select sum(value) from v\$sysstat where name in ( 'execute success count','prepare success count','prepare failure count') )
+  from dual;
+EOF
+}
+while [ $COUNT -lt $MAXCOUNT ]
+do
+  ALTICPU=`ps -o pcpu -p $ALTIPID | grep -v CPU`
+  ALTIMEM=`ps -o pmem -p $ALTIPID | grep -v MEM`
+  EXECRESULT=`do_getExecuteCount`
+  SESSIONCNT=`echo $EXECRESULT | grep "RESULT=" | cut -d'=' -f 2| tr -d ' '`
+  THREADCNT=`echo $EXECRESULT | grep "RESULT=" | cut -d'=' -f 3 | tr -d ' '`
+  EXECCNT=`echo $EXECRESULT | grep "RESULT=" | cut -d'=' -f 4 | tr -d ' '`
+  echo  `date "+%Y%m%d %H%M%S: CPU USAGE="`$ALTICPU" " MEM USAGE=$ALTIMEM" SESSIONCNT=$SESSIONCNT THREADCNT=$THREADCNT EXECCNT=$EXECCNT"
+  sleep  $INTERVAL
+  COUNT=`expr $COUNT + 1`
+done
+```
+
+`V$MEMSTAT` module meanings:
+
+| Module | Meaning and diagnostic use |
+| --- | --- |
+| `Query_Prepare` | Memory used during SQL prepare for parsing, statistics, execution plans, and bindings. It can grow when applications repeatedly use direct execute or fail to reuse prepared statements. |
+| `Query_Execute` | Memory for sort data and intermediate SQL execution results. It can increase with memory-table SQL or `TEMP_TBS_MEMORY` hint use and should be released after execution ends. |
+| `Query_Binding` | Memory for bind variables. Growth can indicate rapidly increasing statements, very large bound data, unclosed `PrepareStatement` objects, or unlimited prepare creation during exception handling. |
+| `Storage_Memory_Manager` | Memory tablespace management and memory-table data. Growth usually means resident memory table data has grown. |
+| `Index_Memory` | Memory indexes on memory tables. Growth means memory index use increased; dropping high-memory indexes can clean it up. |
+| `Storage_Disk_Buffer` | Disk buffer manager memory for disk tablespace data. If insufficient, frequent disk page in/out can degrade performance. |
+
+Memory-growth cause matrix:
+
+| Cause | Evidence | Resolution |
+| --- | --- | --- |
+| Data in memory tables increased | Query memory table `ALLOC` and `USED`; large `ALLOC - USED` after delete means reusable table space remains allocated. | Use `ALTER TABLE table_name COMPACT;` so other tables in the same memory tablespace can use the unused space. Restart Altibase during maintenance if table-by-table compaction is difficult or if OS-visible process memory must drop. |
+| Executing SQL statement count increased | `V$STATEMENT` count grows and `Query_Prepare`, `Query_Execute`, or `Query_Binding` grows. | Check that application query objects are closed, especially `PrepareStatement.close()`, and convert similar literal SQL to bind variables such as `SELECT 1 FROM DUAL WHERE C1 = ?`. |
+| MVCC copy growth | Large change operations on memory tables create copies in table space until commit/cleanup. | Use table usage evidence, compact or restart when needed, and split large changes into batches with `LIMIT`. |
+| GC aging delay | `ADD_OID_CNT` changes but `GC_OID_CNT` stops increasing, or old transactions remain. | Find unfinished transactions blocking GC and tune or terminate the responsible query/application path. |
+
+Memory table allocation query:
+
+```sql
+set linesize 100;
+set colsize 30;
+SELECT A.TABLE_NAME
+     , (B.FIXED_ALLOC_MEM + B.VAR_ALLOC_MEM) ALLOC
+     , (B.FIXED_USED_MEM + B.VAR_USED_MEM) USED
+  FROM SYSTEM_.SYS_TABLES_ A ,
+       V$MEMTBL_INFO B
+ WHERE A.TABLE_OID = B.TABLE_OID
+   AND A.TABLE_TYPE = 'T'
+ ORDER BY 2 DESC;
+```
+
+Compact a memory table:
+
+```sql
+ALTER TABLE table_name COMPACT;
+```
+
+Java close pattern that must be present after using a prepared statement:
+
+```java
+Connection cn;
+prepareStatement ps;
+ps = cn.prepareStatement ("select...");
+...
+ps.close();
+```
+
+Similar literal SQL should be replaced with one bind-variable statement:
+
+```sql
+SELECT 1 FROM DUAL WHERE C1 = 1;
+SELECT 1 FROM DUAL WHERE C1 = 2;
+SELECT 1 FROM DUAL WHERE C1 = 3;
+
+-- Better application pattern
+SELECT 1 FROM DUAL WHERE C1 = ?;
+```
+
+Check whether GC is processing aging targets:
+
+```sql
+SELECT ADD_OID_CNT, GC_OID_CNT FROM V$MEMGC;
+```
+
+Find transactions blocking memory GC:
+
+```sql
+SELECT A.SESSION_ID,
+       B.QUERY
+  FROM V$TRANSACTION A,
+       V$STATEMENT B,
+       V$MEMGC C
+ WHERE A.ID = B.TX_ID
+   AND (A.MEMORY_VIEW_SCN = C.MINMEMSCNINTXS
+        OR A.MIN_MEMORY_LOB_VIEW_SCN = C.MINMEMSCNINTXS);
+```
+
+Memory increase related to MVCC and GC is limited to memory tables.
+
+### Failure evidence and hang diagnostics
+
+The failure-response guide covers service-unavailable failures. It explicitly excludes CPU abnormalities, waits, and performance delays due to locks from its main scope, but its evidence-collection rules are required for R012 diagnostics.
+
+Urgent failure evidence to provide to Altibase support:
+
+| Evidence | Acquisition method |
+| --- | --- |
+| System log | Use the system-problem OS log matrix below. |
+| Altibase trace log | Send all files under `$ALTIBASE_HOME/trc`. |
+| Specification at failure time | Abnormal signs and DB operation history at the time of failure. |
+
+First urgent-failure checks:
+
+```bash
+Shell> echo $ALTIBASE_HOME
+```
+
+```bash
+Shell> ps -ef  |  grep "altibase -p boot from"  |  grep -v grep
+```
+
+```bash
+Shell> is or isql -u [db user id] -p [db user password] -s 127.0.0.1 -port [port_no]
+# Example
+isql -u sys -p manager -s 127.0.0.1 -port 20300
+```
+
+If restart is required and Altibase is not already shut down, use the install account:
+
+```bash
+Shell> server kill
+Shell> server start
+```
+
+`server kill` forcefully shuts down Altibase; skip it if prior evidence already proves Altibase is down.
+
+Connection-failure triage:
+
+| Type | Evidence/action |
+| --- | --- |
+| User account restrictions | `ERR-01052(errno=24)` or `ERR-71016(errno=24)` can indicate file descriptor exhaustion. Check `ulimit -n`, set it to `unlimited` or at least `4096`, then restart Altibase. |
+| Connection input or policy error | Check DB user, password, IP address, `PORT_NO` in `$ALTIBASE_HOME/conf/altibase.properties`, password lock, and TCP restrictions. Source errors include `ERR-50032`, `ERR-31010`, `ERR-4102E`, `ERR-31370`, and `ERR-410E3`. |
+| Network failure | Use `netstat` for packet errors, then verify `ftp`/`telnet` connectivity and packet transmission/reception performance from other hosts. |
+| Insufficient disk space | Check disk with `df` or `bdf`, then add space. Never delete Altibase online log files manually because arbitrary deletion can make the database unrecoverable. |
+| Hang suspicion | Process exists, but new connection fails and existing DB sessions have no response. Collect stack snapshots, system logs, and all `$ALTIBASE_HOME/trc` logs immediately. |
+
+OS stack collection for a suspected hang:
+
+| OS | Commands | Notes |
+| --- | --- | --- |
+| SUN | `/usr/sbin/pstack -F process_id > 1.txt`, `2.txt`, `3.txt` | Execute each command in order at 30-second intervals. |
+| HP-UX | `/usr/ccs/bin/pstack process_id > 1.txt`, `2.txt`, `3.txt` | Supported on IA series systems; not supported on PA-RISC. Execute at 30-second intervals. |
+| AIX | `/usr/bin/procstack -F process_id > 1.txt`, `2.txt`, `3.txt` | Execute at 30-second intervals. |
+| Linux | `/usr/bin/pstack process_id > 1.txt`, `2.txt`, `3.txt` | Low kernel versions may not provide the command. Execute at 30-second intervals. |
+
+Thread process debugging FAQ variants:
+
+| Utility | Platform/source scope | Use |
+| --- | --- | --- |
+| `pstack` | Sun, several Unix variants, and Linux | View call stack of a running process by thread; useful for database hang. Linux syntax is `pstack processid`; Sun syntax is `pstack -F processid`. |
+| `dbx` | AIX, HP, and Sun | Attach to a running process or inspect a core file by thread. Always run `(dbx) detach`; exiting without detaching may terminate the target process. |
+| `gdb` | Systems where GNU debugger is installed | Attach with `$gdb $ALTIBASE_HOME/bin/altibase process-id`, inspect `info threads`, run `thread apply all bt`, switch with `t 1`, then `quit`. |
+
+`dbx` command sequence:
+
+```text
+shell> ps -eafl | grep altibase
+shell> dbx -a <pid of altibase process>
+(dbx) thread
+(dbx) thread current <thread number>
+(dbx) where
+(dbx) detach
+(dbx) quit
+```
+
+`gdb` command sequence:
+
+```text
+shell> $gdb $ALTIBASE_HOME/bin/altibase process-id
+(gdb) info threads
+(gdb) thread apply all bt
+(gdb) t 1
+(gdb) bt
+(gdb) quit
+```
+
+System problem log matrix:
+
+| Error type | Meaning | OS evidence |
+| --- | --- | --- |
+| `Out of memory` | Insufficient memory | Check system logs and memory commands. |
+| `Resource busy` | Temporarily unable to access system resources | Check system logs. |
+| `Too many open files` | File descriptor limit exceeded | Check `ulimit -n` and file descriptor configuration. |
+| `No space left on device` | Insufficient disk space | Check `df`, `bdf`, and filesystem logs. |
+| SUN | System log path | `/var/adm/message` |
+| HP | System log path | `/var/adm/syslog/syslog.log` |
+| AIX | System log command | `errpt -a` |
+| Linux | System log path | `/var/log/message` |
+
+### Trace logs, dumps, and module-specific clues
+
+Altibase trace logs are under `$ALTIBASE_HOME/trc`. By default, log files rotate through `altibase_xx.log-[1-10]`, including `altibase_xx.log`, for 10 retained log files.
+
+Trace log classification:
+
+| File | Diagnostic meaning |
+| --- | --- |
+| `altibase_boot.log` | Start/stop process, overall DBMS operation, startup/shutdown system information, and many user-actionable startup/runtime warnings. Check this first when a DBMS error occurs. |
+| `altibase_cm.log` | Communication module warning or trace messages. |
+| `altibase_dk.log` | DB link usage information and errors. |
+| `altibase_dump.log` | Debugging logs or working memory dump when the Altibase process terminates abnormally; used to diagnose/debug Altibase program errors. |
+| `altibase_error.log` | Server errors; abnormal termination call stacks are recorded here. |
+| `altibase_ipc.log` | IPC connection resource information. |
+| `altibase_ipcda.log` | IPCDA connection resource information. |
+| `altibase_job.log` | JOB object execution information. |
+| `altibase_lb.log` | Load balancer warning or trace messages. |
+| `altibase_mm.log` | Main module processing logs. |
+| `altibase_qp.log` | DDL execution, query processing, and property changes by `ALTER SYSTEM`. |
+| `altibase_rp.log` | Replication operation status. |
+| `altibase_rp_conflict.log` | Replication conflict SQL and conflict evidence. |
+| `altibase_sm.log` | Storage manager warning/trace messages, checkpoints, online-log deletion, tablespaces, and backup records. |
+| `altibase_snmp.log` | SNMP warning or trace messages. |
+| `altibase_xa.log` | XA transaction logs. |
+| `killCheckServer.log` | Results of executing the `killCheckServer` utility. |
+
+`altibase_boot.log` examples and decisions:
+
+| Source message | Meaning/action |
+| --- | --- |
+| `ERR-0108d (errno=0) License is invalid or expired.` | License file is missing or incorrect during startup; check license and reissue if needed. |
+| `ERR-01052(errno=13) Unable to invoke open() function on [/dbs/mydb-0-0]` | DB was not created, file permission is missing, or data file was deleted; create DB, check permissions, or recover from backup. |
+| `ERR-01052(errno=2) Unable to invoke open() function on [/dblog01/logfile536358]` | Redo log required for automatic recovery is damaged or missing; request Altibase technical support. |
+| `ERR-0001c(errno=76) Unable to shutdown the communication channel` | Warning during shutdown session cleanup; no operational effect. |
+| `ERR-71019 (errno=104) Failed to invoke a system function, write() (read, accept, select)` | Disk or network error, possible insufficient memory; check filesystem and network. |
+| `ERR-40029 (errno=16) Failed to invoke a system function, flock_trywrlock()` | Altibase already running, restarting while running, or system call failed from insufficient memory. |
+| `ERR-11018 (errno=2) The version of data file for backup is not compatible with the version of storage manager.` | Backup data file is incompatible with current Altibase version or backup-time settings. |
+| `[ERROR] first write () operation failed. errno=32` | Session disconnected during read/write system call; warning, often from forced application shutdown, no operational effect. |
+| `ERR-7101d(errno=11) Protocol header error.` | Incompatible client/server version attempted to connect to Altibase port; trace with connection information. |
+| `ERR-4000f(errno=2) No Error Message Loaded` | `$ALTIBASE_HOME/msg/` files are missing, incompatible, or unreadable. |
+| `[Notify : Query Timeout]`, `[Notify : Fetch Timeout]`, `[Notify : Utrans Timeout]`, `[Notify : Idle Timeout]` | Timeout warning; session information is logged for investigation. |
+| `ERR-01027(errno=0) No more IPC channel (MAX=50, USED=50, BUFSIZE=65536)` | IPC access exceeded available resources. |
+| `[Warning] Memory allocation failed. Size:524320 Timeout: 0 ERR-61055(errno=12) Memory allocation failure` | Internally required memory allocation failed; determine insufficient memory cause. If swap is exhausted, Altibase may terminate abnormally without warning. |
+| `ioctl() failed` | Temporary system-call problem during socket or disk I/O; generally ignorable, but check network or disk. |
+| `File Extending Failed. : The disk space has been exhausted.` | Required file could not be created/extended due to disk capacity; add disk space. |
+
+`altibase_sm.log` checkpoint and backup clues:
+
+| Message | Meaning/action |
+| --- | --- |
+| `[CHECKPOINT-BEGIN]` | Checkpoint started. |
+| `Remove Online Log File at LFG [0]: File[220 ~ 227]` | Unneeded transaction log files are removed during checkpoint. If it is continuously `File [None]`, check for long-running queries or unsent replication. |
+| `[CHECKPOINT-summary] BeginChkptLSN=..., EndChkptLSN=..., DiskRecLSN=...` | Checkpoint completed and summary is logged. |
+| `[CHECKPOINT-END]` | Checkpoint completed successfully. |
+| `Minimum LSN = [0,83,9824136]` | Offset of a transaction in progress. If unchanged, check long-running query or replication not transmitted. |
+| `Database-Level Backup Completed [SUCCESS]` | Database-level backup succeeded. |
+| `DISK TABLESPACE .... DATABASE ....`, `~/loganchor0 BACKUP TO`, `MEMORY TABLESPACE DATAFILE ... BACKUP TO ...` | Disk tablespace, log anchor, and memory tablespace backup evidence. |
+
+`altibase_qp.log` records DDL and property changes:
+
+| Message | Meaning |
+| --- | --- |
+| `[EXEC_DDL_BEGIN : create index T1_IDX on T1 (A)]` | User DDL began. |
+| `[EXEC_DDL_END : SUCCESS]` | User DDL completed normally. |
+| `[EXEC_DDL_END : FAILURE] errorcode 1627549735.` | User DDL failed and error detail is logged. |
+| `[SET-PROP] CHECKPOINT_BULK_WRITE_PAGE_COUNT=[0]` | System-wide property changed by user. |
+
+`altibase_rp.log` and `altibase_rp_conflict.log` clues:
+
+| Log/source | Meaning/action |
+| --- | --- |
+| `ERR-31017(errno=0) Replication not found` | Replication target object does not exist during DDL; check target object. |
+| `ERR-6200f(errno=16) [Sender] Stop sender thread REP1 ...` | Replication sender explicitly stopped by user. |
+| `ERR-61012`, `ERR-61022`, `ERR-61003`, `ERR-6100d` sender connection/handshake messages | Sender cannot connect and is retrying; check peer server, network, and Altibase status. If peer replication was explicitly dropped, this can be normal. |
+| `[Recovery Sender] Replication REP1 Start...` and `[Receiver] Replication REP1 Started ...` | Replication/sender/receiver started normally. |
+| `RECEIVER:REPLICATION STOP MSG arrived!` | Peer explicitly stopped replication. |
+| `ERR-61047`, `ERR-61048`, `ERR-6104b` receiver messages | Receiver thread ended due to error. |
+| `ERR-61036` / `ERR-61000` delete conflict | DELETE replication record not found on receiver. |
+| `ERR-61035` / `ERR-61001` update conflict | Before/after values differ during UPDATE replication. |
+| `ERR-6103a` / `ERR-61000` update not found | UPDATE target record not found on receiver. |
+| `ERR-11058` | INSERT conflict because the row already exists in a unique index. |
+
+`altibase_dk.log` examples:
+
+| Message | Meaning/action |
+| --- | --- |
+| `ERR-b1070(errno=0) ODBC problem occurred [0:IM002:[unixODBC][Driver Manager]Data source name not found, and no default driver specified]` | DSN not found or `LD_LIBRARY_PATH` not set. |
+| `ERR-b1070(errno=239) ODBC problem occurred [327730:08001:Client unable to establish connection.]` | Cannot connect to Altibase server or `odbc.ini` environment variable is not set; check server state and add `odbc.ini` to environment. |
+
+`altibase_error.log` records abnormal termination stack evidence. If it contains `BEGIN-STACK-[CRASH]` through `END-STACK` and `[========= FATAL Terminated ==========]`, compress the entire `$ALTIBASE_HOME/trc` directory and send it to Altibase headquarters or request technical support.
+
+### Preventive diagnostic baselines
+
+Baseline monitoring from the failure-response reference:
+
+| Item | Method | Decision |
+| --- | --- | --- |
+| Altibase process exists | `ps -ef | grep "altibase -p boot from" | grep -v grep` | Result should be `1` or more. |
+| System free memory | `vmstat` or OS-specific memory command | Maintain roughly `20%` margin. |
+| Altibase memory usage | `SELECT SUM(MAX_TOTAL_SIZE) FROM V$MEMSTAT;` | Watch for sudden increase compared with normal usage. |
+| Memory DB allocation | `SELECT TRUNC((MEM_ALLOC_PAGE_COUNT*32*1024)/MEM_MAX_DB_SIZE*100.0, 2) FROM V$DATABASE;` | Keep memory DB allocation below `90%`. |
+| System disk usage | `df -k` | Watch directories used by Altibase and sudden growth. |
+| Disk DB allocation | Query `V$TABLESPACES` and `V$DATAFILES` | Monitors currently allocated space, not actual used data; use it to decide whether physical data files may need action. |
+| Trace logs | `tail -f altibase_boot.log | grep "ERR-"` and `altibase_sm.log` online-log deletion messages | Act on `ERR-` severity and investigate when online log deletion repeatedly shows no removable files. |
+| Replication status | `SELECT REP_NAME, REP_GAP FROM V$REPGAP;` | Investigate if `REP_GAP` continues increasing. |
+
+Preventive baseline SQL:
+
+```sql
+SELECT SUM(MAX_TOTAL_SIZE)
+FROM   V$MEMSTAT
+;
+```
+
+```sql
+SELECT TRUNC((MEM_ALLOC_PAGE_COUNT*32*1024)
+/MEM_MAX_DB_SIZE*100.0, 2)
+FROM V$DATABASE
+;
+```
+
+```sql
+SELECT A.NAME,
+A.ALLOCATED_PAGE_COUNT,
+SUM(B.MAXSIZE)
+FROM   V$TABLESPACES A,
+V$DATAFILES B
+WHERE  A.ID = B.SPACEID
+GROUP  BY A.NAME,
+A.ALLOCATED_PAGE_COUNT
+;
+```
+
+```sql
+SELECT REP_NAME,
+REP_GAP
+FROM   V$REPGAP
+;
+```
+
 
 ## Validation and troubleshooting
 
@@ -4900,12 +5492,22 @@ Use query IDs by symptom:
 | What is replication sender, receiver, gap, retained redo log, or target-table status? | `RP01` through `RP06` |
 | Which SQLs are executed by the server and what were the bind values/plans/statistics? | `altiProfile` procedure and `QUERY_PROF_FLAG` outputs |
 | What OS evidence should be collected? | `System information by OS` command catalog for Linux, Sun, AIX, and HP-UX |
+| Is Altibase CPU overload normal transaction growth or an abnormal pattern? | Compare OS CPU history with `V$SYSSTAT`, `V$SESSION`, and `V$SERVICE_THREAD`; use the CPU routine script and long-running SQL query. |
+| Which causes should be checked for abnormal Altibase CPU growth? | New service/application, data growth, optimizer-plan change, repeated `PREPARE`, memory-table scan/index cost, disk-table I/O path, character-set mismatch, service-thread growth, OS environment variables, and frequent DB connections. |
+| Which modules explain Altibase memory growth? | `V$MEMSTAT` modules `Query_Prepare`, `Query_Execute`, `Query_Binding`, `Storage_Memory_Manager`, `Index_Memory`, and `Storage_Disk_Buffer`. |
+| Which SQL checks memory-table allocation and GC aging? | `SYSTEM_.SYS_TABLES_` joined to `V$MEMTBL_INFO`, `V$MEMGC`, and `V$TRANSACTION`/`V$STATEMENT` GC-blocking transaction SQL. |
+| What should be collected for a suspected hang? | Three OS stack snapshots at 30-second intervals, system logs, and all `$ALTIBASE_HOME/trc` files. |
+| Which trace logs identify startup, crash, dump, checkpoint, query, replication, DB link, and main-module evidence? | `altibase_boot.log`, `altibase_error.log`, `altibase_dump.log`, `altibase_sm.log`, `altibase_qp.log`, `altibase_rp.log`, `altibase_rp_conflict.log`, `altibase_dk.log`, and `altibase_mm.log`. |
 
 For disk, memory, and tablespace usage, use the source variant that matches the Altibase version. Several FAQ pages preserve older SQL because view columns changed across versions. If an answer must cover multiple versions, present the version-specific choices rather than giving only the newest query.
 
 For lock response, identify the lock holder before closing a session. Closing a session can interrupt application work and may trigger rollback for DML transactions. For undo growth, terminating a DML session can increase rollback work before the space is reclaimed.
 
 For `altiProfile`, always stop profiling after the observation window. Leaving `QUERY_PROF_FLAG` enabled can produce heavy profile logs under `$ALTIBASE_HOME/trc` or `QUERY_PROF_LOG_DIR` and can affect performance.
+
+For CPU and memory analysis, avoid using a single sample as proof. The source procedures are history-based: normal and abnormal points must be compared by interval, and cumulative counters such as `V$SYSSTAT` execute/prepare values require delta calculations.
+
+For hang or crash analysis, collect evidence before restart whenever service constraints allow it. Stack snapshots, system logs, and `$ALTIBASE_HOME/trc` files are often the only evidence that distinguishes a product defect from OS, disk, network, memory, file descriptor, application, or replication causes.
 
 ## Version-specific notes
 
@@ -4917,10 +5519,17 @@ For `altiProfile`, always stop profiling after the observation window. Leaving `
 - The rollback-query FAQ applies to `ALTIBASE HDB 5.1.5` or later.
 - The lock-property FAQ is based on `ALTIBASE HDB 6.3.1` and states that both `ALTIBASE HDB 5` and `ALTIBASE HDB 6` can use it, but some monitoring items may cause result errors.
 - The undo monitoring FAQ query is for `Altibase 5.3.3 or later`.
+- The CPU overload parent guide is based on `Altibase version 6 or later` and Linux `2.6.32-504.el6.x86_64`.
+- The CPU general-analysis page says Altibase 4, Altibase 5, and some Altibase 6 versions `6.1.1.6.1` or later can automatically collect optimizer statistics under certain conditions; the CPU summary page separately says older Altibase versions `6.1.1` or earlier. Preserve the scoped wording when citing the source because Phase 2 recorded this source inconsistency.
+- The CPU service-thread/select-poll note applies to the Altibase `4.3.x` version range.
+- `PLAN-CACHE` is cited as available from Altibase 5 for repeated `PREPARE` mitigation.
+- The memory usage parent guide is based on `Altibase version 7 or later` and Linux `2.6.32-504.el6.x86_64`.
+- MVCC and GC memory-growth analysis in the memory guide is limited to memory tables.
+- The failure-response `REP_GAP` SN/XSN formula applies to Altibase `6.5.1` or earlier; newer replication monitoring uses the R010/R011 version-specific replication gap semantics.
 
 ## Related errors
 
-R011 is primarily monitoring and diagnostics, not an error-message catalog. Error answers should normally link to R013/R014 once those jobs are complete. Within this R011 scope, preserve these operational failure conditions:
+R011/R012 are primarily monitoring and diagnostics, not a full error-message catalog. Error answers should normally link to R013/R014 once those jobs are complete. Within this scope, preserve these operational failure conditions:
 
 | Condition | Monitoring evidence or action |
 | --- | --- |
@@ -4929,6 +5538,12 @@ R011 is primarily monitoring and diagnostics, not an error-message catalog. Erro
 | Redo log preparation waits | Inspect `V$LFG.LF_PREPARE_WAIT_COUNT`; if large, increase `PREPARE_LOG_FILE_COUNT` and restart Altibase. |
 | Profile log disk pressure | Stop `QUERY_PROF_FLAG` and monitor disk usage when `altiProfile` tracing is enabled. |
 | Replication delay retaining redo logs | Use `RP03`, `RP05`, and related replication monitoring to measure gap and retained log risk. |
+| CPU overload with workload growth | Confirm whether OS CPU, sessions, service threads, and `execute/prepare` counters rose together; if yes, identify the new workload or query before treating the increase as normal. |
+| CPU overload without workload growth | Check long-running SQL, new application/service, data growth, plan change, repeated `PREPARE`, `NLS_USE` mismatch, service-thread growth, OS environment settings, and frequent DB connections. |
+| Altibase process memory growth | Use OS memory evidence plus `V$MEMSTAT`, memory table allocation, `V$MEMGC`, and GC-blocking transaction SQL to identify the cause. |
+| Hang/no response with process alive | Collect three OS stack snapshots at 30-second intervals, system logs, and `$ALTIBASE_HOME/trc` before restart when possible. |
+| Abnormal termination/crash | `altibase_error.log` records call stacks and `altibase_dump.log` records dumped working memory; compress and send the complete `$ALTIBASE_HOME/trc` directory for support. |
+| Resource errors | Check `ERR-01052`, `ERR-71016`, `ERR-71019`, `ERR-40029`, `ERR-01027`, `ERR-61055`, `Out of memory`, `Too many open files`, and `No space left on device` against OS logs, file descriptors, memory, disk, and network state. |
 
 ## Attachments and external references
 
@@ -4937,15 +5552,20 @@ Preserved document-format attachments and source references:
 - `ALTIBASE_모니터링_쿼리_가이드.pdf`: `https://docs.altibase.com/download/attachments/10060431/ALTIBASE_%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81_%EC%BF%BC%EB%A6%AC_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf?version=1&modificationDate=1698627365000&api=v2`
 - `altimon_for_windows.zip`: `https://docs.altibase.com/download/attachments/7340488/altimon_for_windows.zip?version=1&modificationDate=1415946725000&api=v2`
 - `ALTIMON_USER_GUIDE.pdf`: `https://docs.altibase.com/download/attachments/6979592/ALTIMON_USER_GUIDE.pdf?version=2&modificationDate=1422495172000&api=v2`
+- `ALTIBASE_CPU_PBT절차.pdf`: `https://docs.altibase.com/download/attachments/11698396/ALTIBASE_CPU_PBT%EC%A0%88%EC%B0%A8.pdf?version=1&modificationDate=1698801484000&api=v2`
+- `ALTIBASE_MEM_PBT절차.pdf`: `https://docs.altibase.com/download/attachments/11698518/ALTIBASE_MEM_PBT%EC%A0%88%EC%B0%A8.pdf?version=1&modificationDate=1698815576000&api=v2`
 
 Non-document-format but source-preserved monitoring artifacts include `altimon.bat`, `altimon.vbs`, `altimon_linux_631.tar`, `altimon_linux_611.tar`, `altimon_sunos_x86_439.tar`, `altimon_linux.tar`, `altimon_hpux_ia64.tar`, `altimon_sunos_sparc.tar`, `altimon.conf.631`, `altimon.conf.5.1.5`, and embedded PNG/JPEG diagrams or screenshots. These are registered as `not_document_format` in the attachment register.
 
+R012 non-document-format source artifacts include memory-check screenshots `svmon결과.png`, `image2017-2-13 14_21_10.png`, `image2017-2-13 11_27_46.png`, and `image2017-2-13 13_54_34.png`, plus the failure-response `replication.png` and support-system `Reference.png` images already registered from R009. Their command and decision semantics are represented in text; do not infer additional image-only procedures.
+
 The legacy `ALTIMON USER GUIDE` label from the Korean source is a hash-only label with no downloadable source URL. It is preserved as `legacy_no_downloadable_url`; do not invent a URL from the label.
 
-External references preserved from R011 sources include:
+External references preserved from R011/R012 sources include:
 
 - Altibase manuals: `https://github.com/ALTIBASE/Documents/tree/master/Manuals`
 - Altibase support portal references: `http://altibase.com/support-center/en/`, `http://support.altibase.com/en/`
+- CPU, memory, and failure support references: `http://support.altibase.com`, `http://support.altibase.com/en/`, `http://atc.altibase.com`, technical support center `02-2082-1114`
 - Replication transaction manual link used by the undo FAQ: `https://manual.altibase.com/7.3/en/admin/replication/1.-Replication-Overview/#replication-transaction`
 - `BUG-31372`: `https://altra.altibase.com/altimis-2.0/app_bug_new/bug_view.jsp?pk=31372`
 
@@ -4954,3 +5574,5 @@ External references preserved from R011 sources include:
 Keep these exact identifiers untranslated in multilingual answers:
 
 `TIMED_STATISTICS`, `QUERY_PROF_FLAG`, `QUERY_PROF_LOG_DIR`, `UTRANS_TIMEOUT`, `PREPARE_LOG_FILE_COUNT`, `VOLATILE_MAX_DB_SIZE`, `V$PROPERTY`, `V$SESSION`, `V$STATEMENT`, `V$SQLTEXT`, `V$PLANTEXT`, `V$SERVICE_THREAD`, `V$TRANSACTION`, `V$MEMGC`, `V$LOCK`, `V$LOCK_WAIT`, `V$LOCK_STATEMENT`, `V$TABLESPACES`, `V$MEM_TABLESPACES`, `V$VOL_TABLESPACES`, `V$DATAFILES`, `V$SEGMENT`, `V$MEMTBL_INFO`, `V$DISKTBL_INFO`, `V$INDEX`, `V$LFG`, `V$ARCHIVE`, `V$DATABASE`, `V$BUFFPOOL_STAT`, `V$REPSENDER`, `V$REPGAP`, `V$REPRECEIVER`, `V$REPSENDER_TRANSTBL`, `V$REPRECEIVER_TRANSTBL`, `X$SEGMENT`, `X$TEMPTABLE_STATS`, `SYSTEM_.SYS_USERS_`, `SYSTEM_.SYS_TABLES_`, `SYSTEM_.SYS_COLUMNS_`, `SYSTEM_.SYS_CONSTRAINTS_`, `SYSTEM_.SYS_CONSTRAINT_COLUMNS`, `SYSTEM_.SYS_INDICES_`, `SYSTEM_.SYS_REPLICATIONS_`, `SYSTEM_.SYS_REPL_HOSTS_`, `SYSTEM_.SYS_REPL_ITEMS_`, `SYSTEM_.SYS_TBS_USERS_`, `SYSTEM_.SYS_PRIVILEGES_`, `SYSTEM_.SYS_GRANT_SYSTEM_`, `SYSTEM_.SYS_GRANT_OBJECT_`, `SYSTEM_.SYS_VIEWS_`, `SYSTEM_.SYS_VIEW_PARSE_`, `SYSTEM_.SYS_PROCEDURES_`, `SYSTEM_.SYS_PROC_PARSE_`, `altiProfile`, `altimon`, `altimon.conf`, `altimon.bat`, `altimon.vbs`, `$ALTIBASE_HOME`, `$ALTIBASE_HOME/trc`, `$ALTIBASE_HOME/conf/altibase.properties`, `ST01` through `ST10`, `SV01`, `SV02`, `TL01`, `LO01`, `LO02`, `GC01`, `GC02`, `MS01`, `MS02`, `TS01` through `TS14`, `DB01`, `OB01` through `OB20`, `PV01` through `PV05`, `CT01` through `CT04`, and `RP01` through `RP06`.
+
+Additional R012 identifiers to preserve exactly: `V$SYSSTAT`, `V$SESSTAT`, `V$NLS_PARAMETERS`, `V$MEMSTAT`, `V$MEMTBL_INFO`, `ADD_OID_CNT`, `GC_OID_CNT`, `MINMEMSCNINTXS`, `MEMORY_VIEW_SCN`, `MIN_MEMORY_LOB_VIEW_SCN`, `Query_Prepare`, `Query_Execute`, `Query_Binding`, `Storage_Memory_Manager`, `Index_Memory`, `Storage_Disk_Buffer`, `NLS_USE`, `client_nls`, `NLS_CHARACTERSET`, `NLS_NCHAR_CHARACTERSET`, `Dedicated Thread`, `Service Thread`, `Select-Poll`, `MULTIPLEXING_POLL_TIMEOUT`, `PLAN-CACHE`, `PVO`, `PREPARE`, `EXECUTE`, `ALTER TABLE table_name COMPACT`, `TEMP_TBS_MEMORY`, `pstack`, `procstack`, `dbx`, `gdb`, `svmon`, `glance`, `vmstat`, `free -m`, `top`, `df -k`, `bdf`, `errpt -a`, `server kill`, `server start`, `ulimit -n`, `altibase_boot.log`, `altibase_cm.log`, `altibase_dk.log`, `altibase_dump.log`, `altibase_error.log`, `altibase_ipc.log`, `altibase_ipcda.log`, `altibase_job.log`, `altibase_lb.log`, `altibase_mm.log`, `altibase_qp.log`, `altibase_rp.log`, `altibase_rp_conflict.log`, `altibase_sm.log`, `altibase_snmp.log`, `altibase_xa.log`, and `killCheckServer.log`.
