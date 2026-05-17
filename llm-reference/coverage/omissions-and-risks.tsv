@@ -1,1 +1,2 @@
 source_path	unit_id	issue_type	description	action	final_status	notes
+arch/Home/AIX Setup Guide for Altibase__14058298.md	R005-AIX-008	source_limitation	The AIX source says PTHREAD_FORCE_SCOPE_SYSTEM must be set because it is related to the MxN thread model, but it does not provide an exact example value.	Preserved the requirement and explicitly stated that the source does not provide an exact example value.	accepted_source_limitation	Matches pass2 remaining risk; no value was invented.
