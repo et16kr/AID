@@ -132,6 +132,17 @@ R027 normalized package cross references and source labels without changing orig
 - Rechecked that English-only auxiliary material remains labeled as `English-only source` or `english_only_auxiliary` and is not described as Korean-source-verified.
 - Rechecked that coverage status fields contain no `recheck_required` rows and that Markdown export-artifact scans return no live defects.
 
+## R028 final validation and handoff
+
+R028 created the final validation report and handoff:
+
+- `llm-reference/LLM_REFERENCE_BUILD_REPORT.md`
+- `llm-reference/HANDOFF.md`
+
+Final validation confirmed expected output presence, source inventory reconciliation, source-to-topic reconciliation, coverage source-path existence, coverage target-document existence, attachment preservation, answerability results, accepted limitation labels, TSV column consistency, document count checks, manifest JSON validity, diff whitespace, and artifact scans.
+
+R028 appended semantic-unit evidence rows `R028-FINAL-001` and `R028-HANDOFF-001` so the final report and handoff are traceable from `semantic-unit-coverage.tsv`.
+
 ## Ledger files
 
 | File | Purpose | First row owner |
