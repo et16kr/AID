@@ -18,7 +18,7 @@ R016	Done	docs	Performance tuning optimizer indexes	Build exhaustive tuning, opt
 R017	Done	docs	APRE precompiler C C++ development	Build exhaustive APRE, SES, precompiler, C/C++, Makefile, and sample-code coverage.
 R018	Done	docs	Java JDBC ODBC ADO.NET PHP API	Build exhaustive Java, JDBC, ODBC, unixODBC, ADO.NET, PHP, driver, connection, and API FAQ coverage.
 R019	Done	docs	WAS and framework integration	Build exhaustive Tomcat, JEUS, JBoss, WebLogic, WebSphere, Spring, iBATIS, MyBatis, and Hibernate coverage.
-R020	ToDo	docs	Migration conversion tools	Build exhaustive migration, Oracle/MSSQL conversion, Migration Center, VC, GeoServer, SQuirrel, and utility coverage.
+R020	Done	docs	Migration conversion tools	Build exhaustive migration, Oracle/MSSQL conversion, Migration Center, VC, GeoServer, SQuirrel, and utility coverage.
 R021	ToDo	docs	English-only auxiliary corpus integration	Integrate or index English-only architecture, administration, performance, replication, and troubleshooting auxiliary sources.
 R022	ToDo	docs	FAQ exhaustive reconciliation	Reconcile every Korean-source-verified FAQE source against topic documents and coverage evidence.
 R023	ToDo	docs	Attachments diagrams external references	Register every attachment, legacy label, unavailable diagram, and external reference with preservation status.
