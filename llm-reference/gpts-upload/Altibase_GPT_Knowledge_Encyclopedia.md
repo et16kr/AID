@@ -7,6 +7,10 @@ gpts_purpose: self-contained Altibase GPTs Knowledge upload file for customer an
 package_status: COMPLETE_REFERENCE_PACKAGE
 included_document_count: 18
 topic_document_count: 12
+answer_scope: answer from this file before general knowledge; original source trees are not required
+routing_index: top-of-file table maps common Altibase question areas to included llm-reference document boundaries
+exact_identifier_policy: preserve product names, SQL, commands, paths, properties, system views, error codes, class names, driver names, package filenames, URLs, and version strings exactly
+limitation_label_policy: preserve accepted limitation labels and do not invent unavailable diagrams, missing attachments, synthetic URLs, or absent source details
 ---
 
 # Altibase GPT Knowledge Encyclopedia
@@ -31,6 +35,51 @@ Answer in the user's language, but keep product names, SQL, commands, paths, pro
 When source confidence matters, preserve labels such as English-only source, english_only_auxiliary, legacy_no_downloadable_url, legacy_attachment_label_only, diagram_unavailable, not_document_format, accepted_source_limitation, and accepted_english_only_auxiliary.
 Do not invent content from unavailable diagrams, missing attachments, or legacy attachment labels with no downloadable URL.
 If the knowledge file does not contain enough information to answer safely, say that the available Altibase GPT knowledge does not contain the required detail.
+
+### Answer Routing Index
+
+Use this routing index to choose the best included document boundary inside this same encyclopedia before answering. The `llm-reference/...` paths below are included-document labels in this file and source-traceability labels for maintenance; they are not external runtime dependencies.
+
+| User question area | Primary route inside this file | Retrieval anchors |
+| --- | --- | --- |
+| Installation, patch, upgrade, database creation, license setup, startup/shutdown basics, Docker, OS and platform setup | Included topic `llm-reference/01-installation-upgrade-platform.md` | install, patch, upgrade, database creation, license, `server create`, `server start`, `server stop`, `altibase.properties`, platform, Linux, AIX, HPUX, Solaris, Docker |
+| Architecture, storage, checkpoints, transaction logs, WAL, Direct I/O, tablespaces, memory/disk concepts | Included topic `llm-reference/02-architecture-storage-concepts.md` | architecture, memory table, disk table, WAL, redo log, checkpoint, buffer, tablespace, Direct I/O, page, datafile |
+| Operation, administration, configuration, security, users, passwords, sessions, locks, charset, capacity, startup stages | Included topic `llm-reference/03-operation-administration-security.md` | administration, operation, security, user, password, session, lock, charset, configuration, `ACCESS_LIST`, `DB_NAME`, `IPC_CHANNEL_COUNT` |
+| Backup, recovery, failure response, export/import utilities, archive/noarchive, media recovery | Included topic `llm-reference/04-backup-recovery.md` | backup, recovery, failure response, archive, noarchive, media recovery, `aexport`, `iloader`, backup policy, restore |
+| Replication and high availability | Included topic `llm-reference/05-replication-ha.md` | replication, HA, Sender, Receiver, replication gap, `REPLICATION_PORT_NO`, failover, active-standby |
+| Monitoring, diagnostics, CPU, memory, OS evidence, locks, system views, performance views | Included topic `llm-reference/06-monitoring-diagnostics.md` | monitoring, diagnostics, CPU, memory, lock wait, system view, performance view, `V$`, `altimon`, query evidence |
+| Troubleshooting and error messages | Included topic `llm-reference/07-troubleshooting-error-messages.md` | troubleshooting, error, `ERR-`, SQLCODE, SQLSTATE, cause, action, failure symptom |
+| SQL, stored procedures, optimizer, indexes, partitioning, query behavior, tuning, performance | Included topic `llm-reference/08-sql-performance-tuning.md` | SQL, stored procedure, function, optimizer, index, partition, plan, statistics, performance tuning |
+| Development, APRE, JDBC, ODBC, ADO.NET, PHP, SQLCLI, client APIs, drivers | Included topic `llm-reference/09-development-client-api.md` | APRE, JDBC, ODBC, ADO.NET, PHP, SQLCLI, driver, client API, connection string, `Altibase.jar` |
+| WAS and framework integration | Included topic `llm-reference/10-application-framework-integration.md` | WebLogic, Tomcat, JEUS, JBoss, Spring, iBATIS, MyBatis, Hibernate, datasource, connection pool |
+| Migration, conversion, compatibility tooling, Migration Center, Oracle/MS-SQL conversion, GeoServer | Included topic `llm-reference/11-migration-conversion-tools.md` | migration, conversion, Migration Center, Oracle, MS-SQL, DBMS compatibility, GeoServer, schema conversion |
+| Terminology, multilingual answer preservation, exact identifier rules, source labels | Included topic `llm-reference/12-terminology-multilingual-preservation.md` | terminology, multilingual, translation, exact identifier, source label, product name, limitation label |
+| Source classification, package status, accepted risks, coverage status | Included support docs `llm-reference/00-source-classification.md`, `llm-reference/HANDOFF.md`, `llm-reference/LLM_REFERENCE_BUILD_REPORT.md`, and `llm-reference/coverage/README.md` | `Korean-source-verified`, `English-only source`, `COMPLETE_REFERENCE_PACKAGE`, coverage, answerability, risk labels |
+
+### Exact Identifier Preservation Rules
+
+Preserve exact identifiers as answer-critical technical evidence. Do not translate, paraphrase, normalize, singularize, pluralize, lowercase, uppercase, or reformat these identifiers unless the source text already does so:
+
+- Product, component, and utility names such as `Altibase`, `ALTIBASE HDB`, `APRE`, `iSQL`, `aexport`, `iloader`, `altimon`, and `Migration Center`.
+- SQL statements, SQL keywords, stored procedure names, system views, performance views, meta-table names, error codes, SQLCODE values, SQLSTATE values, and error message text.
+- Commands, command options, environment variables, configuration properties, file paths, directory paths, package filenames, class names, driver names, JDBC URLs, DSNs, XML element names, property names, URLs, OS names, and version strings.
+- Korean filenames, URL-encoded Korean path components, Korean sample data, attachment filenames, and source labels when they identify source evidence.
+
+When answering in another language, translate only the explanatory prose. Keep the exact identifier spelling and code formatting from this knowledge file.
+
+### Source Confidence And Limitation Label Rules
+
+Source paths in this encyclopedia are evidence labels and maintenance traceability labels. They may be mentioned to explain provenance, but answer generation uses this uploaded knowledge file itself; source labels do not create any access requirement for `arch/`, `FAQE/`, `DOCK/`, or `faq/` at GPT answer time.
+
+When source confidence or limitations matter, preserve the accepted labels exactly: `English-only source`, `english_only_auxiliary`, `legacy_no_downloadable_url`, `legacy_attachment_label_only`, `diagram_unavailable`, `not_document_format`, `accepted_source_limitation`, and `accepted_english_only_auxiliary`.
+
+Apply these limitation rules:
+
+- If a claim comes only from material labeled `English-only source` or `english_only_auxiliary`, keep that label near the claim when confidence matters and do not present it as Korean-source-verified.
+- If a diagram is labeled `diagram_unavailable`, say the diagram content is unavailable in the package and do not reconstruct it.
+- If an attachment is labeled `legacy_no_downloadable_url` or `legacy_attachment_label_only`, say that no downloadable URL is available in the source and do not invent a URL.
+- If material is labeled `not_document_format`, do not treat it as a preserved downloadable document-format attachment.
+- If the knowledge file lacks the required detail, say that the available Altibase GPT knowledge does not contain the required detail; do not fill gaps from assumptions.
 
 ## Source Package Status
 
