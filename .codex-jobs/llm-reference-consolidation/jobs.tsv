@@ -9,7 +9,7 @@ R007	Done	docs	Configuration startup capacity OS utilities	Build exhaustive conf
 R008	Done	docs	Administration security sessions charset FAQ	Build exhaustive administration, security, session, client, charset, JOB, and operational FAQ coverage.
 R009	Done	docs	Backup recovery failure response	Build exhaustive backup, recovery, failure response, aexport, iloader, and validation coverage.
 R010	Done	docs	Replication and HA	Build exhaustive replication setup, constraints, HA, conflict, gap, GIVE-UP, and replication FAQ coverage.
-R011	ToDo	docs	Monitoring queries diagnostics	Build exhaustive monitoring SQL, system view, performance view, tablespace, session, lock, and monitoring FAQ coverage.
+R011	Done	docs	Monitoring queries diagnostics	Build exhaustive monitoring SQL, system view, performance view, tablespace, session, lock, and monitoring FAQ coverage.
 R012	ToDo	docs	CPU memory OS evidence diagnostics	Build exhaustive CPU overload, memory growth, OS evidence, dump, log, and diagnostic decision coverage.
 R013	ToDo	docs	Troubleshooting Korean-source errors	Build exhaustive Korean-source-verified troubleshooting and error-message coverage.
 R014	ToDo	docs	English-only error troubleshooting catalog	Integrate or index English-only error and troubleshooting sources with explicit source labels.
