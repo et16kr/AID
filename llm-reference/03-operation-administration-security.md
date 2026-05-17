@@ -43,6 +43,16 @@ R008 source paths covered in this revision:
 - `FAQE/Home/02. Operation and Management/When server create errors occur after DB name change__16875972.md`
 - `FAQE/Home/02. Operation and Management/[Linux] How to register Altibase server process auto start script__16875947.md`
 
+R021 English-only auxiliary source paths indexed in this revision:
+
+- `FAQE/Home/ALTIBASE HDB Administration/How to terminate a session__1802689.md`
+- `FAQE/Home/ALTIBASE HDB Administration/Useful SQL/Miscellaneous queries__1802687.md`
+- `FAQE/Home/ALTIBASE HDB Administration/Useful SQL/SQL about Objects__1802681.md`
+- `FAQE/Home/ALTIBASE HDB Administration/Useful SQL/SQL about Replication__1802683.md`
+- `FAQE/Home/ALTIBASE HDB Administration/Useful SQL/SQL about Sessions__1802677.md`
+- `FAQE/Home/ALTIBASE HDB Administration/Useful SQL/SQL about Statements__1802679.md`
+- `FAQE/Home/ALTIBASE HDB Administration/Useful SQL/SQL about Tablespaces__1802685.md`
+
 ## Source coverage notes
 
 This document covers the R007 and R008 portions of `llm-reference/03-operation-administration-security.md`: Altibase configuration properties, startup and shutdown stages, system memory and disk capacity sizing, OS-level problem-analysis utilities, UNIX memory-management behavior, and operational FAQ coverage for administration, security, sessions, clients, character sets, JOBs, file movement, and data/log operations.
@@ -57,7 +67,11 @@ The capacity-sizing source contains one source-level inconsistency in the disk D
 
 All R008 sources are classified as `Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv`. R008 does not use English-only auxiliary source material.
 
+R021 adds the `FAQE/Home/ALTIBASE HDB Administration/**` tree as `English-only source` auxiliary material. The R021 administration pages are useful SQL and procedure indexes outside Korean-core FAQ semantic verification. Answers that cite them must keep the `English-only source` label and should not describe the SQL catalog as Korean-source-verified. The SQL bodies remain in the source files; this consolidated topic indexes each answerable query family, the exact version split when present, and the key system views or commands required to locate the source query.
+
 The R008 FAQ set has no URL-backed document-format attachments. It contains one downloadable support script, `altibased`, which is registered as `not_document_format`; one embedded `modify_column.png` image, also registered as `not_document_format`; and one legacy FAQ attachment label, `total_memory_tablespaces_usage.txt`, where the Korean source provides no downloadable URL. The legacy label is recorded as an accepted source limitation and no synthetic URL is introduced.
+
+The R021 administration auxiliary pages contain no document-format attachments. Their risk is classification-based: they are English-only source indexes and have no Korean-source semantic audit.
 
 ## Scope and audience
 
@@ -937,6 +951,20 @@ Do not reduce a column below the original size. Follow replication DDL procedure
 
 For precise decimal values, use fixed-point `NUMERIC(precision, scale)` instead of `DOUBLE` or `FLOAT`. The source example shows iSQL and `iloader` truncating display/export of `double'100.00000000000001421085471520200372'`, while `NUMERIC(35, 32)` preserves values when selected with `TO_CHAR`.
 
+### Use R021 English-only administration SQL as an auxiliary catalog
+
+The `ALTIBASE HDB Administration` SQL pages are English-only auxiliary material. Use them as source-indexed operational query families, not as Korean-source-verified FAQ rows.
+
+| Source page | Indexed query families | Key objects and identifiers |
+| --- | --- | --- |
+| `How to terminate a session` | Connect as SYSDBA, find a target session, close it, and verify removal. Active transactions can delay session termination because Altibase rolls them back before closing. | `isql -SYSDBA`, `V$SESSION`, `ALTER DATABASE MYDB SESSION CLOSE [session identifier]` |
+| `SQL about Sessions` | Total session count; session details for `ALTIBASE HDB 4` and `ALTIBASE HDB 5`; SYSDBA-connected session details for `ALTIBASE HDB 4` and `ALTIBASE HDB 5`. | `V$SESSION`, `V$STATEMENT`, `V$TRANSACTION`, `COMM_NAME`, `DB_USERNAME`, `SYSDBA_FLAG`, `AUTOCOMMIT_FLAG` |
+| `SQL about Statements` | Total statement count; statement information; active statement count; currently running statements; long-running query over 10 seconds; long-running transaction last statement over 1 minute; queries running a full scan. | `V$STATEMENT`, `V$SESSION`, `V$TRANSACTION`, `V$PLANTEXT`, `EXECUTE_TIME`, `UTRANS_TIME`, `QUERY` |
+| `SQL about Tablespaces` | Memory tablespace usage for `ALTIBASE HDB V4` and `ALTIBASE HDB V5`; total memory tablespace usage; disk tablespace usage for V4 and V5; datafile information; datafile I/O statistics for V4 and V5. | `V$TABLESPACES`, `V$MEMTBL_INFO`, `V$MEMSTAT`, `V$DATAFILES`, `X$DATAFILES`, `V$FILESTAT`, `MEM_MAX_DB_SIZE` |
+| `SQL about Objects` | Memory table, queue table, memory/queue-table indexes, disk table, disk indexes, sequence, synonym, PSM, view, system privileges, object privileges, constraints, primary/foreign/unique constraints, index columns, and index information. Several queries have `ALTIBASE HDB V4` and `ALTIBASE HDB V5` variants. | `SYSTEM_.SYS_USERS_`, `SYSTEM_.SYS_TABLES_`, `SYSTEM_.SYS_COLUMNS_`, `SYSTEM_.SYS_INDICES_`, `SYSTEM_.SYS_SYNONYMS_`, `SYSTEM_.SYS_PROCEDURES_`, `SYSTEM_.SYS_VIEWS_`, `SYSTEM_.SYS_PRIVILEGES_`, `SYSTEM_.SYS_CONSTRAINTS_` |
+| `SQL about Replication` | Sender state, Receiver state, replication gap, replication status, log buffer or file status occupied by unsent XLOG for `ALTIBASE HDB V4` and `ALTIBASE HDB V5`, and replication table list. | `V$REPSENDER`, `V$REPRECEIVER`, `V$REPGAP`, `V$LFG`, `SYSTEM_.SYS_REPLICATIONS_`, `SYSTEM_.SYS_REPL_HOSTS_`, `SYSTEM_.SYS_REPL_ITEMS_`, `XSN`, `APPLY_XSN`, `REP_GAP`, `RESTART_XSN` |
+| `Miscellaneous queries` | Service thread state for HDB V4/V5; lock and transaction information for HDB V4/V5; redo log files; cumulative transaction waits caused by logging; Memory Ager gap; query blocking Ager from aging; memory status; total Altibase memory usage. | `V$SERVICE_THREAD`, `V$TRANSACTION`, `V$STATEMENT`, `SYSTEM_.SYS_USERS_`, `SYSTEM_.SYS_TABLES_`, `V$LFG`, `V$MEMGC`, `V$MEMSTAT`, `FIRST_UPDATE_TIME`, `LF_PREPARE_WAIT_COUNT`, `GC_NAME` |
+
 ## SQL, commands, and configuration
 
 ### Core SQL and DCL
@@ -1014,6 +1042,22 @@ setenforce 0
 setenforce 1
 lsof -p PID(ALTIBASE DB) | grep logfile
 ```
+
+### R021 auxiliary administration SQL locator
+
+Use this index when an answer needs an auxiliary SQL query from the English-only Administration corpus. Cite the source path and preserve the `English-only source` label.
+
+| Need | Source heading |
+| --- | --- |
+| Count or inspect sessions | `SQL about Sessions` -> `Total number of sessions`, `Session Information`, `Session information connected as SYSDBA` |
+| Close a session | `How to terminate a session` -> `ALTER DATABASE MYDB SESSION CLOSE [session identifier]` |
+| Count or inspect statements | `SQL about Statements` -> `Total number of statements`, `Statement information`, `Information about currently running statements` |
+| Find long-running work | `SQL about Statements` -> `Long running query ( over 10 seconds)`, `Long running transaction's last statement information (over 1 minute)` |
+| Find full scans | `SQL about Statements` -> `Information about a query running a FULL SCAN` |
+| Check memory/disk tablespace usage | `SQL about Tablespaces` -> memory usage, total memory usage, disk usage, datafile information, I/O statistics |
+| Inspect object metadata | `SQL about Objects` -> table, queue, index, sequence, synonym, PSM, view, privilege, constraint, and index-column headings |
+| Inspect replication runtime state | `SQL about Replication` -> Sender, Receiver, gap, status, unsent XLOG, and table list |
+| Inspect service thread, lock, logging, Ager, and memory diagnostics | `Miscellaneous queries` -> service thread state, lock and transaction information, redo log files, logging waits, Memory Ager gap, blocked aging query, memory status |
 
 ### User, security, session, and JOB SQL
 
@@ -1211,6 +1255,8 @@ If a JOB does not execute, verify `JOB_SCHEDULER_ENABLE`, `JOB_THREAD_COUNT`, wh
 
 If decimal precision appears truncated in iSQL or `iloader`, do not assume the stored value is necessarily exact or displayable as entered. Use fixed-point `NUMERIC` and `TO_CHAR` when exact decimal representation is required.
 
+When using R021 English-only administration SQL, keep version labels such as `ALTIBASE HDB V4`, `ALTIBASE HDB V5`, and `ALTIBASE HDB 5` from the source heading. Do not normalize V4 and V5 query variants unless a coverage row explicitly points to a canonical duplicate.
+
 ## Version-specific notes
 
 | Source area | Version condition |
@@ -1243,6 +1289,7 @@ If decimal precision appears truncated in iSQL or `iloader`, do not assume the s
 | Auditing | Available from ALTIBASE HDB `6.3.1`. |
 | `ACCESS_LIST` and `REMOTE_SYSDBA_ENABLE` | Remote access and SYSDBA remote-access controls are available from ALTIBASE HDB version `5`. |
 | Password policy functions | Applied from `4.3.9.211`, `5.3.3.89`, `5.5.1.5.1`, `6.1.1.2.1`, `6.3.1`, `6.5.1`, `7.1`, and `7.3`. |
+| `FAQE/Home/ALTIBASE HDB Administration/**` | English-only auxiliary FAQE material. Many SQL pages have explicit `ALTIBASE HDB V4` and `ALTIBASE HDB V5` query variants; keep those variants separate. |
 
 ## Related errors
 
@@ -1316,6 +1363,16 @@ External references preserved from the R008 source set include:
 - `MEM_MAX_DB_SIZE` related error reference: https://aid.altibase.com/pages/viewpage.action?pageId=9110685
 - `MEM_MAX_DB_SIZE` source video reference: https://youtu.be/tWAC4ghMO3c
 
+R021 administration source URLs:
+
+- `https://docs.altibase.com/display/FAQE/How+to+terminate+a+session`
+- `https://docs.altibase.com/display/FAQE/Miscellaneous+queries`
+- `https://docs.altibase.com/display/FAQE/SQL+about+Objects`
+- `https://docs.altibase.com/display/FAQE/SQL+about+Replication`
+- `https://docs.altibase.com/display/FAQE/SQL+about+Sessions`
+- `https://docs.altibase.com/display/FAQE/SQL+about+Statements`
+- `https://docs.altibase.com/display/FAQE/SQL+about+Tablespaces`
+
 ## Terminology
 
 - `Altibase`, `ALTIBASE HDB`: Product names; keep exact capitalization from source titles and examples.
@@ -1338,3 +1395,7 @@ External references preserved from the R008 source set include:
 - `V$LOCK`, `V$STATEMENT`, `V$SESSION`, `SESSION CLOSE`, `LOCK TIMEOUT`: Lock/session troubleshooting identifiers.
 - `ALTIBASE_NLS_USE`, `DATA_NLS_USE`, `V$NLS_PARAMETERS`, `NLS_USE`, `NLS_CHARACTERSET`, `NLS_NCHAR_CHARACTERSET`: Character-set migration identifiers.
 - `US7ASII_한글테스트합니다`, `"한글 데이터입니다"`: Korean sample data from the charset procedure; preserve exactly when referencing source examples.
+- `English-only source`, `english_only_auxiliary`: Coverage labels for R021 administration SQL sources; keep exact and do not translate.
+- `ALTER DATABASE MYDB SESSION CLOSE [session identifier]`: Session-close syntax from the English-only administration source.
+- `V$SERVICE_THREAD`, `V$LFG`, `V$MEMGC`, `V$FILESTAT`, `X$DATAFILES`, `V$REPSENDER`, `V$REPRECEIVER`, `V$REPGAP`, `SYSTEM_.SYS_REPL_HOSTS_`, `SYSTEM_.SYS_REPL_ITEMS_`: Additional R021 auxiliary SQL identifiers.
+- `ALTIBASE HDB V4`, `ALTIBASE HDB V5`: Source version labels in R021 SQL pages; preserve when selecting a query variant.

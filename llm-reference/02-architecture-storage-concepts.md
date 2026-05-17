@@ -17,15 +17,23 @@ R006 source paths covered in this revision:
 - `FAQE/Home/13. General/What interface does Altibase provide__22642982.md`
 - `FAQE/Home/13. General/What is the biggest difference between Altibase and disk-based DBMS__16876485.md`
 
+R021 English-only auxiliary source paths indexed in this revision:
+
+- `FAQE/Home/ALTIBASE HDB Architecture/ALTIBASE HDB Architecture Overview__2983417.md`
+- `FAQE/Home/ALTIBASE HDB Architecture/How a query is executed in ALTIBASE HDB__1802795.md`
+- `FAQE/Home/ALTIBASE HDB Architecture/Transaction Durability in ALTIBASE HDB__2558087.md`
+
 ## Source coverage notes
 
 This document covers the R006 portion of `llm-reference/02-architecture-storage-concepts.md`: Altibase architecture concepts, memory and disk DBMS behavior, WAL, checkpoints, storage files, disk I/O contention, Direct I/O, file-system support, RAID/storage guidance, and the general FAQ concepts assigned to this job.
 
-All R006 source files are classified as `Korean-source-verified` or `Link-validated Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv`. No English-only auxiliary source is used in this R006 consolidation.
+All R006 source files are classified as `Korean-source-verified` or `Link-validated Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv`.
+
+R021 adds the `FAQE/Home/ALTIBASE HDB Architecture/**` tree as `English-only source` auxiliary material. These pages are outside Korean-core FAQ semantic verification and must not be described as Korean-source-verified. Their semantic-unit rows use `english_only_auxiliary`, except unavailable diagrams and source images, which are registered as `diagram_unavailable` or `not_document_format` evidence.
 
 The split `arch/Home/Disk Configuration Guide for Altibase/**` pages and `arch/Home/Configuration Guide For Minimizing Disk I_O Contention__22643018.md` intentionally overlap. The consolidated `Configuration Guide For Minimizing Disk I/O Contention` page is the canonical source for the normalized English wording, while the split pages provide duplicate coverage evidence for redo log, checkpoint, disk DB, undo tablespace, disk layout, file-system, RAID, Direct I/O, and page-size units.
 
-The source set contains downloadable PDF attachments and embedded diagrams/images. Downloadable document-format URLs are preserved exactly in the attachment register and in this document. Embedded diagrams are not document-format attachments; their URLs are preserved in the attachment register, and this document covers the surrounding textual meaning without reconstructing visual content. No R006 source contains a missing Gliffy/export diagram placeholder, so no `diagram_unavailable` row is needed for this job.
+The source set contains downloadable PDF attachments and embedded diagrams/images. Downloadable document-format URLs are preserved exactly in the attachment register and in this document. Embedded diagrams are not document-format attachments; their URLs are preserved in the attachment register, and this document covers the surrounding textual meaning without reconstructing visual content. No R006 source contains a missing Gliffy/export diagram placeholder, so no `diagram_unavailable` row is needed for R006. R021 has one image-only architecture overview page and one unavailable Gliffy diagram in the query-execution page; neither image is reconstructed.
 
 The white-paper source page lists PDF attachments only. R006 preserves the labels and URLs from that Markdown page; it does not claim to extract the PDF bodies.
 
@@ -66,6 +74,22 @@ For disk-based databases with frequent random I/O, SSDs with high random I/O per
 The general FAQ states that in-memory DBMS performance is about 4 to 10 times faster than disk-based DBMS performance depending on the operating environment. It also records that Altibase HDB was measured in `Memory Only`, `Hybrid`, and `Disk Only` modes with five TPC-C OLTP transaction types: order, payment, delivery, order status, and stock level.
 
 Altibase complies with ANSI SQL-1999 and provides standard interfaces including `ODBC`, `ADO.NET`, `JDBC`, and Embedded SQL. The R006 interface FAQ is based on Altibase HDB 6.1.1 or later.
+
+R021 English-only architecture auxiliary facts:
+
+| Source page | English-only answer basis |
+| --- | --- |
+| `ALTIBASE HDB Architecture Overview` | The Markdown source contains only `altibasearchitectureoverview.png`; the image URL is registered as `not_document_format`. Do not infer architecture details from the image beyond citing that the source provides an overview diagram. |
+| `How a query is executed in ALTIBASE HDB` | Query execution has four phases: `Parsing`, `Validating`, `Optimizing`, and `Executing`. The parser checks SQL syntax and creates a `Parse Tree`; the validator checks database objects such as tables, columns, views, types, and PSMs and creates a `Checked Parse Tree`; the optimizer creates a `Plan Tree`; the executor runs the SQL using that plan. |
+| `Transaction Durability in ALTIBASE HDB` | A transaction begins with the first SQL statement and ends by explicit `COMMIT`/`ROLLBACK` or implicit DDL. Altibase describes ACID, checkpointing, transaction logging, WAL, and three durability levels: relaxed, enhanced, and strict. |
+
+The English-only durability source distinguishes the following levels:
+
+| Durability level | Properties | Source meaning |
+| --- | --- | --- |
+| Relaxed durability, Level 2 | `COMMIT_WRITE_WAIT_MODE = 0`, `LOG_BUFFER_TYPE = 1` | Recovery point after system or database crash is the last checkpoint. This favors performance when limited data loss is acceptable. |
+| Enhanced durability, Level 3 | `COMMIT_WRITE_WAIT_MODE = 0`, `LOG_BUFFER_TYPE = 0` | Default source setting. A database crash should not lose data because the OS kernel buffer maintains memory-mapped file changes, but OS crash, hardware fault, or power outage can still lose data since recovery point is the last OS sync to disk. |
+| Strict durability, Level 5 | `COMMIT_WRITE_WAIT_MODE = 1`, `LOG_BUFFER_TYPE = 1` | Each transaction commits only after the related log is written to disk. This favors durability over speed. |
 
 ## Procedures
 
@@ -144,6 +168,15 @@ For failure handling:
 
 No R006 source defines SQL statements that must be executed for architecture or storage setup. The answer-affecting configuration items are storage paths, file-system mount options, Direct I/O properties, supported interfaces, and version-specific API support.
 
+R021 architecture auxiliary configuration identifiers:
+
+| Identifier | Meaning |
+| --- | --- |
+| `COMMIT_WRITE_WAIT_MODE` | Controls whether commit processing waits for the update log to be written to a log file. The source says it can be set by `ALTER SYSTEM` or `ALTER SESSION`. |
+| `LOG_BUFFER_TYPE` | Selects OS kernel log buffer (`0`) or process memory log buffer (`1`). The source says it cannot be changed while the system is running. |
+| `msync()` | OS mechanism named in the source for flushing memory-mapped log files when `LOG_BUFFER_TYPE = 0`. |
+| `fsync()` | Database-process mechanism named in the source for log flushing when `LOG_BUFFER_TYPE = 1`. |
+
 ### Direct I/O mount actions
 
 | OS | File system | Required action |
@@ -215,6 +248,10 @@ If OS swapping causes irregular response time or hang-like behavior, review OS f
 
 If a disk failure affects backup data files, recovery depends on the previous data backup and available logs. If the log disk is damaged or archive logs have been deleted, recovery to the most recent state is impossible.
 
+For R021 query-execution answers, keep the phase order exact: `Parsing` -> `Validating` -> `Optimizing` -> `Executing`. If a question depends on the architecture overview diagram, cite the source page and state that the consolidated package does not reconstruct the image.
+
+For durability answers, do not collapse the tradeoff between Level 2, Level 3, and Level 5. Level 3 is the default in the English-only source, but it is not equivalent to Level 5 because OS crash, hardware fault, and power outage are treated differently.
+
 ## Version-specific notes
 
 | Source area | Version condition |
@@ -225,6 +262,7 @@ If a disk failure affects backup data files, recovery depends on the previous da
 | `FAQE/Home/13. General/The entire database exists in memory...` | Applicable to all versions of ALTIBASE HDB. |
 | `FAQE/Home/13. General/What interface does Altibase provide__22642982.md` | Based on Altibase HDB 6.1.1 or later, with later API-specific version conditions preserved in the interface table. |
 | `FAQE/Home/13. General/What is the biggest difference...` | Applicable to all versions of ALTIBASE HDB. |
+| `FAQE/Home/ALTIBASE HDB Architecture/**` | English-only auxiliary FAQE material updated in 2011; use as auxiliary source only and label as `English-only source`. |
 
 ## Related errors
 
@@ -233,6 +271,7 @@ The R006 source set does not list exact Altibase error codes. It does describe f
 - Some NFS/NAS file systems that do not support `mmap` can cause errors during database creation when data files or log files are created.
 - Disk failure can make latest-state recovery impossible if the log disk is damaged or archive logs are deleted.
 - Power failure or OS hang are the source-listed cases where redo log loss can occur despite the default `mmap` and `LogSyncThread` behavior.
+- R021 durability source explicitly distinguishes database crash from OS crash, hardware fault, and power outage when discussing enhanced durability.
 
 ## Attachments and external references
 
@@ -248,11 +287,19 @@ Downloadable PDF attachments preserved from the R006 source set:
 
 Embedded source images and diagrams are preserved by URL in `llm-reference/coverage/attachment-diagram-register.tsv`. They include the Storage Guide Direct I/O image, the Data File Configuration Plan redo/disk I/O image, the Disk I/O Optimization Direct I/O image, the configuration guide disk I/O images, and the general FAQ architecture/performance images. Their surrounding textual meaning is consolidated here; their pixels are not reconstructed.
 
+R021 architecture image and diagram evidence:
+
+| Source path | Label or URL | Status |
+| --- | --- | --- |
+| `FAQE/Home/ALTIBASE HDB Architecture/ALTIBASE HDB Architecture Overview__2983417.md` | `https://docs.altibase.com/download/attachments/embedded-page/FAQE/ALTIBASE%20HDB%20Architecture%20Overview/altibasearchitectureoverview.png?api=v2` | `not_document_format` |
+| `FAQE/Home/ALTIBASE HDB Architecture/How a query is executed in ALTIBASE HDB__1802795.md` | Confluence Gliffy query-execution diagram placeholder | `diagram_unavailable` |
+
 External references preserved from the source set:
 
 - Altibase technical support portal: http://support.altibase.com/en/
 - Altibase technical support center: `02-2082-1114`
 - Related source document: `Configuration Guide For Minimizing Disk I/O Contention`, https://docs.altibase.com/pages/viewpage.action?pageId=22643018
+- R021 English-only SQL tuning reference from the query-execution source: `http://atc.altibase.com/sub09/551b/html/Admin/ch10.html`
 
 ## Terminology
 
@@ -275,3 +322,6 @@ External references preserved from the source set:
 - `ODBC`, `JDBC`, `SQLCLI`, Embedded SQL, `ADO.NET`, Unix ODBC, `PDO`, Hibernate Support: Interface names preserved from the FAQ source.
 - `ALA`, `ACS`, `LOB API`: `SQLCLI`-related API names.
 - `SQL92`, `ANSI SQL-1999`, Sub Query, INLINE View, Stored Procedure, Stored Function, Dynamic SQL/DDL, View, Trigger: Server-side SQL capability terms from the source.
+- `Parsing`, `Validating`, `Optimizing`, `Executing`, `Parse Tree`, `Checked Parse Tree`, `Plan Tree`: Query execution phase terms from R021 English-only architecture source.
+- `COMMIT_WRITE_WAIT_MODE`, `LOG_BUFFER_TYPE`, `msync()`, `fsync()`, Relaxed durability, Enhanced durability, Strict durability: Durability source terms; preserve exact property names and function names.
+- `English-only source`, `english_only_auxiliary`, `diagram_unavailable`, `not_document_format`: Coverage labels for auxiliary architecture material; do not translate or recast as Korean-source verification.

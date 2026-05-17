@@ -15,15 +15,24 @@ R010 source paths covered in this revision:
 - `FAQE/Home/03. Replication/Replication give-up__22642945.md`
 - `FAQE/Home/03. Replication/Replication monitoring query__22642947.md`
 
+R021 English-only auxiliary source paths indexed in this revision:
+
+- `FAQE/Home/ALTIBASE HDB Replication/Replication Overview__1802501.md`
+- `FAQE/Home/ALTIBASE HDB Replication/What is a Replication Conflict__1802533.md`
+- `FAQE/Home/ALTIBASE HDB Replication/How to resolve a replication conflict__1802562.md`
+- `FAQE/Home/ALTIBASE HDB Replication/What is Offline Replicator__1803108.md`
+
 ## Source coverage notes
 
 This document covers the R010 topic: Altibase replication design, high availability, Sender and Receiver behavior, Lazy and Eager replication modes, Off-Line Replicator use, HA solution cautions, N-way replication, replication setup, target-table changes, DDL handling, constraints, conflict handling, gap monitoring, GIVE-UP behavior, and every Korean-source-verified replication FAQ variant in `FAQE/Home/03. Replication/**`.
 
 The replication configuration guide and seven replication FAQ pages are classified as `Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv`. The replication constraints guide and `FAQE/Home/03. Replication/How to create_delete replication objects__16876082.md` are classified as `Link-validated Korean-source-verified` because Phase 2 validated the Korean-source attachment URLs.
 
-No English-only auxiliary source is used in this R010 revision.
+R021 adds the `FAQE/Home/ALTIBASE HDB Replication/**` tree as `English-only source` auxiliary material. The English-only replication pages overlap with Korean-source-verified replication concepts, but they also preserve source-specific phrasing, error examples, Eager/User-oriented/Timestamp conflict-resolution cautions, Offline Replicator SQL, and unavailable diagram evidence. Answers citing those pages must carry the `English-only source` label and must not present them as Korean-source-verified.
 
 The source set preserves three URL-backed PDF attachments: one Korean-source replication constraints PDF in the architecture constraints guide and two replication guide PDFs in the create/delete replication objects FAQ. Embedded diagrams and screenshots are registered as `not_document_format`; this topic preserves the surrounding technical meaning without reconstructing image pixels.
+
+R021 replication pages include seven Confluence Gliffy diagram placeholders with no image URL in this repository: two in `Replication Overview`, one in `What is a Replication Conflict`, three in `How to resolve a replication conflict`, and one in `What is Offline Replicator`. They are registered as `diagram_unavailable`; do not reconstruct their visual content.
 
 R009 already covers replication-related first-response checks from the failure-response guide, including `V$REPGAP`, retained online log risk, and trace-log triage during failures. This R010 document owns the dedicated replication setup, HA, constraints, conflict, GIVE-UP, and monitoring FAQ coverage.
 
@@ -180,6 +189,16 @@ When memory and disk tables are in the same replication object, slower disk-tabl
 
 Use a dedicated replication line separate from the service network. The replication configuration guide recommends bandwidth of `1G` or higher and two or more dedicated LAN cards for replication stability.
 
+R021 English-only replication auxiliary facts:
+
+| Source page | English-only answer basis |
+| --- | --- |
+| `Replication Overview` | Log-based replication transforms transaction logs into logical xLog and sends them to remote servers. Terms include `SN`, `XSN`, `xLog`, `Sender`, `Receiver`, `Query Processor (QP)`, and `Storage Manager (SM)`. |
+| `Replication Overview` | In Asynchronous/Lazy mode, the local transaction completes before replication apply; in Synchronous/Eager mode, the local transaction completes only when both local and remote work are confirmed. The Sender updates `XSN`, and the Receiver updates `Apply XSN` so replay can resume after failure. |
+| `What is a Replication Conflict` | In asynchronous replication, conflict occurs when a Receiver's current value differs from the before value in the xLog. The source lists insert, update, and delete conflict messages in `$ALTIBASE_HOME/trc/altibase_rp.log`. |
+| `How to resolve a replication conflict` | Eager mode can make a local transaction fail when the remote Receiver reports a conflict; `REPLICATION_UPDATE_REPLACE` can force the Receiver to overwrite conflicts; Timestamp scheme uses an extra timestamp column and `REPLICATION_TIMESTAMP_RESOLUTION = 1`. The source warns these methods do not perfectly guarantee data consistency. |
+| `What is Offline Replicator` | When failed SYSTEM A has unsent xLogs, SYSTEM B can access A's log files, create an Offline Replicator, start it with offline mode, then begin failover after the Offline Replicator status becomes `stop`. |
+
 ## Procedures
 
 ### Design replication and HA before creating objects
@@ -325,6 +344,26 @@ Check each server with:
 SELECT REPLICATION_NAME, HOST_IP, PORT_NO FROM SYSTEM_.SYS_REPL_HOSTS_;
 SELECT REPLICATION_NAME, LOCAL_USER_NAME, LOCAL_TABLE_NAME FROM SYSTEM_.SYS_REPL_ITEMS_;
 ```
+
+### Use R021 English-only replication examples as auxiliary references
+
+For an English-only source answer, cite the R021 source page and keep its classification label. The source's simple create/start/stop/drop example is:
+
+```sql
+-- altibase.properties
+REPLICATION_PORT_NO = 30300
+
+iSQL> CREATE REPLICATION rep1 WITH '192.168.1.30', 30300
+FROM SYS.TABLE_1 TO SYS.TABLE_1,
+FROM SYS.TABLE_2 TO SYS.TABLE 2,
+...
+;
+iSQL> ALTER REPLICATION rep1 START;
+iSQL> ALTER REPLICATION rep1 STOP;
+iSQL> DROP REPLICATION rep1;
+```
+
+The English-only source says the property and replication object must be configured on all nodes in the replication environment.
 
 ### Start replication and verify sender and receiver
 
@@ -472,6 +511,26 @@ SELECT REPLICATION_NAME, HOST_IP, PORT_NO
   FROM SYSTEM_.SYS_REPL_HOSTS_
  ORDER BY HOST_NO;
 ```
+
+### Apply the R021 Offline Replicator pattern
+
+Use this only as `English-only source` auxiliary guidance:
+
+1. Make SYSTEM A's log-file volume accessible to SYSTEM B.
+2. Create the Offline Replicator on SYSTEM B and point it at the copied or mounted log directory:
+
+```sql
+iSQL> CREATE REPLICATION rep1 OPTIONS OFFLINE '/data1/logfiles'
+WITH '192.168.1.13', 30300 FROM SYS.table TO SYS.table;
+```
+
+3. Start offline replication:
+
+```sql
+iSQL> ALTER REPLICATION rep1 START WITH OFFLINE;
+```
+
+4. After the Offline Replicator status becomes `stop`, start the failover procedure.
 
 ### Create multiple replication objects with the same IP and port
 
@@ -868,6 +927,22 @@ INSERT INTO TABLE
 }
 ```
 
+R021 English-only conflict examples add these messages:
+
+```text
+ERR-61035(errno=0) [Receiver] An update conflict encountered.
+ERR-61001(errno=0) A conflict has been occurred while executing the received statement.
+UPDATE SYS.REP_TEST2 SET C2 = ccc WHERE C1 = 1;
+```
+
+For Eager mode conflict handling, the source's creation shape is:
+
+```sql
+CREATE EAGER REPLICATION WITH '' ...
+```
+
+For User-oriented overwrite handling, set `REPLICATION_UPDATE_REPLACE` to `1` in `$ALTIBASE_HOME/conf/altibase.properties`. For Timestamp scheme, add a timestamp column to the table and set `REPLICATION_TIMESTAMP_RESOLUTION` to `1`; the source warns that timestamp values add `8 bytes` to the record and system clocks must be synchronized.
+
 ### Troubleshoot replication object creation and start errors
 
 `ERR-61023`:
@@ -914,6 +989,7 @@ Cause: multiple replication objects use the same remote IP and port while duplic
 | ALTIBASE HDB `6.1.1` and above | Replication GIVE-UP FAQ applies. |
 | Earlier than Altibase `7` | `V$REPGAP.REP_GAP` means the interval between `REP_LAST_SN` and `REP_SN`. |
 | Altibase `7` and above | `V$REPGAP` includes `REP_GAP_SIZE`; `REP_GAP` is calculated by `REPLICATION_GAP_UNIT`. |
+| `FAQE/Home/ALTIBASE HDB Replication/**` | English-only auxiliary FAQE material updated in 2011; use as auxiliary source only and label as `English-only source`. |
 
 DDL support differs by Altibase version. For DDL statements related to replication, use the manual for the specific target version and the support manual page at `http://support.altibase.com/en/manual`.
 
@@ -926,6 +1002,7 @@ DDL support differs by Altibase version. For DDL statements related to replicati
 | `ERR-61035(errno=0) [Receiver] An update conflict encountered.` | Update conflict when before-image does not match. | Use service design to prevent conflicts; use `REPLICATION_UPDATE_REPLACE=1` only when business logic allows forced update. |
 | `ERR-610f7(errno=16) [Receiver] Unable to find record in executeUpdate() function` | Conflict FAQ update example. | Inspect conflict log and source SQL. |
 | `ERR-610f7(errno=16) [Receiver] Unable to find record in executeDelete() function` | Conflict FAQ delete example. | Inspect conflict log and source SQL. |
+| `ERR-61001(errno=0) A conflict has been occurred while executing the received statement.` | R021 English-only conflict SQL example. | Review the logged SQL statement and prevent concurrent same-row updates. |
 | `ERR-61023 : Replication is disabled` | `CREATE REPLICATION` while `REPLICATION_PORT_NO` is `0`. | Set `REPLICATION_PORT_NO`, restart, and retry. |
 | `ERR-61113 : A replicated table must have a primary key. (user_name.table_name)` | `CREATE REPLICATION` for a table without a primary key. | Create a primary key and retry. |
 | `ERR-6100D : [Sender] Failed to handshake with the peer server (Handshake Process Error)` | `ALTER REPLICATION ... START` could not connect to peer. | Check `WITH` IP and port reachability. |
@@ -941,6 +1018,15 @@ Preserved document-format attachments:
 
 Embedded diagrams and screenshots are retained in the source files and registered as `not_document_format` in `llm-reference/coverage/attachment-diagram-register.tsv`. The consolidated topic covers the technical meaning around those images without reconstructing their visual contents.
 
+R021 English-only diagram limitations:
+
+| Source path | Diagram evidence |
+| --- | --- |
+| `FAQE/Home/ALTIBASE HDB Replication/Replication Overview__1802501.md` | Two unavailable Gliffy diagrams: basic flow and replication mode flow. |
+| `FAQE/Home/ALTIBASE HDB Replication/What is a Replication Conflict__1802533.md` | One unavailable Gliffy diagram: conflict simple case. |
+| `FAQE/Home/ALTIBASE HDB Replication/How to resolve a replication conflict__1802562.md` | Three unavailable Gliffy diagrams: Eager mode, `REPLICATION_UPDATE_REPLACE`, and Timestamp scheme. |
+| `FAQE/Home/ALTIBASE HDB Replication/What is Offline Replicator__1803108.md` | One unavailable Gliffy diagram: Offline Replicator background. |
+
 Important source URLs and external references:
 
 - `https://docs.altibase.com/display/arch/Altibase+Replication+Configuration+Guide`
@@ -953,9 +1039,14 @@ Important source URLs and external references:
 - `https://docs.altibase.com/pages/viewpage.action?pageId=16876082`
 - `https://docs.altibase.com/display/FAQE/Replication+give-up`
 - `https://docs.altibase.com/display/FAQE/Replication+monitoring+query`
+- `https://docs.altibase.com/display/FAQE/Replication+Overview`
+- `https://docs.altibase.com/pages/viewpage.action?pageId=1802533`
+- `https://docs.altibase.com/pages/viewpage.action?pageId=1802562`
+- `https://docs.altibase.com/pages/viewpage.action?pageId=1803108`
 - Altibase support portal: `http://support.altibase.com` and `http://support.altibase.com/en/`
 - Manual page: `http://support.altibase.com/en/manual`
 - GitHub manuals: `https://github.com/ALTIBASE/Documents/tree/master/Manuals/Altibase_7.1/eng`
+- R021 legacy manual links preserved as source labels: `http://atc.altibase.com/sub09/551b/html/Replication/index.html`, `http://atc.altibase.com/sub09/551b/html/Replication/ch02s03.html#N10570`, and `http://atc.altibase.com/sub09/551b/html/Replication/ch03s06.html#CJAEFAJC`
 
 ## Terminology
 
@@ -968,3 +1059,4 @@ Keep these terms and identifiers stable in multilingual answers:
 - Logs and paths: `$ALTIBASE_HOME/conf/altibase.properties`, `$ALTIBASE_HOME/trc/altibase_rp.log`, `$ALTIBASE_HOME/trc/altibase_rp_conflict.log`.
 - Error codes: `ERR-11058`, `ERR-61000`, `ERR-61035`, `ERR-610f7`, `ERR-61023`, `ERR-61113`, `ERR-6100D`, `ERR-6110C`.
 - Exact data-sync vocabulary: `xLog`, `redo log`, `Before Value`, `After Value`, `XSN`, `APPLY_XSN`, `REP_GAP`, `REP_GAP_SIZE`, `REPLICATION_GAP_UNIT`, `GIVE_UP_TIME`.
+- R021 English-only source labels and conflict terms: `English-only source`, `english_only_auxiliary`, `diagram_unavailable`, `SN`, `XSN`, `Apply XSN`, `Asynchronous(Lazy)`, `Synchronous mode (Eager)`, `CREATE EAGER REPLICATION`, `REPLICATION_TIMESTAMP_RESOLUTION`, `CREATE REPLICATION rep1 OPTIONS OFFLINE '/data1/logfiles'`, `ALTER REPLICATION rep1 START WITH OFFLINE`.
