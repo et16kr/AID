@@ -11,6 +11,7 @@ Complete the active job from `.codex-jobs/llm-reference-consolidation/jobs.tsv` 
 - Do not revert unrelated user changes.
 - Before editing, stop only if there are uncommitted project files outside `.codex-jobs` workflow runtime and status files.
 - Do not treat `.codex-jobs/llm-reference-consolidation/jobs.tsv`, logs, rollbacks, or `.runtime` prompt files as blocking project changes.
+- Do not manually advance `jobs.tsv` statuses. The orchestrator owns `Progress` and `Done` status transitions; complete and commit only the active job's content.
 - Complete the scoped job without asking for step-by-step confirmation unless blocked or unsafe.
 
 ## Required Steps

@@ -60,6 +60,23 @@ set_status() {
   mv "$tmp" "$JOBS_FILE"
 }
 
+restore_unowned_status_changes() {
+  local id="$1"
+  local snapshot="$2"
+  local tmp
+  tmp="$(mktemp)"
+  awk -F '\t' -v OFS='\t' -v id="$id" '
+    NR == FNR {
+      if (FNR > 1) before[$1] = $2
+      next
+    }
+    NR == 1 { print; next }
+    $1 != id && ($1 in before) { $2 = before[$1] }
+    { print }
+  ' "$snapshot" "$JOBS_FILE" > "$tmp"
+  mv "$tmp" "$JOBS_FILE"
+}
+
 first_job_with_status() {
   awk -F '\t' -v status="$1" 'NR > 1 && $2 == status { print $1; exit }' "$JOBS_FILE"
 }
@@ -307,6 +324,7 @@ build_runtime_prompt() {
     printf -- '- Before editing, stop only if uncommitted project files exist outside `.codex-jobs` workflow runtime and status files.\n'
     printf -- '- Use `git status --porcelain --untracked-files=all -- . ":(exclude).codex-jobs" ":(exclude).codex-jobs/**"` for the blocking preflight check.\n'
     printf -- '- Do not treat `.codex-jobs/llm-reference-consolidation/jobs.tsv`, logs, rollbacks, or `.runtime` prompt files as blocking project changes.\n'
+    printf -- '- Do not manually advance `jobs.tsv` statuses. The orchestrator owns `Progress` and `Done` state transitions for all jobs.\n'
     printf -- '- If the job cannot be completed safely, stop with a clear failure.\n'
     printf -- '- After review and verification pass, create a focused git commit for this job.\n'
     printf -- '- A successful job must leave project files clean and must advance HEAD with a commit.\n'
@@ -327,6 +345,9 @@ run_job() {
   ensure_clean_before_job "$id"
   local before_head
   before_head="$(git_head)"
+  local status_snapshot
+  status_snapshot="$RUNTIME_DIR/$id.statuses.before.tsv"
+  cp "$JOBS_FILE" "$status_snapshot"
   set_status "$id" "Progress"
 
   set +e
@@ -347,6 +368,7 @@ run_job() {
     die "Job $id stopped with exit code $rc and remains Progress. Next run stops if project files are dirty, or resets runtime state and retries when clean. See $log_file"
   fi
 
+  restore_unowned_status_changes "$id" "$status_snapshot"
   ensure_clean_after_job "$id"
   ensure_commit_after_job "$id" "$before_head"
   set_status "$id" "Done"

@@ -22,6 +22,7 @@ Every job in this workflow must follow `.codex-jobs/llm-reference-consolidation/
 - Consolidated LLM output goes under `llm-reference/`.
 - Use `git status --porcelain --untracked-files=all -- . ":(exclude).codex-jobs" ":(exclude).codex-jobs/**"` for the blocking preflight check.
 - Do not treat `.codex-jobs/llm-reference-consolidation/jobs.tsv`, `logs/`, `rollbacks/`, or `.runtime/` as blocking project changes.
+- Do not manually advance `jobs.tsv` statuses. The orchestrator owns job state transitions and will record the active job's final status after your commit.
 - This is an exhaustive reference package. Do not produce only FAQ-style summaries or representative examples.
 - Keep source traceability. Each consolidated document must include a `Source paths` section with actual source paths.
 - Every source file and semantic unit owned by the job must be represented in the coverage TSVs.
