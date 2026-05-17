@@ -65,6 +65,8 @@ find arch/Home FAQE/Home -type f -name '*.md' | sort
 
 Final reconciliation should compare the source count with the inventory row count.
 
+R025 reconciliation confirmed that the source tree count is 422 and that `source-inventory.tsv` and `source-to-topic-map.tsv` each contain exactly 422 unique source rows, matching every Markdown file under `arch/Home` and `FAQE/Home`.
+
 ## Validation and troubleshooting
 
 If a file matches multiple topics, choose the primary topic by the dominant answer use and place other topics in `secondary_topics`. Do not drop a source because it looks repetitive; use `covered_by_canonical_duplicate` at semantic-unit level when appropriate.

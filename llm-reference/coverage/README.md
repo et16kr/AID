@@ -93,6 +93,20 @@ R023 rebuilt `attachment-diagram-register.tsv` from `source-stabilization/legacy
 - URL-backed document-format rows from Phase 2 are represented with `preserved_url`; legacy labels are represented with `legacy_no_downloadable_url`; unavailable Gliffy exports are represented with `diagram_unavailable`; images, icons, support artifacts, and web/manual links are represented with `not_document_format`.
 - R023 also appended matching `semantic-unit-coverage.tsv` rows for every register row, using `R023-ATT-*` and `R023-EXT-*` unit IDs.
 
+## R025 source and semantic-unit coverage reconciliation
+
+R025 reconciled the source inventory, topic map, semantic-unit ledger, topic source-path traceability, and accepted limitation rows after the topic and attachment consolidation jobs.
+
+- Source tree count: `find arch/Home FAQE/Home -type f -name '*.md' | wc -l` returns 422.
+- `source-inventory.tsv`: 422 unique source rows, 0 missing source files, 0 extra source files, 0 duplicate source paths; status distribution is `covered=296` and `covered_with_risk=126`.
+- `source-to-topic-map.tsv`: 422 unique source rows, 0 missing source files, 0 extra source files, 0 duplicate source paths; status distribution is `mapped=296` and `mapped_with_risk=126`.
+- Topic traceability: every source path in `source-to-topic-map.tsv` appears in its primary topic document, and every primary or secondary topic file referenced by the map exists.
+- `semantic-unit-coverage.tsv`: every row has a non-empty `target_doc` and `target_section` unless the row has an accepted limitation status: `source_index_only`, `legacy_attachment_label_only`, `diagram_unavailable`, `not_document_format`, or `english_only_auxiliary`.
+- Recheck status: all coverage TSVs contain 0 `recheck_required` rows, so no final `RECHECK_REQUIRED` decision is needed for R025.
+- Accepted limitations remain explicit: `omissions-and-risks.tsv` records `accepted_source_limitation=25`, `accepted_english_only_auxiliary=5`, and `resolved=1`.
+
+R025 also appended semantic-unit reconciliation evidence rows `R025-RECON-001` through `R025-RECON-005` so the global reconciliation itself is traceable from the ledger.
+
 ## Ledger files
 
 | File | Purpose | First row owner |

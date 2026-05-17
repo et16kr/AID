@@ -23,7 +23,7 @@ R021	Done	docs	English-only auxiliary corpus integration	Integrate or index Engl
 R022	Done	docs	FAQ exhaustive reconciliation	Reconcile every Korean-source-verified FAQE source against topic documents and coverage evidence.
 R023	Done	docs	Attachments diagrams external references	Register every attachment, legacy label, unavailable diagram, and external reference with preservation status.
 R024	Done	docs	Terminology multilingual preservation	Create the terminology and multilingual answer-stability guide for exact identifiers and translation boundaries.
-R025	ToDo	docs	Source semantic-unit coverage reconciliation	Reconcile source inventory, semantic-unit coverage, target sections, and accepted limitations.
+R025	Done	docs	Source semantic-unit coverage reconciliation	Reconcile source inventory, semantic-unit coverage, target sections, and accepted limitations.
 R026	ToDo	docs	Source-derived answerability backtest	Create source-derived answerability tests and fix or mark any not-answerable coverage.
 R027	ToDo	docs	Cross-reference unsupported-claim review	Normalize cross references, labels, links, terminology, and remove unsupported claims.
 R028	ToDo	docs	Final validation build report handoff	Run final validation, create the build report, and create the handoff document.
