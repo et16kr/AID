@@ -4,7 +4,7 @@ R002	Done	docs	Package scaffold and exhaustive coverage ledgers	Create the llm-r
 R003	Done	docs	Full source inventory and source-to-topic map	Inventory every arch/Home and FAQE/Home Markdown source and map each source to a topic document and owner job.
 R004	Done	docs	Installation patch upgrade database creation	Build exhaustive installation, patch, upgrade, database creation, startup validation, and installation FAQ coverage.
 R005	Done	docs	Platform setup OS prerequisites Docker	Build exhaustive Linux, Solaris, HPUX, AIX, platform prerequisite, and Docker coverage.
-R006	ToDo	docs	Architecture storage disk concepts	Build exhaustive architecture, storage, WAL, checkpoint, disk configuration, and general concept coverage.
+R006	Done	docs	Architecture storage disk concepts	Build exhaustive architecture, storage, WAL, checkpoint, disk configuration, and general concept coverage.
 R007	ToDo	docs	Configuration startup capacity OS utilities	Build exhaustive configuration, startup, shutdown, capacity sizing, OS utility, and memory management coverage.
 R008	ToDo	docs	Administration security sessions charset FAQ	Build exhaustive administration, security, session, client, charset, JOB, and operational FAQ coverage.
 R009	ToDo	docs	Backup recovery failure response	Build exhaustive backup, recovery, failure response, aexport, iloader, and validation coverage.
