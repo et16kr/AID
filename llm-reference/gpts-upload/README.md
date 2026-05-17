@@ -83,6 +83,16 @@ The customer-facing required upload remains `Altibase_GPT_Knowledge_Encyclopedia
 
 The orchestrator owns `jobs.tsv` status transitions. Individual jobs must not manually advance workflow status rows.
 
+## Bundle Generator
+
+Run the generator from the repository root:
+
+```bash
+python3 llm-reference/gpts-upload/build-gpts-knowledge-bundles.py
+```
+
+The generator writes `Altibase_GPT_Knowledge_Encyclopedia.md`, preserves included Markdown documents between explicit `BEGIN INCLUDED DOCUMENT` and `END INCLUDED DOCUMENT` markers, and fails if a required `llm-reference/` source file is missing.
+
 ## Acceptance Gate
 
 A GPTs upload package is acceptable only when:
