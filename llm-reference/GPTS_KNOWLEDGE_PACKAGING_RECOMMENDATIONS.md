@@ -164,6 +164,15 @@ Use ASCII for generated control text unless source content already contains non-
 
 Before the bundle is considered GPTs-ready, run validation checks that prove the output is self-contained and complete for the stated purpose.
 
+Automated validation is defined in:
+
+```text
+llm-reference/gpts-upload/VALIDATION_PROCESS.md
+llm-reference/gpts-upload/validate-gpts-knowledge.py
+```
+
+Human review must start only after the automated validation script reports `GPTS_AUTOMATED_PASS`.
+
 Required checks:
 
 ```bash
@@ -186,6 +195,13 @@ Additional required validation:
 - Confirm the bundle states accepted limitation labels and tells the GPT not to invent missing diagrams or attachments.
 - Confirm the bundle file size is well below GPTs per-file limits.
 - Confirm there are zero status-field `recheck_required` rows in the repository coverage ledgers before generating the final bundle.
+- Confirm the automated validation gate passes:
+
+```bash
+python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode full
+```
+
+Automated checks do not replace human review. Human review remains required for customer-facing clarity, representative GPT answer quality, and GPTs UI behavior.
 
 ## Acceptance Criteria
 
@@ -223,4 +239,3 @@ The original source trees remain necessary for:
 - Attachment or diagram investigation
 - Legal or historical preservation
 - Regenerating or auditing the LLM reference package
-

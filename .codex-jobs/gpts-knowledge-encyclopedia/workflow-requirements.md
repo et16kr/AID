@@ -37,6 +37,8 @@ The original source trees `arch/`, `FAQE/`, `DOCK/`, and `faq/` are not upload i
 Required:
 
 - `llm-reference/gpts-upload/build-gpts-knowledge-bundles.py`
+- `llm-reference/gpts-upload/validate-gpts-knowledge.py`
+- `llm-reference/gpts-upload/VALIDATION_PROCESS.md`
 - `llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md`
 - `llm-reference/gpts-upload/README.md`
 - `llm-reference/gpts-upload/GPTS_INSTRUCTIONS.txt`
@@ -157,12 +159,14 @@ Expected work:
 - Confirm no unresolved status-field `recheck_required` rows exist in repository coverage ledgers.
 - Confirm artifact scans have no matches.
 - Confirm generated files are below GPTs file limits based on current OpenAI Help Center guidance recorded in the packaging requirements.
+- Run `python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode full`.
+- Record that human review must not start until automated validation reports `GPTS_AUTOMATED_PASS`.
 
 Acceptance:
 
 - `GPTS_READINESS_REPORT.md` records a final decision of `GPTS_UPLOAD_READY` or `GPTS_RECHECK_REQUIRED`.
 - A complete run should end with `GPTS_UPLOAD_READY`.
 - The report lists the exact files to upload to GPTs.
+- The report references the automated validation decision.
 - Standard and targeted checks pass.
 - The result is committed and the working tree is clean.
-
