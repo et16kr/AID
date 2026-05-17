@@ -1,0 +1,3 @@
+file_path	upload_priority	audience	required_for_customer_answers	purpose	notes
+llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md	1	customer-facing GPT answers	yes	Self-contained Altibase GPTs Knowledge encyclopedia for customer and support answers	Upload this as the only required Altibase reference file for customer-facing GPTs; it includes all 12 topic documents in full.
+llm-reference/gpts-upload/Altibase_GPT_Knowledge_Audit.md	2	internal audit and technical support	no	Optional validation, coverage, packaging, and traceability evidence	Upload only when a second Altibase Knowledge slot is intentionally allocated for internal review; it is not required for normal customer answers.

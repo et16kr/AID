@@ -20,6 +20,21 @@ llm-reference/gpts-upload/Altibase_GPT_Knowledge_Audit.md
 
 `Altibase_GPT_Knowledge_Audit.md`, if created, is for internal validation and technical support traceability only. It is not required for customer answers and must not become a GPT runtime dependency.
 
+## Upload Order
+
+For a customer-facing GPT, upload only this Altibase reference file:
+
+1. `llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md`
+
+Do not upload `Altibase_GPT_Knowledge_Audit.md` for normal customer-answer deployments unless the GPT is also intended for internal validation.
+
+For an internal support or audit GPT, upload no more than these two Altibase reference files:
+
+1. `llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md`
+2. `llm-reference/gpts-upload/Altibase_GPT_Knowledge_Audit.md`
+
+The encyclopedia is the answer corpus. The audit bundle is validation evidence, coverage summary, package handoff, and upload-policy traceability.
+
 ## Source Boundary
 
 Use only the generated `llm-reference/` corpus as source material for GPTs upload files:
@@ -73,6 +88,8 @@ llm-reference/gpts-upload/GPTS_READINESS_REPORT.md
 
 The customer-facing required upload remains `Altibase_GPT_Knowledge_Encyclopedia.md` even when these support files exist.
 
+`GPTS_INSTRUCTIONS.txt` contains copy-paste GPT configuration text. `UPLOAD_MANIFEST.tsv` records upload priority, audience, required/optional status, purpose, and notes for each Altibase GPTs Knowledge upload file.
+
 ## Run Order
 
 1. `G001` confirms the GPTs-only target, source boundary, non-runtime source-tree rule, and upload workflow requirements. It does not create the final encyclopedia bundle.
@@ -91,16 +108,19 @@ Run the generator from the repository root:
 python3 llm-reference/gpts-upload/build-gpts-knowledge-bundles.py
 ```
 
-The generator writes `Altibase_GPT_Knowledge_Encyclopedia.md`, preserves included Markdown documents between explicit `BEGIN INCLUDED DOCUMENT` and `END INCLUDED DOCUMENT` markers, and fails if a required `llm-reference/` source file is missing.
+The generator writes `Altibase_GPT_Knowledge_Encyclopedia.md` and the optional `Altibase_GPT_Knowledge_Audit.md`, preserves included Markdown documents between explicit `BEGIN INCLUDED DOCUMENT` and `END INCLUDED DOCUMENT` markers, and fails if a required `llm-reference/` source file is missing.
 
 ## Acceptance Gate
 
 A GPTs upload package is acceptable only when:
 
 - The required customer-facing GPT upload file is `Altibase_GPT_Knowledge_Encyclopedia.md`.
-- No more than one optional audit file is needed for Altibase GPTs Knowledge upload.
+- Customer-facing upload requires no more than one Altibase reference file.
+- Internal upload requires no more than two Altibase reference files.
+- No more than one optional audit file is used for Altibase GPTs Knowledge upload.
 - The encyclopedia includes all 12 topic documents in full.
 - The encyclopedia is self-contained for GPT answer generation.
+- The optional audit bundle is not required for normal customer answers.
 - The original source trees are not required at GPT answer time.
 - Source paths are preserved as evidence labels and maintenance traceability.
 - Accepted limitation labels remain visible, and unavailable diagrams or missing legacy attachments are not invented.

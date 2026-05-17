@@ -2,5 +2,5 @@ id	status	kind	title	goal
 G001	Done	mixed	GPTs upload requirements and corpus gate	Confirm the GPTs-only answer target, verify the current llm-reference corpus is the source boundary, and create the upload workflow requirements.
 G002	Done	mixed	Bundle generator and encyclopedia artifact	Implement the repeatable bundle generator and create the one-file GPTs encyclopedia from the full llm-reference topic corpus.
 G003	Done	mixed	GPT retrieval hardening and answer routing	Improve the encyclopedia bundle for GPTs retrieval with front matter, routing index, exact-identifier guidance, and self-contained answer rules without removing source traceability.
-G004	ToDo	mixed	Optional audit bundle and upload handoff	Create the optional second audit bundle plus upload instructions, manifest, and GPT configuration text for customer-facing use.
+G004	Done	mixed	Optional audit bundle and upload handoff	Create the optional second audit bundle plus upload instructions, manifest, and GPT configuration text for customer-facing use.
 G005	ToDo	mixed	Final GPTs readiness validation	Run final validation proving the generated 1-2 files are complete, self-contained, source-traceable, and ready for GPTs upload.
