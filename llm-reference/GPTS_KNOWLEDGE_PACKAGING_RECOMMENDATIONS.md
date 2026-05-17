@@ -171,7 +171,7 @@ llm-reference/gpts-upload/VALIDATION_PROCESS.md
 llm-reference/gpts-upload/validate-gpts-knowledge.py
 ```
 
-Human review must start only after the automated validation script reports `GPTS_AUTOMATED_PASS`.
+Human review must start only after the final automated validation script reports `GPTS_AUTOMATED_PASS`.
 
 Required checks:
 
@@ -199,6 +199,12 @@ Additional required validation:
 
 ```bash
 python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode full
+```
+
+Before starting human review, run the final automated gate after `GPTS_READINESS_REPORT.md` exists:
+
+```bash
+python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode final
 ```
 
 Automated checks do not replace human review. Human review remains required for customer-facing clarity, representative GPT answer quality, and GPTs UI behavior.

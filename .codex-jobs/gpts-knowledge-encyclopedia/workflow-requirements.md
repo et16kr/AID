@@ -138,12 +138,14 @@ Expected work:
 - Create `llm-reference/gpts-upload/GPTS_INSTRUCTIONS.txt` with copy-paste GPT configuration instructions.
 - Create `llm-reference/gpts-upload/UPLOAD_MANIFEST.tsv` listing generated upload files, purpose, required/optional status, and whether each should be uploaded to a customer-facing GPT.
 - Ensure the customer-facing required upload remains one file.
+- Run `python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode full`; readiness-report absence may warn, but generated artifact failures must be fixed.
 
 Acceptance:
 
 - `GPTS_INSTRUCTIONS.txt` is directly usable in GPT configuration.
 - `UPLOAD_MANIFEST.tsv` clearly distinguishes required customer upload from optional audit upload.
 - The optional audit bundle does not become a runtime dependency for customer answers.
+- The full automated artifact validation passes before final readiness report creation.
 - Basic checks pass and the result is committed.
 
 ### G005 - Final GPTs readiness validation
@@ -161,6 +163,7 @@ Expected work:
 - Confirm artifact scans have no matches.
 - Confirm generated files are below GPTs file limits based on current OpenAI Help Center guidance recorded in the packaging requirements.
 - Run `python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode full`.
+- After creating `GPTS_READINESS_REPORT.md`, run `python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode final`.
 - Record that human review must not start until automated validation reports `GPTS_AUTOMATED_PASS`.
 - Reference `llm-reference/gpts-upload/HUMAN_REVIEW_CHECKLIST.html` as the manual review checklist.
 

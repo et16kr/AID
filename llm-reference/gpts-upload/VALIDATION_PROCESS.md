@@ -6,10 +6,10 @@ Date: 2026-05-17
 
 This document separates automated validation from human review for the Altibase GPTs Knowledge upload artifacts.
 
-Human review must not start until the automated gate passes. The automated gate is implemented by:
+Human review must not start until the final automated gate passes. The final automated gate is implemented by:
 
 ```bash
-python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode full
+python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode final
 ```
 
 Before GPTs upload bundles exist, use source-corpus preflight:
@@ -29,6 +29,7 @@ Automated checks include:
 - Coverage ledgers contain no status-field `recheck_required` rows.
 - `answerability-backtest.tsv` contains no `not_answerable` rows.
 - GPTs upload files exist after bundle generation.
+- The human review checklist exists for the manual pass.
 - No more than two Altibase GPTs upload files are required.
 - `Altibase_GPT_Knowledge_Encyclopedia.md` exists.
 - All 12 topic documents are included exactly once.
@@ -53,10 +54,16 @@ Before bundle generation:
 python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode preflight
 ```
 
-After bundle generation and before human review:
+After bundle generation, before the final readiness report:
 
 ```bash
-python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode full \
+python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode full
+```
+
+After `GPTS_READINESS_REPORT.md` is created, and before human review:
+
+```bash
+python3 llm-reference/gpts-upload/validate-gpts-knowledge.py --mode final \
   --write-report llm-reference/gpts-upload/GPTS_AUTOMATED_VALIDATION_REPORT.md
 ```
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Validate Altibase GPTs Knowledge upload artifacts.
 
-Use --mode preflight before bundles exist. Use --mode full as the automated
-gate before human review starts.
+Use --mode preflight before bundles exist, --mode full after bundle generation,
+and --mode final as the automated gate before human review starts.
 """
 
 from __future__ import annotations
@@ -25,6 +25,7 @@ AUDIT_BUNDLE = UPLOAD_DIR / "Altibase_GPT_Knowledge_Audit.md"
 UPLOAD_MANIFEST = UPLOAD_DIR / "UPLOAD_MANIFEST.tsv"
 GPTS_INSTRUCTIONS = UPLOAD_DIR / "GPTS_INSTRUCTIONS.txt"
 READINESS_REPORT = UPLOAD_DIR / "GPTS_READINESS_REPORT.md"
+HUMAN_REVIEW_CHECKLIST = UPLOAD_DIR / "HUMAN_REVIEW_CHECKLIST.html"
 
 MAX_GPTS_FILE_BYTES = 512 * 1024 * 1024
 ROUGH_MAX_TEXT_TOKENS = 2_000_000
@@ -188,6 +189,7 @@ class Validator:
             UPLOAD_DIR / "build-gpts-knowledge-bundles.py",
             UPLOAD_DIR / "validate-gpts-knowledge.py",
             UPLOAD_DIR / "VALIDATION_PROCESS.md",
+            HUMAN_REVIEW_CHECKLIST,
             ENCYCLOPEDIA,
             UPLOAD_DIR / "README.md",
             GPTS_INSTRUCTIONS,
@@ -380,23 +382,38 @@ class Validator:
         else:
             self.pass_("gpts-instructions", "copy-paste GPT instructions contain required rules")
 
-    def check_readiness_report_if_present(self) -> None:
+    def check_readiness_report(self, required: bool) -> None:
         if not READINESS_REPORT.is_file():
-            self.warn("readiness-report", "GPTS_READINESS_REPORT.md is not present yet")
+            if required:
+                self.fail("readiness-report", "GPTS_READINESS_REPORT.md is required for final validation")
+            else:
+                self.warn("readiness-report", "GPTS_READINESS_REPORT.md is not present yet")
             return
         text = self.read_text(READINESS_REPORT)
-        if "GPTS_UPLOAD_READY" in text:
-            self.pass_("readiness-report", "report contains GPTS_UPLOAD_READY")
-        elif "GPTS_RECHECK_REQUIRED" in text:
-            self.fail("readiness-report", "report contains GPTS_RECHECK_REQUIRED")
+        ready_decision = bool(
+            re.search(r"final decision\s*:?\s*`?GPTS_UPLOAD_READY`?", text, flags=re.IGNORECASE)
+            or re.search(r"^`GPTS_UPLOAD_READY`$", text, flags=re.MULTILINE)
+        )
+        recheck_decision = bool(
+            re.search(r"final decision\s*:?\s*`?GPTS_RECHECK_REQUIRED`?", text, flags=re.IGNORECASE)
+            or re.search(r"^`GPTS_RECHECK_REQUIRED`$", text, flags=re.MULTILINE)
+        )
+        if recheck_decision:
+            self.fail("readiness-report", "report final decision is GPTS_RECHECK_REQUIRED")
+        elif not ready_decision:
+            self.fail("readiness-report", "report has no GPTS_UPLOAD_READY final decision")
+        elif required and "GPTS_AUTOMATED_PASS" not in text:
+            self.fail("readiness-report", "final report does not reference GPTS_AUTOMATED_PASS")
+        elif required and not re.search(r"human review.*GPTS_AUTOMATED_PASS", text, flags=re.IGNORECASE | re.DOTALL):
+            self.fail("readiness-report", "final report does not state the human review gate")
         else:
-            self.fail("readiness-report", "report has no final GPTs readiness decision")
+            self.pass_("readiness-report", "report contains GPTS_UPLOAD_READY and automated gate evidence")
 
     def validate_preflight(self) -> None:
         self.check_source_files_exist()
         self.check_coverage_blockers()
 
-    def validate_full(self) -> None:
+    def validate_full(self, *, require_readiness_report: bool = False) -> None:
         self.validate_preflight()
         self.check_generated_outputs_exist()
         self.check_upload_file_count()
@@ -416,7 +433,7 @@ class Validator:
         self.check_gpts_instructions()
         if AUDIT_BUNDLE.is_file():
             self.check_file_size(AUDIT_BUNDLE)
-        self.check_readiness_report_if_present()
+        self.check_readiness_report(required=require_readiness_report)
 
     def has_failures(self) -> bool:
         return any(result.status == "FAIL" for result in self.results)
@@ -466,9 +483,9 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate Altibase GPTs Knowledge upload artifacts.")
     parser.add_argument(
         "--mode",
-        choices=["preflight", "full"],
+        choices=["preflight", "full", "final"],
         default="full",
-        help="preflight checks source corpus only; full checks generated GPTs upload artifacts",
+        help="preflight checks source corpus only; full checks generated artifacts; final also requires readiness report",
     )
     parser.add_argument(
         "--write-report",
@@ -483,6 +500,8 @@ def main() -> int:
     validator = Validator(mode=args.mode)
     if args.mode == "preflight":
         validator.validate_preflight()
+    elif args.mode == "final":
+        validator.validate_full(require_readiness_report=True)
     else:
         validator.validate_full()
     validator.print_results()
