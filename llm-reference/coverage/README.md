@@ -107,6 +107,21 @@ R025 reconciled the source inventory, topic map, semantic-unit ledger, topic sou
 
 R025 also appended semantic-unit reconciliation evidence rows `R025-RECON-001` through `R025-RECON-005` so the global reconciliation itself is traceable from the ledger.
 
+## R026 source-derived answerability backtest
+
+R026 expanded `answerability-backtest.tsv` from the completed source inventory and semantic-unit coverage ledger.
+
+- Existing backtest rows preserved: 289.
+- R026-generated rows added: 333.
+- Final backtest rows: 622 total, including 617 rows for the 422 `source-inventory.tsv` source files and 5 pre-existing rows for package or evidence sources.
+- Inventory source coverage: 422 of 422 source files have at least one backtest row.
+- Density coverage: 286 inventory sources have one row, 84 have two rows, and 52 have three or more rows.
+- Result distribution for inventory sources: 480 `answerable` rows and 137 `answerable_with_source_label` rows.
+- `not_answerable` rows: 0.
+- `recheck_required` rows: 0.
+
+The R026 generation read every source path in `source-inventory.tsv`, used `semantic-unit-coverage.tsv` as the source-derived unit list, and validated that each generated row's target document exists and keeps the source path traceable. Rows for English-only auxiliary material, canonical duplicates, parent index pages, and accepted attachment or diagram limitations use `answerable_with_source_label` so answers preserve the classification boundary instead of treating the source as Korean-source-verified.
+
 ## Ledger files
 
 | File | Purpose | First row owner |
