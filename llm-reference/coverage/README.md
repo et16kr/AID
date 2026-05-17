@@ -20,7 +20,7 @@ Use these ledgers to prove that every source file and every answer-affecting sou
 
 ## Key facts
 
-- `source-inventory.tsv` and `source-to-topic-map.tsv` must each contain exactly one row for every `arch/Home/**/*.md` and `FAQE/Home/**/*.md` source file after R003.
+- `source-inventory.tsv` and `source-to-topic-map.tsv` must each contain exactly one row for every Markdown source file under `arch/Home` and `FAQE/Home` after R003.
 - `semantic-unit-coverage.tsv` must include every answer-affecting concept, procedure, command, SQL statement, configuration item, path, warning, version condition, troubleshooting item, error, attachment, external reference, and sample code owned by later jobs.
 - `attachment-diagram-register.tsv` must preserve URL-backed document-format attachments and accepted limitations.
 - `answerability-backtest.tsv` must show source-derived answerability.
@@ -85,7 +85,7 @@ The reconciliation preserved source-specific version, OS, license where present,
 
 ## R023 attachment, diagram, and external reference register
 
-R023 rebuilt `attachment-diagram-register.tsv` from `source-stabilization/legacy-attachments.tsv`, `source-stabilization/url-backed-attachments.tsv`, and parsed HTTP(S) attachment or reference links in every `arch/Home/**/*.md` and `FAQE/Home/**/*.md` source file. Source metadata lines (`source_url:` and the exported `Source:` line) are covered by the source inventory/source index and are not duplicated as external-reference rows.
+R023 rebuilt `attachment-diagram-register.tsv` from `source-stabilization/legacy-attachments.tsv`, `source-stabilization/url-backed-attachments.tsv`, and parsed HTTP(S) attachment or reference links in every Markdown source file under `arch/Home` and `FAQE/Home`. Source metadata lines (`source_url:` and the exported `Source:` line) are covered by the source inventory/source index and are not duplicated as external-reference rows.
 
 - Registered rows: 825 across 184 source files.
 - Preservation statuses: `diagram_unavailable` 14, `legacy_no_downloadable_url` 21, `not_document_format` 732, `preserved_url` 58.
@@ -121,6 +121,16 @@ R026 expanded `answerability-backtest.tsv` from the completed source inventory a
 - `recheck_required` rows: 0.
 
 The R026 generation read every source path in `source-inventory.tsv`, used `semantic-unit-coverage.tsv` as the source-derived unit list, and validated that each generated row's target document exists and keeps the source path traceable. Rows for English-only auxiliary material, canonical duplicates, parent index pages, and accepted attachment or diagram limitations use `answerable_with_source_label` so answers preserve the classification boundary instead of treating the source as Korean-source-verified.
+
+## R027 cross-reference and unsupported-claim review
+
+R027 normalized package cross references and source labels without changing original `arch/Home`, `FAQE/Home`, `DOCK/Home`, or `faq/Home` sources.
+
+- Replaced wildcard-style source labels such as `FAQE/Home/ALTIBASE HDB Troubleshooting/**` with existing source directories in topic notes and risk evidence.
+- Normalized the monitoring topic's `SQL, commands, and configuration` section heading to match the package document shape.
+- Rechecked source-path traceability for top-level `llm-reference/*.md` Source paths sections and coverage TSV `source_path` values.
+- Rechecked that English-only auxiliary material remains labeled as `English-only source` or `english_only_auxiliary` and is not described as Korean-source-verified.
+- Rechecked that coverage status fields contain no `recheck_required` rows and that Markdown export-artifact scans return no live defects.
 
 ## Ledger files
 

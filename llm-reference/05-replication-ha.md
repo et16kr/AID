@@ -24,11 +24,11 @@ R021 English-only auxiliary source paths indexed in this revision:
 
 ## Source coverage notes
 
-This document covers the R010 topic: Altibase replication design, high availability, Sender and Receiver behavior, Lazy and Eager replication modes, Off-Line Replicator use, HA solution cautions, N-way replication, replication setup, target-table changes, DDL handling, constraints, conflict handling, gap monitoring, GIVE-UP behavior, and every Korean-source-verified replication FAQ variant in `FAQE/Home/03. Replication/**`.
+This document covers the R010 topic: Altibase replication design, high availability, Sender and Receiver behavior, Lazy and Eager replication modes, Off-Line Replicator use, HA solution cautions, N-way replication, replication setup, target-table changes, DDL handling, constraints, conflict handling, gap monitoring, GIVE-UP behavior, and every Korean-source-verified replication FAQ variant under `FAQE/Home/03. Replication`.
 
 The replication configuration guide and seven replication FAQ pages are classified as `Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv`. The replication constraints guide and `FAQE/Home/03. Replication/How to create_delete replication objects__16876082.md` are classified as `Link-validated Korean-source-verified` because Phase 2 validated the Korean-source attachment URLs.
 
-R021 adds the `FAQE/Home/ALTIBASE HDB Replication/**` tree as `English-only source` auxiliary material. The English-only replication pages overlap with Korean-source-verified replication concepts, but they also preserve source-specific phrasing, error examples, Eager/User-oriented/Timestamp conflict-resolution cautions, Offline Replicator SQL, and unavailable diagram evidence. Answers citing those pages must carry the `English-only source` label and must not present them as Korean-source-verified.
+R021 adds the `FAQE/Home/ALTIBASE HDB Replication` tree as `English-only source` auxiliary material. The English-only replication pages overlap with Korean-source-verified replication concepts, but they also preserve source-specific phrasing, error examples, Eager/User-oriented/Timestamp conflict-resolution cautions, Offline Replicator SQL, and unavailable diagram evidence. Answers citing those pages must carry the `English-only source` label and must not present them as Korean-source-verified.
 
 The source set preserves three URL-backed PDF attachments: one Korean-source replication constraints PDF in the architecture constraints guide and two replication guide PDFs in the create/delete replication objects FAQ. Embedded diagrams and screenshots are registered as `not_document_format`; this topic preserves the surrounding technical meaning without reconstructing image pixels.
 
@@ -989,7 +989,7 @@ Cause: multiple replication objects use the same remote IP and port while duplic
 | ALTIBASE HDB `6.1.1` and above | Replication GIVE-UP FAQ applies. |
 | Earlier than Altibase `7` | `V$REPGAP.REP_GAP` means the interval between `REP_LAST_SN` and `REP_SN`. |
 | Altibase `7` and above | `V$REPGAP` includes `REP_GAP_SIZE`; `REP_GAP` is calculated by `REPLICATION_GAP_UNIT`. |
-| `FAQE/Home/ALTIBASE HDB Replication/**` | English-only auxiliary FAQE material updated in 2011; use as auxiliary source only and label as `English-only source`. |
+| `FAQE/Home/ALTIBASE HDB Replication` | English-only auxiliary FAQE material updated in 2011; use as auxiliary source only and label as `English-only source`. |
 
 DDL support differs by Altibase version. For DDL statements related to replication, use the manual for the specific target version and the support manual page at `http://support.altibase.com/en/manual`.
 

@@ -36,7 +36,7 @@ The R015 source set is Korean-source-verified. `FAQE/Home/06. Stored Procedure/H
 
 R016 covers performance design, storage placement, HPT, partition-table caveats, native data type selection, join/index design, execution-plan reading, index scan failure patterns, join/LIMIT/subquery/DML tuning guidance, runtime diagnostic SQL, plan cache, log/checkpoint/GC tuning, system-side evidence capture, and large DRDB index build settings. The `arch/Home/Altibase SQL Tuning Guide__22643010.md` page is a link-validated Markdown wrapper for two preserved PDF URLs. The linked `D68_Altibase_SQL_Tuning_Guide.pdf` was read during R016 and its Korean slide content is represented below in English while exact SQL, properties, hints, object names, and paths are preserved.
 
-The `FAQE/Home/ALTIBASE HDB Performance Tuning/**` tree is `English-only source` material. It is integrated as auxiliary diagnostic guidance and must not be described as Korean-source-verified. Its semantic-unit rows use `english_only_auxiliary` status and retain the source-label risk.
+The `FAQE/Home/ALTIBASE HDB Performance Tuning` tree is `English-only source` material. It is integrated as auxiliary diagnostic guidance and must not be described as Korean-source-verified. Its semantic-unit rows use `english_only_auxiliary` status and retain the source-label risk.
 
 The wider Altibase Development Guide source also contains two Korean legacy PDF labels, `ALTIBASE_개발가이드.pdf` and `ALTIBASE_개발가이드_5.3.pdf`, with no downloadable source URL. R013 already registers those labels for the client application error chapter; this document does not invent URLs for them.
 

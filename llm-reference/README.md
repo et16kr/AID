@@ -39,7 +39,7 @@ The package must preserve exact product names, commands, SQL, configuration prop
 
 - Phase 2 final decision: `READY_FOR_LLM_CONSOLIDATION`.
 - Phase 1 semantic coverage decision recorded by Phase 2: `COMPLETE`.
-- Source corpus boundary: `arch/Home/**/*.md` and `FAQE/Home/**/*.md`.
+- Source corpus boundary: Markdown files under `arch/Home` and `FAQE/Home`.
 - Phase 2 baseline counts: `arch/Home` has 181 Markdown files and `FAQE/Home` has 241 Markdown files.
 - English-only auxiliary material must be labeled as `English-only source` or `english_only_auxiliary`.
 - Hash-only legacy attachment labels must be recorded as having no downloadable URL in the source.

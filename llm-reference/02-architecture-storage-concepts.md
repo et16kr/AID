@@ -29,9 +29,9 @@ This document covers the R006 portion of `llm-reference/02-architecture-storage-
 
 All R006 source files are classified as `Korean-source-verified` or `Link-validated Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv`.
 
-R021 adds the `FAQE/Home/ALTIBASE HDB Architecture/**` tree as `English-only source` auxiliary material. These pages are outside Korean-core FAQ semantic verification and must not be described as Korean-source-verified. Their semantic-unit rows use `english_only_auxiliary`, except unavailable diagrams and source images, which are registered as `diagram_unavailable` or `not_document_format` evidence.
+R021 adds the `FAQE/Home/ALTIBASE HDB Architecture` tree as `English-only source` auxiliary material. These pages are outside Korean-core FAQ semantic verification and must not be described as Korean-source-verified. Their semantic-unit rows use `english_only_auxiliary`, except unavailable diagrams and source images, which are registered as `diagram_unavailable` or `not_document_format` evidence.
 
-The split `arch/Home/Disk Configuration Guide for Altibase/**` pages and `arch/Home/Configuration Guide For Minimizing Disk I_O Contention__22643018.md` intentionally overlap. The consolidated `Configuration Guide For Minimizing Disk I/O Contention` page is the canonical source for the normalized English wording, while the split pages provide duplicate coverage evidence for redo log, checkpoint, disk DB, undo tablespace, disk layout, file-system, RAID, Direct I/O, and page-size units.
+The split pages under `arch/Home/Disk Configuration Guide for Altibase` and `arch/Home/Configuration Guide For Minimizing Disk I_O Contention__22643018.md` intentionally overlap. The consolidated `Configuration Guide For Minimizing Disk I/O Contention` page is the canonical source for the normalized English wording, while the split pages provide duplicate coverage evidence for redo log, checkpoint, disk DB, undo tablespace, disk layout, file-system, RAID, Direct I/O, and page-size units.
 
 The source set contains downloadable PDF attachments and embedded diagrams/images. Downloadable document-format URLs are preserved exactly in the attachment register and in this document. Embedded diagrams are not document-format attachments; their URLs are preserved in the attachment register, and this document covers the surrounding textual meaning without reconstructing visual content. No R006 source contains a missing Gliffy/export diagram placeholder, so no `diagram_unavailable` row is needed for R006. R021 has one image-only architecture overview page and one unavailable Gliffy diagram in the query-execution page; neither image is reconstructed.
 
@@ -262,7 +262,7 @@ For durability answers, do not collapse the tradeoff between Level 2, Level 3, a
 | `FAQE/Home/13. General/The entire database exists in memory...` | Applicable to all versions of ALTIBASE HDB. |
 | `FAQE/Home/13. General/What interface does Altibase provide__22642982.md` | Based on Altibase HDB 6.1.1 or later, with later API-specific version conditions preserved in the interface table. |
 | `FAQE/Home/13. General/What is the biggest difference...` | Applicable to all versions of ALTIBASE HDB. |
-| `FAQE/Home/ALTIBASE HDB Architecture/**` | English-only auxiliary FAQE material updated in 2011; use as auxiliary source only and label as `English-only source`. |
+| `FAQE/Home/ALTIBASE HDB Architecture` | English-only auxiliary FAQE material updated in 2011; use as auxiliary source only and label as `English-only source`. |
 
 ## Related errors
 

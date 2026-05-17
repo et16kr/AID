@@ -67,7 +67,7 @@ The capacity-sizing source contains one source-level inconsistency in the disk D
 
 All R008 sources are classified as `Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv`. R008 does not use English-only auxiliary source material.
 
-R021 adds the `FAQE/Home/ALTIBASE HDB Administration/**` tree as `English-only source` auxiliary material. The R021 administration pages are useful SQL and procedure indexes outside Korean-core FAQ semantic verification. Answers that cite them must keep the `English-only source` label and should not describe the SQL catalog as Korean-source-verified. The SQL bodies remain in the source files; this consolidated topic indexes each answerable query family, the exact version split when present, and the key system views or commands required to locate the source query.
+R021 adds the `FAQE/Home/ALTIBASE HDB Administration` tree as `English-only source` auxiliary material. The R021 administration pages are useful SQL and procedure indexes outside Korean-core FAQ semantic verification. Answers that cite them must keep the `English-only source` label and should not describe the SQL catalog as Korean-source-verified. The SQL bodies remain in the source files; this consolidated topic indexes each answerable query family, the exact version split when present, and the key system views or commands required to locate the source query.
 
 The R008 FAQ set has no URL-backed document-format attachments. It contains one downloadable support script, `altibased`, which is registered as `not_document_format`; one embedded `modify_column.png` image, also registered as `not_document_format`; and one legacy FAQ attachment label, `total_memory_tablespaces_usage.txt`, where the Korean source provides no downloadable URL. The legacy label is recorded as an accepted source limitation and no synthetic URL is introduced.
 
@@ -1289,7 +1289,7 @@ When using R021 English-only administration SQL, keep version labels such as `AL
 | Auditing | Available from ALTIBASE HDB `6.3.1`. |
 | `ACCESS_LIST` and `REMOTE_SYSDBA_ENABLE` | Remote access and SYSDBA remote-access controls are available from ALTIBASE HDB version `5`. |
 | Password policy functions | Applied from `4.3.9.211`, `5.3.3.89`, `5.5.1.5.1`, `6.1.1.2.1`, `6.3.1`, `6.5.1`, `7.1`, and `7.3`. |
-| `FAQE/Home/ALTIBASE HDB Administration/**` | English-only auxiliary FAQE material. Many SQL pages have explicit `ALTIBASE HDB V4` and `ALTIBASE HDB V5` query variants; keep those variants separate. |
+| `FAQE/Home/ALTIBASE HDB Administration` | English-only auxiliary FAQE material. Many SQL pages have explicit `ALTIBASE HDB V4` and `ALTIBASE HDB V5` query variants; keep those variants separate. |
 
 ## Related errors
 

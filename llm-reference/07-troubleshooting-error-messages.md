@@ -158,9 +158,9 @@ R014 English-only source paths covered in this revision. These are auxiliary sou
 
 ## Source coverage notes
 
-This document covers R013: Korean-source-verified troubleshooting and error-message answerability from `FAQE/Home/09. Error Messages/**`, the Korean-source-verified client application error chapter in the Altibase Development Guide, and the Korean-source-verified frequent precompiler error chapter.
+This document covers R013: Korean-source-verified troubleshooting and error-message answerability from `FAQE/Home/09. Error Messages`, the Korean-source-verified client application error chapter in the Altibase Development Guide, and the Korean-source-verified frequent precompiler error chapter.
 
-It also covers R014: English-only auxiliary error and troubleshooting material from `FAQE/Home/Altibase Error Messages__6979655.md`, `FAQE/Home/Altibase Error Messages/**`, and `FAQE/Home/ALTIBASE HDB Troubleshooting/**`. Every R014 row in this document and in coverage evidence is labeled `English-only source` or `english_only_auxiliary`; do not apply Korean-source validation labels to this R014 material.
+It also covers R014: English-only auxiliary error and troubleshooting material from `FAQE/Home/Altibase Error Messages__6979655.md`, `FAQE/Home/Altibase Error Messages`, and `FAQE/Home/ALTIBASE HDB Troubleshooting`. Every R014 row in this document and in coverage evidence is labeled `English-only source` or `english_only_auxiliary`; do not apply Korean-source validation labels to this R014 material.
 
 The cross-topic paths above are already owned by R004, R009, or R012 for primary coverage. R013 uses only their troubleshooting labels and error signatures so answers about error messages can route users to the right operational topic without re-owning full installation, failure-response, trace-log, or diagnostic procedures.
 

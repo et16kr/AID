@@ -11,10 +11,10 @@ This scaffold uses these workflow and evidence paths:
 - `source-stabilization/legacy-attachments.tsv`
 - `source-stabilization/url-backed-attachments.tsv`
 
-The source corpus to be indexed by R003 is:
+The source corpus indexed by R003 is the Markdown file set under these existing directories:
 
-- `arch/Home/**/*.md`
-- `FAQE/Home/**/*.md`
+- `arch/Home`
+- `FAQE/Home`
 
 ## Source coverage notes
 
@@ -43,7 +43,7 @@ Use this file as the package-level route map. It lists topic destinations and jo
 ## Key facts
 
 - `arch/Home` technical guides and Korean-core `FAQE/Home` FAQ material are primary consolidated answer sources when classified as Korean-source-verified.
-- `FAQE/Home/ALTIBASE HDB*`, `FAQE/Home/Altibase Error Messages/**`, and `FAQE/Home/Altibase Error Messages__6979655.md` are English-only auxiliary sources unless later audited differently.
+- `FAQE/Home/ALTIBASE HDB Administration`, `FAQE/Home/ALTIBASE HDB Architecture`, `FAQE/Home/ALTIBASE HDB Performance Tuning`, `FAQE/Home/ALTIBASE HDB Replication`, `FAQE/Home/ALTIBASE HDB Troubleshooting`, `FAQE/Home/Altibase Error Messages`, and `FAQE/Home/Altibase Error Messages__6979655.md` are English-only auxiliary sources unless later audited differently.
 - A source may be mapped to one primary topic and any needed secondary topics.
 - Repeated content may be covered by a canonical duplicate target only when the coverage row names that target.
 

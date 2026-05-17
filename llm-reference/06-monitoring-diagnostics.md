@@ -66,7 +66,7 @@ R012 source paths covered in this revision:
 
 ## Source coverage notes
 
-This document covers R011: monitoring SQL, system and performance views, session and statement checks, lock and transaction checks, redo log checks, GC checks, memory and tablespace checks, object metadata, privileges, constraints, replication monitoring, `altimon`, `altiProfile`, OS-system evidence examples, and every Korean-source-verified monitoring FAQ variant under `FAQE/Home/08. Monitoring/**`.
+This document covers R011: monitoring SQL, system and performance views, session and statement checks, lock and transaction checks, redo log checks, GC checks, memory and tablespace checks, object metadata, privileges, constraints, replication monitoring, `altimon`, `altiProfile`, OS-system evidence examples, and every Korean-source-verified monitoring FAQ variant under `FAQE/Home/08. Monitoring`.
 
 It also covers R012: CPU overload analysis, memory usage growth analysis, OS evidence collection, trace-log interpretation, dump and crash evidence, hang stack collection, and diagnostic decision points from the failure-response guide. The failure-response sources remain primarily owned by R009 for backup/recovery and service-failure response, but their diagnostic evidence units are cross-covered here because R012 owns monitoring and diagnostics answerability.
 
@@ -318,7 +318,7 @@ Source diagnostic scenarios are:
 
 Immediate actions are either expanding undo tablespace capacity or removing the root cause. The source warns that terminating a DML session may trigger rollback; undo may be released only after rollback completes. For persistent prevention, split large transactions, configure `UTRANS_TIMEOUT`, avoid uncommitted transactions in non-autocommit applications, and close LOB cursors or complete the transaction.
 
-## SQL, Commands, and Configuration
+## SQL, commands, and configuration
 
 ### Storage and version-specific query selection
 
@@ -329,7 +329,7 @@ The monitoring FAQ intentionally preserves different SQL for different Altibase 
 | Disk table and index usage | `ALTIBASE HDB 4.3.9.x`; also usable in `5.1.1` | `FAQE/Home/08. Monitoring/Disk table and index usage/ALTIBASE HDB 4.3.9.x__16876229.md` |
 | Disk table and index usage | `ALTIBASE HDB 5.1.5.x` | `FAQE/Home/08. Monitoring/Disk table and index usage/ALTIBASE HDB 5.1.5.x__16876234.md` |
 | Disk table and index usage | `ALTIBASE HDB 5.3.x`, `5.5.1`, `6.1.1`, `6.3.1`; `BUG-31372` added `TOTAL_USED_SIZE` to `X$SEGMENT` | `FAQE/Home/08. Monitoring/Disk table and index usage/ALTIBASE HDB 5.3.x, 5.5.1, 6.1.1, 6.3.1__16876240.md` |
-| Disk tablespace usage | `ALTIBASE HDB 4.3.9`, `5.1.5`, `5.3.3`, `5.3.5`, `5.5.1`, `6.1.1`, `6.3.1` each has its own query variant | `FAQE/Home/08. Monitoring/Disk tablespace usage/**` |
+| Disk tablespace usage | `ALTIBASE HDB 4.3.9`, `5.1.5`, `5.3.3`, `5.3.5`, `5.5.1`, `6.1.1`, `6.3.1` each has its own query variant | `FAQE/Home/08. Monitoring/Disk tablespace usage` |
 | Memory tablespace usage | `ALTIBASE HDB 5.5.1`, `6.1.1`, `6.3.1`; `V$VOL_TABLESPACES` was added from `5.5.1` | `FAQE/Home/08. Monitoring/Memory tablespace usage/ALTIBASE HDB 5.5.1, 6.1.1, 6.3.1__16876263.md` |
 | Memory table and index usage | Data usage query can be used from `HDB 4.3.9.x` through `HDB 6.3.1.x`; memory table index size is `16 bytes * number of records` per index | `FAQE/Home/08. Monitoring/Memory table and index usage__16876259.md` |
 | Rollback query identification | `ALTIBASE HDB 5.1.5` or later | `FAQE/Home/08. Monitoring/How to determine which queries are being rolled back__16876296.md` |

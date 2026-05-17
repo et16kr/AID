@@ -24,7 +24,7 @@ R009 source paths covered in this revision:
 
 This document covers the R009 topic: backup policy, logical backup with `aexport` and `iloader`, physical cold/offline backup, online backup, incremental backup concepts, archive-mode recovery, time-based incomplete recovery, cold-backup recovery with directory changes, and first-response failure handling.
 
-The backup-policy architecture sources are classified as `Link-validated Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv` because Phase 2 validated the Korean-source PDF attachment. The failure-response architecture sources and all `FAQE/Home/04. Backup and Recovery/**` sources are classified as `Korean-source-verified`.
+The backup-policy architecture sources are classified as `Link-validated Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv` because Phase 2 validated the Korean-source PDF attachment. The failure-response architecture sources and all sources under `FAQE/Home/04. Backup and Recovery` are classified as `Korean-source-verified`.
 
 No English-only auxiliary source is used in this R009 revision.
 
