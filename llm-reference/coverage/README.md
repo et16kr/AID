@@ -83,6 +83,16 @@ R022 reconciled every Korean-source-verified FAQE source from `source-stabilizat
 
 The reconciliation preserved source-specific version, OS, license where present, restart, backup/recovery mode, output, and failure-condition variants that already appear in the topic documents and semantic rows. Repetitive FAQ units are retained either as covered rows or as `covered_by_canonical_duplicate` rows with a named canonical target.
 
+## R023 attachment, diagram, and external reference register
+
+R023 rebuilt `attachment-diagram-register.tsv` from `source-stabilization/legacy-attachments.tsv`, `source-stabilization/url-backed-attachments.tsv`, and parsed HTTP(S) attachment or reference links in every `arch/Home/**/*.md` and `FAQE/Home/**/*.md` source file. Source metadata lines (`source_url:` and the exported `Source:` line) are covered by the source inventory/source index and are not duplicated as external-reference rows.
+
+- Registered rows: 825 across 184 source files.
+- Preservation statuses: `diagram_unavailable` 14, `legacy_no_downloadable_url` 21, `not_document_format` 732, `preserved_url` 58.
+- Kinds: `diagram` 14, `document_attachment` 58, `embedded_icon` 4, `embedded_image` 363, `external_reference` 332, `legacy_attachment_label` 21, `support_artifact` 33.
+- URL-backed document-format rows from Phase 2 are represented with `preserved_url`; legacy labels are represented with `legacy_no_downloadable_url`; unavailable Gliffy exports are represented with `diagram_unavailable`; images, icons, support artifacts, and web/manual links are represented with `not_document_format`.
+- R023 also appended matching `semantic-unit-coverage.tsv` rows for every register row, using `R023-ATT-*` and `R023-EXT-*` unit IDs.
+
 ## Ledger files
 
 | File | Purpose | First row owner |
