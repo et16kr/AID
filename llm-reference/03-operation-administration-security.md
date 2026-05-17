@@ -12,11 +12,40 @@ R007 source paths covered in this revision:
 - `arch/Home/Utility Guide for each OS for Problem Analysis__16875587.md`
 - `arch/Home/UNIX Memory Management__16875572.md`
 
-R008 will later add the FAQ operation, administration, security, session, charset, and JOB material to this same topic document. This R007 revision does not claim to cover R008 FAQ sources.
+R008 source paths covered in this revision:
+
+- `FAQE/Home/02. Operation and Management/Altibase Server Configuration for IPC Communication__22642933.md`
+- `FAQE/Home/02. Operation and Management/Automatic altibase startup during OS booting in Solaris__16875996.md`
+- `FAQE/Home/02. Operation and Management/Can PUBLIC SYNONYM be dropped__16875993.md`
+- `FAQE/Home/02. Operation and Management/Can table data be saved on disk and only indexes can be created in memory__16876008.md`
+- `FAQE/Home/02. Operation and Management/Database Security Checklist__22642935.md`
+- `FAQE/Home/02. Operation and Management/Detailed procedure for changing character set__16876045.md`
+- `FAQE/Home/02. Operation and Management/How to change sys user password__16876004.md`
+- `FAQE/Home/02. Operation and Management/How to change the database's db name__16875966.md`
+- `FAQE/Home/02. Operation and Management/How to change the path of log anchor, online log file, archive log file, and double write file__16876052.md`
+- `FAQE/Home/02. Operation and Management/How to change the tablespace data file path__16876049.md`
+- `FAQE/Home/02. Operation and Management/How to check the history of adding datafiles__16875969.md`
+- `FAQE/Home/02. Operation and Management/How to create a user (CREATE USER) and change a password (ALTER USER)__16876036.md`
+- `FAQE/Home/02. Operation and Management/How to create and execute Job objects__16876042.md`
+- `FAQE/Home/02. Operation and Management/How to forcefully close a session that is being locked__16875986.md`
+- `FAQE/Home/02. Operation and Management/How to modify column__16875952.md`
+- `FAQE/Home/02. Operation and Management/How to resolve when LOCK TIMEOUT occurs__16875984.md`
+- `FAQE/Home/02. Operation and Management/How to start and stop the database__22642937.md`
+- `FAQE/Home/02. Operation and Management/How to startup Altibase automatically when booting from HP-UX__16875976.md`
+- `FAQE/Home/02. Operation and Management/Maximum Capacity Specifications for Altibase__16875989.md`
+- `FAQE/Home/02. Operation and Management/Notes on using floating point data type (double, float)__16875974.md`
+- `FAQE/Home/02. Operation and Management/Notes_Considerations when changing TRANSACTION_TABLE_SIZE__16876013.md`
+- `FAQE/Home/02. Operation and Management/Notes_Considerations when increasing the number of concurrent connection sessions (MAX_CLIENT)__16876028.md`
+- `FAQE/Home/02. Operation and Management/The OS time and the DB time do not match__22642939.md`
+- `FAQE/Home/02. Operation and Management/User password length limitation - Differences by version__22642941.md`
+- `FAQE/Home/02. Operation and Management/What is MEM_MAX_DB_SIZE__16875991.md`
+- `FAQE/Home/02. Operation and Management/When log disk is FULL and its countermeasures__16876034.md`
+- `FAQE/Home/02. Operation and Management/When server create errors occur after DB name change__16875972.md`
+- `FAQE/Home/02. Operation and Management/[Linux] How to register Altibase server process auto start script__16875947.md`
 
 ## Source coverage notes
 
-This document covers the R007 portion of `llm-reference/03-operation-administration-security.md`: Altibase configuration properties, startup and shutdown stages, system memory and disk capacity sizing, OS-level problem-analysis utilities, and UNIX memory-management behavior.
+This document covers the R007 and R008 portions of `llm-reference/03-operation-administration-security.md`: Altibase configuration properties, startup and shutdown stages, system memory and disk capacity sizing, OS-level problem-analysis utilities, UNIX memory-management behavior, and operational FAQ coverage for administration, security, sessions, clients, character sets, JOBs, file movement, and data/log operations.
 
 All R007 source files are classified as `Link-validated Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv`. The R007 source set uses only Korean-source-verified architecture pages. No English-only auxiliary source is used in this revision.
 
@@ -26,9 +55,13 @@ The startup and shutdown split pages contain embedded PNG diagrams and command s
 
 The capacity-sizing source contains one source-level inconsistency in the disk DB index sizing text: it lists `Index Header Length` as `10 BYTES` in one table and later states that the header size for indexes is `16 bytes`. This document preserves both values and records the issue as an accepted source limitation for exact index-header sizing.
 
+All R008 sources are classified as `Korean-source-verified` in `llm-reference/coverage/source-inventory.tsv`. R008 does not use English-only auxiliary source material.
+
+The R008 FAQ set has no URL-backed document-format attachments. It contains one downloadable support script, `altibased`, which is registered as `not_document_format`; one embedded `modify_column.png` image, also registered as `not_document_format`; and one legacy FAQ attachment label, `total_memory_tablespaces_usage.txt`, where the Korean source provides no downloadable URL. The legacy label is recorded as an accepted source limitation and no synthetic URL is introduced.
+
 ## Scope and audience
 
-Use this document to answer questions about Altibase server configuration, startup stages, shutdown modes, operational capacity planning, OS diagnostic command collection, and UNIX memory behavior. It is written for DBAs, platform engineers, support engineers, and LLM answer generation systems that need exact property names, commands, SQL, paths, view names, version conditions, and support-evidence boundaries.
+Use this document to answer questions about Altibase server configuration, startup stages, shutdown modes, auto-start scripts, user and password management, DB security checks, session and lock handling, IPC client connection setup, character-set or database-name changes, JOB scheduler operation, operational capacity planning, OS diagnostic command collection, and UNIX memory behavior. It is written for DBAs, platform engineers, support engineers, and LLM answer generation systems that need exact property names, commands, SQL, paths, view names, version conditions, and support-evidence boundaries.
 
 When answering in another language, keep product names, commands, SQL, system views, property names, paths, error messages, environment variables, function names, file names, and attachment URLs exactly as written.
 
@@ -130,6 +163,101 @@ Shutdown proceeds in reverse stage order, from `SERVICE` through `META`, `CONTRO
 | `NORMAL` | Waits until all clients disconnect, then terminates communication-session detection, service threads, data storage manager, modules, and process. |
 | `IMMEDIATE` | Forcibly disconnects sessions, rolls back currently running transactions, shuts down modules and process. `server stop` performs the same operation. During internal shutdown it releases resources, performs table compaction, flushes dirty pages, and checkpoints memory tablespace. Many dirty pages or checkpoint targets increase shutdown wait time. |
 | `ABORT` | Sends `kill -9` to the server process and waits for termination. Database consistency cannot be guaranteed, so recovery runs when the server starts again. |
+
+R008 operational FAQ facts:
+
+| Area | Consolidated fact |
+| --- | --- |
+| Communication methods | Altibase supports `TCP/IP`, IPC using Unix Domain Socket, IPC using shared memory, `IPCDA` from ALTIBASE HDB `7.1.0`, and `SSL/TLS` from ALTIBASE HDB `6.5.1`. |
+| IPC access | IPC is disabled by default because `IPC_CHANNEL_COUNT` defaults to `0`; related properties require an Altibase restart. |
+| Windows IPC | `IPC_PORT_NO` is required on Windows because Windows does not support Unix Domain Socket files. |
+| Unix/Linux IPC path | `IPC_FILEPATH` can be changed from ALTIBASE HDB `5.5.1.4.2`; version `4.3.9` defaults to `$ALTIBASE_HOME/trc/alti-ipc`, and later versions before `5.5.1.4.2` default to `$ALTIBASE_HOME/trc/cm-ipc`. |
+| Disk table indexes | Indexes must be created in the same tablespace type as their table. A disk table index cannot be created in memory tablespace; the source error is `ERR-311EC`. |
+| Public synonym | Dropping all `PUBLIC SYNONYM` objects does not affect Altibase server operation, but it is not recommended because common DUAL queries and procedures such as `PRINT` and `PRINTLN` can rely on them. |
+| Floating point | `DOUBLE` and `FLOAT` use approximate values. iSQL and `iloader` can display or export truncated decimals, while a program using a double host variable can retrieve the normal double value. Use fixed-point `NUMERIC` when decimal precision must be preserved. |
+| OS time | Changing OS time alone is reflected in `SYSDATE`; changing time zone or applying DST while Altibase is running can make OS time and `SYSDATE` differ until Altibase is restarted. |
+
+`MEM_MAX_DB_SIZE` is the maximum combined memory-tablespace capacity for memory tables and memory data, not a per-tablespace limit. Memory-table index size is not included, but old record images generated by MVCC update transactions are included. If a memory table using `1G` is changed, the memory tablespace can require about `2G` until the transaction ends.
+
+`MEM_MAX_DB_SIZE` should normally be set to about `60~70%` of physical memory. It can be set larger than physical memory, but then swap in/out can cause performance degradation and system problems. Memory checkpoint image files require twice the memory data usage on disk because two sets are stored for backup.
+
+When reducing `MEM_MAX_DB_SIZE`, compare it with `TOTAL(M)` from `V$DATABASE`, where `TOTAL(M)` means total allocated memory tablespace pages and also the checkpoint image file size. `TOTAL` does not decrease except when `DROP TABLESPACE` is executed, and an Altibase restart does not reduce it.
+
+`MAX_CLIENT` controls the maximum concurrent sessions and defaults to `1000`. It cannot be changed online; edit `$ALTIBASE_HOME/conf/altibase.properties` and restart Altibase. Increasing `MAX_CLIENT` does not by itself increase DB performance or resource usage, but actual increases in concurrent sessions and concurrent transactions can increase system resources.
+
+`TRANSACTION_TABLE_SIZE` is the maximum number of concurrent transactions and also the transaction unique number table (`TID`) capacity. Because one session always has one transaction and because user, replication, and internal transactions are included, set it greater than `MAX_CLIENT`. In replication environments, it may need to be up to twice `MAX_CLIENT`, and it must match between replication peer servers or the Sender will not start.
+
+`TRANSACTION_TABLE_SIZE` restrictions:
+
+| Rule | Detail |
+| --- | --- |
+| Allowed values | Must be a `2^n` value greater than the current value: `16`, `32`, `64`, `128`, `256`, `512`, `1024`, `2048`, `4096`, `8192`, `16384`. |
+| Direction | Cannot be changed from a larger value to a smaller value. |
+| Online change | `ALTER SYSTEM` does not actually change it online; versions with `BUG-33467` return `[ERR-0104E: The property [TRANSACTION_TABLE_SIZE] is read-only.]`. |
+| Offline change support | Supported without migration from `5.1.5.93`, `5.3.3.48`, `5.3.5.17`, and `5.5.1.1.0`; ALTIBASE HDB `4.3.9` and earlier ranges in the source require data migration. |
+| Maximum value | `16384` from `4.3.9.222`, `5.1.5.112`, `5.3.3.91`, `5.3.5.35`, and `5.5.1.5.3`; earlier source ranges list `8192`. |
+
+When `TRANSACTION_TABLE_SIZE` is exceeded, new sessions can fail to connect and connected sessions can stop responding to SQL. The source message in `altibase_boot.log` is `TRANSACTION_TABLE_SIZE is full !!`.
+
+Account and password rules from the R008 FAQ set:
+
+| Item | Rule |
+| --- | --- |
+| Default account | `sys` is created with password `manager`; if `CONNECT sys/manager` succeeds, change it after checking application dependencies. |
+| Undeletable accounts | `SYS`, `SYSTEM_`, and `PUBLIC` are default accounts and cannot be deleted. |
+| General user SQL | Use `CREATE USER user_name IDENTIFIED BY password;`, `ALTER USER user_name IDENTIFIED BY change_password;`, `DROP USER user_name;`, or `DROP USER user_name CASCADE;`. |
+| SYS password | Change with `ALTER USER sys IDENTIFIED BY "new_password";`, run `altipasswd` online to update `$ALTIBASE_HOME/conf/syspassword`, then update `$ALTIBASE_HOME/bin/server`, `$ALTIBASE_HOME/bin/is`, and `$ALTIBASE_HOME/bin/il` if they embed the old password. |
+| Password lockout | Login-failure lockout is available from `4.3.9.211`, `5.3.3.89`, `5.5.1.5.1`, `6.1.1.2.1`, `6.3.1`, and later versions. |
+| Password complexity | Use a callback function through `PASSWORD_VERIFY_FUNCTION` in the `LIMIT` clause of `CREATE USER` or `ALTER USER`. |
+| Password lifetime | Use `PASSWORD_LIFE_TIME` and `PASSWORD_GRACE_TIME`; values are in days and `0` means unset. |
+
+Password length changed by version:
+
+| Change | Applied versions and platform detail |
+| --- | --- |
+| No visible limit to 8-byte style limit | `4.3.9.200`, `5.1.5.98`, `5.3.3.62`, `5.3.5.25`, `5.5.1.2.10`, `6.1.1.0.0`; Windows and Solaris have `11byte`, other platforms have `8byte`. |
+| 8 characters to 16 characters | `4.3.9.221`, `5.3.3.89`, `5.5.1.5.1`, `6.1.1.1.5`, `6.3.1`; Windows and Solaris have `22byte`, other platforms have `16byte`. |
+| 16 characters to 40 characters | `6.5.1`, `7.1`, `7.3`; Windows has `40byte`. ALTIBASE HDB `5.1.5` and `5.3.5` do not reflect the password policy function and remain unchanged after the 8-digit change. |
+
+Security checklist facts:
+
+| Security area | Key source requirements |
+| --- | --- |
+| System privileges | Check `SYSTEM_.SYS_GRANT_SYSTEM_`, `SYSTEM_.SYS_USER_ROLES_`, and `SYSTEM_.SYS_PRIVILEGES_`; `ROLE` is supported from ALTIBASE HDB `6.5.1`; revoke unnecessary system privileges. |
+| `WITH GRANT OPTION` | Object privileges granted with `WITH GRANT OPTION` can be abused outside DBA management; revoke and regrant without the option when necessary. |
+| Convenience scripts | Set `$ALTIBASE_HOME/bin/il`, `$ALTIBASE_HOME/bin/is`, and `$ALTIBASE_HOME/bin/server` to permission `700` when required by audit policy. |
+| Main property file | Set `$ALTIBASE_HOME/conf/altibase.properties` to `600` or `640`. |
+| Log/data files | Set `$ALTIBASE_HOME/logs` and `$ALTIBASE_HOME/dbs` to `700` or `750`; set `loganchor*`, `logfile*`, and data files to `600` or `640`. |
+| Trace files | Versions `6.3.1` and below create trace logs with default permission `666`; versions `6.5.1` and above create default `644` and can use `TRC_ACCESS_PERMISSION` with a restart. |
+| Shell history | Do not pass iSQL username and password directly on the shell command line; protect `~/.*history` with permission `600`. |
+| Service port | Default `PORT_NO` is `20300`; change it in `altibase.properties` and restart. |
+| Idle sessions | `IDLE_TIMEOUT` can be changed per session; `ALTER SYSTEM` applies to newly connected sessions, and persistent change requires `altibase.properties`. |
+| Auditing | Auditing is available from ALTIBASE HDB `6.3.1`; check `SYSTEM_.SYS_AUDIT_OPTS_` and `SYSTEM_.SYS_AUDIT_`. |
+| Remote access | `ACCESS_LIST` is available from ALTIBASE HDB `5`; configure permit and deny rules in `altibase.properties` and restart. |
+| SYSDBA remote access | `REMOTE_SYSDBA_ENABLE = 1` allows remote SYSDBA access and `0` blocks it; change with `ALTER SYSTEM` or persist in `altibase.properties`. |
+
+JOB objects are available from Altibase `6.3.1` or later. A JOB runs a stored procedure through the task scheduler, not through a service thread. To run JOBs, set both `JOB_SCHEDULER_ENABLE` and `JOB_THREAD_COUNT` to `1` or higher. `JOB_SCHEDULER_ENABLE` can be changed with `ALTER SYSTEM`; `JOB_THREAD_COUNT` and `JOB_THREAD_QUEUE_SIZE` require an Altibase restart. If two or more JOBs can run simultaneously, set `JOB_THREAD_COUNT` at least to the number of concurrent JOBs to avoid delay.
+
+From Altibase `6.5.1`, a JOB is disabled unless the `ENABLE` option is used in `CREATE JOB` or `ALTER JOB job_name SET ENABLE;` is executed. In Altibase `6.3.1`, a JOB is enabled immediately when created. Set the JOB interval longer than the execution time of the procedure executed by the JOB, or executions can be delayed.
+
+Maximum capacity FAQ values:
+
+| Object | Maximum |
+| --- | --- |
+| Identifier length | `40 bytes` |
+| Tablespaces per database | `64 * 1,024` |
+| Datafiles per tablespace | `1,023` |
+| Datafile size | `32 gigabytes` on a 64-bit standard |
+| Users per database | `2,147,483,638` |
+| Tables per database | `2,097,151` |
+| Indexes per table | `64` |
+| Columns per table | `1,024` |
+| Columns per index | `32` |
+| Rows per table | Limited by available storage or `maxrows` |
+| Partitions per partitioned table or index | `2,147,483,638` |
+| Constraints per database | `2,147,483,638` |
+| Replications per database | `32` in `6.1.1` or earlier; `REPLICATION_MAX_COUNT` in `6.3.1` or later |
+| Tables per replication | `2147483647` |
 
 ## Procedures
 
@@ -496,6 +624,319 @@ Linux process memory can be checked with `top` or `pmap`.
 
 Do not assume that `VSZ` immediately decreases after `free()`. The operating system normally returns a process memory area to free memory only when the process ends. Even if a process explicitly calls `free()`, monitoring tools can still show the same `VSZ` because the memory manager keeps fragments in a reusable free-list to avoid high kernel cost.
 
+### Configure IPC communication
+
+Edit `$ALTIBASE_HOME/conf/altibase.properties` and set the required IPC properties. At minimum, set `IPC_CHANNEL_COUNT` to the number of IPC sessions to allow. Set `IPC_PORT_NO` on Windows. Set `IPC_FILEPATH` only on versions that support it.
+
+```bash
+cd $ALTIBASE_HOME/conf
+vi altibase.properties
+server restart
+```
+
+Verify the applied IPC properties:
+
+```sql
+SELECT NAME, MEMORY_VALUE1
+  FROM X$PROPERTY
+ WHERE NAME IN ('IPC_FILEPATH', 'IPC_CHANNEL_COUNT');
+```
+
+Test an iSQL IPC connection:
+
+```bash
+export ISQL_CONNECTION=IPC
+is
+```
+
+The connection is successful when the prompt appears and the startup banner shows `ISQL_CONNECTION = IPC, SERVER = localhost`.
+
+### Start, stop, validate, and forcibly stop Altibase
+
+Use the simple scripts from the OS account where Altibase is installed:
+
+```bash
+server stop
+server start
+```
+
+Or connect with SYSDBA and use SQL commands:
+
+```bash
+isql -sysdba
+```
+
+```sql
+ALTER DATABASE mydb SHUTDOWN IMMEDIATE;
+STARTUP;
+```
+
+The database name in `ALTER DATABASE mydb SHUTDOWN IMMEDIATE;` is the value of `DB_NAME` and can differ by installation. After startup, validate with these source checks:
+
+```sql
+SELECT COUNT(*) FROM V$SESSION;
+SELECT REP_NAME, REP_GAP FROM V$REPGAP;
+SELECT * FROM V$SYSSTAT WHERE NAME LIKE '%execute%count%';
+SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MI:SS.SSSSSS') FROM DUAL;
+```
+
+`--- STARTUP Process SUCCESS ---`, TCP/UNIX/IPC listener messages, and `[RP] Initialization : [PASS]` indicate a normal startup in the source examples.
+
+Use `server kill` only when the Altibase server is hung and normal stop methods cannot be used:
+
+```bash
+server kill
+```
+
+`server kill` is equivalent to `kill -9`. It is not recommended in normal operation because recovery runs at the next startup and can take a long time if undo or redo work is large.
+
+### Register Altibase auto-start on Linux, Solaris, and HP-UX
+
+On Red Hat family v7 or later, create `/usr/lib/systemd/system/altibased.service` with `Type=forking`, `User=altibase`, `Group=altibase`, `LimitNOFILE=1048576`, `LimitNPROC=infinity`, `TimeoutSec=0`, `KillMode=none`, `ExecStart=/etc/rc.d/init.d/altibase start`, and `ExecStop=/etc/rc.d/init.d/altibase stop`. Create `/etc/rc.d/init.d/altibase` to source the Altibase user environment and run `${ALTIBASE_HOME}/bin/server start` or `${ALTIBASE_HOME}/bin/server stop`.
+
+```bash
+chmod 755 altibased.service
+chmod 755 /etc/rc.d/init.d/altibase
+cd /etc/systemd/system/multi-user.target.wants
+ln -s /usr/lib/systemd/system/altibased.service altibased.service
+systemctl enable altibased.service
+systemctl start altibased.service
+systemctl stop altibased.service
+systemctl status altibased.service
+```
+
+If SELinux is enabled, change the current mode to permissive according to OS policy. `setenforce 0` is temporary. For a persistent change, set `SELINUX=permissive` in `/etc/selinux/config` and restart the OS.
+
+On Red Hat family v6 or earlier, create `/etc/init.d/altibased`, set `user=altibase`, log to `/var/log/${user}_altibased.log`, start only when `ps -ef | grep ${user} | grep 'altibase -p' | grep -v grep | wc -l` is not `1`, and stop only when it is `1`. Register with `chkconfig`.
+
+```bash
+chmod +x /etc/init.d/altibased
+chkconfig --add altibased
+ls -l /etc/rc.d/rc*.d/K*alti*
+ls -l /etc/rc.d/rc*.d/S*alti*
+```
+
+The source links an existing downloadable sample script named `altibased`; it is registered as a support script, not a document-format attachment.
+
+For Solaris, create `/etc/alti-conf.d/alti.conf` with `ALTIBASE_HOME`, `PATH`, `ALTIBASE_OWNER`, and `START_ALTIBASE=1`. Create `/etc/init.d/alti_start` to run `startup` through `${ALTIBASE_HOME}/bin/isql -s 127.0.0.1 -u sys -p manager -sysdba`, create `/etc/init.d/alti_stop` to run `shutdown immediate`, create `/etc/init.d/altibase` to dispatch `start` and `stop`, hard-link it as `/etc/rc3.d/S955altibase`, set permissions, and test as root:
+
+```bash
+cd /etc/rc3.d
+ln /etc/init.d/altibase S955altibase
+chmod 755 S955altibase
+cd /etc/init.d
+chmod 755 *alti*
+/etc/init.d/altibase start
+/etc/init.d/altibase stop
+```
+
+For HP-UX, create `/etc/rc.config.d/altibase_conf`, `/sbin/init.d/alti_start`, `/sbin/init.d/alti_stop`, and `/sbin/init.d/altibase`. The HP-UX stop script clears checkpoint bulk write sleep/count values with `ALTER SYSTEM SET CHECKPOINT_BULK_WRITE_PAGE_COUNT = 0`, `CHECKPOINT_BULK_WRITE_SLEEP_SEC = 0`, and `CHECKPOINT_BULK_WRITE_SLEEP_USEC = 0`, runs `killCheckServer > ${ALTIBASE_HOME}/trc/killCheckServer.log 2>&1`, then runs `shutdown immediate`. Create links in `/sbin/rc2.d`:
+
+```bash
+cd /sbin/rc2.d
+ln -s /sbin/init.d/altibase S955altibase
+ln -s /sbin/init.d/altibase K955altibase
+chmod 755 S955altibase
+chmod 755 K955altibase
+cd /sbin/init.d
+chmod 755 *alti*
+/sbin/init.d/altibase
+```
+
+### Change DB_NAME or character set
+
+`DB_NAME` and database character set are database-creation-time values. Back up required data before changing either one, because the procedure deletes and recreates the database.
+
+To change `DB_NAME` in versions `5.3.3` or later:
+
+1. Stop Altibase with `server stop`.
+2. Change `DB_NAME` in `$ALTIBASE_HOME/conf/altibase.properties`.
+3. Change the `create database mydb ...` section in `$ALTIBASE_HOME/bin/server` so it uses the same DB name.
+4. Delete the existing database files under `$ALTIBASE_HOME/dbs/*` and `$ALTIBASE_HOME/logs/*`.
+5. Recreate the DB, for example `server create MS949 UTF8`.
+6. Start with `server start`.
+7. Verify with `SELECT DB_NAME FROM V$DATABASE;`.
+
+If `server create` fails with `Invalid Database Name. Check the properties and retry.` and `[ERR-91015 : Communication failure.]` after a DB name change, check whether `$ALTIBASE_HOME/bin/server` still uses `mydb`.
+
+To change the database character set while preserving required data, use the source five-step export/recreate/import flow:
+
+1. Set `ALTIBASE_NLS_USE` to the current DB character set and download the full schema with `aexport`.
+2. Set `ALTIBASE_NLS_USE` to the current DB character set, split `run_il_out.sh` into `formout.sh` and `dataout.sh`, run `formout.sh`, verify `DATA_NLS_USE`, run `dataout.sh`, and verify the `.dat` file.
+3. Stop Altibase, remove `$ALTIBASE_HOME/dbs/*` and `$ALTIBASE_HOME/logs/*`, set `ALTIBASE_NLS_USE` to the new character set, and run `server create <db_charset> <national_charset>`, such as `server create MS949 UTF16`.
+4. Run `run_is.sh` to recreate schema.
+5. Change `DATA_NLS_USE` in the `.fmt` file to the new character set, run `run_il_in.sh`, and verify `V$NLS_PARAMETERS` and sample table data.
+
+The charset source intentionally includes Korean sample data. Preserve examples such as `US7ASII_한글테스트합니다`, `"한글 데이터입니다"`, and `C1 : US7ASII_한글테스트합니다 .` exactly when quoting the source.
+
+### Move data, log, archive, log anchor, and double write files
+
+To change disk tablespace data file paths or memory checkpoint image paths, secure service downtime and use this flow:
+
+1. Check disk datafiles:
+
+   ```sql
+   SELECT T.NAME TBS_NAME, D.NAME DATAFILE
+     FROM V$DATAFILES D, V$TABLESPACES T
+    WHERE D.SPACEID = T.ID
+    ORDER BY D.SPACEID, D.ID;
+   ```
+
+2. Check memory checkpoint paths in Altibase version `5` or later:
+
+   ```sql
+   SELECT TBS.NAME TBS_NAME,
+          MEM_PATH.CHECKPOINT_PATH DATAFILE
+     FROM V$TABLESPACES TBS,
+          V$MEM_TABLESPACE_CHECKPOINT_PATHS MEM_PATH
+    WHERE MEM_PATH.SPACE_ID = TBS.ID
+    ORDER BY TBS_NAME, DATAFILE;
+   ```
+
+3. For Altibase version `4`, check memory DB directories with `grep MEM_DB_DIR $ALTIBASE_HOME/conf/altibase.properties | sort -u`.
+4. Stop Altibase and verify the process is gone with `ps -ef | grep 'altibase -p' | grep -v grep`.
+5. Change `MEM_DB_DIR` and `DEFAULT_DISK_DB_DIR` if the default paths should change.
+6. Copy physical files with `cp -p`, compare file count and size with `ls -l | wc -l` and `du -sk`, and rename the original path as backup.
+7. Start to `CONTROL` with `STARTUP CONTROL`.
+8. For disk datafiles, run `ALTER DATABASE RENAME DATAFILE '/old_path/system001.dbf' TO '/new_path/system001.dbf';` for each file.
+9. For memory checkpoint paths in version `5` or later, run `ALTER TABLESPACE memory_tablespace_name RENAME CHECKPOINT PATH '/old_path' TO '/new_path';` for each memory tablespace.
+10. In Altibase version `4`, no DDL is required; change `MEM_DB_DIR` in `altibase.properties`.
+11. Start to service with `startup`.
+
+To change log anchor, online log, archive log, and double write paths, secure service downtime, check current values from `V$PROPERTY`, stop Altibase, copy files, edit properties, start Altibase, and recheck.
+
+| File type | Property | File name format |
+| --- | --- | --- |
+| Log anchor | `LOGANCHOR_DIR` | `loganchor0`, `loganchor1`, `loganchor2` |
+| Online log file | `LOG_DIR` | `logfile*#*` |
+| Archive log file | `ARCHIVE_DIR` | `logfile*#*` |
+| Double Write file | `DOUBLE_WRITE_DIRECTORY` | `*.dwf` |
+
+### Respond when log disk is full
+
+If the filesystem that contains DB files is full, general transactions are not affected immediately, but checkpoint cannot be performed and changes remain only in memory. If the filesystem that contains log files is full, transactions that modify the DB no longer execute and Altibase enters a waiting state; services except `SELECT` stop.
+
+When log files are not deleted even though disk space should be sufficient:
+
+1. Check replication gap with `SELECT * FROM V$REPGAP;`.
+2. Check `ARCHIVE_FULL_ACTION` in `V$PROPERTY`. If it is `0`, archive backup stops after an error and does not resume automatically; checkpoint can delete unneeded logs even if archive backup has not resumed, so operate carefully. If it is `1`, the archive thread waits for enough archive space and log files are not deleted during that wait.
+3. Check checkpoint success in `$ALTIBASE_HOME/trc/altibase_sm.log`.
+4. Inspect `[CHECKPOINT-step9] Remove Online Log File`; `[None]` or `skip` can mean checkpoint succeeded but log files remain because of a long transaction or unsent replication data.
+
+As an emergency countermeasure, move log files in `$ALTIBASE_HOME/logs` to a directory with enough space and create symbolic links back to the original log directory. Do not move log files currently in use; check them first:
+
+```bash
+lsof -p PID(ALTIBASE DB) | grep logfile
+```
+
+### Manage users, SYS password, and security settings
+
+Create, change, or drop users with:
+
+```sql
+CREATE USER user_name IDENTIFIED BY password;
+ALTER USER user_name IDENTIFIED BY change_password;
+DROP USER user_name;
+DROP USER user_name CASCADE;
+```
+
+To change the `SYS` password:
+
+1. Connect as `SYS` and run `ALTER USER sys IDENTIFIED BY "new_password";`.
+2. While Altibase is online, run `altipasswd` and enter the previous and new passwords.
+3. Update embedded passwords in `$ALTIBASE_HOME/bin/server`, `$ALTIBASE_HOME/bin/is`, and `$ALTIBASE_HOME/bin/il`.
+
+If startup fails with an invalid password after changing `SYS`, check the `server` script first. If the script is correct, `altipasswd` may not have been run.
+
+For security checks, inventory users with `SELECT USER_NAME FROM SYSTEM_.SYS_USERS_;`, revoke unnecessary system privileges, remove risky `WITH GRANT OPTION` grants, harden file permissions, set password lockout and lifetime policies, configure `ACCESS_LIST`, and disable remote SYSDBA access when required.
+
+### Resolve lock timeout and force-close locked sessions
+
+For lock timeout errors, first inspect lock information:
+
+```sql
+SELECT T.TABLE_NAME, X.LOCK_DESC
+  FROM SYSTEM_.SYS_TABLES_ T, V$LOCK X
+ WHERE T.TABLE_OID = X.TABLE_OID
+   AND T.TABLE_NAME = 'T1';
+```
+
+To identify and close sessions involved in locks:
+
+```sql
+SELECT A.TABLE_NAME, B.TRANS_ID, B.LOCK_DESC
+  FROM SYSTEM_.SYS_TABLES_ A, V$LOCK B
+ WHERE A.TABLE_OID = B.TABLE_OID;
+
+SELECT SESSION_ID, EXECUTE_FLAG, TOTAL_TIME, EXECUTE_TIME, RPAD(QUERY,400)
+  FROM V$STATEMENT
+ WHERE TX_ID = trans_id;
+
+SELECT COMM_NAME, CLIENT_APP_INFO
+  FROM V$SESSION
+ WHERE ID = session_id;
+
+ALTER DATABASE mydb SESSION CLOSE session_id;
+```
+
+Use the actual `DB_NAME` from `$ALTIBASE_HOME/conf/altibase.properties` instead of `mydb`. Closing a target session does not affect other sessions, but closing the wrong production session can cause problems. A session currently rolling back is not disconnected by `SESSION CLOSE`; wait for rollback to finish. Applications can reconnect and reacquire locks, so disable the application if possible before operating.
+
+### Create and monitor JOB objects
+
+Enable the task scheduler before using JOB objects:
+
+```bash
+server stop
+cd $ALTIBASE_HOME/conf
+vi altibase.properties
+server start
+```
+
+Set `JOB_SCHEDULER_ENABLE = 1` and `JOB_THREAD_COUNT = 1` or higher. Then verify:
+
+```sql
+SELECT NAME, MEMORY_VALUE1
+  FROM X$PROPERTY
+ WHERE NAME IN ('JOB_SCHEDULER_ENABLE', 'JOB_THREAD_COUNT');
+```
+
+Create and test the stored procedure before registering it in a JOB. Then create the JOB:
+
+```sql
+CREATE JOB job1
+EXEC proc1
+START sysdate
+END sysdate + 3
+INTERVAL 1 HOUR;
+```
+
+For Altibase `6.5.1` or later, enable the JOB:
+
+```sql
+ALTER JOB job_name SET ENABLE;
+```
+
+Or create it enabled:
+
+```sql
+CREATE JOB job1
+EXEC proc1
+START sysdate
+END sysdate + 3
+INTERVAL 1 HOUR
+ENABLE;
+```
+
+Monitor JOB definitions and results in `SYSTEM_.SYS_JOBS_`. Check `JOB_NAME`, `IS_ENABLE`, `EXEC_QUERY`, `INTERVAL`, `INTERVAL_TYPE`, `STATE`, `EXEC_COUNT`, `ERROR_CODE`, `START_TIME`, `END_TIME`, and `LAST_EXEC_TIME`. If a JOB records an error code, use `altierr`, for example `altierr 0x31129`.
+
+### Change columns and preserve numeric precision
+
+From Altibase HDB `5.3.3`, use `ALTER TABLE table_name MODIFY COLUMN (column_name column_type(length))` to change a column type or length. Use `TOLERATE DATA LOSS` only when accepting possible data loss. `DATE` conversion follows `DEFAULT_DATE_FORMATE` as written in the source.
+
+Do not reduce a column below the original size. Follow replication DDL procedures for replicated tables. For large target tables, expect operation delay and increased log-area usage. In version `5.3.3`, changing a memory table creates a restoration copy table in memory, so memory tablespace must have free space. In version `6.1.1`, the copy table is saved in disk tablespace, so required tablespace and disk space are enough. Altibase recommends backing up memory tables with `iloader`, creating a new target table, and importing data.
+
+For precise decimal values, use fixed-point `NUMERIC(precision, scale)` instead of `DOUBLE` or `FLOAT`. The source example shows iSQL and `iloader` truncating display/export of `double'100.00000000000001421085471520200372'`, while `NUMERIC(35, 32)` preserves values when selected with `TO_CHAR`.
+
 ## SQL, commands, and configuration
 
 ### Core SQL and DCL
@@ -538,6 +979,126 @@ SELECT CEIL(SUM(B.SIZE)/8)*8
    AND A.TABLE_NAME = 'MEMORY_SIZE';
 ```
 
+### R008 operational SQL and commands
+
+```sql
+SELECT NAME, MEMORY_VALUE1 FROM X$PROPERTY WHERE NAME IN ('IPC_FILEPATH', 'IPC_CHANNEL_COUNT');
+SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME IN ('LOGANCHOR_DIR', 'LOG_DIR', 'DOUBLE_WRITE_DIRECTORY', 'ARCHIVE_DIR');
+SELECT DB_NAME FROM V$DATABASE;
+SELECT COUNT(*) FROM V$SESSION;
+SELECT REP_NAME, REP_GAP FROM V$REPGAP;
+SELECT * FROM V$SYSSTAT WHERE NAME LIKE '%execute%count%';
+SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MI:SS.SSSSSS') FROM DUAL;
+SELECT * FROM V$REPGAP;
+SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME LIKE '%ARCHIVE_FULL_ACTION%';
+SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'MAX_CLIENT';
+SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'TRANSACTION_TABLE_SIZE';
+SELECT TOTAL_COUNT, ACTIVE_COUNT FROM V$TRANSACTION_MGR;
+```
+
+```bash
+export ISQL_CONNECTION=IPC
+server start
+server stop
+server restart
+server kill
+server create MS949 UTF8
+server create MS949 UTF16
+altipasswd
+chkconfig --add altibased
+systemctl enable altibased.service
+systemctl start altibased.service
+systemctl stop altibased.service
+sestatus
+setenforce 0
+setenforce 1
+lsof -p PID(ALTIBASE DB) | grep logfile
+```
+
+### User, security, session, and JOB SQL
+
+```sql
+SELECT USER_NAME FROM SYSTEM_.SYS_USERS_;
+CONNECT sys/manager;
+CREATE USER user_name IDENTIFIED BY password;
+ALTER USER user_name IDENTIFIED BY change_password;
+ALTER USER sys IDENTIFIED BY "new_password";
+DROP USER user_name;
+DROP USER user_name CASCADE;
+
+SELECT A.USER_NAME GRANTEE,
+       C.USER_NAME GRANTOR,
+       REPLACE(D.PRIV_NAME, '_', ' ') PRIV_NAME
+  FROM SYSTEM_.SYS_USERS_ A,
+       SYSTEM_.SYS_GRANT_SYSTEM_ B,
+       SYSTEM_.SYS_USERS_ C,
+       SYSTEM_.SYS_PRIVILEGES_ D
+ WHERE C.USER_NAME <> 'SYSTEM_'
+   AND B.GRANTEE_ID = A.USER_ID
+   AND B.GRANTOR_ID = C.USER_ID
+   AND B.PRIV_ID = D.PRIV_ID;
+
+REVOKE CREATE TABLE FROM USER1;
+REVOKE CREATE TABLE FROM ROLE1;
+
+ALTER SESSION SET IDLE_TIMEOUT = 60;
+ALTER SYSTEM SET IDLE_TIMEOUT = 60;
+ALTER SYSTEM SET REMOTE_SYSDBA_ENABLE = 0;
+
+CREATE JOB job1
+EXEC proc1
+START sysdate
+END sysdate + 3
+INTERVAL 1 HOUR;
+
+ALTER JOB job_name SET ENABLE;
+```
+
+### File movement SQL
+
+```sql
+SELECT T.NAME TBS_NAME, D.NAME DATAFILE
+  FROM V$DATAFILES D, V$TABLESPACES T
+ WHERE D.SPACEID = T.ID
+ ORDER BY D.SPACEID, D.ID;
+
+SELECT TBS.NAME TBS_NAME,
+       MEM_PATH.CHECKPOINT_PATH DATAFILE
+  FROM V$TABLESPACES TBS,
+       V$MEM_TABLESPACE_CHECKPOINT_PATHS MEM_PATH
+ WHERE MEM_PATH.SPACE_ID = TBS.ID
+ ORDER BY TBS_NAME, DATAFILE;
+
+ALTER DATABASE RENAME DATAFILE
+'/old_path/system001.dbf' TO '/new_path/system001.dbf';
+
+ALTER TABLESPACE SYS_TBS_MEM_DIC RENAME CHECKPOINT PATH
+'/home/altibase_home/dbs_old_path' TO '/home1/altibase_home/dbs_new_path';
+```
+
+### Lock and session SQL
+
+```sql
+SELECT T.TABLE_NAME, X.LOCK_DESC
+  FROM SYSTEM_.SYS_TABLES_ T, V$LOCK X
+ WHERE T.TABLE_OID = X.TABLE_OID
+   AND T.TABLE_NAME = 'T1';
+
+SELECT A.TABLE_NAME, B.TRANS_ID, B.LOCK_DESC
+  FROM SYSTEM_.SYS_TABLES_ A, V$LOCK B
+ WHERE A.TABLE_OID = B.TABLE_OID;
+
+SELECT SESSION_ID, EXECUTE_FLAG, TOTAL_TIME, EXECUTE_TIME, RPAD(QUERY,400)
+  FROM V$STATEMENT
+ WHERE TX_ID = trans_id;
+
+SELECT COMM_NAME, CLIENT_APP_INFO
+  FROM V$SESSION
+ WHERE ID = session_id;
+
+ALTER DATABASE mydb SESSION CLOSE session_id;
+```
+
 ### OS utilities
 
 ```bash
@@ -569,7 +1130,26 @@ cat /proc/sys/vm/swappiness
 | Path or file | Meaning |
 | --- | --- |
 | `$ALTIBASE_HOME/conf/altibase.properties` | Main configuration file. |
+| `$ALTIBASE_HOME/conf/syspassword` | File changed by `altipasswd` for SYS password use during shutdown stage. |
 | `$ALTIBASE_HOME/trc/altibase_boot.log` | Startup and shutdown details; timeout and session-related errors. |
+| `$ALTIBASE_HOME/trc/altibase_qp.log` | DDL execution trace used to check datafile-add history when `QP_MSGLOG_FLAG = 2`. |
+| `$ALTIBASE_HOME/trc/altibase_sm.log` | Storage manager trace used to verify checkpoint execution and log-file deletion behavior. |
+| `$ALTIBASE_HOME/trc/killCheckServer.log` | HP-UX auto-stop script output from `killCheckServer`. |
+| `$ALTIBASE_HOME/bin/server` | Convenience server script; can embed SYS password and DB creation SQL. |
+| `$ALTIBASE_HOME/bin/is` | Convenience iSQL script; can embed SYS password. |
+| `$ALTIBASE_HOME/bin/il` | Convenience `iloader` script; can embed SYS password. |
+| `$ALTIBASE_HOME/logs` | Default log anchor and online log directory in many source examples. |
+| `$ALTIBASE_HOME/dbs` | Default data file, memory checkpoint image, and double write file directory in many source examples. |
+| `/usr/lib/systemd/system/altibased.service` | Red Hat family v7 or later systemd service file for Altibase auto-start. |
+| `/etc/rc.d/init.d/altibase` | Red Hat family v7 or later service script run by `altibased.service`. |
+| `/etc/init.d/altibased` | Red Hat family v6 or earlier `chkconfig` script. |
+| `/var/log/${user}_altibased.log` | Red Hat family v6 or earlier auto-start script log. |
+| `/etc/alti-conf.d/alti.conf` | Solaris auto-start configuration file. |
+| `/etc/init.d/alti_start`, `/etc/init.d/alti_stop`, `/etc/init.d/altibase` | Solaris auto-start and stop scripts. |
+| `/etc/rc3.d/S955altibase` | Solaris run-level hard link for Altibase startup. |
+| `/etc/rc.config.d/altibase_conf` | HP-UX auto-start configuration file. |
+| `/sbin/init.d/alti_start`, `/sbin/init.d/alti_stop`, `/sbin/init.d/altibase` | HP-UX auto-start and stop scripts. |
+| `/sbin/rc2.d/S955altibase`, `/sbin/rc2.d/K955altibase` | HP-UX run-level links for startup and shutdown. |
 | `/proc/<process id>/fd` | Linux file descriptors and open files for the process. |
 | `/var/log/messages` | Common Linux system log location. |
 | `/var/adm/messages.*` | Solaris system log files. |
@@ -605,6 +1185,32 @@ If system-level symptoms appear outside Altibase, collect OS logs at the failure
 
 If process memory appears not to return after `free()`, do not conclude from `VSZ` alone that memory is still logically in use. The UNIX memory source explains that OS memory managers often keep freed process memory in reusable fragments until process termination.
 
+If IPC connection fails, verify that `IPC_CHANNEL_COUNT` is not `0`, that the server was restarted after property changes, and that the Unix Domain Socket file path is valid. On versions before `5.5.1.4.2`, use the documented default path because `IPC_FILEPATH` cannot be changed or checked separately.
+
+If `server create` returns `Invalid Database Name. Check the properties and retry.` after a `DB_NAME` change, update the `create database mydb ...` line in `$ALTIBASE_HOME/bin/server` to match the new `DB_NAME` in `altibase.properties`.
+
+If startup returns `[FAILURE] The size of the DB file(SYS_TBS_MEM_DATA-number-number) exceeds the size specified in the MEM_MAX_DB_SIZE property.`, set `MEM_MAX_DB_SIZE` larger than the checkpoint image file size.
+
+If `TRANSACTION_TABLE_SIZE is full !!` appears in `altibase_boot.log`, increase `TRANSACTION_TABLE_SIZE` to a valid larger `2^n` value and consider whether `MAX_CLIENT`, replication transactions, or internal transactions increased concurrent transaction demand.
+
+If replication Sender fails with `Transaction Table Size mismatch [1024:4096]`, set the same `TRANSACTION_TABLE_SIZE` on both replication target servers.
+
+If lock timeout returns `The transaction exceeds lock timeout specified by user`, identify the lock holder through `V$LOCK`, `V$STATEMENT`, and `V$SESSION`, then close only the intended session with `ALTER DATABASE mydb SESSION CLOSE session_id;`. Closing the wrong session in production can cause application impact.
+
+If the Altibase service is stopped with `server kill`, expect restart recovery at the next startup. Recovery can take a long time when many undo and redo transactions must be processed.
+
+If changing file paths produces `The data file does not exist`, physically copy or move the data file first, then rerun the rename statement. If startup fails with `The data file 'XXXXXX' has an invalid header`, redo the physical file copy. If `CANNOT IDENTIFY DATAFILE` appears, return to `CONTROL` and run the DDL again with the correct path.
+
+If startup fails with `Unable to invoke the create() function on [XXXXXX/dwfile0.dwf]`, recreate `dwfile0.dwf` and `dwfile1.dwf` with `touch`, or temporarily set `USE_DW_BUFFER = 0`, start Altibase, restore `USE_DW_BUFFER = 1` or remove the temporary setting, then start after correcting `DOUBLE_WRITE_DIRECTORY`.
+
+If log files are not removed after checkpoint, check whether `[CHECKPOINT-step9] Remove Online Log File` ends in `[None]` or `skip`. This can indicate a long transaction or replication data that has not been sent.
+
+If OS time and `SYSDATE` differ after a time zone or DST change, restart Altibase. When performing incomplete recovery using `UNTIL TIME` on a server with DST applied, account for the DST time difference.
+
+If a JOB does not execute, verify `JOB_SCHEDULER_ENABLE`, `JOB_THREAD_COUNT`, whether the procedure runs normally outside the scheduler, and whether the JOB is enabled on Altibase `6.5.1` or later. Use `SYSTEM_.SYS_JOBS_` and `altierr` for error code interpretation.
+
+If decimal precision appears truncated in iSQL or `iloader`, do not assume the stored value is necessarily exact or displayable as entered. Use fixed-point `NUMERIC` and `TO_CHAR` when exact decimal representation is required.
+
 ## Version-specific notes
 
 | Source area | Version condition |
@@ -619,6 +1225,24 @@ If process memory appears not to return after `free()`, do not conclude from `VS
 | AIX utility guide | Some commands may not be supported before AIX `5.1`. |
 | HP-UX utility guide | Command support can differ by PA-RISC and Itanium. |
 | Linux memory management | Kernel `2.6` introduces a limit on file-cache usage; Red Hat Enterprise Linux `6` added arena behavior for multi-threaded memory contention; `MALLOC_ARENA_MAX` operates properly in `glibc2.10` or later. |
+| IPCDA | Supported from ALTIBASE HDB `7.1.0`. |
+| SSL/TLS communication | Supported from ALTIBASE HDB `6.5.1`. |
+| `IPC_FILEPATH` | Changeable from ALTIBASE HDB `5.5.1.4.2`; earlier versions use fixed default socket file paths. |
+| Linux auto-start FAQ | Splits procedures between Red Hat family v7 or later and v6 or earlier; applies to Altibase v4 or later. |
+| Column modify | `ALTER TABLE ... MODIFY COLUMN ...` is supported from Altibase HDB `5.3.3`; memory-table copy behavior differs between `5.3.3` and `6.1.1`. |
+| DB name change | FAQ method applies to ALTIBASE HDB `5.3.3` or later; versions `5.3.3` and earlier require manual DB creation. |
+| Lock timeout and session close FAQs | Apply to ALTIBASE HDB version `4` or later. |
+| `MEM_MAX_DB_SIZE` | Applies to all Altibase versions and requires server restart to change. |
+| `TRANSACTION_TABLE_SIZE` offline change | `4.3.9` cannot change it without migration; it is changeable without migration from `5.1.5.93`, `5.3.3.48`, `5.3.5.17`, and `5.5.1.1.0`. |
+| `TRANSACTION_TABLE_SIZE` maximum | `16384` from `4.3.9.222`, `5.1.5.112`, `5.3.3.91`, `5.3.5.35`, and `5.5.1.5.3`; earlier source ranges list `8192`. |
+| `MAX_CLIENT` FAQ | Applies to all ALTIBASE HDB versions. |
+| JOB objects | Supported from Altibase `6.3.1`; explicit enable/disable behavior is added in `6.5.1`. |
+| Character set change | Applies to ALTIBASE HDB `5.3.1` or later, which supports multiple languages. |
+| Security `ROLE` | Supported from ALTIBASE HDB `6.5.1`. |
+| Trace permission property | `TRC_ACCESS_PERMISSION` can be used from ALTIBASE HDB `6.5.1`; versions `6.3.1` and below require OS `chmod` handling. |
+| Auditing | Available from ALTIBASE HDB `6.3.1`. |
+| `ACCESS_LIST` and `REMOTE_SYSDBA_ENABLE` | Remote access and SYSDBA remote-access controls are available from ALTIBASE HDB version `5`. |
+| Password policy functions | Applied from `4.3.9.211`, `5.3.3.89`, `5.5.1.5.1`, `6.1.1.2.1`, `6.3.1`, `6.5.1`, `7.1`, and `7.3`. |
 
 ## Related errors
 
@@ -633,6 +1257,22 @@ The R007 source set includes error and message text rather than a large error-co
 | `Client's query exceeded the execution time limit.` | Query exceeded `QUERY_TIMEOUT`. |
 | `The session has been closed by the server` | Source message for `FETCH_TIMEOUT` or `IDLE_TIMEOUT` closure. |
 | `The transaction has exceeded the lock timeout specified by the user.` | Source message for `UTRANS_TIMEOUT` behavior. |
+| `ERR-311EC : The type (memory/disk/volatile) of the tablespace in which to create the index is not the same as the type of the table.` | A disk-table index was attempted in memory tablespace or another mismatched tablespace type. Create the index in the same tablespace type as the table. |
+| `ERR-91015 : Communication failure.` with `Invalid Database Name. Check the properties and retry.` | `server create` used a DB name that did not match the changed `DB_NAME`; update `$ALTIBASE_HOME/bin/server`. |
+| `ERR-910FB : Connected to idle instance` | Appears in source startup/create examples before connecting to an idle instance; not by itself the root cause in those examples. |
+| `[ERR-4107A : Unable to start up in the specified phase in the current state.]` | Starting an already running database fails; do not start another server for the same instance. |
+| `[ERR-41041 : Another SYSDBA session is already running.]` | Only one SYSDBA session is allowed; end the existing SYSDBA session and retry. |
+| `The transaction exceeds lock timeout specified by user` and `smERR_ABORT_smcExceedLockTimeWait` | Altibase could not lock the target object. Wait for commit/rollback or close the intended locking session. |
+| `[ERR-6100D : [Sender] Failed to handshake with the peer server (Transaction Table Size mismatch [1024:4096])]` | Replication peers have different `TRANSACTION_TABLE_SIZE`; set the same value on both servers. |
+| `TRANSACTION_TABLE_SIZE is full !!` | Concurrent transactions exceeded `TRANSACTION_TABLE_SIZE`; increase it to a valid larger `2^n` value after planning downtime or migration as required. |
+| `ERR-10166(errno=2) TRANSACTION_TABLE_SIZE ['4094'] is not a power of two.` | `TRANSACTION_TABLE_SIZE` was set to a value that is not `2^n`. |
+| `ERR-10018(errno=0) The version of data file for backup is not compatible with the version of storage manager... Transaction Table Size = 1024 ... Transaction Table Size = 2048` | Appears in versions where `TRANSACTION_TABLE_SIZE` cannot be changed after DB creation, or when changing from a large value to a small value. |
+| `[FAILURE] The size of the DB file(SYS_TBS_MEM_DATA-0-2) exceeds the size specified in the MEM_MAX_DB_SIZE property.` | `MEM_MAX_DB_SIZE` is smaller than the checkpoint image file size; increase it. |
+| `The data file does not exist` | Physical data file was not moved before the rename/path-change operation. |
+| `The data file 'XXXXXX' has an invalid header` | Physical data file copy was not performed normally; redo the copy. |
+| `Unable to invoke the create() function on [XXXXXX/dwfile0.dwf]` | Double write file is missing; create `dwfile0.dwf` and `dwfile1.dwf` or use the temporary `USE_DW_BUFFER = 0` procedure. |
+| `CANNOT IDENTIFY DATAFILE` | The path stored in metadata is wrong or the physical data file is missing; correct the path in `CONTROL` stage. |
+| `0x31129 (201001) qpERR_ABORT_QSV_NOT_EXIST_PROC_SQLTEXT Procedure or function not found : <0%s>.` | JOB execution can report this through `ERROR_CODE`; verify that the registered procedure or function exists. |
 
 ## Attachments and external references
 
@@ -647,6 +1287,12 @@ Downloadable PDF attachments preserved from the R007 source set:
 
 Embedded startup and shutdown images are registered in `llm-reference/coverage/attachment-diagram-register.tsv` as `not_document_format`. They include startup stage diagrams, startup command screenshots, `altibase_boot.log` screenshots, recovery/reset/archive-log-mode screenshots, shutdown mode screenshots, and shutdown log screenshots. Their surrounding procedural meaning is consolidated here.
 
+R008 attachment and source-reference handling:
+
+- `FAQE/Home/02. Operation and Management/[Linux] How to register Altibase server process auto start script__16875947.md` links a downloadable sample script named `altibased`: https://docs.altibase.com/download/attachments/12517478/altibased?version=1&modificationDate=1536132439000&api=v2. This is a support script without a document-format extension, so it is registered as `not_document_format`.
+- `FAQE/Home/02. Operation and Management/How to modify column__16875952.md` embeds `modify_column.png`: https://docs.altibase.com/download/attachments/embedded-page/FAQE/How%20to%20modify%20column/modify_column.png?api=v2. The SQL syntax and cautions are covered in text; the embedded PNG is registered as `not_document_format`.
+- `FAQE/Home/02. Operation and Management/What is MEM_MAX_DB_SIZE__16875991.md` references `total_memory_tablespaces_usage.txt` as a legacy FAQ attachment label with no downloadable URL in the Korean source. It is recorded as `legacy_no_downloadable_url`; no URL is invented.
+
 External references preserved from the R007 source set:
 
 - Altibase technical support portal: http://support.altibase.com/
@@ -657,6 +1303,18 @@ External references preserved from the R007 source set:
 - General Reference manuals for Altibase 7.1 English: https://github.com/ALTIBASE/Documents/tree/master/Manuals/Altibase_7.1/eng
 - Configuration Guide For Minimizing Disk I/O Contention: https://docs.altibase.com/x/6ICy
 - Considerations when increasing concurrent sessions (`MAX_CLIENT`): https://docs.altibase.com/x/FARw
+
+External references preserved from the R008 source set include:
+
+- Red Hat SELinux states and modes documentation: https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/system_design_guide/changing-selinux-states-and-modes_system-design-guide#changing-selinux-states-and-modes_system-design-guide
+- Altibase manuals on GitHub: https://github.com/ALTIBASE/Documents/tree/master/Manuals
+- Altibase 7.1 English manuals: https://github.com/ALTIBASE/Documents/tree/master/Manuals/Altibase_7.1/eng
+- Altibase English support manual page: http://support.altibase.com/en/manual
+- Altibase English support portal: http://support.altibase.com/en/
+- Altibase patch notes: http://support.altibase.com/en/patch-note
+- `TRANSACTION_TABLE_SIZE` BUG-31862 reference from the source: http://nok.altibase.com/pages/viewpage.action?pageId=6851652
+- `MEM_MAX_DB_SIZE` related error reference: https://aid.altibase.com/pages/viewpage.action?pageId=9110685
+- `MEM_MAX_DB_SIZE` source video reference: https://youtu.be/tWAC4ghMO3c
 
 ## Terminology
 
@@ -671,3 +1329,12 @@ External references preserved from the R007 source set:
 - `SQL_CACHE`, `MVCC`, `PCTFREE`, `WAL`, `iloader`: Preserve exact technical names.
 - `RX-ERR`, `RX-DRP`, `RX-OVR`, `TX-ERR`, `TX-DRP`, `TX-OVR`, `si`, `so`, `sr`, `fr`, `LWP`, `CP`, `tid#`, `lwpid`, `pgsp`, `VSZ`: OS diagnostic fields; do not translate identifiers.
 - `MAXPERM`, `MINPERM`, `NUMPERM`, `MAXCLIENT`, `stric_maxperm`, `lru_file_repage`, `swappiness`, `_M_ARENA_OPT`, `MALLOC_ARENA_TEST`, `MALLOC_ARENA_MAX`: OS memory-management parameters and environment variables; preserve exact names.
+- `IPC_PORT_NO`, `IPC_CHANNEL_COUNT`, `IPC_FILEPATH`, `IPCDA`, `ISQL_CONNECTION=IPC`: IPC communication identifiers; preserve exact capitalization.
+- `MEM_MAX_DB_SIZE`, `MAX_CLIENT`, `TRANSACTION_TABLE_SIZE`, `TOTAL(M)`, `ALLOC(M)`, `USED(M)`, `USAGE(%)`: Capacity/session FAQ terms; do not translate identifiers.
+- `SYS`, `SYSTEM_`, `PUBLIC`, `PUBLIC SYNONYM`, `PRIVATE SYNONYM`, `WITH GRANT OPTION`, `ROLE`: Account and privilege terms; keep exact SQL object names.
+- `FAILED_LOGIN_ATTEMPTS`, `PASSWORD_LOCK_TIME`, `PASSWORD_VERIFY_FUNCTION`, `PASSWORD_LIFE_TIME`, `PASSWORD_GRACE_TIME`, `REMOTE_SYSDBA_ENABLE`, `ACCESS_LIST`, `TRC_ACCESS_PERMISSION`: Security properties and user policy identifiers.
+- `JOB_SCHEDULER_ENABLE`, `JOB_THREAD_COUNT`, `JOB_THREAD_QUEUE_SIZE`, `SYSTEM_.SYS_JOBS_`, `ALTER JOB`, `CREATE JOB`, `DROP JOB`: JOB scheduler identifiers.
+- `LOGANCHOR_DIR`, `LOG_DIR`, `ARCHIVE_DIR`, `DOUBLE_WRITE_DIRECTORY`, `USE_DW_BUFFER`, `dwfile0.dwf`, `dwfile1.dwf`: File movement and double write terms.
+- `V$LOCK`, `V$STATEMENT`, `V$SESSION`, `SESSION CLOSE`, `LOCK TIMEOUT`: Lock/session troubleshooting identifiers.
+- `ALTIBASE_NLS_USE`, `DATA_NLS_USE`, `V$NLS_PARAMETERS`, `NLS_USE`, `NLS_CHARACTERSET`, `NLS_NCHAR_CHARACTERSET`: Character-set migration identifiers.
+- `US7ASII_한글테스트합니다`, `"한글 데이터입니다"`: Korean sample data from the charset procedure; preserve exactly when referencing source examples.
