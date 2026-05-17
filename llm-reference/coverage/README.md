@@ -71,6 +71,18 @@ Error rows should preserve exact error codes and message text. English-only erro
 
 Attachment rows must not invent missing URLs. Use `legacy_no_downloadable_url` for labels that do not have a downloadable URL in the source, and use `diagram_unavailable` when the source evidence says diagram content is unavailable.
 
+## R022 FAQ reconciliation
+
+R022 reconciled every Korean-source-verified FAQE source from `source-stabilization/source-classification.tsv` against the topic documents and `semantic-unit-coverage.tsv`.
+
+- FAQE sources reconciled: 115 total, including 108 `Korean-source-verified` and 7 `Link-validated Korean-source-verified` sources.
+- Pre-existing answer-affecting semantic rows checked for those sources: 555.
+- R022 reconciliation marker rows added: 115 `source_metadata` rows with IDs `R022-FAQ-RECON-001` through `R022-FAQ-RECON-115`.
+- Resulting scoped statuses: 645 `covered`, 4 `covered_by_canonical_duplicate`, 2 `legacy_attachment_label_only`, and 19 `not_document_format`.
+- Reconciliation found no missing source-inventory rows, no missing source-to-topic-map rows, no missing source paths in topic documents, no `recheck_required` FAQ rows, and no covered FAQ rows with empty targets.
+
+The reconciliation preserved source-specific version, OS, license where present, restart, backup/recovery mode, output, and failure-condition variants that already appear in the topic documents and semantic rows. Repetitive FAQ units are retained either as covered rows or as `covered_by_canonical_duplicate` rows with a named canonical target.
+
 ## Ledger files
 
 | File | Purpose | First row owner |
