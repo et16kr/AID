@@ -1,14 +1,24 @@
-# GPTs Knowledge Packaging Recommendations
+# GPTs Knowledge Packaging Requirements
 
 Date: 2026-05-17
 
 ## Purpose
 
-This document records the recommended packaging strategy for using the generated Altibase LLM reference package as GPTs Knowledge.
+This document defines the requirements for creating GPTs Knowledge upload artifacts from the generated Altibase LLM reference package.
 
-The operational constraint is that original source documents under `arch/`, `FAQE/`, `DOCK/`, and `faq/` cannot be uploaded to GPTs. The GPT must be able to answer from the newly generated `llm-reference/` documents only. GPTs also have a limited number of Knowledge file slots, and some slots may be needed for separate manual files.
+The target is not a general documentation handoff. The target is a GPTs attachment package that lets a GPT answer customer and support questions without uploading the original source trees under `arch/`, `FAQE/`, `DOCK/`, or `faq/`.
 
-## Current GPTs Knowledge Constraint
+The final upload package must fit within 1 or 2 GPTs Knowledge files because other manual files may also need to use the GPTs file slots.
+
+## Current Assessment
+
+The existing `llm-reference/` topic documents are suitable source material for a GPTs Knowledge package, but the current individual files are not the final upload shape.
+
+Uploading the individual `llm-reference/*.md` files would consume too many GPTs Knowledge slots. Uploading only a subset of the topic files would make the GPT incomplete. Uploading only `README.md`, `source-index.md`, or the build report would not provide enough answer content.
+
+Therefore, the correct next step is to create one or two generated bundle files that concatenate and normalize the answer corpus for GPTs retrieval.
+
+## GPTs Knowledge Constraint
 
 OpenAI Help Center guidance checked on 2026-05-17 says GPTs Knowledge supports up to 20 attached files per GPT, with large per-file limits. Text-forward files are preferred because GPTs process uploaded files by chunking text and retrieving relevant chunks at answer time.
 
@@ -17,82 +27,183 @@ Reference pages:
 - `https://help.openai.com/en/articles/8843948-knowledge-in-gpts`
 - `https://help.openai.com/en/articles/8555545-file-uploads-faq`
 
-Because the generated Altibase reference package is small enough to fit into one large Markdown file, file count is the binding constraint, not file size.
+For this repository, file count is the binding constraint. The current generated Altibase reference Markdown corpus is small enough to fit into one GPTs Knowledge file.
 
-## Recommendation
+## Required Output
 
-Create GPT-upload-specific bundle files instead of uploading the current individual `llm-reference/*.md` files one by one.
-
-Recommended upload set:
-
-1. `Altibase_GPT_Knowledge_Full.md` - required
-2. `Altibase_GPT_Knowledge_Audit.md` - optional, internal-review use only
-
-If only one GPTs Knowledge slot is available for this project, upload only `Altibase_GPT_Knowledge_Full.md`.
-
-## Required Bundle: `Altibase_GPT_Knowledge_Full.md`
-
-This file should be the primary customer-answer knowledge file. It should be built from the generated documents only.
-
-Include these files in this order:
-
-1. `llm-reference/README.md`
-2. `llm-reference/source-index.md`
-3. `llm-reference/00-source-classification.md`
-4. `llm-reference/01-installation-upgrade-platform.md`
-5. `llm-reference/02-architecture-storage-concepts.md`
-6. `llm-reference/03-operation-administration-security.md`
-7. `llm-reference/04-backup-recovery.md`
-8. `llm-reference/05-replication-ha.md`
-9. `llm-reference/06-monitoring-diagnostics.md`
-10. `llm-reference/07-troubleshooting-error-messages.md`
-11. `llm-reference/08-sql-performance-tuning.md`
-12. `llm-reference/09-development-client-api.md`
-13. `llm-reference/10-application-framework-integration.md`
-14. `llm-reference/11-migration-conversion-tools.md`
-15. `llm-reference/12-terminology-multilingual-preservation.md`
-16. The GPT usage guidance from `llm-reference/HANDOFF.md`
-
-Do not include full coverage TSV ledgers in the customer-answer bundle. They are useful for audit, but they add retrieval noise for normal customer questions.
-
-## Optional Bundle: `Altibase_GPT_Knowledge_Audit.md`
-
-Create this only when at least one additional GPTs Knowledge slot is available for internal or technical-review use.
-
-Include:
-
-- `llm-reference/LLM_REFERENCE_BUILD_REPORT.md`
-- `llm-reference/HANDOFF.md`
-- `llm-reference/coverage/README.md`
-- A compact summary of coverage status distributions
-- A compact summary of accepted risk labels
-- A compact source-to-topic index if source traceability is needed
-
-Avoid including full `semantic-unit-coverage.tsv`, `attachment-diagram-register.tsv`, or `answerability-backtest.tsv` unless the GPT is specifically for internal audit. These ledgers are large and may reduce answer quality for customer-facing GPTs.
-
-## GPT Instructions To Use With The Bundle
-
-Use the following instruction text, or a close variant, in the GPT configuration:
+Create a GPT-upload directory:
 
 ```text
-Use Altibase_GPT_Knowledge_Full.md as the primary source for Altibase answers.
+llm-reference/gpts-upload/
+```
+
+Required file:
+
+```text
+llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md
+```
+
+Optional second file:
+
+```text
+llm-reference/gpts-upload/Altibase_GPT_Knowledge_Audit.md
+```
+
+If only one GPTs Knowledge slot can be used for Altibase reference content, upload only `Altibase_GPT_Knowledge_Encyclopedia.md`.
+
+## Definition Of Complete For GPTs Upload
+
+The GPTs upload artifact is complete only when all of the following are true:
+
+- The GPT can answer from the generated upload file without requiring original `arch/`, `FAQE`, `DOCK`, or `faq` files.
+- The required encyclopedia file includes the full text of every topic document `01` through `12`.
+- The required encyclopedia file includes enough front matter and instructions for the GPT to know how to use the package.
+- The required encyclopedia file includes source-path traceability so answers can refer back to source paths when needed.
+- The required encyclopedia file preserves exact product names, commands, SQL, configuration properties, paths, class names, driver names, error codes, filenames, URLs, and version strings.
+- The required encyclopedia file preserves accepted limitation labels, including `English-only source`, `english_only_auxiliary`, `legacy_no_downloadable_url`, `legacy_attachment_label_only`, `diagram_unavailable`, `not_document_format`, `accepted_source_limitation`, and `accepted_english_only_auxiliary`.
+- The required encyclopedia file does not depend on full raw coverage TSV files for normal answer generation.
+- The optional audit file, if created, contains validation evidence and coverage summaries for internal review.
+- No generated upload file tells the GPT to open or inspect original source files as a requirement for answering. Source paths are evidence labels, not required runtime inputs.
+
+## Required Encyclopedia Bundle
+
+`Altibase_GPT_Knowledge_Encyclopedia.md` is the primary GPTs Knowledge file. It must be customer-answer ready and self-contained.
+
+It must include these sections in this order:
+
+1. `# Altibase GPT Knowledge Encyclopedia`
+2. `## How To Use This Knowledge File`
+3. `## Answering Rules For GPTs`
+4. `## Source Package Status`
+5. Full content of `llm-reference/README.md`
+6. Full content of `llm-reference/source-index.md`
+7. Full content of `llm-reference/00-source-classification.md`
+8. Full content of `llm-reference/01-installation-upgrade-platform.md`
+9. Full content of `llm-reference/02-architecture-storage-concepts.md`
+10. Full content of `llm-reference/03-operation-administration-security.md`
+11. Full content of `llm-reference/04-backup-recovery.md`
+12. Full content of `llm-reference/05-replication-ha.md`
+13. Full content of `llm-reference/06-monitoring-diagnostics.md`
+14. Full content of `llm-reference/07-troubleshooting-error-messages.md`
+15. Full content of `llm-reference/08-sql-performance-tuning.md`
+16. Full content of `llm-reference/09-development-client-api.md`
+17. Full content of `llm-reference/10-application-framework-integration.md`
+18. Full content of `llm-reference/11-migration-conversion-tools.md`
+19. Full content of `llm-reference/12-terminology-multilingual-preservation.md`
+20. GPT usage guidance from `llm-reference/HANDOFF.md`
+21. Compact final validation summary from `llm-reference/LLM_REFERENCE_BUILD_REPORT.md`
+22. Compact accepted-risk and attachment-limitation summary from `llm-reference/coverage/README.md`
+
+The topic documents must be included in full. Do not summarize or selectively copy the topic files into the encyclopedia bundle.
+
+## Optional Audit Bundle
+
+Create `Altibase_GPT_Knowledge_Audit.md` only when a second GPTs Knowledge slot is available for internal review or technical support validation.
+
+It should include:
+
+- Full `llm-reference/LLM_REFERENCE_BUILD_REPORT.md`
+- Full `llm-reference/HANDOFF.md`
+- Full `llm-reference/coverage/README.md`
+- Full `llm-reference/GPTS_KNOWLEDGE_PACKAGING_RECOMMENDATIONS.md`
+- Coverage status distributions
+- Answerability status distributions
+- Attachment and diagram preservation summary
+- Source inventory and source-to-topic reconciliation summary
+
+Do not include full `semantic-unit-coverage.tsv`, `attachment-diagram-register.tsv`, or `answerability-backtest.tsv` in the customer-facing encyclopedia file. These TSVs are audit evidence, not answer prose. They may be included in the optional audit file only if the GPT is for internal audit and the additional retrieval noise is acceptable.
+
+## Why Full TSV Ledgers Are Not Required In The Answer Bundle
+
+The goal is to preserve original technical meaning for GPT answers, not to force the GPT to read audit rows as user-facing documentation.
+
+The consolidated topic documents already carry the answerable technical content extracted from the original source corpus. The coverage TSVs prove that extraction and classify limitations. For customer-answer GPTs, the answer bundle should include the full topic documents and compact risk summaries, while the full TSV ledgers remain in the repository for audit and regeneration.
+
+If a future reviewer needs row-level proof, use the optional audit file or the repository copy of `llm-reference/coverage/`.
+
+## Required Answering Rules For GPT Instructions
+
+Use these instructions in the GPT configuration and also embed them near the top of `Altibase_GPT_Knowledge_Encyclopedia.md`:
+
+```text
+Use Altibase_GPT_Knowledge_Encyclopedia.md as the primary source for Altibase answers.
 Answer from the uploaded knowledge file before relying on general knowledge.
-Prefer exact commands, SQL, file paths, configuration properties, system views, error codes, class names, version strings, and package filenames from the knowledge file.
+Do not require access to original arch, FAQE, DOCK, or faq source files.
+Prefer exact commands, SQL, file paths, configuration properties, system views, error codes, class names, driver names, package filenames, URLs, and version strings from the knowledge file.
 Answer in the user's language, but keep product names, SQL, commands, paths, properties, error codes, class names, filenames, URLs, and version strings exactly as written.
 When source confidence matters, preserve labels such as English-only source, english_only_auxiliary, legacy_no_downloadable_url, legacy_attachment_label_only, diagram_unavailable, not_document_format, accepted_source_limitation, and accepted_english_only_auxiliary.
 Do not invent content from unavailable diagrams, missing attachments, or legacy attachment labels with no downloadable URL.
-If the knowledge file does not contain enough information to answer safely, say that the available Altibase reference does not contain the required detail.
+If the knowledge file does not contain enough information to answer safely, say that the available Altibase GPT knowledge does not contain the required detail.
 ```
 
-## Why This Is Better Than Uploading Individual Topic Files
+## Bundle Generation Requirements
 
-Uploading all current `llm-reference/*.md` files would consume most of the available GPTs Knowledge slots before separate manual files are added. A single bundle preserves the same answer content while leaving file slots for manual work.
+The bundle should be generated by a repeatable script, not by manual copy and paste.
 
-The generated topic files are already organized with clear headings, `Source paths`, and `Terminology` sections. Combining them into one text-forward Markdown file should preserve retrieval quality while reducing file-slot pressure.
+Recommended script:
 
-## What The Bundle Can Replace
+```text
+llm-reference/gpts-upload/build-gpts-knowledge-bundles.py
+```
 
-For GPTs answer generation, `Altibase_GPT_Knowledge_Full.md` can replace direct upload of the original source tree.
+The script must:
+
+- Create `llm-reference/gpts-upload/` if needed.
+- Generate `Altibase_GPT_Knowledge_Encyclopedia.md`.
+- Optionally generate `Altibase_GPT_Knowledge_Audit.md`.
+- Insert clear document-boundary markers before each included source document.
+- Preserve Markdown code blocks and tables.
+- Preserve all exact identifiers without translation or normalization.
+- Add a generated-file warning that names the script and source files.
+- Fail if any required source file is missing.
+- Print output file sizes.
+
+Use ASCII for generated control text unless source content already contains non-ASCII identifiers, filenames, URLs, or examples.
+
+## Bundle Validation Requirements
+
+Before the bundle is considered GPTs-ready, run validation checks that prove the output is self-contained and complete for the stated purpose.
+
+Required checks:
+
+```bash
+python3 -m json.tool manifest.json >/tmp/aid-manifest-check.json
+git diff --check
+test -f llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md
+rg -n "BEGIN INCLUDED DOCUMENT: llm-reference/(0[0-9]|1[0-2])-.*\\.md" llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md
+rg -n "## Source paths|## Terminology" llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md
+rg -n "\\[\\]\\(|Error rendering macro|Unknown macro|unknown-macro|\\]\\(#\\)" llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md
+```
+
+For the final `rg` artifact scan, exit code 1 is the passing no-match result.
+
+Additional required validation:
+
+- Confirm all 12 topic files are included exactly once.
+- Confirm `README.md`, `source-index.md`, `00-source-classification.md`, `HANDOFF.md`, and `LLM_REFERENCE_BUILD_REPORT.md` content needed by the bundle are included.
+- Confirm the bundle contains the final decision `COMPLETE_REFERENCE_PACKAGE`.
+- Confirm the bundle states that original source files are not required at GPT answer time.
+- Confirm the bundle states accepted limitation labels and tells the GPT not to invent missing diagrams or attachments.
+- Confirm the bundle file size is well below GPTs per-file limits.
+- Confirm there are zero status-field `recheck_required` rows in the repository coverage ledgers before generating the final bundle.
+
+## Acceptance Criteria
+
+The GPTs upload packaging work is complete only when:
+
+- `llm-reference/gpts-upload/Altibase_GPT_Knowledge_Encyclopedia.md` exists.
+- The encyclopedia bundle is generated from the current committed `llm-reference/` documents.
+- The encyclopedia bundle includes the full text of all 12 topic documents.
+- The encyclopedia bundle is self-contained for GPT answer generation.
+- The encyclopedia bundle is one file and can be uploaded to GPTs as a text-forward Knowledge file.
+- If created, the audit bundle is the second and final Altibase GPTs upload file.
+- No more than 2 Altibase GPTs Knowledge files are required.
+- The validation checks pass.
+- The final commit records the generated bundle and the bundle-generation script.
+
+## What The GPTs Bundle Can Replace
+
+For GPTs answer generation, `Altibase_GPT_Knowledge_Encyclopedia.md` can replace direct upload of the original source tree.
 
 It is suitable for:
 
@@ -101,9 +212,9 @@ It is suitable for:
 - Codex or assistant reference during support-answer drafting
 - Multilingual answer generation from the English canonical reference
 
-## What The Bundle Should Not Replace
+## What The GPTs Bundle Should Not Replace
 
-The bundle should not be treated as a legal archive or word-for-word substitute for the original source files.
+The bundle should not be treated as a legal archive or word-for-word historical substitute for the original source files.
 
 The original source trees remain necessary for:
 
@@ -112,16 +223,4 @@ The original source trees remain necessary for:
 - Attachment or diagram investigation
 - Legal or historical preservation
 - Regenerating or auditing the LLM reference package
-
-## Packaging Validation Checklist
-
-Before uploading the bundle to GPTs:
-
-- Confirm the bundle contains only generated `llm-reference/` content.
-- Confirm all topic files `01` through `12` are included.
-- Confirm `README.md`, `source-index.md`, and `00-source-classification.md` are included.
-- Confirm the GPT usage guidance from `HANDOFF.md` is included.
-- Confirm exact identifiers are preserved without translation or normalization.
-- Confirm coverage TSV files are omitted from the customer-answer bundle unless intentionally building an audit GPT.
-- Confirm the final bundle is clear Markdown text, not PDF or presentation format.
 
